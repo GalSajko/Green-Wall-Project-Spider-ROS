@@ -1,0 +1,39 @@
+running egg_info
+creating ../../../build/arduino_communication/arduino_communication.egg-info
+writing ../../../build/arduino_communication/arduino_communication.egg-info/PKG-INFO
+writing dependency_links to ../../../build/arduino_communication/arduino_communication.egg-info/dependency_links.txt
+writing entry points to ../../../build/arduino_communication/arduino_communication.egg-info/entry_points.txt
+writing requirements to ../../../build/arduino_communication/arduino_communication.egg-info/requires.txt
+writing top-level names to ../../../build/arduino_communication/arduino_communication.egg-info/top_level.txt
+writing manifest file '../../../build/arduino_communication/arduino_communication.egg-info/SOURCES.txt'
+reading manifest file '../../../build/arduino_communication/arduino_communication.egg-info/SOURCES.txt'
+writing manifest file '../../../build/arduino_communication/arduino_communication.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/spider/gwpspider_ws/build/arduino_communication/build
+creating /home/spider/gwpspider_ws/build/arduino_communication/build/lib
+creating /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication
+copying arduino_communication/grippers.py -> /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication
+copying arduino_communication/arduino_comm.py -> /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication
+copying arduino_communication/__init__.py -> /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication
+running install
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running install_lib
+creating /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication
+copying /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication/grippers.py -> /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication
+copying /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication/arduino_comm.py -> /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication
+copying /home/spider/gwpspider_ws/build/arduino_communication/build/lib/arduino_communication/__init__.py -> /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication
+byte-compiling /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication/grippers.py to grippers.cpython-310.pyc
+byte-compiling /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication/arduino_comm.py to arduino_comm.cpython-310.pyc
+byte-compiling /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/spider/gwpspider_ws/install/arduino_communication/share/ament_index
+creating /home/spider/gwpspider_ws/install/arduino_communication/share/ament_index/resource_index
+creating /home/spider/gwpspider_ws/install/arduino_communication/share/ament_index/resource_index/packages
+copying resource/arduino_communication -> /home/spider/gwpspider_ws/install/arduino_communication/share/ament_index/resource_index/packages
+copying package.xml -> /home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication
+running install_egg_info
+Copying ../../../build/arduino_communication/arduino_communication.egg-info to /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/spider/gwpspider_ws/build/arduino_communication/install.log'

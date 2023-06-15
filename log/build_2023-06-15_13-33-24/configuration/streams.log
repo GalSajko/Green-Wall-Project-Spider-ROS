@@ -1,0 +1,21 @@
+[0.759s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/configuration': PYTHONPATH=/home/spider/gwpspider_ws/build/configuration/prefix_override:/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/configuration build --build-base /home/spider/gwpspider_ws/build/configuration/build install --record /home/spider/gwpspider_ws/build/configuration/install.log --single-version-externally-managed
+[0.974s] running egg_info
+[0.975s] writing ../../../build/configuration/configuration.egg-info/PKG-INFO
+[0.975s] writing dependency_links to ../../../build/configuration/configuration.egg-info/dependency_links.txt
+[0.975s] writing entry points to ../../../build/configuration/configuration.egg-info/entry_points.txt
+[0.975s] writing requirements to ../../../build/configuration/configuration.egg-info/requires.txt
+[0.975s] writing top-level names to ../../../build/configuration/configuration.egg-info/top_level.txt
+[0.978s] reading manifest file '../../../build/configuration/configuration.egg-info/SOURCES.txt'
+[0.979s] writing manifest file '../../../build/configuration/configuration.egg-info/SOURCES.txt'
+[0.979s] running build
+[0.979s] running build_py
+[0.979s] running install
+[0.979s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.979s]   warnings.warn(
+[0.980s] running install_lib
+[0.981s] running install_data
+[0.981s] running install_egg_info
+[0.983s] removing '/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration-0.0.0-py3.10.egg-info' (and everything under it)
+[0.984s] Copying ../../../build/configuration/configuration.egg-info to /home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration-0.0.0-py3.10.egg-info
+[0.985s] running install_scripts
+[1.009s] writing list of installed files to '/home/spider/gwpspider_ws/build/configuration/install.log'

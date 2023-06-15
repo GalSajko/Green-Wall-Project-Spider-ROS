@@ -1,0 +1,4 @@
+[console_scripts]
+grippers_controller = arduino_communication.grippers:main
+water_pumps_bno_controller = arduino_communication.water_pumps_bno:main
+
