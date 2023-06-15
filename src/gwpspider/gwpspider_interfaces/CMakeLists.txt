@@ -23,6 +23,7 @@ set(srv_files
   "srv/MoveGripper.srv"
   "srv/ControlWaterPump.srv"
   "srv/InitBno.srv"
+  "srv/ToggleMotorsTorque.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/init_bno__functions.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.c.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c.o.d"
   "libgwpspider_interfaces__rosidl_generator_c.pdb"
   "libgwpspider_interfaces__rosidl_generator_c.so"
   "rosidl_generator_c/gwpspider_interfaces/msg/bno_data.h"
@@ -41,8 +43,13 @@ file(REMOVE_RECURSE
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/init_bno.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/move_gripper.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/toggle_motors_torque.h"
 )
 
 # Per-language clean rules from dependency scanning.

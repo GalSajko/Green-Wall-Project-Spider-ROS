@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/init_bno__type_support.cpp.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.cpp.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.cpp.o.d"
   "libgwpspider_interfaces__rosidl_typesupport_introspection_cpp.pdb"
   "libgwpspider_interfaces__rosidl_typesupport_introspection_cpp.so"
   "rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/bno_data__rosidl_typesupport_introspection_cpp.hpp"
@@ -25,6 +27,8 @@ file(REMOVE_RECURSE
   "rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/init_bno__type_support.cpp"
   "rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_introspection_cpp.hpp"
   "rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp"
+  "rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__rosidl_typesupport_introspection_cpp.hpp"
+  "rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.cpp"
 )
 
 # Per-language clean rules from dependency scanning.

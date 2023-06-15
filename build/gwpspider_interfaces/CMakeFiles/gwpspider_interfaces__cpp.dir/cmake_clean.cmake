@@ -22,8 +22,12 @@ file(REMOVE_RECURSE
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__builder.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__struct.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__traits.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__builder.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__traits.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/init_bno.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/move_gripper.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/toggle_motors_torque.hpp"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -28,6 +28,8 @@ set(CMAKE_MULTIPLE_OUTPUT_PAIRS
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_init_bno_s.c" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper.py" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_toggle_motors_torque.py" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_toggle_motors_torque_s.c" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   )
 
 

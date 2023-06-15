@@ -1,0 +1,55 @@
+[0.694s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[0.715s] -- Found ament_cmake: 1.3.4 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.852s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[0.854s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.856s] -- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.885s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.910s] -- Found std_msgs: 4.2.3 (/opt/ros/humble/share/std_msgs/cmake)
+[1.169s] [31mCMake Error at /opt/ros/humble/share/rosidl_adapter/cmake/rosidl_adapt_interfaces.cmake:59 (message):
+[1.169s]   execute_process(/usr/bin/python3.10 -m rosidl_adapter --package-name
+[1.169s]   gwpspider_interfaces --arguments-file
+[1.169s]   /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter__arguments__gwpspider_interfaces.json
+[1.169s]   --output-dir
+[1.170s]   /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces
+[1.170s]   --output-file
+[1.170s]   /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces.idls)
+[1.170s]   returned error code 1:
+[1.170s] 
+[1.170s]   Error processing 'std_msgs/msg/Int16MultiArray legs' of
+[1.170s]   'gwpspider_interfaces/ToggleMotorsTorque_Request':
+[1.170s]   'std_msgs/msg/Int16MultiArray'
+[1.170s] 
+[1.170s]   Traceback (most recent call last):
+[1.171s] 
+[1.171s]     File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[1.171s]       return _run_code(code, main_globals, None,
+[1.171s]     File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+[1.171s]       exec(code, run_globals)
+[1.171s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/__main__.py", line 19, in <module>
+[1.171s]       sys.exit(main())
+[1.171s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/main.py", line 53, in main
+[1.171s]       abs_idl_file = convert_to_idl(
+[1.171s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/__init__.py", line 24, in convert_to_idl
+[1.171s]       return convert_srv_to_idl(
+[1.171s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/srv/__init__.py", line 28, in convert_srv_to_idl
+[1.172s]       srv = parse_service_string(package_name, input_file.stem, content)
+[1.172s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 859, in parse_service_string
+[1.172s]       request_message = parse_message_string(
+[1.172s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 520, in parse_message_string
+[1.172s]       Type(type_string, context_package_name=pkg_name),
+[1.172s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 277, in __init__
+[1.172s]       super(Type, self).__init__(
+[1.172s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 190, in __init__
+[1.172s]       raise InvalidResourceName(type_string)
+[1.172s] 
+[1.173s]   rosidl_adapter.parser.InvalidResourceName: std_msgs/msg/Int16MultiArray
+[1.173s] 
+[1.173s] Call Stack (most recent call first):
+[1.173s]   /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:130 (rosidl_adapt_interfaces)
+[1.173s]   CMakeLists.txt:29 (rosidl_generate_interfaces)
+[1.173s] 
+[1.173s] [0m
+[1.173s] -- Configuring incomplete, errors occurred!
+[1.173s] See also "/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles/CMakeOutput.log".
+[1.176s] gmake: *** [Makefile:1827: cmake_check_build_system] Error 1
+[1.178s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8

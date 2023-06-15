@@ -33,8 +33,12 @@ set(CMAKE_MULTIPLE_OUTPUT_PAIRS
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__builder.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__struct.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__traits.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__builder.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__traits.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/init_bno.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/move_gripper.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/srv/toggle_motors_torque.hpp" "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp"
   )
 
 

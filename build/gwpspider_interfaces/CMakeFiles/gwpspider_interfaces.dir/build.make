@@ -78,6 +78,9 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ControlWaterPump_Response.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/InitBno.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/InitBno_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/InitBno_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/ToggleMotorsTorque.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleMotorsTorque_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleMotorsTorque_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl

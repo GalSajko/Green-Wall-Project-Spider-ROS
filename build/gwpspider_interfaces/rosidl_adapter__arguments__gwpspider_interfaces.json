@@ -6,6 +6,7 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/BnoData.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveGripper.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/ControlWaterPump.srv",
-    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/InitBno.srv"
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/InitBno.srv",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/ToggleMotorsTorque.srv"
   ]
 }

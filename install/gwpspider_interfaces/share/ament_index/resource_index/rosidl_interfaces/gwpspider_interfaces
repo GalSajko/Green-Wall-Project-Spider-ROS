@@ -16,3 +16,7 @@ srv/MoveGripper.idl
 srv/MoveGripper.srv
 srv/MoveGripper_Request.msg
 srv/MoveGripper_Response.msg
+srv/ToggleMotorsTorque.idl
+srv/ToggleMotorsTorque.srv
+srv/ToggleMotorsTorque_Request.msg
+srv/ToggleMotorsTorque_Response.msg

@@ -12,3 +12,4 @@ gwpspider_interfaces/srv/__init__.py
 gwpspider_interfaces/srv/_control_water_pump.py
 gwpspider_interfaces/srv/_init_bno.py
 gwpspider_interfaces/srv/_move_gripper.py
+gwpspider_interfaces/srv/_toggle_motors_torque.py

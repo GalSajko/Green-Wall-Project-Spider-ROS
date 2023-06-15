@@ -1,0 +1,3 @@
+[console_scripts]
+dynamixel_driver = dynamixel_interface.dynamixel:main
+

@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/init_bno__type_support.cpp.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.cpp.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.cpp.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/toggle_motors_torque__type_support.cpp.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/toggle_motors_torque__type_support.cpp.o.d"
   "libgwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.pdb"
   "libgwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.so"
   "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/bno_data__rosidl_typesupport_fastrtps_cpp.hpp"
@@ -23,8 +25,10 @@ file(REMOVE_RECURSE
   "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/control_water_pump__type_support.cpp"
   "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/init_bno__type_support.cpp"
   "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/toggle_motors_torque__type_support.cpp"
   "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_fastrtps_cpp.hpp"
   "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__rosidl_typesupport_fastrtps_cpp.hpp"
 )
 
 # Per-language clean rules from dependency scanning.

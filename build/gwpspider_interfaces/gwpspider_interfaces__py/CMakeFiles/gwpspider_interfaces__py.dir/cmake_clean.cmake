@@ -16,6 +16,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/gwpspider_interfaces/srv/_init_bno_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_toggle_motors_torque.py"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_toggle_motors_torque_s.c"
   "CMakeFiles/gwpspider_interfaces__py"
 )
 
