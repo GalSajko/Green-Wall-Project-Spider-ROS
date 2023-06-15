@@ -103,6 +103,7 @@ class MotorDriver(Node):
         legs_ids = request.legs.data
         for leg_id in legs_ids:
             if leg_id not in spider.LEGS_IDS:
+                print(f"Leg with id {leg_id} does not exist.")
                 response.success = False
                 return response
             
