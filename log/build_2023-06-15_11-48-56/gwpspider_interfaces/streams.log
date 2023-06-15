@@ -1,0 +1,240 @@
+[0.455s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[0.498s] [ 11%] Built target gwpspider_interfaces__rosidl_generator_c
+[0.499s] [ 12%] Built target gwpspider_interfaces__cpp
+[0.510s] [ 12%] Built target ament_cmake_python_copy_gwpspider_interfaces
+[0.532s] [ 23%] Built target gwpspider_interfaces__rosidl_typesupport_cpp
+[0.536s] [ 34%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp
+[0.545s] [ 46%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_cpp
+[0.546s] [ 57%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_c
+[0.556s] [ 68%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_c
+[0.556s] [ 79%] Built target gwpspider_interfaces__rosidl_typesupport_c
+[0.572s] [ 79%] Built target gwpspider_interfaces
+[0.588s] [ 80%] Built target gwpspider_interfaces__py
+[0.606s] [ 90%] Built target gwpspider_interfaces__rosidl_generator_py
+[0.628s] [ 93%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[0.628s] [ 96%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_c__pyext
+[0.631s] [100%] Built target gwpspider_interfaces__rosidl_typesupport_c__pyext
+[0.816s] running egg_info
+[0.817s] writing gwpspider_interfaces.egg-info/PKG-INFO
+[0.817s] writing dependency_links to gwpspider_interfaces.egg-info/dependency_links.txt
+[0.817s] writing top-level names to gwpspider_interfaces.egg-info/top_level.txt
+[0.820s] reading manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[0.821s] writing manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[0.850s] [100%] Built target ament_cmake_python_build_gwpspider_interfaces_egg
+[0.860s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[0.960s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_interfaces
+[0.965s] -- Install configuration: ""
+[0.965s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/ament_index/resource_index/rosidl_interfaces/gwpspider_interfaces
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__struct.h
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__functions.c
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__functions.h
+[0.966s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__type_support.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__type_support.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__functions.c
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__struct.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__functions.c
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__type_support.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__struct.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__functions.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__functions.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/control_water_pump.h
+[0.967s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/move_gripper.h
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/init_bno.h
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__functions.c
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__struct.h
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__functions.h
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__functions.h
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__functions.c
+[0.968s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__type_support.h
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__struct.h
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__type_support.h
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/gripper_command.h
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/water_pump_command.h
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/library_path.sh
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/library_path.dsv
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_generator_c.so
+[0.969s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__rosidl_typesupport_fastrtps_c.h
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_fastrtps_c.h
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_fastrtps_c.h
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h
+[0.970s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__rosidl_typesupport_fastrtps_c.h
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__rosidl_typesupport_introspection_c.h
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_introspection_c.h
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__type_support.c
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__type_support.c
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_introspection_c.h
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__type_support.c
+[0.971s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__type_support.c
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_introspection_c.h
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__type_support.c
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__rosidl_typesupport_introspection_c.h
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_typesupport_introspection_c.so
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_typesupport_c.so
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces
+[0.972s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__traits.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__struct.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__struct.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__struct.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__builder.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__builder.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__traits.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__traits.hpp
+[0.973s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__builder.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/move_gripper.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/init_bno.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/control_water_pump.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/gripper_command.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__struct.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__traits.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__struct.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__builder.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__traits.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__builder.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/water_pump_command.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_fastrtps_cpp.hpp
+[0.974s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_fastrtps_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__rosidl_typesupport_fastrtps_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/dds_fastrtps
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__rosidl_typesupport_fastrtps_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/dds_fastrtps
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__type_support.cpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_introspection_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__rosidl_typesupport_introspection_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_introspection_cpp.hpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__type_support.cpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg
+[0.975s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__type_support.cpp
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_introspection_cpp.hpp
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__rosidl_typesupport_introspection_cpp.hpp
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/detail/water_pump_command__type_support.cpp
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_typesupport_introspection_cpp.so
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_typesupport_cpp.so
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/pythonpath.sh
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/pythonpath.dsv
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces-0.0.0-py3.10.egg-info
+[0.976s] -- Installing: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+[0.976s] -- Installing: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+[0.976s] -- Installing: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+[0.976s] -- Installing: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_c.c
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[0.976s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/__init__.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_init_bno.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_control_water_pump.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_move_gripper_s.c
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/__init__.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_init_bno_s.c
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_move_gripper.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_control_water_pump_s.c
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg/_gripper_command.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg/_water_pump_command_s.c
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg/_water_pump_command.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg/__init__.py
+[0.977s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg/_gripper_command_s.c
+[1.017s] Listing '/home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces'...
+[1.017s] Listing '/home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/msg'...
+[1.017s] Listing '/home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv'...
+[1.021s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[1.021s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[1.021s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[1.021s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/libgwpspider_interfaces__rosidl_generator_py.so
+[1.022s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/GripperCommand.idl
+[1.022s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/WaterPumpCommand.idl
+[1.022s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/MoveGripper.idl
+[1.022s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ControlWaterPump.idl
+[1.022s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/InitBno.idl
+[1.022s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/GripperCommand.msg
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/WaterPumpCommand.msg
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/MoveGripper.srv
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/MoveGripper_Request.msg
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/MoveGripper_Response.msg
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ControlWaterPump.srv
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ControlWaterPump_Request.msg
+[1.023s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ControlWaterPump_Response.msg
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/InitBno.srv
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/InitBno_Request.msg
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/InitBno_Response.msg
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/ament_index/resource_index/package_run_dependencies/gwpspider_interfaces
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/ament_index/resource_index/parent_prefix_path/gwpspider_interfaces
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/ament_prefix_path.sh
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/ament_prefix_path.dsv
+[1.024s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/path.sh
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/path.dsv
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/local_setup.bash
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/local_setup.sh
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/local_setup.zsh
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/local_setup.dsv
+[1.025s] -- Installing: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.dsv
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/ament_index/resource_index/packages/gwpspider_interfaces
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_generator_cExport.cmake
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_generator_cExport-noconfig.cmake
+[1.025s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[1.026s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[1.026s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[1.026s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[1.027s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_cExport.cmake
+[1.027s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[1.028s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_generator_cppExport.cmake
+[1.029s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[1.029s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[1.029s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[1.030s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[1.030s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_cppExport.cmake
+[1.030s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[1.030s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_generator_pyExport.cmake
+[1.031s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/export_gwpspider_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[1.031s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/rosidl_cmake-extras.cmake
+[1.032s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.032s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[1.032s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[1.032s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[1.032s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.033s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[1.033s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfacesConfig.cmake
+[1.033s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/cmake/gwpspider_interfacesConfig-version.cmake
+[1.033s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.xml
+[1.034s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_interfaces

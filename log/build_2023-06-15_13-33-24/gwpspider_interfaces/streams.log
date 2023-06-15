@@ -1,0 +1,51 @@
+[0.456s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[0.476s] -- Found ament_cmake: 1.3.4 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.610s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[0.612s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.614s] -- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.643s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.835s] [31mCMake Error at /opt/ros/humble/share/rosidl_adapter/cmake/rosidl_adapt_interfaces.cmake:59 (message):
+[0.835s]   execute_process(/usr/bin/python3.10 -m rosidl_adapter --package-name
+[0.835s]   gwpspider_interfaces --arguments-file
+[0.835s]   /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter__arguments__gwpspider_interfaces.json
+[0.835s]   --output-dir
+[0.835s]   /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces
+[0.835s]   --output-file
+[0.835s]   /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces.idls)
+[0.835s]   returned error code 1:
+[0.835s] 
+[0.835s]   Error processing 'std_msgs/msg/Float32MultiArray rpy' of
+[0.835s]   'gwpspider_interfaces/BnoData': 'std_msgs/msg/Float32MultiArray'
+[0.835s] 
+[0.835s]   Traceback (most recent call last):
+[0.836s] 
+[0.836s]     File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[0.836s]       return _run_code(code, main_globals, None,
+[0.836s]     File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+[0.836s]       exec(code, run_globals)
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/__main__.py", line 19, in <module>
+[0.836s]       sys.exit(main())
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/main.py", line 53, in main
+[0.836s]       abs_idl_file = convert_to_idl(
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/__init__.py", line 19, in convert_to_idl
+[0.836s]       return convert_msg_to_idl(
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/msg/__init__.py", line 28, in convert_msg_to_idl
+[0.836s]       msg = parse_message_string(package_name, input_file.stem, content)
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 520, in parse_message_string
+[0.836s]       Type(type_string, context_package_name=pkg_name),
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 277, in __init__
+[0.836s]       super(Type, self).__init__(
+[0.836s]     File "/opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_adapter/parser.py", line 190, in __init__
+[0.836s]       raise InvalidResourceName(type_string)
+[0.837s] 
+[0.837s]   rosidl_adapter.parser.InvalidResourceName: std_msgs/msg/Float32MultiArray
+[0.837s] 
+[0.837s] Call Stack (most recent call first):
+[0.837s]   /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:130 (rosidl_adapt_interfaces)
+[0.837s]   CMakeLists.txt:28 (rosidl_generate_interfaces)
+[0.837s] 
+[0.837s] [0m
+[0.837s] -- Configuring incomplete, errors occurred!
+[0.837s] See also "/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles/CMakeOutput.log".
+[0.838s] gmake: *** [Makefile:1611: cmake_check_build_system] Error 1
+[0.840s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /usr/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
