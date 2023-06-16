@@ -11,7 +11,7 @@ class GrippersController(Node):
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
 
         self.move_service = self.create_service(MoveGripper, 'move_gripper_service', self.move_gripper_callback)
-        self.states_publisher = self.create_publisher(String, 'grippers_states', 10)
+        self.states_publisher = self.create_publisher(String, 'grippers_states', 1)
         timer_period = 0
         self.timer = self.create_timer(timer_period, self.publish_states_callback)
     

@@ -17,6 +17,7 @@ set(msg_files
   "msg/GripperCommand.msg"
   "msg/WaterPumpCommand.msg"
   "msg/BnoData.msg"
+  "msg/DynamixelMotorsData.msg"
 )
 
 set(srv_files
@@ -24,6 +25,7 @@ set(srv_files
   "srv/ControlWaterPump.srv"
   "srv/InitBno.srv"
   "srv/ToggleMotorsTorque.srv"
+  "srv/SetBusWatchdog.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

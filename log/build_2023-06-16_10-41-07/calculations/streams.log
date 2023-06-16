@@ -1,0 +1,47 @@
+[1.740s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/calculations': PYTHONPATH=/home/spider/gwpspider_ws/build/calculations/prefix_override:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/calculations build --build-base /home/spider/gwpspider_ws/build/calculations/build install --record /home/spider/gwpspider_ws/build/calculations/install.log --single-version-externally-managed
+[2.085s] running egg_info
+[2.085s] creating ../../../build/calculations/calculations.egg-info
+[2.086s] writing ../../../build/calculations/calculations.egg-info/PKG-INFO
+[2.086s] writing dependency_links to ../../../build/calculations/calculations.egg-info/dependency_links.txt
+[2.086s] writing entry points to ../../../build/calculations/calculations.egg-info/entry_points.txt
+[2.086s] writing requirements to ../../../build/calculations/calculations.egg-info/requires.txt
+[2.086s] writing top-level names to ../../../build/calculations/calculations.egg-info/top_level.txt
+[2.086s] writing manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+[2.089s] reading manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+[2.090s] writing manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+[2.090s] running build
+[2.090s] running build_py
+[2.090s] creating /home/spider/gwpspider_ws/build/calculations/build
+[2.090s] creating /home/spider/gwpspider_ws/build/calculations/build/lib
+[2.090s] creating /home/spider/gwpspider_ws/build/calculations/build/lib/calculations
+[2.090s] copying calculations/kinematics.py -> /home/spider/gwpspider_ws/build/calculations/build/lib/calculations
+[2.090s] copying calculations/dynamics.py -> /home/spider/gwpspider_ws/build/calculations/build/lib/calculations
+[2.090s] copying calculations/__init__.py -> /home/spider/gwpspider_ws/build/calculations/build/lib/calculations
+[2.091s] copying calculations/transformations.py -> /home/spider/gwpspider_ws/build/calculations/build/lib/calculations
+[2.091s] copying calculations/mathtools.py -> /home/spider/gwpspider_ws/build/calculations/build/lib/calculations
+[2.091s] running install
+[2.091s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.091s]   warnings.warn(
+[2.091s] running install_lib
+[2.092s] creating /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations
+[2.092s] copying /home/spider/gwpspider_ws/build/calculations/build/lib/calculations/kinematics.py -> /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations
+[2.092s] copying /home/spider/gwpspider_ws/build/calculations/build/lib/calculations/dynamics.py -> /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations
+[2.092s] copying /home/spider/gwpspider_ws/build/calculations/build/lib/calculations/__init__.py -> /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations
+[2.093s] copying /home/spider/gwpspider_ws/build/calculations/build/lib/calculations/transformations.py -> /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations
+[2.093s] copying /home/spider/gwpspider_ws/build/calculations/build/lib/calculations/mathtools.py -> /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations
+[2.093s] byte-compiling /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations/kinematics.py to kinematics.cpython-310.pyc
+[2.098s] byte-compiling /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations/dynamics.py to dynamics.cpython-310.pyc
+[2.100s] byte-compiling /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations/__init__.py to __init__.cpython-310.pyc
+[2.100s] byte-compiling /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations/transformations.py to transformations.cpython-310.pyc
+[2.103s] byte-compiling /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations/mathtools.py to mathtools.cpython-310.pyc
+[2.103s] running install_data
+[2.104s] creating /home/spider/gwpspider_ws/install/calculations/share/ament_index
+[2.104s] creating /home/spider/gwpspider_ws/install/calculations/share/ament_index/resource_index
+[2.104s] creating /home/spider/gwpspider_ws/install/calculations/share/ament_index/resource_index/packages
+[2.104s] copying resource/calculations -> /home/spider/gwpspider_ws/install/calculations/share/ament_index/resource_index/packages
+[2.105s] copying package.xml -> /home/spider/gwpspider_ws/install/calculations/share/calculations
+[2.105s] running install_egg_info
+[2.107s] Copying ../../../build/calculations/calculations.egg-info to /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations-0.0.0-py3.10.egg-info
+[2.108s] running install_scripts
+[2.132s] writing list of installed files to '/home/spider/gwpspider_ws/build/calculations/install.log'
+[2.156s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/calculations' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/calculations/prefix_override:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/calculations build --build-base /home/spider/gwpspider_ws/build/calculations/build install --record /home/spider/gwpspider_ws/build/calculations/install.log --single-version-externally-managed

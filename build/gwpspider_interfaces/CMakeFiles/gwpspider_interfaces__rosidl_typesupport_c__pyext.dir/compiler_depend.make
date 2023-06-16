@@ -257,6 +257,9 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h \
@@ -279,6 +282,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__functions.h:
 
 /usr/include/asm-generic/errno-base.h:
 
@@ -315,8 +320,6 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__type_supp
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /usr/include/x86_64-linux-gnu/sys/time.h:
-
-/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
@@ -782,9 +785,9 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__struct.h:
 
-/usr/include/python3.10/cpython/dictobject.h:
-
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h:
+
+/usr/include/python3.10/cpython/dictobject.h:
 
 /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h:
 
@@ -802,6 +805,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/init_bno__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/water_pump_command__functions.h:
 
+rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__struct.h:
+
 /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h:
 
 /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h:
@@ -809,3 +814,7 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/water_pump_command__functions
 /usr/include/x86_64-linux-gnu/python3.10/pyconfig.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__functions.h:
+
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__type_support.h:

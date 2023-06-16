@@ -6,6 +6,7 @@ gwpspider_interfaces.egg-info/dependency_links.txt
 gwpspider_interfaces.egg-info/top_level.txt
 gwpspider_interfaces/msg/__init__.py
 gwpspider_interfaces/msg/_bno_data.py
+gwpspider_interfaces/msg/_dynamixel_motors_data.py
 gwpspider_interfaces/msg/_gripper_command.py
 gwpspider_interfaces/msg/_water_pump_command.py
 gwpspider_interfaces/srv/__init__.py

@@ -1,5 +1,7 @@
 msg/BnoData.idl
 msg/BnoData.msg
+msg/DynamixelMotorsData.idl
+msg/DynamixelMotorsData.msg
 msg/GripperCommand.idl
 msg/GripperCommand.msg
 msg/WaterPumpCommand.idl
@@ -16,6 +18,10 @@ srv/MoveGripper.idl
 srv/MoveGripper.srv
 srv/MoveGripper_Request.msg
 srv/MoveGripper_Response.msg
+srv/SetBusWatchdog.idl
+srv/SetBusWatchdog.srv
+srv/SetBusWatchdog_Request.msg
+srv/SetBusWatchdog_Response.msg
 srv/ToggleMotorsTorque.idl
 srv/ToggleMotorsTorque.srv
 srv/ToggleMotorsTorque_Request.msg

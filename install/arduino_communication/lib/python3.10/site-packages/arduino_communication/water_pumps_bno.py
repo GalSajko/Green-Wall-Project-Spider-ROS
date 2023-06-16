@@ -17,7 +17,7 @@ class WaterPumpBnoController(Node):
         self.init_bno_service = self.create_service(InitBno, 'init_bno_service', self.init_bno_callback)
 
         timer_period = 0
-        self.bno_reading_publisher = self.create_publisher(BnoData, 'bno_readings', 10)
+        self.bno_reading_publisher = self.create_publisher(BnoData, 'bno_readings', 1)
         self.timer = self.create_timer(timer_period, self.get_gravity_vector_callback)
     
     @property

@@ -69,6 +69,7 @@ include CMakeFiles/gwpspider_interfaces.dir/progress.make
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/GripperCommand.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/WaterPumpCommand.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/BnoData.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/DynamixelMotorsData.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/MoveGripper.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveGripper_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveGripper_Response.msg
@@ -81,6 +82,9 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/InitBno_Response.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/ToggleMotorsTorque.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleMotorsTorque_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleMotorsTorque_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/SetBusWatchdog.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/SetBusWatchdog_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/SetBusWatchdog_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
