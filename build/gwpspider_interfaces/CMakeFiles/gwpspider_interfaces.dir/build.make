@@ -70,6 +70,8 @@ CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspid
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/WaterPumpCommand.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/BnoData.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/DynamixelMotorsData.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/WalkingInstructions.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/LegTrajectory.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/MoveGripper.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveGripper_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveGripper_Response.msg
@@ -85,6 +87,15 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleMotorsTorque_Response.ms
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/SetBusWatchdog.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/SetBusWatchdog_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/SetBusWatchdog_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetWalkingInstructions.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetWalkingInstructions_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetWalkingInstructions_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetModifiedWalkingInstructions.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetModifiedWalkingInstructions_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetModifiedWalkingInstructions_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetLegTrajectory.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetLegTrajectory_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetLegTrajectory_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl

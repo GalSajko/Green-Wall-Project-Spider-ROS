@@ -7,7 +7,8 @@ import os
 
 from configuration import config, spider
 from utils import mappers, custom_interface_helper
-from gwpspider_interfaces.srv import ToggleMotorsTorque
+
+from gwpspider_interfaces.srv import ToggleMotorsTorque, SetBusWatchdog
 from gwpspider_interfaces.msg import DynamixelMotorsData
 
 class MotorDriver(Node):
@@ -38,6 +39,8 @@ class MotorDriver(Node):
         self.__init_port()
 
         self.toggle_torque_service = self.create_service(ToggleMotorsTorque, 'toggle_motors_torque', self.toggle_motors_torque_callback)
+        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, 'set_bus_watchdot', self.set_bus_watchdog_callback)
+
         self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, 'dynamixel_motors_data', 1)
         timer_period = 0
         self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback)
@@ -112,6 +115,7 @@ class MotorDriver(Node):
         return 55
     #endregion
 
+    #region callbacks
     def sync_read_motors_data_callback(self):
         """Read positions, currents, hardware errors and temperature registers from all connected motors.
         """
@@ -135,7 +139,8 @@ class MotorDriver(Node):
         mapped_positions = mappers.map_position_encoder_values_to_model_angles_radians(positions)
         mapped_currents = mappers.map_current_encoder_values_to_motors_currents_ampers(currents)
 
-        msg = custom_interface_helper.create_dynamixel_motors_message((mapped_positions, mapped_currents, hardware_errors, temperatures))
+        msg_list = custom_interface_helper.create_multiple_2d_array_messages((mapped_positions, mapped_currents, hardware_errors, temperatures))
+        msg = DynamixelMotorsData(positions = msg_list[0], currents = msg_list[1], motor_errors = msg_list[2], temperatures = msg_list[3])
 
         self.motors_data_publisher.publish(msg)
     
@@ -164,8 +169,20 @@ class MotorDriver(Node):
         return response
 
     def set_bus_watchdog_callback(self, request, response):
-        pass
-
+        motors_array = self.motors_ids.flatten()
+        for motor_id in motors_array:
+            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, request.value)
+            success = self.__comm_result_and_error_reader(result, error)
+            if success:
+                print(f"Watchdog on motor {motor_id} has been successfully set to {request.value}")
+            else:
+                response.success = False
+                return response
+        
+        response.success = True
+        return response
+    #endregion
+    
     def __set_usb_low_latency(self):
         """Set USB device latency on 1ms.
         """

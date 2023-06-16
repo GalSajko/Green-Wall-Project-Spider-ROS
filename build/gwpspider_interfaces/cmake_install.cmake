@@ -372,6 +372,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/msg/WalkingInstructions.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/msg/LegTrajectory.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/MoveGripper.idl")
 endif()
 
@@ -392,6 +400,18 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/GetWalkingInstructions.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/GetModifiedWalkingInstructions.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/GetLegTrajectory.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/GripperCommand.msg")
 endif()
 
@@ -405,6 +425,14 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/DynamixelMotorsData.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/WalkingInstructions.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/LegTrajectory.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -465,6 +493,42 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/SetBusWatchdog_Response.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetWalkingInstructions.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GetWalkingInstructions_Request.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GetWalkingInstructions_Response.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetModifiedWalkingInstructions.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GetModifiedWalkingInstructions_Request.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GetModifiedWalkingInstructions_Response.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetLegTrajectory.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GetLegTrajectory_Request.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GetLegTrajectory_Response.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

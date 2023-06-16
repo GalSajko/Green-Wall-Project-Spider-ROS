@@ -260,6 +260,12 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__struct.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h \
@@ -272,14 +278,46 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__struct.h:
 
@@ -296,6 +334,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__functi
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.h:
 
 /usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
 
@@ -358,6 +398,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__type_supp
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
 /usr/include/python3.10/pyport.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_support.h:
 
 /usr/include/alloca.h:
 
@@ -451,6 +493,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/init_bno__functions.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
+rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.h:
+
 /usr/include/x86_64-linux-gnu/bits/stat.h:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
@@ -476,6 +520,8 @@ rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_types
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
@@ -543,6 +589,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__type_support.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support.h:
+
 /usr/include/linux/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
@@ -550,6 +598,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__type_support.h:
 /usr/include/python3.10/pyconfig.h:
 
 /usr/include/features.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
@@ -584,6 +634,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__type_support
 /usr/include/python3.10/bltinmodule.h:
 
 /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
@@ -732,6 +784,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h:
 /usr/include/python3.10/pythread.h:
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.h:
 
 /usr/include/asm-generic/errno.h:
 

@@ -139,7 +139,8 @@ class MotorDriver(Node):
         mapped_positions = mappers.map_position_encoder_values_to_model_angles_radians(positions)
         mapped_currents = mappers.map_current_encoder_values_to_motors_currents_ampers(currents)
 
-        msg = custom_interface_helper.create_dynamixel_motors_message((mapped_positions, mapped_currents, hardware_errors, temperatures))
+        msg_list = custom_interface_helper.create_multiple_2d_array_messages((mapped_positions, mapped_currents, hardware_errors, temperatures))
+        msg = DynamixelMotorsData(positions = msg_list[0], currents = msg_list[1], motor_errors = msg_list[2], temperatures = msg_list[3])
 
         self.motors_data_publisher.publish(msg)
     

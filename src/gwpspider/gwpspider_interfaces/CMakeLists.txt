@@ -18,6 +18,8 @@ set(msg_files
   "msg/WaterPumpCommand.msg"
   "msg/BnoData.msg"
   "msg/DynamixelMotorsData.msg"
+  "msg/WalkingInstructions.msg"
+  "msg/LegTrajectory.msg"
 )
 
 set(srv_files
@@ -26,6 +28,9 @@ set(srv_files
   "srv/InitBno.srv"
   "srv/ToggleMotorsTorque.srv"
   "srv/SetBusWatchdog.srv"
+  "srv/GetWalkingInstructions.srv"
+  "srv/GetModifiedWalkingInstructions.srv"
+  "srv/GetLegTrajectory.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

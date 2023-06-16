@@ -1,0 +1,37 @@
+running egg_info
+creating ../../../build/planning/planning.egg-info
+writing ../../../build/planning/planning.egg-info/PKG-INFO
+writing dependency_links to ../../../build/planning/planning.egg-info/dependency_links.txt
+writing entry points to ../../../build/planning/planning.egg-info/entry_points.txt
+writing requirements to ../../../build/planning/planning.egg-info/requires.txt
+writing top-level names to ../../../build/planning/planning.egg-info/top_level.txt
+writing manifest file '../../../build/planning/planning.egg-info/SOURCES.txt'
+reading manifest file '../../../build/planning/planning.egg-info/SOURCES.txt'
+writing manifest file '../../../build/planning/planning.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/spider/gwpspider_ws/build/planning/build
+creating /home/spider/gwpspider_ws/build/planning/build/lib
+creating /home/spider/gwpspider_ws/build/planning/build/lib/planning
+copying planning/path_planner.py -> /home/spider/gwpspider_ws/build/planning/build/lib/planning
+copying planning/__init__.py -> /home/spider/gwpspider_ws/build/planning/build/lib/planning
+copying planning/trajectory_planner.py -> /home/spider/gwpspider_ws/build/planning/build/lib/planning
+running install
+running install_lib
+creating /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning
+copying /home/spider/gwpspider_ws/build/planning/build/lib/planning/path_planner.py -> /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning
+copying /home/spider/gwpspider_ws/build/planning/build/lib/planning/__init__.py -> /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning
+copying /home/spider/gwpspider_ws/build/planning/build/lib/planning/trajectory_planner.py -> /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning
+byte-compiling /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning/path_planner.py to path_planner.cpython-310.pyc
+byte-compiling /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning/trajectory_planner.py to trajectory_planner.cpython-310.pyc
+running install_data
+creating /home/spider/gwpspider_ws/install/planning/share/ament_index
+creating /home/spider/gwpspider_ws/install/planning/share/ament_index/resource_index
+creating /home/spider/gwpspider_ws/install/planning/share/ament_index/resource_index/packages
+copying resource/planning -> /home/spider/gwpspider_ws/install/planning/share/ament_index/resource_index/packages
+copying package.xml -> /home/spider/gwpspider_ws/install/planning/share/planning
+running install_egg_info
+Copying ../../../build/planning/planning.egg-info to /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/spider/gwpspider_ws/build/planning/install.log'

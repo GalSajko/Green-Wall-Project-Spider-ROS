@@ -1,0 +1,4 @@
+[console_scripts]
+path_planner = planning.path_planner:main
+trajectory_planner = planning.trajectory_planner:main
+

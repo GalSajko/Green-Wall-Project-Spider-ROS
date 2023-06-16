@@ -1,17 +1,35 @@
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
-from gwpspider_interfaces.msg import DynamixelMotorsData
-
-def create_dynamixel_motors_message(data):
+ 
+def create_multiple_2d_array_messages(data):
     all_msgs = []
-    for motors_data in data:
-        msg = Float32MultiArray(data = motors_data.flatten())
+    for single_data in data:
+        msg = Float32MultiArray(data = single_data.flatten())
         msg.layout.dim = [MultiArrayDimension(), MultiArrayDimension()]
         msg.layout.dim[0].label = 'rows'
-        msg.layout.dim[0].size = 5
+        msg.layout.dim[0].size = single_data.shape[0]
         msg.layout.dim[1].label = 'columns'
-        msg.layout.dim[1].size = 3
-        all_msgs.append(msg)
+        msg.layout.dim[1].size = single_data.shape[1]
+        if len(data) > 1:
+            all_msgs.append(msg)
+        else:
+            all_msgs = msg
+    
+    return all_msgs
 
-    dxl_msg = DynamixelMotorsData(positions = all_msgs[0], currents = all_msgs[1], motor_errors = all_msgs[2], temperatures = all_msgs[3])    
-
-    return dxl_msg    
+def create_multiple_3d_array_messages(data):
+    all_msgs = []
+    for single_data in data:
+        msg = Float32MultiArray(data = single_data.flatten())
+        msg.layout.dim = [MultiArrayDimension(), MultiArrayDimension(), MultiArrayDimension()]
+        msg.layout.dim[0].label = 'channels'
+        msg.layout.dim[0].size = single_data.shape[0]
+        msg.layout.dim[1].label = 'rows'
+        msg.layout.dim[1].size = single_data.shape[1]
+        msg.layout.dim[2].label = 'columns'
+        msg.layout.dim[2].size = single_data.shape[2]
+        if len(data) > 1:
+            all_msgs.append(msg)
+        else:
+            all_msgs = msg
+    
+    return all_msgs
