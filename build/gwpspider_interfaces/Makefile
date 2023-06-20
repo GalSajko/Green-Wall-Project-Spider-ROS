@@ -501,6 +501,30 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.c.s
 .PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.c.s
 
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.o: rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.o
+.PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.o
+
+# target to build an object file
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.o
+.PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.o
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.i: rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.i
+.PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.i
+
+# target to preprocess a source file
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.i
+.PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.i
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.s: rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.s
+.PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.s
+
+# target to generate assembly for a file
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.s
+.PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.c.s
+
 rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.o: rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.c.o
 .PHONY : rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.o
 
@@ -692,6 +716,30 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.s: ro
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.c.s
 .PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.c.s
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.o: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o
+.PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.o
+
+# target to build an object file
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o
+.PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.i: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.i
+.PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.i
+
+# target to preprocess a source file
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.i
+.PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.i
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.s: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.s
+.PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.s
+
+# target to generate assembly for a file
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.s
+.PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.s
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.o: rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.c.o
 .PHONY : rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.o
@@ -909,6 +957,30 @@ rosidl_generator_py/gwpspider_interfaces/msg/_leg_trajectory_s.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/msg/_leg_trajectory_s.c.s
 .PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_leg_trajectory_s.c.s
 
+rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.o: rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.o
+.PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.o
+
+# target to build an object file
+rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.o
+.PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.o
+
+rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.i: rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.i
+.PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.i
+
+# target to preprocess a source file
+rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.i
+.PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.i
+
+rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.s: rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.s
+.PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.s
+
+# target to generate assembly for a file
+rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.s
+.PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.c.s
+
 rosidl_generator_py/gwpspider_interfaces/msg/_walking_instructions_s.o: rosidl_generator_py/gwpspider_interfaces/msg/_walking_instructions_s.c.o
 .PHONY : rosidl_generator_py/gwpspider_interfaces/msg/_walking_instructions_s.o
 
@@ -1101,6 +1173,30 @@ rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c.s
 .PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c.s
 
+rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.o: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.o
+.PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.o
+
+# target to build an object file
+rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.o
+.PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.o
+
+rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.i: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.i
+.PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.i
+
+# target to preprocess a source file
+rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.i
+.PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.i
+
+rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.s: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.s
+.PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.s
+
+# target to generate assembly for a file
+rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.s
+.PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.s
+
 rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.o: rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.c.o
 .PHONY : rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.o
 
@@ -1244,6 +1340,30 @@ rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.s: ro
 rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.cpp.s
 .PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.cpp.s
+
+rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.o: rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.o
+
+# target to build an object file
+rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.o
+
+rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.i: rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.i
+
+rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.s: rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.cpp.s
 
 rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.o: rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.cpp.o
 .PHONY : rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.o
@@ -1437,6 +1557,30 @@ rosidl_typesupport_c/gwpspider_interfaces/srv/move_gripper__type_support.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/move_gripper__type_support.cpp.s
 .PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/move_gripper__type_support.cpp.s
 
+rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.o: rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.o
+
+# target to build an object file
+rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o
+
+rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.i: rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i
+
+rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.s: rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s
+
 rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.o: rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.cpp.o
 .PHONY : rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.o
 
@@ -1580,6 +1724,30 @@ rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.s: 
 rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.cpp.s
 .PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.cpp.s
+
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.o: rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.o
+
+# target to build an object file
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.o
+
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.i: rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.i
+
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.s: rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.cpp.s
 
 rosidl_typesupport_cpp/gwpspider_interfaces/msg/walking_instructions__type_support.o: rosidl_typesupport_cpp/gwpspider_interfaces/msg/walking_instructions__type_support.cpp.o
 .PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/msg/walking_instructions__type_support.o
@@ -1773,6 +1941,30 @@ rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_gripper__type_support.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_gripper__type_support.cpp.s
 .PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_gripper__type_support.cpp.s
 
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.o: rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.o
+
+# target to build an object file
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o
+
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.i: rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.i
+
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.s: rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.s
+
 rosidl_typesupport_cpp/gwpspider_interfaces/srv/set_bus_watchdog__type_support.o: rosidl_typesupport_cpp/gwpspider_interfaces/srv/set_bus_watchdog__type_support.cpp.o
 .PHONY : rosidl_typesupport_cpp/gwpspider_interfaces/srv/set_bus_watchdog__type_support.o
 
@@ -1916,6 +2108,30 @@ rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__ty
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support_c.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support_c.cpp.s
 .PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support_c.cpp.s
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.o: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.o
+
+# target to build an object file
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.o
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.i: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.i
+
+# target to preprocess a source file
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.i
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.s: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.s
+
+# target to generate assembly for a file
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.cpp.s
 
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support_c.o: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support_c.cpp.o
 .PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support_c.o
@@ -2109,6 +2325,30 @@ rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type_support_c.cpp.s
 .PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type_support_c.cpp.s
 
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.o: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.o
+
+# target to build an object file
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.i: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.i
+
+# target to preprocess a source file
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.i
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.s: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.s
+
+# target to generate assembly for a file
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.s
+
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support_c.o: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support_c.cpp.o
 .PHONY : rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support_c.o
 
@@ -2252,6 +2492,30 @@ rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg
 rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg_trajectory__type_support.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg_trajectory__type_support.cpp.s
 .PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg_trajectory__type_support.cpp.s
+
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.o: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.o
+
+# target to build an object file
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.o
+
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.i: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.i
+
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.s: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.cpp.s
 
 rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/walking_instructions__type_support.o: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/walking_instructions__type_support.cpp.o
 .PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/walking_instructions__type_support.o
@@ -2445,6 +2709,30 @@ rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/mov
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.cpp.s
 .PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.cpp.s
 
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.o: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.o
+
+# target to build an object file
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.o
+
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.i: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.i
+
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.s: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.cpp.s
+
 rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/set_bus_watchdog__type_support.o: rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/set_bus_watchdog__type_support.cpp.o
 .PHONY : rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/set_bus_watchdog__type_support.o
 
@@ -2588,6 +2876,30 @@ rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajector
 rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.c.s
 .PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.c.s
+
+rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.o: rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.o
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.o
+
+# target to build an object file
+rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.o
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.o
+
+rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.i: rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.i
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.i
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.i
+
+rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.s: rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.s
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.s
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.c.s
 
 rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.o: rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.c.o
 .PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.o
@@ -2781,6 +3093,30 @@ rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/move_gripper_
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.c.s
 .PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.c.s
 
+rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.o: rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.o
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.o
+
+# target to build an object file
+rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.o
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.o
+
+rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.i: rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.i
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.i
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.i
+
+rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.s: rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.s
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.s
+.PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c.s
+
 rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.o: rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.c.o
 .PHONY : rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.o
 
@@ -2924,6 +3260,30 @@ rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_traject
 rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.cpp.s
 .PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.cpp.s
+
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.o: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.o
+
+# target to build an object file
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.o
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.o
+
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.i: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.i
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.i
+
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.s: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.s
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.cpp.s
 
 rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/walking_instructions__type_support.o: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/walking_instructions__type_support.cpp.o
 .PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/walking_instructions__type_support.o
@@ -3117,6 +3477,30 @@ rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_grippe
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp.s
 .PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp.s
 
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.o: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.o
+
+# target to build an object file
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.o
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.o
+
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.i: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.i
+
+# target to preprocess a source file
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.i
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.i
+
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.s: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.s
+
+# target to generate assembly for a file
+rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.s
+.PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.cpp.s
+
 rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.o: rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.cpp.o
 .PHONY : rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.o
 
@@ -3208,6 +3592,9 @@ help:
 	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.o"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.i"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.s"
+	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.o"
+	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.i"
+	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.s"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.o"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.i"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/msg/detail/walking_instructions__functions.s"
@@ -3232,6 +3619,9 @@ help:
 	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.o"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.i"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.s"
+	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.o"
+	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.i"
+	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.s"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.o"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.i"
 	@echo "... rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.s"
@@ -3259,6 +3649,9 @@ help:
 	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_leg_trajectory_s.o"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_leg_trajectory_s.i"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_leg_trajectory_s.s"
+	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.o"
+	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.i"
+	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_legs_states_s.s"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_walking_instructions_s.o"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_walking_instructions_s.i"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/msg/_walking_instructions_s.s"
@@ -3283,6 +3676,9 @@ help:
 	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.o"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.i"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.s"
+	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.o"
+	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.i"
+	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.s"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.o"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.i"
 	@echo "... rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.s"
@@ -3301,6 +3697,9 @@ help:
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.o"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.i"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/leg_trajectory__type_support.s"
+	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.o"
+	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.i"
+	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/legs_states__type_support.s"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.o"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.i"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.s"
@@ -3325,6 +3724,9 @@ help:
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/move_gripper__type_support.o"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/move_gripper__type_support.i"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/move_gripper__type_support.s"
+	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.o"
+	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.i"
+	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.s"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.o"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.i"
 	@echo "... rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.s"
@@ -3343,6 +3745,9 @@ help:
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.o"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.i"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/leg_trajectory__type_support.s"
+	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.o"
+	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.i"
+	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/legs_states__type_support.s"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/walking_instructions__type_support.o"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/walking_instructions__type_support.i"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/msg/walking_instructions__type_support.s"
@@ -3367,6 +3772,9 @@ help:
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_gripper__type_support.o"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_gripper__type_support.i"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_gripper__type_support.s"
+	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.o"
+	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.i"
+	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/reboot_motors__type_support.s"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/set_bus_watchdog__type_support.o"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/set_bus_watchdog__type_support.i"
 	@echo "... rosidl_typesupport_cpp/gwpspider_interfaces/srv/set_bus_watchdog__type_support.s"
@@ -3385,6 +3793,9 @@ help:
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support_c.o"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support_c.i"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support_c.s"
+	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.o"
+	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.i"
+	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/legs_states__type_support_c.s"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support_c.o"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support_c.i"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support_c.s"
@@ -3409,6 +3820,9 @@ help:
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type_support_c.o"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type_support_c.i"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type_support_c.s"
+	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.o"
+	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.i"
+	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.s"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support_c.o"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support_c.i"
 	@echo "... rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support_c.s"
@@ -3427,6 +3841,9 @@ help:
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg_trajectory__type_support.o"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg_trajectory__type_support.i"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/leg_trajectory__type_support.s"
+	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.o"
+	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.i"
+	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/legs_states__type_support.s"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/walking_instructions__type_support.o"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/walking_instructions__type_support.i"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/msg/detail/dds_fastrtps/walking_instructions__type_support.s"
@@ -3451,6 +3868,9 @@ help:
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.o"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.i"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/move_gripper__type_support.s"
+	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.o"
+	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.i"
+	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/reboot_motors__type_support.s"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/set_bus_watchdog__type_support.o"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/set_bus_watchdog__type_support.i"
 	@echo "... rosidl_typesupport_fastrtps_cpp/gwpspider_interfaces/srv/detail/dds_fastrtps/set_bus_watchdog__type_support.s"
@@ -3469,6 +3889,9 @@ help:
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.o"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.i"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.s"
+	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.o"
+	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.i"
+	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/legs_states__type_support.s"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.o"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.i"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/msg/detail/walking_instructions__type_support.s"
@@ -3493,6 +3916,9 @@ help:
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.o"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.i"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.s"
+	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.o"
+	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.i"
+	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.s"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.o"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.i"
 	@echo "... rosidl_typesupport_introspection_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.s"
@@ -3511,6 +3937,9 @@ help:
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.o"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.i"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.s"
+	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.o"
+	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.i"
+	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/legs_states__type_support.s"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/walking_instructions__type_support.o"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/walking_instructions__type_support.i"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/msg/detail/walking_instructions__type_support.s"
@@ -3535,6 +3964,9 @@ help:
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.o"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.i"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/move_gripper__type_support.s"
+	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.o"
+	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.i"
+	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/reboot_motors__type_support.s"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.o"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.i"
 	@echo "... rosidl_typesupport_introspection_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.s"

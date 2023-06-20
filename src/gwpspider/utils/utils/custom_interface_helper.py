@@ -1,3 +1,5 @@
+import numpy as np
+
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
  
 def create_multiple_2d_array_messages(data):
@@ -33,3 +35,17 @@ def create_multiple_3d_array_messages(data):
             all_msgs = msg
     
     return all_msgs
+
+def unpack_2d_array_message(msg):
+    data = msg.data
+    shape = (msg.layout.dim[0].size, msg.layout.dim[1].size)
+    reshaped_data = np.reshape(data, shape)
+
+    return reshaped_data
+
+def unpack_3d_array_message(msg):
+    data = msg.data
+    shape = (msg.layout.dim[0].size, msg.layout.dim[1].size, msg.layout.dim[2].size)
+    reshaped_data = np.reshape(data, shape)
+
+    return reshaped_data

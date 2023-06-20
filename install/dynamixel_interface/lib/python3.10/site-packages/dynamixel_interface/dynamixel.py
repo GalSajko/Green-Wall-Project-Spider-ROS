@@ -5,10 +5,12 @@ import dynamixel_sdk as dxl
 import numpy as np
 import os
 
+from std_msgs.msg import Float32MultiArray
+
 from configuration import config, spider
 from utils import mappers, custom_interface_helper
 
-from gwpspider_interfaces.srv import ToggleMotorsTorque, SetBusWatchdog
+from gwpspider_interfaces.srv import ToggleMotorsTorque, SetBusWatchdog, RebootMotors
 from gwpspider_interfaces.msg import DynamixelMotorsData
 
 class MotorDriver(Node):
@@ -40,10 +42,13 @@ class MotorDriver(Node):
 
         self.toggle_torque_service = self.create_service(ToggleMotorsTorque, 'toggle_motors_torque', self.toggle_motors_torque_callback)
         self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, 'set_bus_watchdot', self.set_bus_watchdog_callback)
+        self.reboot_motors_service = self.create_service(RebootMotors, 'reboot_motors', self.reboot_motors_callback)
 
         self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, 'dynamixel_motors_data', 1)
         timer_period = 0
         self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback)
+
+        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, 'commanded_joints_velocities', self.sync_write_motors_velocities_callback, 1)
     
     #region properties
     @property
@@ -116,6 +121,28 @@ class MotorDriver(Node):
     #endregion
 
     #region callbacks
+    def sync_write_motors_velocities_callback(self, msg):
+        """Write commanded velocities to motors.
+        """
+        velocities = np.reshape(msg.data, (msg.layout.dim[0].size, msg.layout.dim[1].size))
+
+        for leg in spider.LEGS_IDS:
+            motors_in_leg = self.motors_ids[leg]
+            encoder_velocities = mappers.map_model_velocities_to_velocity_encoder_values(velocities[leg]).astype(int)
+            for i, motor in enumerate(motors_in_leg):
+                commanded_joints_velocities_in_bytes = [
+                    dxl.DXL_LOBYTE(dxl.DXL_LOWORD(encoder_velocities[i])),
+                    dxl.DXL_HIBYTE(dxl.DXL_LOWORD(encoder_velocities[i])),
+                    dxl.DXL_LOBYTE(dxl.DXL_HIWORD(encoder_velocities[i])),
+                    dxl.DXL_HIBYTE(dxl.DXL_HIWORD(encoder_velocities[i])),
+                ]
+                success = self.group_sync_write_velocity.changeParam(motor, commanded_joints_velocities_in_bytes)
+                if not success:
+                    print(f"Failed changing Group Sync Writer parameter in motor {motor}")
+        success = self.group_sync_write_velocity.txPacket()
+        if success != dxl.COMM_SUCCESS:
+            print("Failed to write velocities to motors.")
+        
     def sync_read_motors_data_callback(self):
         """Read positions, currents, hardware errors and temperature registers from all connected motors.
         """
@@ -145,6 +172,8 @@ class MotorDriver(Node):
         self.motors_data_publisher.publish(msg)
     
     def toggle_motors_torque_callback(self, request, response):
+        """Toggle torque in motors.
+        """
         legs_ids = request.legs.data
         for leg_id in legs_ids:
             if leg_id not in spider.LEGS_IDS:
@@ -169,6 +198,8 @@ class MotorDriver(Node):
         return response
 
     def set_bus_watchdog_callback(self, request, response):
+        """Set bus watchdog in motors.
+        """
         motors_array = self.motors_ids.flatten()
         for motor_id in motors_array:
             result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, request.value)
@@ -179,6 +210,36 @@ class MotorDriver(Node):
                 response.success = False
                 return response
         
+        response.success = True
+        return response
+    
+    def reboot_motors_callback(self, request, response):
+        """Reboot motors.
+        """
+        motors_to_reboot = np.array(request.motors.data, dtype = np.int8)
+        motors_to_reboot = motors_to_reboot.flatten()
+        for motor in motors_to_reboot:
+            if motor not in self.motors_ids:
+                print(f"Motor with id {motor} does not exits - it cannot be rebooted.")
+                response.success = False
+                return response
+            
+            result, error = self.packet_handler.reboot(self.port_handler, int(motor))
+            success = self.__comm_result_and_error_reader(result, error)
+            if not success:
+                print(f"Error while rebooting motor with id {motor}.")
+                response.success = False
+                return response
+            
+            if str(motor)[1] == '3':
+                result, error = self.packet_handler.reboot(self.port_handler, int(motor + 1))
+                success = self.__comm_result_and_error_reader(result, error)
+                if not success:
+                    print(f"Error while rebooting motor with id {motor + 1}.")
+                    response.success = False
+                    return response
+        
+        print(f"Motors with ids {motors_to_reboot} have been successfully rebooted.")
         response.success = True
         return response
     #endregion

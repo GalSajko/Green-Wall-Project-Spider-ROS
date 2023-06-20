@@ -1,0 +1,3 @@
+[console_scripts]
+legs_states_publisher = controller.legs_states_publisher:main
+

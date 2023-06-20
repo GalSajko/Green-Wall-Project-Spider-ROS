@@ -6,6 +6,8 @@ msg/GripperCommand.idl
 msg/GripperCommand.msg
 msg/LegTrajectory.idl
 msg/LegTrajectory.msg
+msg/LegsStates.idl
+msg/LegsStates.msg
 msg/WalkingInstructions.idl
 msg/WalkingInstructions.msg
 msg/WaterPumpCommand.idl
@@ -34,6 +36,10 @@ srv/MoveGripper.idl
 srv/MoveGripper.srv
 srv/MoveGripper_Request.msg
 srv/MoveGripper_Response.msg
+srv/RebootMotors.idl
+srv/RebootMotors.srv
+srv/RebootMotors_Request.msg
+srv/RebootMotors_Response.msg
 srv/SetBusWatchdog.idl
 srv/SetBusWatchdog.srv
 srv/SetBusWatchdog_Request.msg

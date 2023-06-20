@@ -4,6 +4,7 @@
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:msg/DynamixelMotorsData.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:msg/WalkingInstructions.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:msg/LegTrajectory.idl
+/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:msg/LegsStates.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/MoveGripper.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/ControlWaterPump.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/InitBno.idl
@@ -12,3 +13,4 @@
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/GetWalkingInstructions.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/GetModifiedWalkingInstructions.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/GetLegTrajectory.idl
+/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/RebootMotors.idl

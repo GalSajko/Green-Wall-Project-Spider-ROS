@@ -9,6 +9,7 @@ gwpspider_interfaces/msg/_bno_data.py
 gwpspider_interfaces/msg/_dynamixel_motors_data.py
 gwpspider_interfaces/msg/_gripper_command.py
 gwpspider_interfaces/msg/_leg_trajectory.py
+gwpspider_interfaces/msg/_legs_states.py
 gwpspider_interfaces/msg/_walking_instructions.py
 gwpspider_interfaces/msg/_water_pump_command.py
 gwpspider_interfaces/srv/__init__.py
@@ -18,5 +19,6 @@ gwpspider_interfaces/srv/_get_modified_walking_instructions.py
 gwpspider_interfaces/srv/_get_walking_instructions.py
 gwpspider_interfaces/srv/_init_bno.py
 gwpspider_interfaces/srv/_move_gripper.py
+gwpspider_interfaces/srv/_reboot_motors.py
 gwpspider_interfaces/srv/_set_bus_watchdog.py
 gwpspider_interfaces/srv/_toggle_motors_torque.py

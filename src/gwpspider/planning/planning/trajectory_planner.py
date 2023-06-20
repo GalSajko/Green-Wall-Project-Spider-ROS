@@ -2,11 +2,12 @@ import rclpy
 from rclpy.node import Node
 
 import numpy as np
-import math
 
 from configuration import config
+from utils import custom_interface_helper
 
 from gwpspider_interfaces.srv import GetLegTrajectory
+from gwpspider_interfaces.msg import LegTrajectory
 
 class TrajectoryPlanner(Node):
     def __init__(self):
@@ -19,10 +20,12 @@ class TrajectoryPlanner(Node):
         goal_position = np.array(request.goal_position.data)
 
         positions, velocities, accelerations = self.__get_trajectory(current_position, goal_position, request.duration, request.trajectory_type)
-        print(positions)
+        position_msg, velocity_msg, acceleration_msg = custom_interface_helper.create_multiple_2d_array_messages([positions, velocities, accelerations])
 
-        #TODO: implement response.
+        trajectory_msg = LegTrajectory(position_trajectory = position_msg, velocity_trajectory = velocity_msg, acceleration_trajectory = acceleration_msg)
 
+        response.trajectories = trajectory_msg
+        return response
 
     #region private methods
     def __get_trajectory(self, leg_current_position: np.ndarray, leg_goal_position: np.ndarray, duration: float, trajectory_type: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -34,13 +37,18 @@ class TrajectoryPlanner(Node):
             duration (float): Desired duration of movement.
             trajectory_type (str): Desired trajectory type (bezier or min jerk).
 
+        Raises:
+            ValueError: If trajectory type is not valid.
+
         Returns:
             tuple[np.ndarray, np.ndarray, np.ndarray]: Position, velocity and acceleration trajectory, if calculation was succesfull.
         """
+        if trajectory_type not in (config.BEZIER_TRAJECTORY, config.MINJERK_TRAJECTORY):
+            raise ValueError("Wrong type of trajectory.")
+        
         if trajectory_type == config.BEZIER_TRAJECTORY:
             return self.__bezier_trajectory(leg_current_position, leg_goal_position, duration)
-        if trajectory_type == config.MINJERK_TRAJECTORY:
-            return self.__min_jerk_trajectory(leg_current_position, leg_goal_position, duration)
+        return self.__min_jerk_trajectory(leg_current_position, leg_goal_position, duration)
 
     
     def __min_jerk_trajectory(self, start_pose: np.ndarray, goal_pose: np.ndarray, duration: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:

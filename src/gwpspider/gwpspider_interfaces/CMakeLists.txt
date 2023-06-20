@@ -20,6 +20,7 @@ set(msg_files
   "msg/DynamixelMotorsData.msg"
   "msg/WalkingInstructions.msg"
   "msg/LegTrajectory.msg"
+  "msg/LegsStates.msg"
 )
 
 set(srv_files
@@ -31,6 +32,7 @@ set(srv_files
   "srv/GetWalkingInstructions.srv"
   "srv/GetModifiedWalkingInstructions.srv"
   "srv/GetLegTrajectory.srv"
+  "srv/RebootMotors.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

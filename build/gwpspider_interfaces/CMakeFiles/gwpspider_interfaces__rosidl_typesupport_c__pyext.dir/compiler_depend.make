@@ -266,6 +266,9 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__struct.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h \
@@ -290,8 +293,17 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__functions.h:
 
@@ -310,6 +322,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functio
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__struct.h:
 
@@ -540,6 +554,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__str
 /usr/include/python3.10/objimpl.h:
 
 /usr/include/python3.10/patchlevel.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.h:
 
 /usr/include/python3.10/pymacconfig.h:
 
@@ -820,6 +836,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h:
 /usr/include/python3.10/intrcheck.h:
 
 /usr/include/python3.10/import.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__type_support.h:
 
 /usr/include/python3.10/cpython/import.h:
 

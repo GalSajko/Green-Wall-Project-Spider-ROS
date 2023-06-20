@@ -7,6 +7,7 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/DynamixelMotorsData.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/WalkingInstructions.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/LegTrajectory.msg",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/LegsStates.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveGripper.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/ControlWaterPump.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/InitBno.srv",
@@ -14,6 +15,7 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/SetBusWatchdog.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetWalkingInstructions.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetModifiedWalkingInstructions.srv",
-    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetLegTrajectory.srv"
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetLegTrajectory.srv",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/RebootMotors.srv"
   ]
 }
