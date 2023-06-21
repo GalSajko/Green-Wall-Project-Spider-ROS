@@ -1,0 +1,4 @@
+int8 leg
+std_msgs/Float32MultiArray goal_position
+string trajectory_type
+float32 duration

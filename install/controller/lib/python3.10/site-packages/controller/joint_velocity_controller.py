@@ -1,9 +1,20 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
+import threading
+import queue
+
+from std_msgs.msg import Float32MultiArray
 
 from configuration import config, spider
+from utils import custom_interface_helper
+from calculations import kinematics as kin
+
+from gwpspider_interfaces.msg import LegsStates
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -11,13 +22,98 @@ class JointVelocityController(Node):
 
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.last_legs_position_errors = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+        self.do_init = True
+
+        self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+        self.sentinel = object()
 
         self.k_p = np.ones((spider.NUMBER_OF_LEGS, 3), dtype = np.float32) * config.K_P
         self.k_d = np.ones((spider.NUMBER_OF_LEGS, 3), dtype = np.float32) * config.K_D
+
+        self.legs_states_locker = threading.Lock()
+        self.legs_local_positions = None
+        self.joints_positions = None
+        self.legs_forces = None
+        self.joints_torques = None
+
+        self.legs_states_subscriber = self.create_subscription(LegsStates, 'legs_states', self.read_legs_states_callback, 1)
+
+        self.callback_group = ReentrantCallbackGroup()
+        self.move_leg_service = self.create_service(MoveLeg, 'move_leg_service', self.move_leg_callback, callback_group = self.callback_group)
+        self.leg_trajectory_client = self.create_client(GetLegTrajectory, 'get_leg_trajectory', callback_group = self.callback_group)
+
+        self.controller_publisher = self.create_publisher(Float32MultiArray, 'commanded_joints_velocities', 1)
+        self.timer = self.create_timer(self.PERIOD, self.controller_callback)
+
+        # self.service_done_event = threading.Event()
     
     @property
     def PERIOD(self):
         return 1.0 / config.CONTROLLER_FREQUENCY
+    
+    def controller_callback(self):
+        x_d, dx_d, ddx_d = self.__get_pos_vel_acc_from_queues()
+        with self.legs_states_locker:
+            x_a = self.legs_local_positions
+            q_a = self.joints_positions
+            if self.do_init:
+                self.last_legs_positions = x_a
+                self.do_init = False
+
+        dx_c, self.last_legs_position_errors = self.__ee_position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
+        dq_c = kin.get_joints_velocities(q_a, dx_c)
+
+        msg = custom_interface_helper.create_multiple_2d_array_messages([dq_c])
+        self.controller_publisher.publish(msg)
+
+    def move_leg_callback(self, request, response):
+        leg_id = request.leg
+        duration = request.duration
+        goal_position = request.goal_position.data
+        trajectory_type = request.trajectory_type
+
+        with self.legs_states_locker:
+            current_leg_position = self.legs_local_positions[leg_id]
+
+        # self.service_done_event.clear()
+        event = threading.Event()
+        def done_callback(_):
+            nonlocal event
+            event.set()
+        
+        get_trajectory_request = GetLegTrajectory.Request()
+        get_trajectory_request.current_position = Float32MultiArray(data = current_leg_position)
+        get_trajectory_request.goal_position = Float32MultiArray(data = goal_position)
+        get_trajectory_request.duration = duration
+        get_trajectory_request.trajectory_type = trajectory_type
+
+        future = self.leg_trajectory_client.call_async(get_trajectory_request)
+        future.add_done_callback(done_callback)
+        event.wait()
+        trajectory_response = future.result()
+
+        position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
+        velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
+        acceleration_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.acceleration_trajectory)
+
+        self.command_queues[leg_id] = queue.Queue()
+
+        for idx, position in enumerate(position_trajectory):
+            self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
+        self.command_queues[leg_id].put(self.sentinel)
+
+        response.success = True
+        return response
+    
+    # def get_result_callback(self, future):
+    #     self.service_done_event.set()
+        
+    def read_legs_states_callback(self, msg):
+        with self.legs_states_locker:
+            self.joints_positions = np.reshape(msg.joints_positions.data, (msg.joints_positions.layout.dim[0].size, msg.joints_positions.layout.dim[1].size))
+            self.legs_local_positions = np.reshape(msg.legs_local_positions.data, (msg.legs_local_positions.layout.dim[0].size, msg.legs_local_positions.layout.dim[1].size))
+            self.legs_forces = np.reshape(msg.forces.data, (msg.forces.layout.dim[0].size, msg.forces.layout.dim[1].size))
+            self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
 
     def __ee_position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """PD controller. Feed-forward velocity is used only in force mode, otherwise its values are zeros.
@@ -36,3 +132,43 @@ class JointVelocityController(Node):
         dx_c = np.array(self.k_p * legs_position_errors + self.k_d * dx_e + dx_d + config.K_ACC * ddx_d, dtype = np.float32)
 
         return dx_c, legs_position_errors
+    
+    def __get_pos_vel_acc_from_queues(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Read current desired position, velocity and acceleration from queues for each leg. If leg-queue is empty, keep leg on latest position.
+
+        Returns:
+            tuple[np.ndarray, np.ndarray, np.ndarray]: Desired positions, velocities and accelerations.
+        """
+        x_d = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+        dx_d = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+        ddx_d = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+
+        for leg in spider.LEGS_IDS:
+            try:
+                queue_data = self.command_queues[leg].get(False)
+                if queue_data is not self.sentinel:
+                    self.last_legs_positions[leg] = queue_data[0]
+                if queue_data is self.sentinel:
+                    x_d[leg] = np.copy(self.last_legs_positions[leg])
+                    dx_d[leg] = np.zeros(3, dtype = np.float32)
+                    ddx_d[leg] = np.zeros(3, dtype = np.float32)
+                else:
+                    x_d[leg] = queue_data[0]
+                    dx_d[leg] = queue_data[1]
+                    ddx_d[leg] = queue_data[2]
+            except queue.Empty:
+                x_d[leg] = np.copy(self.last_legs_positions[leg])
+                dx_d[leg] = np.zeros(3, dtype = np.float32)
+                ddx_d[leg] = np.zeros(3, dtype = np.float32)
+
+        return x_d, dx_d, ddx_d
+
+def main():
+    rclpy.init()
+    joint_velocity_controller = JointVelocityController()
+    executor = MultiThreadedExecutor()
+    rclpy.spin(joint_velocity_controller, executor)
+    rclpy.shutdown()
+   
+if __name__ == '__main__':
+    main()

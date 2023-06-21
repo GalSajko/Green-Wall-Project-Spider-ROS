@@ -36,6 +36,10 @@ srv/MoveGripper.idl
 srv/MoveGripper.srv
 srv/MoveGripper_Request.msg
 srv/MoveGripper_Response.msg
+srv/MoveLeg.idl
+srv/MoveLeg.srv
+srv/MoveLeg_Request.msg
+srv/MoveLeg_Response.msg
 srv/RebootMotors.idl
 srv/RebootMotors.srv
 srv/RebootMotors_Request.msg

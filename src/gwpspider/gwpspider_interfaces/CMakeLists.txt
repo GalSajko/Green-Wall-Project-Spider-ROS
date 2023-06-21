@@ -33,6 +33,7 @@ set(srv_files
   "srv/GetModifiedWalkingInstructions.srv"
   "srv/GetLegTrajectory.srv"
   "srv/RebootMotors.srv"
+  "srv/MoveLeg.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

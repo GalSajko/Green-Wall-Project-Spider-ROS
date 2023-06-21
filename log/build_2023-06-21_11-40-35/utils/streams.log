@@ -1,0 +1,39 @@
+[2.435s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/utils': PYTHONPATH=/home/spider/gwpspider_ws/build/utils/prefix_override:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/utils build --build-base /home/spider/gwpspider_ws/build/utils/build install --record /home/spider/gwpspider_ws/build/utils/install.log --single-version-externally-managed
+[2.795s] Traceback (most recent call last):
+[2.796s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2866, in get_entry_map
+[2.809s]     ep_map = self._ep_map
+[2.809s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2828, in __getattr__
+[2.809s]     raise AttributeError(attr)
+[2.809s] AttributeError: _ep_map. Did you mean: '_dep_map'?
+[2.809s] 
+[2.809s] During handling of the above exception, another exception occurred:
+[2.810s] 
+[2.810s] Traceback (most recent call last):
+[2.810s]   File "/home/spider/gwpspider_ws/src/gwpspider/utils/setup.py", line 5, in <module>
+[2.810s]     setup(
+[2.810s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 152, in setup
+[2.810s]     _install_setup_requires(attrs)
+[2.810s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 142, in _install_setup_requires
+[2.810s]     dist = MinimalDistribution(attrs)
+[2.810s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 134, in __init__
+[2.810s]     distutils.core.Distribution.__init__(self, filtered)
+[2.810s]   File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 457, in __init__
+[2.811s]     for ep in pkg_resources.iter_entry_points('distutils.setup_keywords'):
+[2.811s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 646, in <genexpr>
+[2.811s]     for entry in dist.get_entry_map(group).values()
+[2.811s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2868, in get_entry_map
+[2.811s]     ep_map = self._ep_map = EntryPoint.parse_map(
+[2.812s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2549, in parse_map
+[2.812s]     for group, lines in data:
+[2.812s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 3205, in split_sections
+[2.812s]     for line in yield_lines(s):
+[2.812s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2780, in _get_metadata
+[2.812s]     for line in self.get_metadata_lines(name):
+[2.812s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1422, in get_metadata_lines
+[2.812s]     return yield_lines(self.get_metadata(name))
+[2.812s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1412, in get_metadata
+[2.812s]     value = self._get(path)
+[2.813s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1616, in _get
+[2.813s]     with open(path, 'rb') as stream:
+[2.813s] FileNotFoundError: [Errno 2] No such file or directory: '/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info/entry_points.txt'
+[2.875s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/utils' returned '1': PYTHONPATH=/home/spider/gwpspider_ws/build/utils/prefix_override:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/utils build --build-base /home/spider/gwpspider_ws/build/utils/build install --record /home/spider/gwpspider_ws/build/utils/install.log --single-version-externally-managed

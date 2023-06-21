@@ -93,6 +93,7 @@ rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__r
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: rosidl_adapter/gwpspider_interfaces/srv/GetModifiedWalkingInstructions.idl
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: rosidl_adapter/gwpspider_interfaces/srv/GetLegTrajectory.idl
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: rosidl_adapter/gwpspider_interfaces/srv/RebootMotors.idl
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: rosidl_adapter/gwpspider_interfaces/srv/MoveLeg.idl
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
@@ -220,6 +221,12 @@ rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__ros
 
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__rosidl_typesupport_fastrtps_c.h: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__rosidl_typesupport_fastrtps_c.h
+
+rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__rosidl_typesupport_fastrtps_c.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp
 
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__type_support_c.cpp.o: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/flags.make
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__type_support_c.cpp.o: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__type_support_c.cpp
@@ -445,6 +452,20 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesu
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp -o CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.s
 
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/flags.make
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o -MF CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o.d -o CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o -c /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp
+
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp > CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.i
+
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp -o CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.s
+
 # Object files for target gwpspider_interfaces__rosidl_typesupport_fastrtps_c
 gwpspider_interfaces__rosidl_typesupport_fastrtps_c_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_command__type_support_c.cpp.o" \
@@ -462,7 +483,8 @@ gwpspider_interfaces__rosidl_typesupport_fastrtps_c_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support_c.cpp.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support_c.cpp.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_support_c.cpp.o" \
-"CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o"
+"CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o" \
+"CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o"
 
 # External object files for target gwpspider_interfaces__rosidl_typesupport_fastrtps_c
 gwpspider_interfaces__rosidl_typesupport_fastrtps_c_EXTERNAL_OBJECTS =
@@ -483,6 +505,7 @@ libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support_c.cpp.o
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_support_c.cpp.o
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp.o
+libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp.o
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/build.make
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: libgwpspider_interfaces__rosidl_generator_c.so
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so
@@ -496,7 +519,7 @@ libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: /opt/ros/humble/lib/l
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: /opt/ros/humble/lib/librcutils.so
 libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX shared library libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX shared library libgwpspider_interfaces__rosidl_typesupport_fastrtps_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -533,6 +556,8 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosid
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/init_bno__type_support_c.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_fastrtps_c.h
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_gripper__type_support_c.cpp
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__rosidl_typesupport_fastrtps_c.h
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/move_leg__type_support_c.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__rosidl_typesupport_fastrtps_c.h
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support_c.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/depend: rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__rosidl_typesupport_fastrtps_c.h

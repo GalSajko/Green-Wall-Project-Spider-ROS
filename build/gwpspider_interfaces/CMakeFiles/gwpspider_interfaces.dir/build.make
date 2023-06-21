@@ -100,6 +100,9 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetLegTrajectory_Response.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/RebootMotors.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/RebootMotors_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/RebootMotors_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/MoveLeg.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveLeg_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveLeg_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl

@@ -296,8 +296,13 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h:
 
@@ -699,6 +704,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.h
 
 /usr/include/python3.10/cpython/pystate.h:
 
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.h:
+
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/python3.10/bytesobject.h:
@@ -856,6 +863,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__type_support.h:
 /usr/include/python3.10/fileutils.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h:
 

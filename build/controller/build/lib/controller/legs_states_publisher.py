@@ -50,7 +50,7 @@ class LegsStatesPublisher(Node):
 
         if gravity_vector is not None:
             x_a = kin.all_legs_positions(q_a, config.LEG_ORIGIN)
-            tau, f = dyn.get_torques_and_forces_on_legs_tips(q_a, i_a, gravity_vector)    
+            tau, f = dyn.get_torques_and_forces_on_legs_tips(q_a, i_a, gravity_vector)   
             tau_mean, self.tau_buffer, self.tau_counter = mathtools.running_average(self.tau_buffer, self.tau_counter, tau)
             force_mean, self.force_buffer, self.force_counter = mathtools.running_average(self.force_buffer, self.force_counter, f)
 

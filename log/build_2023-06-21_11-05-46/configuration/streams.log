@@ -1,0 +1,22 @@
+[2.779s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/configuration': PYTHONPATH=/home/spider/gwpspider_ws/build/configuration/prefix_override:/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/configuration build --build-base /home/spider/gwpspider_ws/build/configuration/build install --record /home/spider/gwpspider_ws/build/configuration/install.log --single-version-externally-managed
+[3.316s] running egg_info
+[3.317s] writing ../../../build/configuration/configuration.egg-info/PKG-INFO
+[3.318s] writing dependency_links to ../../../build/configuration/configuration.egg-info/dependency_links.txt
+[3.318s] writing entry points to ../../../build/configuration/configuration.egg-info/entry_points.txt
+[3.318s] writing requirements to ../../../build/configuration/configuration.egg-info/requires.txt
+[3.318s] writing top-level names to ../../../build/configuration/configuration.egg-info/top_level.txt
+[3.322s] reading manifest file '../../../build/configuration/configuration.egg-info/SOURCES.txt'
+[3.323s] writing manifest file '../../../build/configuration/configuration.egg-info/SOURCES.txt'
+[3.323s] running build
+[3.323s] running build_py
+[3.324s] running install
+[3.324s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[3.324s]   warnings.warn(
+[3.324s] running install_lib
+[3.326s] running install_data
+[3.327s] running install_egg_info
+[3.329s] removing '/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration-0.0.0-py3.10.egg-info' (and everything under it)
+[3.336s] Copying ../../../build/configuration/configuration.egg-info to /home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration-0.0.0-py3.10.egg-info
+[3.337s] running install_scripts
+[3.378s] writing list of installed files to '/home/spider/gwpspider_ws/build/configuration/install.log'
+[3.446s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/configuration' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/configuration/prefix_override:/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/configuration build --build-base /home/spider/gwpspider_ws/build/configuration/build install --record /home/spider/gwpspider_ws/build/configuration/install.log --single-version-externally-managed

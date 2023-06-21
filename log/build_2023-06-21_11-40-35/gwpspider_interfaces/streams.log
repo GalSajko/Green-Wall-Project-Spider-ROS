@@ -1,0 +1,24 @@
+[1.234s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[1.755s] [  0%] Built target gwpspider_interfaces__cpp
+[1.755s] [ 12%] Built target gwpspider_interfaces__rosidl_generator_c
+[1.755s] [ 12%] Built target ament_cmake_python_copy_gwpspider_interfaces
+[1.756s] [ 24%] Built target gwpspider_interfaces__rosidl_typesupport_cpp
+[1.756s] [ 36%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp
+[1.757s] [ 48%] Built target gwpspider_interfaces__rosidl_typesupport_c
+[1.757s] [ 60%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_c
+[1.757s] [ 72%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_cpp
+[1.758s] [ 84%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_c
+[1.758s] [ 84%] Built target gwpspider_interfaces
+[1.759s] [ 85%] Built target gwpspider_interfaces__py
+[1.759s] [ 96%] Built target gwpspider_interfaces__rosidl_generator_py
+[1.759s] [ 97%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[1.759s] [ 99%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_c__pyext
+[1.759s] [100%] Built target gwpspider_interfaces__rosidl_typesupport_c__pyext
+[1.759s] running egg_info
+[1.759s] writing gwpspider_interfaces.egg-info/PKG-INFO
+[1.759s] writing dependency_links to gwpspider_interfaces.egg-info/dependency_links.txt
+[1.759s] writing top-level names to gwpspider_interfaces.egg-info/top_level.txt
+[1.759s] reading manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[1.760s] writing manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[1.760s] [100%] Built target ament_cmake_python_build_gwpspider_interfaces_egg
+[1.760s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8

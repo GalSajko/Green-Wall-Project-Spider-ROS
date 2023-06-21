@@ -25,6 +25,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_init_bno_s.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.c.o"

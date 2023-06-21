@@ -1,3 +1,4 @@
 [console_scripts]
+joint_velocity_controller = controller.joint_velocity_controller:main
 legs_states_publisher = controller.legs_states_publisher:main
 

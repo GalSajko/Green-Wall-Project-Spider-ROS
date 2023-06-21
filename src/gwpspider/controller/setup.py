@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'legs_states_publisher = controller.legs_states_publisher:main'
+            'legs_states_publisher = controller.legs_states_publisher:main',
+            'joint_velocity_controller = controller.joint_velocity_controller:main'
         ],
     },
 )

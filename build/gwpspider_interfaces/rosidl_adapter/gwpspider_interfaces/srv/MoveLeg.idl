@@ -1,0 +1,22 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from gwpspider_interfaces/srv/MoveLeg.srv
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Float32MultiArray.idl"
+
+module gwpspider_interfaces {
+  module srv {
+    struct MoveLeg_Request {
+      int8 leg;
+
+      std_msgs::msg::Float32MultiArray goal_position;
+
+      string trajectory_type;
+
+      float duration;
+    };
+    struct MoveLeg_Response {
+      boolean success;
+    };
+  };
+};
