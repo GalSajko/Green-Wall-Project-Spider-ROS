@@ -40,6 +40,10 @@ srv/MoveLeg.idl
 srv/MoveLeg.srv
 srv/MoveLeg_Request.msg
 srv/MoveLeg_Response.msg
+srv/MoveSpider.idl
+srv/MoveSpider.srv
+srv/MoveSpider_Request.msg
+srv/MoveSpider_Response.msg
 srv/RebootMotors.idl
 srv/RebootMotors.srv
 srv/RebootMotors_Request.msg

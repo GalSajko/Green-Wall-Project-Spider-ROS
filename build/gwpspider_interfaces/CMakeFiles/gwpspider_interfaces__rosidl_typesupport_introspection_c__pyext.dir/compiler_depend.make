@@ -299,8 +299,13 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c__pyext.dir/r
   rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h:
 
@@ -455,6 +460,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__functions
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
@@ -803,6 +810,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h:
 /usr/include/pthread.h:
 
 /usr/include/sched.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.h:
 
 /usr/include/python3.10/pythread.h:
 

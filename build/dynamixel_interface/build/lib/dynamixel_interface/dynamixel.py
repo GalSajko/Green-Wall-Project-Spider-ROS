@@ -4,6 +4,7 @@ from rclpy.node import Node
 import dynamixel_sdk as dxl
 import numpy as np
 import os
+import time
 
 from std_msgs.msg import Float32MultiArray
 
@@ -39,16 +40,17 @@ class MotorDriver(Node):
         
         self.__init_group_read_write()
         self.__init_port()
+        self.__toggle_motors_torque(spider.LEGS_IDS, config.ENABLE_LEGS_COMMAND)
 
         self.toggle_torque_service = self.create_service(ToggleMotorsTorque, 'toggle_motors_torque', self.toggle_motors_torque_callback)
         self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, 'set_bus_watchdot', self.set_bus_watchdog_callback)
         self.reboot_motors_service = self.create_service(RebootMotors, 'reboot_motors', self.reboot_motors_callback)
 
         self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, 'dynamixel_motors_data', 1)
-        timer_period = 0
+        timer_period = 0.007
         self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback)
 
-        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, 'commanded_joints_velocities', self.sync_write_motors_velocities_callback, 1)
+        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, 'commanded_joints_velocities', self.sync_write_motors_velocities_callback, 10)
     
     #region properties
     @property
@@ -175,26 +177,9 @@ class MotorDriver(Node):
         """Toggle torque in motors.
         """
         legs_ids = request.legs.data
-        for leg_id in legs_ids:
-            if leg_id not in spider.LEGS_IDS:
-                print(f"Leg with id {leg_id} does not exist.")
-                response.success = False
-                return response
-            
-        motors_array = self.motors_ids[request.legs.data].flatten()
-        action = request.command == config.ENABLE_LEGS_COMMAND
-        message = 'enabled' if action else 'disabled'
+        command = request.command
 
-        for motor_id in motors_array:
-            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.TORQUE_ENABLE_ADDR, action)
-            success = self.__comm_result_and_error_reader(result, error)
-            if success:
-                print(f"Motor {motor_id} has been successfully {message}.")
-            else:
-                response.success = False
-                return response
-        
-        response.success = True
+        response.success = self.__toggle_motors_torque(legs_ids, command)
         return response
 
     def set_bus_watchdog_callback(self, request, response):
@@ -329,6 +314,26 @@ class MotorDriver(Node):
             if not (result_position and result_current and result_hardware_error and result_temperature):
                 print(f"Failed adding parameter {motor} to Group Sync Reader.")
                 return False
+        return True
+    
+    def __toggle_motors_torque(self, legs_ids, command):
+        for leg_id in legs_ids:
+            if leg_id not in spider.LEGS_IDS:
+                print(f"Leg with id {leg_id} does not exist.")
+                return False
+            
+        motors_array = self.motors_ids[legs_ids].flatten()
+        action = command == config.ENABLE_LEGS_COMMAND
+        message = 'enabled' if action else 'disabled'
+
+        for motor_id in motors_array:
+            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.TORQUE_ENABLE_ADDR, action)
+            success = self.__comm_result_and_error_reader(result, error)
+            if success:
+                print(f"Motor {motor_id} has been successfully {message}.")
+            else:
+                return False
+        
         return True
 
 def main():

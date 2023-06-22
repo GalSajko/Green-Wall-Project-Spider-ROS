@@ -14,7 +14,7 @@ from utils import custom_interface_helper
 from calculations import kinematics as kin
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -23,6 +23,7 @@ class JointVelocityController(Node):
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.last_legs_position_errors = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.do_init = True
+        self.legs_last_positons_locker = threading.Lock()
 
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         self.sentinel = object()
@@ -40,9 +41,10 @@ class JointVelocityController(Node):
 
         self.callback_group = ReentrantCallbackGroup()
         self.move_leg_service = self.create_service(MoveLeg, 'move_leg_service', self.move_leg_callback, callback_group = self.callback_group)
+        self.move_spider_service = self.create_service(MoveSpider, 'move_spider_service', self.move_spider_callback, callback_group = self.callback_group)
         self.leg_trajectory_client = self.create_client(GetLegTrajectory, 'get_leg_trajectory', callback_group = self.callback_group)
 
-        self.controller_publisher = self.create_publisher(Float32MultiArray, 'commanded_joints_velocities', 1)
+        self.controller_publisher = self.create_publisher(Float32MultiArray, 'commanded_joints_velocities', 10)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback)
     
     @property
@@ -54,9 +56,11 @@ class JointVelocityController(Node):
         with self.legs_states_locker:
             x_a = self.legs_local_positions
             q_a = self.joints_positions
-            if self.do_init:
+
+        if self.do_init:
+            with self.legs_last_positons_locker:
                 self.last_legs_positions = x_a
-                self.do_init = False
+            self.do_init = False
 
         dx_c, self.last_legs_position_errors = self.__ee_position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
         dq_c = kin.get_joints_velocities(q_a, dx_c)
@@ -70,19 +74,19 @@ class JointVelocityController(Node):
         goal_position = request.goal_position.data
         trajectory_type = request.trajectory_type
 
+        if leg_id not in spider.LEGS_IDS:
+            response.success = False
+            return response
+
         with self.legs_states_locker:
-            current_leg_position = self.legs_local_positions[leg_id]
+            leg_current_position = self.legs_local_positions[leg_id]
 
         event = threading.Event()
         def done_callback(_):
             nonlocal event
             event.set()
         
-        get_trajectory_request = GetLegTrajectory.Request()
-        get_trajectory_request.current_position = Float32MultiArray(data = current_leg_position)
-        get_trajectory_request.goal_position = Float32MultiArray(data = goal_position)
-        get_trajectory_request.duration = duration
-        get_trajectory_request.trajectory_type = trajectory_type
+        get_trajectory_request = custom_interface_helper.prepare_trajectory_request((leg_current_position, goal_position, duration, trajectory_type))
 
         future = self.leg_trajectory_client.call_async(get_trajectory_request)
         future.add_done_callback(done_callback)
@@ -101,7 +105,60 @@ class JointVelocityController(Node):
 
         response.success = True
         return response
+
+    def move_spider_callback(self, request, response):
+        legs_ids = request.legs.data
+        duration = request.duration
+        trajectory_type = request.trajectory_type
+        legs_goal_positions = custom_interface_helper.unpack_2d_array_message(request.goal_positions)
+        spider_pose = request.spider_pose.data
+
+        with self.legs_states_locker:
+            legs_current_positions = self.legs_local_positions
+
+        x_d = np.zeros((len(legs_ids), int(duration / self.PERIOD), 3), dtype = np.float32)
+        dx_d = np.zeros((len(legs_ids), int(duration / self.PERIOD), 3), dtype = np.float32)
+        ddx_d = np.zeros((len(legs_ids), int(duration / self.PERIOD), 3) , dtype = np.float32)
+
+        for leg in legs_ids:
+            if leg not in spider.LEGS_IDS:
+                response.success = False
+                return response
+            
+            self.command_queues[leg] = queue.Queue()
         
+        for idx, leg in enumerate(legs_ids):
+            event = threading.Event()
+            def done_callback(_):
+                nonlocal event
+                event.set()
+
+            get_trajectory_request = custom_interface_helper.prepare_trajectory_request((legs_current_positions[idx], legs_goal_positions[idx], duration, trajectory_type))
+
+            future = self.leg_trajectory_client.call_async(get_trajectory_request)
+            future.add_done_callback(done_callback)
+            event.wait()
+            trajectory_response = future.result()
+
+            position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
+            print(position_trajectory)
+            velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
+            acceleration_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.acceleration_trajectory)
+
+            x_d[idx] = position_trajectory[:, :3]
+            dx_d[idx] = velocity_trajectory[:, :3]
+            ddx_d[idx] = acceleration_trajectory[:, :3]
+
+        for i in range(len(x_d[0])):
+            for idx, leg in enumerate(legs_ids):
+                self.command_queues[leg].put([x_d[idx][i], dx_d[idx][i], ddx_d[idx][i]])
+
+        for leg in legs_ids:
+            self.command_queues[leg].put(self.sentinel)
+        
+        response.success = True
+        return response
+ 
     def read_legs_states_callback(self, msg):
         with self.legs_states_locker:
             self.joints_positions = np.reshape(msg.joints_positions.data, (msg.joints_positions.layout.dim[0].size, msg.joints_positions.layout.dim[1].size))
@@ -141,9 +198,11 @@ class JointVelocityController(Node):
             try:
                 queue_data = self.command_queues[leg].get(False)
                 if queue_data is not self.sentinel:
-                    self.last_legs_positions[leg] = queue_data[0]
+                    with self.legs_last_positons_locker:
+                        self.last_legs_positions[leg] = queue_data[0]
                 if queue_data is self.sentinel:
-                    x_d[leg] = np.copy(self.last_legs_positions[leg])
+                    with self.legs_last_positons_locker:
+                        x_d[leg] = np.copy(self.last_legs_positions[leg])
                     dx_d[leg] = np.zeros(3, dtype = np.float32)
                     ddx_d[leg] = np.zeros(3, dtype = np.float32)
                 else:
@@ -151,7 +210,8 @@ class JointVelocityController(Node):
                     dx_d[leg] = queue_data[1]
                     ddx_d[leg] = queue_data[2]
             except queue.Empty:
-                x_d[leg] = np.copy(self.last_legs_positions[leg])
+                with self.legs_last_positons_locker:
+                    x_d[leg] = np.copy(self.last_legs_positions[leg])
                 dx_d[leg] = np.zeros(3, dtype = np.float32)
                 ddx_d[leg] = np.zeros(3, dtype = np.float32)
 

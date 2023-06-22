@@ -99,6 +99,7 @@ rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: rosidl_adapter/gw
 rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: rosidl_adapter/gwpspider_interfaces/srv/GetLegTrajectory.idl
 rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: rosidl_adapter/gwpspider_interfaces/srv/RebootMotors.idl
 rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: rosidl_adapter/gwpspider_interfaces/srv/MoveLeg.idl
+rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: rosidl_adapter/gwpspider_interfaces/srv/MoveSpider.idl
 rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
@@ -335,6 +336,18 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__struct.h: rosidl_ge
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h
 
+rosidl_generator_c/gwpspider_interfaces/srv/move_spider.h: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/move_spider.h
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.h: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.h
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__struct.h: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__struct.h
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__type_support.h: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__type_support.h
+
 rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__functions.c: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__functions.c
 
@@ -385,6 +398,9 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c: r
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c: rosidl_generator_c/gwpspider_interfaces/msg/gripper_command.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c
 
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__functions.c.o: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/flags.make
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__functions.c.o: rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__functions.c
@@ -624,6 +640,20 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpsp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c -o CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c.s
 
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/flags.make
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o -MF CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o.d -o CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o -c /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c
+
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c > CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.i
+
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c -o CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.s
+
 # Object files for target gwpspider_interfaces__rosidl_generator_c
 gwpspider_interfaces__rosidl_generator_c_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_command__functions.c.o" \
@@ -642,7 +672,8 @@ gwpspider_interfaces__rosidl_generator_c_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__functions.c.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.c.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o" \
-"CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c.o"
+"CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c.o" \
+"CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o"
 
 # External object files for target gwpspider_interfaces__rosidl_generator_c
 gwpspider_interfaces__rosidl_generator_c_EXTERNAL_OBJECTS =
@@ -664,13 +695,14 @@ libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces_
 libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.c.o
 libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o
 libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.c.o
+libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c.o
 libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/build.make
 libgwpspider_interfaces__rosidl_generator_c.so: /opt/ros/humble/lib/libstd_msgs__rosidl_generator_c.so
 libgwpspider_interfaces__rosidl_generator_c.so: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_c.so
 libgwpspider_interfaces__rosidl_generator_c.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 libgwpspider_interfaces__rosidl_generator_c.so: /opt/ros/humble/lib/librcutils.so
 libgwpspider_interfaces__rosidl_generator_c.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking C shared library libgwpspider_interfaces__rosidl_generator_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking C shared library libgwpspider_interfaces__rosidl_generator_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -745,6 +777,10 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__functions.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__struct.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg__type_support.h
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.c
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__functions.h
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__struct.h
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/move_spider__type_support.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__struct.h
@@ -763,6 +799,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/init_bno.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/move_gripper.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/move_leg.h
+CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/move_spider.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/reboot_motors.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/set_bus_watchdog.h
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/gwpspider_interfaces/srv/toggle_motors_torque.h

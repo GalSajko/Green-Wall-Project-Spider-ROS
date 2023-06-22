@@ -32,6 +32,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_move_leg.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_move_spider.py"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_move_spider_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog.py"

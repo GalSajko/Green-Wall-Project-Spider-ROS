@@ -1,6 +1,7 @@
 import numpy as np
 
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
+from gwpspider_interfaces.srv import GetLegTrajectory
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -49,3 +50,15 @@ def unpack_3d_array_message(msg):
     reshaped_data = np.reshape(data, shape)
 
     return reshaped_data
+
+def prepare_trajectory_request(request_data):
+    current_position, goal_position, duration, trajectory_type = request_data
+
+    request = GetLegTrajectory.Request()
+    request.current_position = Float32MultiArray(data = current_position)
+    request.goal_position = Float32MultiArray(data = goal_position)
+    request.duration = duration
+    request.trajectory_type = trajectory_type
+
+    return request
+

@@ -34,6 +34,7 @@ set(srv_files
   "srv/GetLegTrajectory.srv"
   "srv/RebootMotors.srv"
   "srv/MoveLeg.srv"
+  "srv/MoveSpider.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

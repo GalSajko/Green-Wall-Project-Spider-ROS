@@ -86,6 +86,7 @@ gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_p
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory.py
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors.py
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_leg.py
+gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_spider.py
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/msg/__init__.py
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/__init__.py
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/msg/_gripper_command_s.c
@@ -105,6 +106,7 @@ gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_p
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory_s.c
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c
 gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c
+gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_spider_s.c
 
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/lib/rosidl_generator_py/rosidl_generator_py
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_generator_py/__init__.py
@@ -136,6 +138,7 @@ rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_types
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/gwpspider_interfaces/srv/GetLegTrajectory.idl
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/gwpspider_interfaces/srv/RebootMotors.idl
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/gwpspider_interfaces/srv/MoveLeg.idl
+rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/gwpspider_interfaces/srv/MoveSpider.idl
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
@@ -228,6 +231,9 @@ rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors.py: rosidl_generator
 rosidl_generator_py/gwpspider_interfaces/srv/_move_leg.py: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/gwpspider_interfaces/srv/_move_leg.py
 
+rosidl_generator_py/gwpspider_interfaces/srv/_move_spider.py: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/gwpspider_interfaces/srv/_move_spider.py
+
 rosidl_generator_py/gwpspider_interfaces/msg/__init__.py: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/gwpspider_interfaces/msg/__init__.py
 
@@ -285,6 +291,9 @@ rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c: rosidl_generato
 rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c
 
+rosidl_generator_py/gwpspider_interfaces/srv/_move_spider_s.c: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/gwpspider_interfaces/srv/_move_spider_s.c
+
 gwpspider_interfaces__py: gwpspider_interfaces__py/CMakeFiles/gwpspider_interfaces__py
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_c.c
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
@@ -319,6 +328,8 @@ gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_gri
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_leg.py
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c
+gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_spider.py
+gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_move_spider_s.c
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors.py
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c
 gwpspider_interfaces__py: rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog.py

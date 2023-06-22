@@ -32,7 +32,7 @@ class LegsStatesPublisher(Node):
         self.force_counter = 0
 
         self.legs_states_publisher = self.create_publisher(LegsStates, 'legs_states', 1)
-        self.timer = self.create_timer(0, self.publish_legs_states_callback)
+        self.timer = self.create_timer(0.005, self.publish_legs_states_callback)
 
     def publish_legs_states_callback(self):
         with self.legs_states_msg_locker:

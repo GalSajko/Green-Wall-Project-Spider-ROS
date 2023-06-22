@@ -5,6 +5,7 @@ from gwpspider_interfaces.srv._get_walking_instructions import GetWalkingInstruc
 from gwpspider_interfaces.srv._init_bno import InitBno  # noqa: F401
 from gwpspider_interfaces.srv._move_gripper import MoveGripper  # noqa: F401
 from gwpspider_interfaces.srv._move_leg import MoveLeg  # noqa: F401
+from gwpspider_interfaces.srv._move_spider import MoveSpider  # noqa: F401
 from gwpspider_interfaces.srv._reboot_motors import RebootMotors  # noqa: F401
 from gwpspider_interfaces.srv._set_bus_watchdog import SetBusWatchdog  # noqa: F401
 from gwpspider_interfaces.srv._toggle_motors_torque import ToggleMotorsTorque  # noqa: F401

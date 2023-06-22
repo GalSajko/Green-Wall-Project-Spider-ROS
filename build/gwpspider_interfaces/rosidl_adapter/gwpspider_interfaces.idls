@@ -15,3 +15,4 @@
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/GetLegTrajectory.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/RebootMotors.idl
 /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/MoveLeg.idl
+/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/MoveSpider.idl
