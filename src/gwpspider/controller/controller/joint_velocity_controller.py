@@ -106,6 +106,7 @@ class JointVelocityController(Node):
         response.success = True
         return response
 
+
     def move_spider_callback(self, request, response):
         legs_ids = request.legs.data
         duration = request.duration
