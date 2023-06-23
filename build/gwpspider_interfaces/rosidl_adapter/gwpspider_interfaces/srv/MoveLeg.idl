@@ -13,7 +13,13 @@ module gwpspider_interfaces {
 
       string trajectory_type;
 
+      string origin;
+
       float duration;
+
+      boolean is_offset;
+
+      std_msgs::msg::Float32MultiArray spider_pose;
     };
     struct MoveLeg_Response {
       boolean success;

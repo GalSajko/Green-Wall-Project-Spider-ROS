@@ -12,18 +12,21 @@ from std_msgs.msg import Float32MultiArray
 from configuration import config, spider
 from utils import custom_interface_helper
 from calculations import kinematics as kin
+from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController
 
 class JointVelocityController(Node):
     def __init__(self):
         Node.__init__(self, 'joint_velocity_controller')
 
+        self.legs_last_positons_locker = threading.Lock()
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.last_legs_position_errors = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.do_init = True
-        self.legs_last_positons_locker = threading.Lock()
+        self.toggle_controller_locker = threading.Lock()
+        self.do_run = True
 
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         self.sentinel = object()
@@ -39,6 +42,8 @@ class JointVelocityController(Node):
 
         self.legs_states_subscriber = self.create_subscription(LegsStates, 'legs_states', self.read_legs_states_callback, 1)
 
+        self.toggle_controller_service = self.create_service(ToggleController, 'toggle_controller_service', self.toggle_controller_callback)
+
         self.callback_group = ReentrantCallbackGroup()
         self.move_leg_service = self.create_service(MoveLeg, 'move_leg_service', self.move_leg_callback, callback_group = self.callback_group)
         self.move_spider_service = self.create_service(MoveSpider, 'move_spider_service', self.move_spider_callback, callback_group = self.callback_group)
@@ -52,18 +57,26 @@ class JointVelocityController(Node):
         return 1.0 / config.CONTROLLER_FREQUENCY
     
     def controller_callback(self):
-        x_d, dx_d, ddx_d = self.__get_pos_vel_acc_from_queues()
         with self.legs_states_locker:
             x_a = self.legs_local_positions
             q_a = self.joints_positions
+        
+        with self.toggle_controller_locker:
+            do_run = self.do_run
 
-        if self.do_init:
-            with self.legs_last_positons_locker:
-                self.last_legs_positions = x_a
-            self.do_init = False
+        if do_run:
+            if self.do_init:
+                with self.legs_last_positons_locker:
+                    self.last_legs_positions = x_a
+                self.do_init = False
 
-        dx_c, self.last_legs_position_errors = self.__ee_position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
-        dq_c = kin.get_joints_velocities(q_a, dx_c)
+            x_d, dx_d, ddx_d = self.__get_pos_vel_acc_from_queues()
+
+            dx_c, self.last_legs_position_errors = self.__ee_position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
+            dq_c = kin.get_joints_velocities(q_a, dx_c)
+        
+        else:
+            dq_c = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG))
 
         msg = custom_interface_helper.create_multiple_2d_array_messages([dq_c])
         self.controller_publisher.publish(msg)
@@ -73,8 +86,21 @@ class JointVelocityController(Node):
         duration = request.duration
         goal_position = request.goal_position.data
         trajectory_type = request.trajectory_type
+        origin = request.origin
+        is_offset = request.is_offset
+        spider_pose = request.spider_pose.data
 
         if leg_id not in spider.LEGS_IDS:
+            response.success = False
+            return response
+        
+        if origin not in (config.LEG_ORIGIN, config.GLOBAL_ORIGIN):
+            print(f"Origin '{origin}' not recognized.")
+            response.success = False
+            return response
+        
+        if origin == config.GLOBAL_ORIGIN and len(spider_pose) == 0:
+            print("If goal position is given in global origin, spider pose should also be given.")
             response.success = False
             return response
 
@@ -86,7 +112,9 @@ class JointVelocityController(Node):
             nonlocal event
             event.set()
         
-        get_trajectory_request = custom_interface_helper.prepare_trajectory_request((leg_current_position, goal_position, duration, trajectory_type))
+        leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg_id, leg_current_position, goal_position, origin, is_offset, spider_pose)
+
+        get_trajectory_request = custom_interface_helper.prepare_trajectory_request((leg_current_position, leg_goal_position_in_local, duration, trajectory_type))
 
         future = self.leg_trajectory_client.call_async(get_trajectory_request)
         future.add_done_callback(done_callback)
@@ -110,8 +138,24 @@ class JointVelocityController(Node):
         legs_ids = request.legs.data
         duration = request.duration
         trajectory_type = request.trajectory_type
+        origin = request.origin
         legs_goal_positions = custom_interface_helper.unpack_2d_array_message(request.goal_positions)
         spider_pose = request.spider_pose.data
+
+        if origin not in (config.LEG_ORIGIN, config.GLOBAL_ORIGIN):
+            print(f"Origin '{origin}' not recognized.")
+            response.success = False
+            return response
+        
+        if origin == config.GLOBAL_ORIGIN and len(spider_pose) == 0:
+            print("If goal position is given in global origin, spider pose should also be given.")
+            response.success = False
+            return response
+        
+        if len(legs_ids) != len(legs_goal_positions):
+            print("Number of moving legs and given goal positions should be the same.")
+            response.success = False
+            return response
 
         with self.legs_states_locker:
             legs_current_positions = self.legs_local_positions
@@ -123,8 +167,7 @@ class JointVelocityController(Node):
         for leg in legs_ids:
             if leg not in spider.LEGS_IDS:
                 response.success = False
-                return response
-            
+                return response  
             self.command_queues[leg] = queue.Queue()
         
         for idx, leg in enumerate(legs_ids):
@@ -133,7 +176,8 @@ class JointVelocityController(Node):
                 nonlocal event
                 event.set()
 
-            get_trajectory_request = custom_interface_helper.prepare_trajectory_request((legs_current_positions[idx], legs_goal_positions[idx], duration, trajectory_type))
+            leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg, legs_current_positions[leg], legs_goal_positions[idx], origin, False, spider_pose)
+            get_trajectory_request = custom_interface_helper.prepare_trajectory_request((legs_current_positions[leg], leg_goal_position_in_local, duration, trajectory_type))
 
             future = self.leg_trajectory_client.call_async(get_trajectory_request)
             future.add_done_callback(done_callback)
@@ -141,7 +185,6 @@ class JointVelocityController(Node):
             trajectory_response = future.result()
 
             position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
-            print(position_trajectory)
             velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
             acceleration_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.acceleration_trajectory)
 
@@ -165,6 +208,20 @@ class JointVelocityController(Node):
             self.legs_local_positions = np.reshape(msg.legs_local_positions.data, (msg.legs_local_positions.layout.dim[0].size, msg.legs_local_positions.layout.dim[1].size))
             self.legs_forces = np.reshape(msg.forces.data, (msg.forces.layout.dim[0].size, msg.forces.layout.dim[1].size))
             self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
+        
+    def toggle_controller_callback(self, request, response):
+        if request.command not in (config.START_CONTROLLER_COMMAND, config.STOP_CONTROLLER_COMMAND):
+            response.success = False
+            return response
+
+        with self.toggle_controller_locker:
+            self.do_run = request.command == config.START_CONTROLLER_COMMAND
+        
+        if request.command == config.STOP_CONTROLLER_COMMAND:
+            self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+        
+        response.success = True
+        return response
 
     def __ee_position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """PD controller. Feed-forward velocity is used only in force mode, otherwise its values are zeros.

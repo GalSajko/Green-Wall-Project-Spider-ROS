@@ -20,9 +20,9 @@
 #include "rosidl_runtime_c/string_functions.h"
 
 ROSIDL_GENERATOR_C_IMPORT
-bool std_msgs__msg__int16_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
+bool std_msgs__msg__int8_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
 ROSIDL_GENERATOR_C_IMPORT
-PyObject * std_msgs__msg__int16_multi_array__convert_to_py(void * raw_ros_message);
+PyObject * std_msgs__msg__int8_multi_array__convert_to_py(void * raw_ros_message);
 
 ROSIDL_GENERATOR_C_EXPORT
 bool gwpspider_interfaces__srv__toggle_motors_torque__request__convert_from_py(PyObject * _pymsg, void * _ros_message)
@@ -62,7 +62,7 @@ bool gwpspider_interfaces__srv__toggle_motors_torque__request__convert_from_py(P
     if (!field) {
       return false;
     }
-    if (!std_msgs__msg__int16_multi_array__convert_from_py(field, &ros_message->legs)) {
+    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->legs)) {
       Py_DECREF(field);
       return false;
     }
@@ -107,7 +107,7 @@ PyObject * gwpspider_interfaces__srv__toggle_motors_torque__request__convert_to_
   gwpspider_interfaces__srv__ToggleMotorsTorque_Request * ros_message = (gwpspider_interfaces__srv__ToggleMotorsTorque_Request *)raw_ros_message;
   {  // legs
     PyObject * field = NULL;
-    field = std_msgs__msg__int16_multi_array__convert_to_py(&ros_message->legs);
+    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->legs);
     if (!field) {
       return NULL;
     }

@@ -12,8 +12,10 @@
 
 // Include directives for member types
 // Member `goal_position`
+// Member `spider_pose`
 #include "std_msgs/msg/detail/float32_multi_array__functions.h"
 // Member `trajectory_type`
+// Member `origin`
 #include "rosidl_runtime_c/string_functions.h"
 
 bool
@@ -33,7 +35,18 @@ gwpspider_interfaces__srv__MoveLeg_Request__init(gwpspider_interfaces__srv__Move
     gwpspider_interfaces__srv__MoveLeg_Request__fini(msg);
     return false;
   }
+  // origin
+  if (!rosidl_runtime_c__String__init(&msg->origin)) {
+    gwpspider_interfaces__srv__MoveLeg_Request__fini(msg);
+    return false;
+  }
   // duration
+  // is_offset
+  // spider_pose
+  if (!std_msgs__msg__Float32MultiArray__init(&msg->spider_pose)) {
+    gwpspider_interfaces__srv__MoveLeg_Request__fini(msg);
+    return false;
+  }
   return true;
 }
 
@@ -48,7 +61,12 @@ gwpspider_interfaces__srv__MoveLeg_Request__fini(gwpspider_interfaces__srv__Move
   std_msgs__msg__Float32MultiArray__fini(&msg->goal_position);
   // trajectory_type
   rosidl_runtime_c__String__fini(&msg->trajectory_type);
+  // origin
+  rosidl_runtime_c__String__fini(&msg->origin);
   // duration
+  // is_offset
+  // spider_pose
+  std_msgs__msg__Float32MultiArray__fini(&msg->spider_pose);
 }
 
 bool
@@ -73,8 +91,24 @@ gwpspider_interfaces__srv__MoveLeg_Request__are_equal(const gwpspider_interfaces
   {
     return false;
   }
+  // origin
+  if (!rosidl_runtime_c__String__are_equal(
+      &(lhs->origin), &(rhs->origin)))
+  {
+    return false;
+  }
   // duration
   if (lhs->duration != rhs->duration) {
+    return false;
+  }
+  // is_offset
+  if (lhs->is_offset != rhs->is_offset) {
+    return false;
+  }
+  // spider_pose
+  if (!std_msgs__msg__Float32MultiArray__are_equal(
+      &(lhs->spider_pose), &(rhs->spider_pose)))
+  {
     return false;
   }
   return true;
@@ -102,8 +136,22 @@ gwpspider_interfaces__srv__MoveLeg_Request__copy(
   {
     return false;
   }
+  // origin
+  if (!rosidl_runtime_c__String__copy(
+      &(input->origin), &(output->origin)))
+  {
+    return false;
+  }
   // duration
   output->duration = input->duration;
+  // is_offset
+  output->is_offset = input->is_offset;
+  // spider_pose
+  if (!std_msgs__msg__Float32MultiArray__copy(
+      &(input->spider_pose), &(output->spider_pose)))
+  {
+    return false;
+  }
   return true;
 }
 

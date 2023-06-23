@@ -18,6 +18,7 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetLegTrajectory.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/RebootMotors.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveLeg.srv",
-    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveSpider.srv"
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveSpider.srv",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/ToggleController.srv"
   ]
 }

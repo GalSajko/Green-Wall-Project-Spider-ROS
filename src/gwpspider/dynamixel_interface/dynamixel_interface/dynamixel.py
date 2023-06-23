@@ -43,7 +43,7 @@ class MotorDriver(Node):
         self.__toggle_motors_torque(spider.LEGS_IDS, config.ENABLE_LEGS_COMMAND)
 
         self.toggle_torque_service = self.create_service(ToggleMotorsTorque, 'toggle_motors_torque', self.toggle_motors_torque_callback)
-        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, 'set_bus_watchdot', self.set_bus_watchdog_callback)
+        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, 'set_bus_watchdog', self.set_bus_watchdog_callback)
         self.reboot_motors_service = self.create_service(RebootMotors, 'reboot_motors', self.reboot_motors_callback)
 
         self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, 'dynamixel_motors_data', 1)
@@ -187,7 +187,7 @@ class MotorDriver(Node):
         """
         motors_array = self.motors_ids.flatten()
         for motor_id in motors_array:
-            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, request.value)
+            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, int(request.value))
             success = self.__comm_result_and_error_reader(result, error)
             if success:
                 print(f"Watchdog on motor {motor_id} has been successfully set to {request.value}")

@@ -59,6 +59,9 @@ file(REMOVE_RECURSE
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__builder.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__struct.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/set_bus_watchdog__traits.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_controller__builder.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_controller__struct.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_controller__traits.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__builder.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_motors_torque__traits.hpp"
@@ -71,6 +74,7 @@ file(REMOVE_RECURSE
   "rosidl_generator_cpp/gwpspider_interfaces/srv/move_spider.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/reboot_motors.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/set_bus_watchdog.hpp"
+  "rosidl_generator_cpp/gwpspider_interfaces/srv/toggle_controller.hpp"
   "rosidl_generator_cpp/gwpspider_interfaces/srv/toggle_motors_torque.hpp"
 )
 

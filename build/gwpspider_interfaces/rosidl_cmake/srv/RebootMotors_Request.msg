@@ -1,1 +1,1 @@
-std_msgs/Int16MultiArray motors
+std_msgs/Int8MultiArray motors

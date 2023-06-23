@@ -16,7 +16,7 @@
 
 // Include directives for member types
 // Member 'legs'
-#include "std_msgs/msg/detail/int16_multi_array__traits.hpp"
+#include "std_msgs/msg/detail/int8_multi_array__traits.hpp"
 // Member 'goal_positions'
 // Member 'spider_pose'
 #include "std_msgs/msg/detail/float32_multi_array__traits.hpp"
@@ -46,13 +46,6 @@ inline void to_flow_style_yaml(
     out << ", ";
   }
 
-  // member: spider_pose
-  {
-    out << "spider_pose: ";
-    to_flow_style_yaml(msg.spider_pose, out);
-    out << ", ";
-  }
-
   // member: trajectory_type
   {
     out << "trajectory_type: ";
@@ -60,10 +53,24 @@ inline void to_flow_style_yaml(
     out << ", ";
   }
 
+  // member: origin
+  {
+    out << "origin: ";
+    rosidl_generator_traits::value_to_yaml(msg.origin, out);
+    out << ", ";
+  }
+
   // member: duration
   {
     out << "duration: ";
     rosidl_generator_traits::value_to_yaml(msg.duration, out);
+    out << ", ";
+  }
+
+  // member: spider_pose
+  {
+    out << "spider_pose: ";
+    to_flow_style_yaml(msg.spider_pose, out);
   }
   out << "}";
 }  // NOLINT(readability/fn_size)
@@ -90,15 +97,6 @@ inline void to_block_style_yaml(
     to_block_style_yaml(msg.goal_positions, out, indentation + 2);
   }
 
-  // member: spider_pose
-  {
-    if (indentation > 0) {
-      out << std::string(indentation, ' ');
-    }
-    out << "spider_pose:\n";
-    to_block_style_yaml(msg.spider_pose, out, indentation + 2);
-  }
-
   // member: trajectory_type
   {
     if (indentation > 0) {
@@ -106,6 +104,16 @@ inline void to_block_style_yaml(
     }
     out << "trajectory_type: ";
     rosidl_generator_traits::value_to_yaml(msg.trajectory_type, out);
+    out << "\n";
+  }
+
+  // member: origin
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "origin: ";
+    rosidl_generator_traits::value_to_yaml(msg.origin, out);
     out << "\n";
   }
 
@@ -117,6 +125,15 @@ inline void to_block_style_yaml(
     out << "duration: ";
     rosidl_generator_traits::value_to_yaml(msg.duration, out);
     out << "\n";
+  }
+
+  // member: spider_pose
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "spider_pose:\n";
+    to_block_style_yaml(msg.spider_pose, out, indentation + 2);
   }
 }  // NOLINT(readability/fn_size)
 

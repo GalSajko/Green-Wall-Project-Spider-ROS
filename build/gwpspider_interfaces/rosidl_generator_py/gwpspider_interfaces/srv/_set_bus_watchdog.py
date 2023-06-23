@@ -7,8 +7,6 @@
 
 import builtins  # noqa: E402, I100
 
-import math  # noqa: E402, I100
-
 import rosidl_parser.definition  # noqa: E402, I100
 
 
@@ -61,18 +59,18 @@ class SetBusWatchdog_Request(metaclass=Metaclass_SetBusWatchdog_Request):
     ]
 
     _fields_and_field_types = {
-        'value': 'float',
+        'value': 'int32',
     }
 
     SLOT_TYPES = (
-        rosidl_parser.definition.BasicType('float'),  # noqa: E501
+        rosidl_parser.definition.BasicType('int32'),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        self.value = kwargs.get('value', float())
+        self.value = kwargs.get('value', int())
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -121,10 +119,10 @@ class SetBusWatchdog_Request(metaclass=Metaclass_SetBusWatchdog_Request):
     def value(self, value):
         if __debug__:
             assert \
-                isinstance(value, float), \
-                "The 'value' field must be of type 'float'"
-            assert not (value < -3.402823466e+38 or value > 3.402823466e+38) or math.isinf(value), \
-                "The 'value' field must be a float in [-3.402823466e+38, 3.402823466e+38]"
+                isinstance(value, int), \
+                "The 'value' field must be of type 'int'"
+            assert value >= -2147483648 and value < 2147483648, \
+                "The 'value' field must be an integer in [-2147483648, 2147483647]"
         self._value = value
 
 

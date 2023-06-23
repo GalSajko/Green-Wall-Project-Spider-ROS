@@ -34,7 +34,7 @@ void gwpspider_interfaces__srv__SetBusWatchdog_Request__rosidl_typesupport_intro
 static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__SetBusWatchdog_Request__rosidl_typesupport_introspection_c__SetBusWatchdog_Request_message_member_array[1] = {
   {
     "value",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_FLOAT,  // type
+    rosidl_typesupport_introspection_c__ROS_TYPE_INT32,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is array

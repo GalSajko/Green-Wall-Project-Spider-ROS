@@ -23,4 +23,5 @@ gwpspider_interfaces/srv/_move_leg.py
 gwpspider_interfaces/srv/_move_spider.py
 gwpspider_interfaces/srv/_reboot_motors.py
 gwpspider_interfaces/srv/_set_bus_watchdog.py
+gwpspider_interfaces/srv/_toggle_controller.py
 gwpspider_interfaces/srv/_toggle_motors_torque.py

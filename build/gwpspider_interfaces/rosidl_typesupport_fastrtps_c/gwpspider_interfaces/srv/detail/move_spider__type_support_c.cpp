@@ -34,10 +34,10 @@ extern "C"
 {
 #endif
 
-#include "rosidl_runtime_c/string.h"  // trajectory_type
-#include "rosidl_runtime_c/string_functions.h"  // trajectory_type
+#include "rosidl_runtime_c/string.h"  // origin, trajectory_type
+#include "rosidl_runtime_c/string_functions.h"  // origin, trajectory_type
 #include "std_msgs/msg/detail/float32_multi_array__functions.h"  // goal_positions, spider_pose
-#include "std_msgs/msg/detail/int16_multi_array__functions.h"  // legs
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"  // legs
 
 // forward declare type support functions
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
@@ -55,19 +55,19 @@ ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
   ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Float32MultiArray)();
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
-size_t get_serialized_size_std_msgs__msg__Int16MultiArray(
+size_t get_serialized_size_std_msgs__msg__Int8MultiArray(
   const void * untyped_ros_message,
   size_t current_alignment);
 
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
-size_t max_serialized_size_std_msgs__msg__Int16MultiArray(
+size_t max_serialized_size_std_msgs__msg__Int8MultiArray(
   bool & full_bounded,
   bool & is_plain,
   size_t current_alignment);
 
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
-  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray)();
+  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray)();
 
 
 using _MoveSpider_Request__ros_msg_type = gwpspider_interfaces__srv__MoveSpider_Request;
@@ -86,7 +86,7 @@ static bool _MoveSpider_Request__cdr_serialize(
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
       ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
       )()->data);
     if (!callbacks->cdr_serialize(
         &ros_message->legs, cdr))
@@ -109,20 +109,6 @@ static bool _MoveSpider_Request__cdr_serialize(
     }
   }
 
-  // Field name: spider_pose
-  {
-    const message_type_support_callbacks_t * callbacks =
-      static_cast<const message_type_support_callbacks_t *>(
-      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Float32MultiArray
-      )()->data);
-    if (!callbacks->cdr_serialize(
-        &ros_message->spider_pose, cdr))
-    {
-      return false;
-    }
-  }
-
   // Field name: trajectory_type
   {
     const rosidl_runtime_c__String * str = &ros_message->trajectory_type;
@@ -137,9 +123,37 @@ static bool _MoveSpider_Request__cdr_serialize(
     cdr << str->data;
   }
 
+  // Field name: origin
+  {
+    const rosidl_runtime_c__String * str = &ros_message->origin;
+    if (str->capacity == 0 || str->capacity <= str->size) {
+      fprintf(stderr, "string capacity not greater than size\n");
+      return false;
+    }
+    if (str->data[str->size] != '\0') {
+      fprintf(stderr, "string not null-terminated\n");
+      return false;
+    }
+    cdr << str->data;
+  }
+
   // Field name: duration
   {
     cdr << ros_message->duration;
+  }
+
+  // Field name: spider_pose
+  {
+    const message_type_support_callbacks_t * callbacks =
+      static_cast<const message_type_support_callbacks_t *>(
+      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Float32MultiArray
+      )()->data);
+    if (!callbacks->cdr_serialize(
+        &ros_message->spider_pose, cdr))
+    {
+      return false;
+    }
   }
 
   return true;
@@ -159,7 +173,7 @@ static bool _MoveSpider_Request__cdr_deserialize(
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
       ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
       )()->data);
     if (!callbacks->cdr_deserialize(
         cdr, &ros_message->legs))
@@ -182,20 +196,6 @@ static bool _MoveSpider_Request__cdr_deserialize(
     }
   }
 
-  // Field name: spider_pose
-  {
-    const message_type_support_callbacks_t * callbacks =
-      static_cast<const message_type_support_callbacks_t *>(
-      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Float32MultiArray
-      )()->data);
-    if (!callbacks->cdr_deserialize(
-        cdr, &ros_message->spider_pose))
-    {
-      return false;
-    }
-  }
-
   // Field name: trajectory_type
   {
     std::string tmp;
@@ -212,9 +212,39 @@ static bool _MoveSpider_Request__cdr_deserialize(
     }
   }
 
+  // Field name: origin
+  {
+    std::string tmp;
+    cdr >> tmp;
+    if (!ros_message->origin.data) {
+      rosidl_runtime_c__String__init(&ros_message->origin);
+    }
+    bool succeeded = rosidl_runtime_c__String__assign(
+      &ros_message->origin,
+      tmp.c_str());
+    if (!succeeded) {
+      fprintf(stderr, "failed to assign string into field 'origin'\n");
+      return false;
+    }
+  }
+
   // Field name: duration
   {
     cdr >> ros_message->duration;
+  }
+
+  // Field name: spider_pose
+  {
+    const message_type_support_callbacks_t * callbacks =
+      static_cast<const message_type_support_callbacks_t *>(
+      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Float32MultiArray
+      )()->data);
+    if (!callbacks->cdr_deserialize(
+        cdr, &ros_message->spider_pose))
+    {
+      return false;
+    }
   }
 
   return true;
@@ -236,26 +266,30 @@ size_t get_serialized_size_gwpspider_interfaces__srv__MoveSpider_Request(
 
   // field.name legs
 
-  current_alignment += get_serialized_size_std_msgs__msg__Int16MultiArray(
+  current_alignment += get_serialized_size_std_msgs__msg__Int8MultiArray(
     &(ros_message->legs), current_alignment);
   // field.name goal_positions
 
   current_alignment += get_serialized_size_std_msgs__msg__Float32MultiArray(
     &(ros_message->goal_positions), current_alignment);
-  // field.name spider_pose
-
-  current_alignment += get_serialized_size_std_msgs__msg__Float32MultiArray(
-    &(ros_message->spider_pose), current_alignment);
   // field.name trajectory_type
   current_alignment += padding +
     eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
     (ros_message->trajectory_type.size + 1);
+  // field.name origin
+  current_alignment += padding +
+    eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
+    (ros_message->origin.size + 1);
   // field.name duration
   {
     size_t item_size = sizeof(ros_message->duration);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
+  // field.name spider_pose
+
+  current_alignment += get_serialized_size_std_msgs__msg__Float32MultiArray(
+    &(ros_message->spider_pose), current_alignment);
 
   return current_alignment - initial_alignment;
 }
@@ -292,28 +326,13 @@ size_t max_serialized_size_gwpspider_interfaces__srv__MoveSpider_Request(
       bool inner_full_bounded;
       bool inner_is_plain;
       current_alignment +=
-        max_serialized_size_std_msgs__msg__Int16MultiArray(
+        max_serialized_size_std_msgs__msg__Int8MultiArray(
         inner_full_bounded, inner_is_plain, current_alignment);
       full_bounded &= inner_full_bounded;
       is_plain &= inner_is_plain;
     }
   }
   // member: goal_positions
-  {
-    size_t array_size = 1;
-
-
-    for (size_t index = 0; index < array_size; ++index) {
-      bool inner_full_bounded;
-      bool inner_is_plain;
-      current_alignment +=
-        max_serialized_size_std_msgs__msg__Float32MultiArray(
-        inner_full_bounded, inner_is_plain, current_alignment);
-      full_bounded &= inner_full_bounded;
-      is_plain &= inner_is_plain;
-    }
-  }
-  // member: spider_pose
   {
     size_t array_size = 1;
 
@@ -340,12 +359,39 @@ size_t max_serialized_size_gwpspider_interfaces__srv__MoveSpider_Request(
         1;
     }
   }
+  // member: origin
+  {
+    size_t array_size = 1;
+
+    full_bounded = false;
+    is_plain = false;
+    for (size_t index = 0; index < array_size; ++index) {
+      current_alignment += padding +
+        eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
+        1;
+    }
+  }
   // member: duration
   {
     size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint32_t) +
       eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
+  // member: spider_pose
+  {
+    size_t array_size = 1;
+
+
+    for (size_t index = 0; index < array_size; ++index) {
+      bool inner_full_bounded;
+      bool inner_is_plain;
+      current_alignment +=
+        max_serialized_size_std_msgs__msg__Float32MultiArray(
+        inner_full_bounded, inner_is_plain, current_alignment);
+      full_bounded &= inner_full_bounded;
+      is_plain &= inner_is_plain;
+    }
   }
 
   return current_alignment - initial_alignment;

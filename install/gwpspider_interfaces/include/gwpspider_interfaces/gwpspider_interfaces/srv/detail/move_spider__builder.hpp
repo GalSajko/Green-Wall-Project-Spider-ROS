@@ -21,16 +21,48 @@ namespace srv
 namespace builder
 {
 
+class Init_MoveSpider_Request_spider_pose
+{
+public:
+  explicit Init_MoveSpider_Request_spider_pose(::gwpspider_interfaces::srv::MoveSpider_Request & msg)
+  : msg_(msg)
+  {}
+  ::gwpspider_interfaces::srv::MoveSpider_Request spider_pose(::gwpspider_interfaces::srv::MoveSpider_Request::_spider_pose_type arg)
+  {
+    msg_.spider_pose = std::move(arg);
+    return std::move(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveSpider_Request msg_;
+};
+
 class Init_MoveSpider_Request_duration
 {
 public:
   explicit Init_MoveSpider_Request_duration(::gwpspider_interfaces::srv::MoveSpider_Request & msg)
   : msg_(msg)
   {}
-  ::gwpspider_interfaces::srv::MoveSpider_Request duration(::gwpspider_interfaces::srv::MoveSpider_Request::_duration_type arg)
+  Init_MoveSpider_Request_spider_pose duration(::gwpspider_interfaces::srv::MoveSpider_Request::_duration_type arg)
   {
     msg_.duration = std::move(arg);
-    return std::move(msg_);
+    return Init_MoveSpider_Request_spider_pose(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveSpider_Request msg_;
+};
+
+class Init_MoveSpider_Request_origin
+{
+public:
+  explicit Init_MoveSpider_Request_origin(::gwpspider_interfaces::srv::MoveSpider_Request & msg)
+  : msg_(msg)
+  {}
+  Init_MoveSpider_Request_duration origin(::gwpspider_interfaces::srv::MoveSpider_Request::_origin_type arg)
+  {
+    msg_.origin = std::move(arg);
+    return Init_MoveSpider_Request_duration(msg_);
   }
 
 private:
@@ -43,26 +75,10 @@ public:
   explicit Init_MoveSpider_Request_trajectory_type(::gwpspider_interfaces::srv::MoveSpider_Request & msg)
   : msg_(msg)
   {}
-  Init_MoveSpider_Request_duration trajectory_type(::gwpspider_interfaces::srv::MoveSpider_Request::_trajectory_type_type arg)
+  Init_MoveSpider_Request_origin trajectory_type(::gwpspider_interfaces::srv::MoveSpider_Request::_trajectory_type_type arg)
   {
     msg_.trajectory_type = std::move(arg);
-    return Init_MoveSpider_Request_duration(msg_);
-  }
-
-private:
-  ::gwpspider_interfaces::srv::MoveSpider_Request msg_;
-};
-
-class Init_MoveSpider_Request_spider_pose
-{
-public:
-  explicit Init_MoveSpider_Request_spider_pose(::gwpspider_interfaces::srv::MoveSpider_Request & msg)
-  : msg_(msg)
-  {}
-  Init_MoveSpider_Request_trajectory_type spider_pose(::gwpspider_interfaces::srv::MoveSpider_Request::_spider_pose_type arg)
-  {
-    msg_.spider_pose = std::move(arg);
-    return Init_MoveSpider_Request_trajectory_type(msg_);
+    return Init_MoveSpider_Request_origin(msg_);
   }
 
 private:
@@ -75,10 +91,10 @@ public:
   explicit Init_MoveSpider_Request_goal_positions(::gwpspider_interfaces::srv::MoveSpider_Request & msg)
   : msg_(msg)
   {}
-  Init_MoveSpider_Request_spider_pose goal_positions(::gwpspider_interfaces::srv::MoveSpider_Request::_goal_positions_type arg)
+  Init_MoveSpider_Request_trajectory_type goal_positions(::gwpspider_interfaces::srv::MoveSpider_Request::_goal_positions_type arg)
   {
     msg_.goal_positions = std::move(arg);
-    return Init_MoveSpider_Request_spider_pose(msg_);
+    return Init_MoveSpider_Request_trajectory_type(msg_);
   }
 
 private:

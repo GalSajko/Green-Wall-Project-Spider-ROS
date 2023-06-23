@@ -42,9 +42,9 @@ class Metaclass_ToggleMotorsTorque_Request(type):
             cls._TYPE_SUPPORT = module.type_support_msg__srv__toggle_motors_torque__request
             cls._DESTROY_ROS_MESSAGE = module.destroy_ros_message_msg__srv__toggle_motors_torque__request
 
-            from std_msgs.msg import Int16MultiArray
-            if Int16MultiArray.__class__._TYPE_SUPPORT is None:
-                Int16MultiArray.__class__.__import_type_support__()
+            from std_msgs.msg import Int8MultiArray
+            if Int8MultiArray.__class__._TYPE_SUPPORT is None:
+                Int8MultiArray.__class__.__import_type_support__()
 
     @classmethod
     def __prepare__(cls, name, bases, **kwargs):
@@ -64,12 +64,12 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
     ]
 
     _fields_and_field_types = {
-        'legs': 'std_msgs/Int16MultiArray',
+        'legs': 'std_msgs/Int8MultiArray',
         'command': 'string',
     }
 
     SLOT_TYPES = (
-        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int16MultiArray'),  # noqa: E501
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int8MultiArray'),  # noqa: E501
         rosidl_parser.definition.UnboundedString(),  # noqa: E501
     )
 
@@ -77,8 +77,8 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        from std_msgs.msg import Int16MultiArray
-        self.legs = kwargs.get('legs', Int16MultiArray())
+        from std_msgs.msg import Int8MultiArray
+        self.legs = kwargs.get('legs', Int8MultiArray())
         self.command = kwargs.get('command', str())
 
     def __repr__(self):
@@ -129,10 +129,10 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
     @legs.setter
     def legs(self, value):
         if __debug__:
-            from std_msgs.msg import Int16MultiArray
+            from std_msgs.msg import Int8MultiArray
             assert \
-                isinstance(value, Int16MultiArray), \
-                "The 'legs' field must be a sub message of type 'Int16MultiArray'"
+                isinstance(value, Int8MultiArray), \
+                "The 'legs' field must be a sub message of type 'Int8MultiArray'"
         self._legs = value
 
     @builtins.property

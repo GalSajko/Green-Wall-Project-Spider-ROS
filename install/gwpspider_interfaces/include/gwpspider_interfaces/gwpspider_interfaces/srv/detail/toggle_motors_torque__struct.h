@@ -19,14 +19,14 @@ extern "C"
 
 // Include directives for member types
 // Member 'legs'
-#include "std_msgs/msg/detail/int16_multi_array__struct.h"
+#include "std_msgs/msg/detail/int8_multi_array__struct.h"
 // Member 'command'
 #include "rosidl_runtime_c/string.h"
 
 /// Struct defined in srv/ToggleMotorsTorque in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__ToggleMotorsTorque_Request
 {
-  std_msgs__msg__Int16MultiArray legs;
+  std_msgs__msg__Int8MultiArray legs;
   rosidl_runtime_c__String command;
 } gwpspider_interfaces__srv__ToggleMotorsTorque_Request;
 

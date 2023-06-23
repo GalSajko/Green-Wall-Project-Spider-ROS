@@ -34,23 +34,23 @@ extern "C"
 {
 #endif
 
-#include "std_msgs/msg/detail/int16_multi_array__functions.h"  // motors
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"  // motors
 
 // forward declare type support functions
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
-size_t get_serialized_size_std_msgs__msg__Int16MultiArray(
+size_t get_serialized_size_std_msgs__msg__Int8MultiArray(
   const void * untyped_ros_message,
   size_t current_alignment);
 
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
-size_t max_serialized_size_std_msgs__msg__Int16MultiArray(
+size_t max_serialized_size_std_msgs__msg__Int8MultiArray(
   bool & full_bounded,
   bool & is_plain,
   size_t current_alignment);
 
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
-  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray)();
+  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray)();
 
 
 using _RebootMotors_Request__ros_msg_type = gwpspider_interfaces__srv__RebootMotors_Request;
@@ -69,7 +69,7 @@ static bool _RebootMotors_Request__cdr_serialize(
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
       ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
       )()->data);
     if (!callbacks->cdr_serialize(
         &ros_message->motors, cdr))
@@ -95,7 +95,7 @@ static bool _RebootMotors_Request__cdr_deserialize(
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
       ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
       )()->data);
     if (!callbacks->cdr_deserialize(
         cdr, &ros_message->motors))
@@ -123,7 +123,7 @@ size_t get_serialized_size_gwpspider_interfaces__srv__RebootMotors_Request(
 
   // field.name motors
 
-  current_alignment += get_serialized_size_std_msgs__msg__Int16MultiArray(
+  current_alignment += get_serialized_size_std_msgs__msg__Int8MultiArray(
     &(ros_message->motors), current_alignment);
 
   return current_alignment - initial_alignment;
@@ -161,7 +161,7 @@ size_t max_serialized_size_gwpspider_interfaces__srv__RebootMotors_Request(
       bool inner_full_bounded;
       bool inner_is_plain;
       current_alignment +=
-        max_serialized_size_std_msgs__msg__Int16MultiArray(
+        max_serialized_size_std_msgs__msg__Int8MultiArray(
         inner_full_bounded, inner_is_plain, current_alignment);
       full_bounded &= inner_full_bounded;
       is_plain &= inner_is_plain;

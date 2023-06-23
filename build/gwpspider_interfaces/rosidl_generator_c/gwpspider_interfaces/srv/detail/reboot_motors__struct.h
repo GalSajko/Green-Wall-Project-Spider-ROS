@@ -19,12 +19,12 @@ extern "C"
 
 // Include directives for member types
 // Member 'motors'
-#include "std_msgs/msg/detail/int16_multi_array__struct.h"
+#include "std_msgs/msg/detail/int8_multi_array__struct.h"
 
 /// Struct defined in srv/RebootMotors in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__RebootMotors_Request
 {
-  std_msgs__msg__Int16MultiArray motors;
+  std_msgs__msg__Int8MultiArray motors;
 } gwpspider_interfaces__srv__RebootMotors_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__RebootMotors_Request.

@@ -12,7 +12,7 @@
 
 // Include directives for member types
 // Member `motors`
-#include "std_msgs/msg/detail/int16_multi_array__functions.h"
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"
 
 bool
 gwpspider_interfaces__srv__RebootMotors_Request__init(gwpspider_interfaces__srv__RebootMotors_Request * msg)
@@ -21,7 +21,7 @@ gwpspider_interfaces__srv__RebootMotors_Request__init(gwpspider_interfaces__srv_
     return false;
   }
   // motors
-  if (!std_msgs__msg__Int16MultiArray__init(&msg->motors)) {
+  if (!std_msgs__msg__Int8MultiArray__init(&msg->motors)) {
     gwpspider_interfaces__srv__RebootMotors_Request__fini(msg);
     return false;
   }
@@ -35,7 +35,7 @@ gwpspider_interfaces__srv__RebootMotors_Request__fini(gwpspider_interfaces__srv_
     return;
   }
   // motors
-  std_msgs__msg__Int16MultiArray__fini(&msg->motors);
+  std_msgs__msg__Int8MultiArray__fini(&msg->motors);
 }
 
 bool
@@ -45,7 +45,7 @@ gwpspider_interfaces__srv__RebootMotors_Request__are_equal(const gwpspider_inter
     return false;
   }
   // motors
-  if (!std_msgs__msg__Int16MultiArray__are_equal(
+  if (!std_msgs__msg__Int8MultiArray__are_equal(
       &(lhs->motors), &(rhs->motors)))
   {
     return false;
@@ -62,7 +62,7 @@ gwpspider_interfaces__srv__RebootMotors_Request__copy(
     return false;
   }
   // motors
-  if (!std_msgs__msg__Int16MultiArray__copy(
+  if (!std_msgs__msg__Int8MultiArray__copy(
       &(input->motors), &(output->motors)))
   {
     return false;

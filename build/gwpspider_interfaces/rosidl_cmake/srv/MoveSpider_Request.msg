@@ -1,5 +1,6 @@
-std_msgs/Int16MultiArray legs
+std_msgs/Int8MultiArray legs
 std_msgs/Float32MultiArray goal_positions
-std_msgs/Float32MultiArray spider_pose
 string trajectory_type
+string origin
 float32 duration
+std_msgs/Float32MultiArray spider_pose

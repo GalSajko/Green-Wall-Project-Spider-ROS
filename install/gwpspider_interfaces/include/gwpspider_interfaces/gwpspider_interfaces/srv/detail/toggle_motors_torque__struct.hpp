@@ -17,7 +17,7 @@
 
 // Include directives for member types
 // Member 'legs'
-#include "std_msgs/msg/detail/int16_multi_array__struct.hpp"
+#include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
 
 #ifndef _WIN32
 # define DEPRECATED__gwpspider_interfaces__srv__ToggleMotorsTorque_Request __attribute__((deprecated))
@@ -60,7 +60,7 @@ struct ToggleMotorsTorque_Request_
 
   // field types and members
   using _legs_type =
-    std_msgs::msg::Int16MultiArray_<ContainerAllocator>;
+    std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
   _legs_type legs;
   using _command_type =
     std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
@@ -68,7 +68,7 @@ struct ToggleMotorsTorque_Request_
 
   // setters for named parameter idiom
   Type & set__legs(
-    const std_msgs::msg::Int16MultiArray_<ContainerAllocator> & _arg)
+    const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
   {
     this->legs = _arg;
     return *this;

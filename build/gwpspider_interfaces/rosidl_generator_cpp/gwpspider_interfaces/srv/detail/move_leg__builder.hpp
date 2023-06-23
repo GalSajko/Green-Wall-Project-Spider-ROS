@@ -21,16 +21,64 @@ namespace srv
 namespace builder
 {
 
+class Init_MoveLeg_Request_spider_pose
+{
+public:
+  explicit Init_MoveLeg_Request_spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
+  : msg_(msg)
+  {}
+  ::gwpspider_interfaces::srv::MoveLeg_Request spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request::_spider_pose_type arg)
+  {
+    msg_.spider_pose = std::move(arg);
+    return std::move(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveLeg_Request msg_;
+};
+
+class Init_MoveLeg_Request_is_offset
+{
+public:
+  explicit Init_MoveLeg_Request_is_offset(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
+  : msg_(msg)
+  {}
+  Init_MoveLeg_Request_spider_pose is_offset(::gwpspider_interfaces::srv::MoveLeg_Request::_is_offset_type arg)
+  {
+    msg_.is_offset = std::move(arg);
+    return Init_MoveLeg_Request_spider_pose(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveLeg_Request msg_;
+};
+
 class Init_MoveLeg_Request_duration
 {
 public:
   explicit Init_MoveLeg_Request_duration(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
   : msg_(msg)
   {}
-  ::gwpspider_interfaces::srv::MoveLeg_Request duration(::gwpspider_interfaces::srv::MoveLeg_Request::_duration_type arg)
+  Init_MoveLeg_Request_is_offset duration(::gwpspider_interfaces::srv::MoveLeg_Request::_duration_type arg)
   {
     msg_.duration = std::move(arg);
-    return std::move(msg_);
+    return Init_MoveLeg_Request_is_offset(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveLeg_Request msg_;
+};
+
+class Init_MoveLeg_Request_origin
+{
+public:
+  explicit Init_MoveLeg_Request_origin(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
+  : msg_(msg)
+  {}
+  Init_MoveLeg_Request_duration origin(::gwpspider_interfaces::srv::MoveLeg_Request::_origin_type arg)
+  {
+    msg_.origin = std::move(arg);
+    return Init_MoveLeg_Request_duration(msg_);
   }
 
 private:
@@ -43,10 +91,10 @@ public:
   explicit Init_MoveLeg_Request_trajectory_type(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
   : msg_(msg)
   {}
-  Init_MoveLeg_Request_duration trajectory_type(::gwpspider_interfaces::srv::MoveLeg_Request::_trajectory_type_type arg)
+  Init_MoveLeg_Request_origin trajectory_type(::gwpspider_interfaces::srv::MoveLeg_Request::_trajectory_type_type arg)
   {
     msg_.trajectory_type = std::move(arg);
-    return Init_MoveLeg_Request_duration(msg_);
+    return Init_MoveLeg_Request_origin(msg_);
   }
 
 private:

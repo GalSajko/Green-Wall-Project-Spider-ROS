@@ -33,6 +33,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.cpp.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.cpp.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_motors_torque__type_support.cpp.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_motors_torque__type_support.cpp.o.d"
   "libgwpspider_interfaces__rosidl_typesupport_c.pdb"
@@ -54,6 +56,7 @@ file(REMOVE_RECURSE
   "rosidl_typesupport_c/gwpspider_interfaces/srv/move_spider__type_support.cpp"
   "rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp"
   "rosidl_typesupport_c/gwpspider_interfaces/srv/set_bus_watchdog__type_support.cpp"
+  "rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp"
   "rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_motors_torque__type_support.cpp"
 )
 

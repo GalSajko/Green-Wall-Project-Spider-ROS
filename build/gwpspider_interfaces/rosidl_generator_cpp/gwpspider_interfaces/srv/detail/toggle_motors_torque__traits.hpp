@@ -16,7 +16,7 @@
 
 // Include directives for member types
 // Member 'legs'
-#include "std_msgs/msg/detail/int16_multi_array__traits.hpp"
+#include "std_msgs/msg/detail/int8_multi_array__traits.hpp"
 
 namespace gwpspider_interfaces
 {

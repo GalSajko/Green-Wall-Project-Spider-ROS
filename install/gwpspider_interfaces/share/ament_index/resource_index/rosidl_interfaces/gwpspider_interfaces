@@ -52,6 +52,10 @@ srv/SetBusWatchdog.idl
 srv/SetBusWatchdog.srv
 srv/SetBusWatchdog_Request.msg
 srv/SetBusWatchdog_Response.msg
+srv/ToggleController.idl
+srv/ToggleController.srv
+srv/ToggleController_Request.msg
+srv/ToggleController_Response.msg
 srv/ToggleMotorsTorque.idl
 srv/ToggleMotorsTorque.srv
 srv/ToggleMotorsTorque_Request.msg

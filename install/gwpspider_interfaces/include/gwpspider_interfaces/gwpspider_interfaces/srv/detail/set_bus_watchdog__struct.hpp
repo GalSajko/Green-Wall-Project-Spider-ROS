@@ -38,7 +38,7 @@ struct SetBusWatchdog_Request_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->value = 0.0f;
+      this->value = 0l;
     }
   }
 
@@ -48,18 +48,18 @@ struct SetBusWatchdog_Request_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->value = 0.0f;
+      this->value = 0l;
     }
   }
 
   // field types and members
   using _value_type =
-    float;
+    int32_t;
   _value_type value;
 
   // setters for named parameter idiom
   Type & set__value(
-    const float & _arg)
+    const int32_t & _arg)
   {
     this->value = _arg;
     return *this;

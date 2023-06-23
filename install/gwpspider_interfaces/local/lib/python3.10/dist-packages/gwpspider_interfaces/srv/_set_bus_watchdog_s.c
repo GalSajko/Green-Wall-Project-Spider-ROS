@@ -55,8 +55,8 @@ bool gwpspider_interfaces__srv__set_bus_watchdog__request__convert_from_py(PyObj
     if (!field) {
       return false;
     }
-    assert(PyFloat_Check(field));
-    ros_message->value = (float)PyFloat_AS_DOUBLE(field);
+    assert(PyLong_Check(field));
+    ros_message->value = (int32_t)PyLong_AsLong(field);
     Py_DECREF(field);
   }
 
@@ -83,7 +83,7 @@ PyObject * gwpspider_interfaces__srv__set_bus_watchdog__request__convert_to_py(v
   gwpspider_interfaces__srv__SetBusWatchdog_Request * ros_message = (gwpspider_interfaces__srv__SetBusWatchdog_Request *)raw_ros_message;
   {  // value
     PyObject * field = NULL;
-    field = PyFloat_FromDouble(ros_message->value);
+    field = PyLong_FromLong(ros_message->value);
     {
       int rc = PyObject_SetAttrString(_pymessage, "value", field);
       Py_DECREF(field);

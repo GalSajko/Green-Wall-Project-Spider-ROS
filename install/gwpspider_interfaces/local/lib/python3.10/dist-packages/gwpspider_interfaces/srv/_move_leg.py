@@ -64,21 +64,30 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         '_leg',
         '_goal_position',
         '_trajectory_type',
+        '_origin',
         '_duration',
+        '_is_offset',
+        '_spider_pose',
     ]
 
     _fields_and_field_types = {
         'leg': 'int8',
         'goal_position': 'std_msgs/Float32MultiArray',
         'trajectory_type': 'string',
+        'origin': 'string',
         'duration': 'float',
+        'is_offset': 'boolean',
+        'spider_pose': 'std_msgs/Float32MultiArray',
     }
 
     SLOT_TYPES = (
         rosidl_parser.definition.BasicType('int8'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
         rosidl_parser.definition.UnboundedString(),  # noqa: E501
+        rosidl_parser.definition.UnboundedString(),  # noqa: E501
         rosidl_parser.definition.BasicType('float'),  # noqa: E501
+        rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
@@ -89,7 +98,11 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         from std_msgs.msg import Float32MultiArray
         self.goal_position = kwargs.get('goal_position', Float32MultiArray())
         self.trajectory_type = kwargs.get('trajectory_type', str())
+        self.origin = kwargs.get('origin', str())
         self.duration = kwargs.get('duration', float())
+        self.is_offset = kwargs.get('is_offset', bool())
+        from std_msgs.msg import Float32MultiArray
+        self.spider_pose = kwargs.get('spider_pose', Float32MultiArray())
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -126,7 +139,13 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
             return False
         if self.trajectory_type != other.trajectory_type:
             return False
+        if self.origin != other.origin:
+            return False
         if self.duration != other.duration:
+            return False
+        if self.is_offset != other.is_offset:
+            return False
+        if self.spider_pose != other.spider_pose:
             return False
         return True
 
@@ -178,6 +197,19 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         self._trajectory_type = value
 
     @builtins.property
+    def origin(self):
+        """Message field 'origin'."""
+        return self._origin
+
+    @origin.setter
+    def origin(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, str), \
+                "The 'origin' field must be of type 'str'"
+        self._origin = value
+
+    @builtins.property
     def duration(self):
         """Message field 'duration'."""
         return self._duration
@@ -191,6 +223,33 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
             assert not (value < -3.402823466e+38 or value > 3.402823466e+38) or math.isinf(value), \
                 "The 'duration' field must be a float in [-3.402823466e+38, 3.402823466e+38]"
         self._duration = value
+
+    @builtins.property
+    def is_offset(self):
+        """Message field 'is_offset'."""
+        return self._is_offset
+
+    @is_offset.setter
+    def is_offset(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, bool), \
+                "The 'is_offset' field must be of type 'bool'"
+        self._is_offset = value
+
+    @builtins.property
+    def spider_pose(self):
+        """Message field 'spider_pose'."""
+        return self._spider_pose
+
+    @spider_pose.setter
+    def spider_pose(self, value):
+        if __debug__:
+            from std_msgs.msg import Float32MultiArray
+            assert \
+                isinstance(value, Float32MultiArray), \
+                "The 'spider_pose' field must be a sub message of type 'Float32MultiArray'"
+        self._spider_pose = value
 
 
 # Import statements for member types

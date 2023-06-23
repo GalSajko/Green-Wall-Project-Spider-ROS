@@ -48,9 +48,9 @@ class Metaclass_MoveSpider_Request(type):
             if Float32MultiArray.__class__._TYPE_SUPPORT is None:
                 Float32MultiArray.__class__.__import_type_support__()
 
-            from std_msgs.msg import Int16MultiArray
-            if Int16MultiArray.__class__._TYPE_SUPPORT is None:
-                Int16MultiArray.__class__.__import_type_support__()
+            from std_msgs.msg import Int8MultiArray
+            if Int8MultiArray.__class__._TYPE_SUPPORT is None:
+                Int8MultiArray.__class__.__import_type_support__()
 
     @classmethod
     def __prepare__(cls, name, bases, **kwargs):
@@ -67,39 +67,43 @@ class MoveSpider_Request(metaclass=Metaclass_MoveSpider_Request):
     __slots__ = [
         '_legs',
         '_goal_positions',
-        '_spider_pose',
         '_trajectory_type',
+        '_origin',
         '_duration',
+        '_spider_pose',
     ]
 
     _fields_and_field_types = {
-        'legs': 'std_msgs/Int16MultiArray',
+        'legs': 'std_msgs/Int8MultiArray',
         'goal_positions': 'std_msgs/Float32MultiArray',
-        'spider_pose': 'std_msgs/Float32MultiArray',
         'trajectory_type': 'string',
+        'origin': 'string',
         'duration': 'float',
+        'spider_pose': 'std_msgs/Float32MultiArray',
     }
 
     SLOT_TYPES = (
-        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int16MultiArray'),  # noqa: E501
-        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int8MultiArray'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
         rosidl_parser.definition.UnboundedString(),  # noqa: E501
+        rosidl_parser.definition.UnboundedString(),  # noqa: E501
         rosidl_parser.definition.BasicType('float'),  # noqa: E501
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        from std_msgs.msg import Int16MultiArray
-        self.legs = kwargs.get('legs', Int16MultiArray())
+        from std_msgs.msg import Int8MultiArray
+        self.legs = kwargs.get('legs', Int8MultiArray())
         from std_msgs.msg import Float32MultiArray
         self.goal_positions = kwargs.get('goal_positions', Float32MultiArray())
+        self.trajectory_type = kwargs.get('trajectory_type', str())
+        self.origin = kwargs.get('origin', str())
+        self.duration = kwargs.get('duration', float())
         from std_msgs.msg import Float32MultiArray
         self.spider_pose = kwargs.get('spider_pose', Float32MultiArray())
-        self.trajectory_type = kwargs.get('trajectory_type', str())
-        self.duration = kwargs.get('duration', float())
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -134,11 +138,13 @@ class MoveSpider_Request(metaclass=Metaclass_MoveSpider_Request):
             return False
         if self.goal_positions != other.goal_positions:
             return False
-        if self.spider_pose != other.spider_pose:
-            return False
         if self.trajectory_type != other.trajectory_type:
             return False
+        if self.origin != other.origin:
+            return False
         if self.duration != other.duration:
+            return False
+        if self.spider_pose != other.spider_pose:
             return False
         return True
 
@@ -155,10 +161,10 @@ class MoveSpider_Request(metaclass=Metaclass_MoveSpider_Request):
     @legs.setter
     def legs(self, value):
         if __debug__:
-            from std_msgs.msg import Int16MultiArray
+            from std_msgs.msg import Int8MultiArray
             assert \
-                isinstance(value, Int16MultiArray), \
-                "The 'legs' field must be a sub message of type 'Int16MultiArray'"
+                isinstance(value, Int8MultiArray), \
+                "The 'legs' field must be a sub message of type 'Int8MultiArray'"
         self._legs = value
 
     @builtins.property
@@ -176,20 +182,6 @@ class MoveSpider_Request(metaclass=Metaclass_MoveSpider_Request):
         self._goal_positions = value
 
     @builtins.property
-    def spider_pose(self):
-        """Message field 'spider_pose'."""
-        return self._spider_pose
-
-    @spider_pose.setter
-    def spider_pose(self, value):
-        if __debug__:
-            from std_msgs.msg import Float32MultiArray
-            assert \
-                isinstance(value, Float32MultiArray), \
-                "The 'spider_pose' field must be a sub message of type 'Float32MultiArray'"
-        self._spider_pose = value
-
-    @builtins.property
     def trajectory_type(self):
         """Message field 'trajectory_type'."""
         return self._trajectory_type
@@ -201,6 +193,19 @@ class MoveSpider_Request(metaclass=Metaclass_MoveSpider_Request):
                 isinstance(value, str), \
                 "The 'trajectory_type' field must be of type 'str'"
         self._trajectory_type = value
+
+    @builtins.property
+    def origin(self):
+        """Message field 'origin'."""
+        return self._origin
+
+    @origin.setter
+    def origin(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, str), \
+                "The 'origin' field must be of type 'str'"
+        self._origin = value
 
     @builtins.property
     def duration(self):
@@ -216,6 +221,20 @@ class MoveSpider_Request(metaclass=Metaclass_MoveSpider_Request):
             assert not (value < -3.402823466e+38 or value > 3.402823466e+38) or math.isinf(value), \
                 "The 'duration' field must be a float in [-3.402823466e+38, 3.402823466e+38]"
         self._duration = value
+
+    @builtins.property
+    def spider_pose(self):
+        """Message field 'spider_pose'."""
+        return self._spider_pose
+
+    @spider_pose.setter
+    def spider_pose(self, value):
+        if __debug__:
+            from std_msgs.msg import Float32MultiArray
+            assert \
+                isinstance(value, Float32MultiArray), \
+                "The 'spider_pose' field must be a sub message of type 'Float32MultiArray'"
+        self._spider_pose = value
 
 
 # Import statements for member types

@@ -16,7 +16,7 @@
 
 // Include directives for member types
 // Member 'motors'
-#include "std_msgs/msg/detail/int16_multi_array__traits.hpp"
+#include "std_msgs/msg/detail/int8_multi_array__traits.hpp"
 
 namespace gwpspider_interfaces
 {
@@ -97,11 +97,11 @@ inline const char * name<gwpspider_interfaces::srv::RebootMotors_Request>()
 
 template<>
 struct has_fixed_size<gwpspider_interfaces::srv::RebootMotors_Request>
-  : std::integral_constant<bool, has_fixed_size<std_msgs::msg::Int16MultiArray>::value> {};
+  : std::integral_constant<bool, has_fixed_size<std_msgs::msg::Int8MultiArray>::value> {};
 
 template<>
 struct has_bounded_size<gwpspider_interfaces::srv::RebootMotors_Request>
-  : std::integral_constant<bool, has_bounded_size<std_msgs::msg::Int16MultiArray>::value> {};
+  : std::integral_constant<bool, has_bounded_size<std_msgs::msg::Int8MultiArray>::value> {};
 
 template<>
 struct is_message<gwpspider_interfaces::srv::RebootMotors_Request>

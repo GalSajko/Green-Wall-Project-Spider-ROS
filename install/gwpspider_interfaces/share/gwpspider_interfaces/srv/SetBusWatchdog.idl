@@ -6,7 +6,7 @@
 module gwpspider_interfaces {
   module srv {
     struct SetBusWatchdog_Request {
-      float value;
+      int32 value;
     };
     struct SetBusWatchdog_Response {
       boolean success;

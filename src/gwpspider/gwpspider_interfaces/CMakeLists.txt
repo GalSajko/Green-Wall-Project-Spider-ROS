@@ -35,6 +35,7 @@ set(srv_files
   "srv/RebootMotors.srv"
   "srv/MoveLeg.srv"
   "srv/MoveSpider.srv"
+  "srv/ToggleController.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

@@ -16,6 +16,7 @@
 
 // Include directives for member types
 // Member 'goal_position'
+// Member 'spider_pose'
 #include "std_msgs/msg/detail/float32_multi_array__traits.hpp"
 
 namespace gwpspider_interfaces
@@ -50,10 +51,31 @@ inline void to_flow_style_yaml(
     out << ", ";
   }
 
+  // member: origin
+  {
+    out << "origin: ";
+    rosidl_generator_traits::value_to_yaml(msg.origin, out);
+    out << ", ";
+  }
+
   // member: duration
   {
     out << "duration: ";
     rosidl_generator_traits::value_to_yaml(msg.duration, out);
+    out << ", ";
+  }
+
+  // member: is_offset
+  {
+    out << "is_offset: ";
+    rosidl_generator_traits::value_to_yaml(msg.is_offset, out);
+    out << ", ";
+  }
+
+  // member: spider_pose
+  {
+    out << "spider_pose: ";
+    to_flow_style_yaml(msg.spider_pose, out);
   }
   out << "}";
 }  // NOLINT(readability/fn_size)
@@ -91,6 +113,16 @@ inline void to_block_style_yaml(
     out << "\n";
   }
 
+  // member: origin
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "origin: ";
+    rosidl_generator_traits::value_to_yaml(msg.origin, out);
+    out << "\n";
+  }
+
   // member: duration
   {
     if (indentation > 0) {
@@ -99,6 +131,25 @@ inline void to_block_style_yaml(
     out << "duration: ";
     rosidl_generator_traits::value_to_yaml(msg.duration, out);
     out << "\n";
+  }
+
+  // member: is_offset
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "is_offset: ";
+    rosidl_generator_traits::value_to_yaml(msg.is_offset, out);
+    out << "\n";
+  }
+
+  // member: spider_pose
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "spider_pose:\n";
+    to_block_style_yaml(msg.spider_pose, out, indentation + 2);
   }
 }  // NOLINT(readability/fn_size)
 

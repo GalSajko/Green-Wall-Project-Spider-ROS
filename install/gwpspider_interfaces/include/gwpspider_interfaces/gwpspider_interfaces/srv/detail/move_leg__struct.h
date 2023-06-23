@@ -19,8 +19,10 @@ extern "C"
 
 // Include directives for member types
 // Member 'goal_position'
+// Member 'spider_pose'
 #include "std_msgs/msg/detail/float32_multi_array__struct.h"
 // Member 'trajectory_type'
+// Member 'origin'
 #include "rosidl_runtime_c/string.h"
 
 /// Struct defined in srv/MoveLeg in the package gwpspider_interfaces.
@@ -29,7 +31,10 @@ typedef struct gwpspider_interfaces__srv__MoveLeg_Request
   int8_t leg;
   std_msgs__msg__Float32MultiArray goal_position;
   rosidl_runtime_c__String trajectory_type;
+  rosidl_runtime_c__String origin;
   float duration;
+  bool is_offset;
+  std_msgs__msg__Float32MultiArray spider_pose;
 } gwpspider_interfaces__srv__MoveLeg_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__MoveLeg_Request.

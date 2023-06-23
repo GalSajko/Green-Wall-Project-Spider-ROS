@@ -38,6 +38,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.c"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_toggle_controller.py"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_toggle_controller_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_toggle_motors_torque.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_toggle_motors_torque_s.c"
   "CMakeFiles/gwpspider_interfaces__py"

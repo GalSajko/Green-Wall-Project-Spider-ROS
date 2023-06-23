@@ -17,9 +17,9 @@
 #include "gwpspider_interfaces/srv/detail/reboot_motors__functions.h"
 
 ROSIDL_GENERATOR_C_IMPORT
-bool std_msgs__msg__int16_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
+bool std_msgs__msg__int8_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
 ROSIDL_GENERATOR_C_IMPORT
-PyObject * std_msgs__msg__int16_multi_array__convert_to_py(void * raw_ros_message);
+PyObject * std_msgs__msg__int8_multi_array__convert_to_py(void * raw_ros_message);
 
 ROSIDL_GENERATOR_C_EXPORT
 bool gwpspider_interfaces__srv__reboot_motors__request__convert_from_py(PyObject * _pymsg, void * _ros_message)
@@ -59,7 +59,7 @@ bool gwpspider_interfaces__srv__reboot_motors__request__convert_from_py(PyObject
     if (!field) {
       return false;
     }
-    if (!std_msgs__msg__int16_multi_array__convert_from_py(field, &ros_message->motors)) {
+    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->motors)) {
       Py_DECREF(field);
       return false;
     }
@@ -89,7 +89,7 @@ PyObject * gwpspider_interfaces__srv__reboot_motors__request__convert_to_py(void
   gwpspider_interfaces__srv__RebootMotors_Request * ros_message = (gwpspider_interfaces__srv__RebootMotors_Request *)raw_ros_message;
   {  // motors
     PyObject * field = NULL;
-    field = std_msgs__msg__int16_multi_array__convert_to_py(&ros_message->motors);
+    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->motors);
     if (!field) {
       return NULL;
     }

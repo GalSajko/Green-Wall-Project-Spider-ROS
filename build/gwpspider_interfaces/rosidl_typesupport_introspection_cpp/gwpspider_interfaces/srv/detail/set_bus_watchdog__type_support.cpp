@@ -40,7 +40,7 @@ void SetBusWatchdog_Request_fini_function(void * message_memory)
 static const ::rosidl_typesupport_introspection_cpp::MessageMember SetBusWatchdog_Request_message_member_array[1] = {
   {
     "value",  // name
-    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_FLOAT,  // type
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT32,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array

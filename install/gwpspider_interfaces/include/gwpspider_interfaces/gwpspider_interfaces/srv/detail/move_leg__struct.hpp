@@ -17,6 +17,7 @@
 
 // Include directives for member types
 // Member 'goal_position'
+// Member 'spider_pose'
 #include "std_msgs/msg/detail/float32_multi_array__struct.hpp"
 
 #ifndef _WIN32
@@ -38,27 +39,34 @@ struct MoveLeg_Request_
   using Type = MoveLeg_Request_<ContainerAllocator>;
 
   explicit MoveLeg_Request_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : goal_position(_init)
+  : goal_position(_init),
+    spider_pose(_init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
       this->leg = 0;
       this->trajectory_type = "";
+      this->origin = "";
       this->duration = 0.0f;
+      this->is_offset = false;
     }
   }
 
   explicit MoveLeg_Request_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
   : goal_position(_alloc, _init),
-    trajectory_type(_alloc)
+    trajectory_type(_alloc),
+    origin(_alloc),
+    spider_pose(_alloc, _init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
       this->leg = 0;
       this->trajectory_type = "";
+      this->origin = "";
       this->duration = 0.0f;
+      this->is_offset = false;
     }
   }
 
@@ -72,9 +80,18 @@ struct MoveLeg_Request_
   using _trajectory_type_type =
     std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
   _trajectory_type_type trajectory_type;
+  using _origin_type =
+    std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
+  _origin_type origin;
   using _duration_type =
     float;
   _duration_type duration;
+  using _is_offset_type =
+    bool;
+  _is_offset_type is_offset;
+  using _spider_pose_type =
+    std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
+  _spider_pose_type spider_pose;
 
   // setters for named parameter idiom
   Type & set__leg(
@@ -95,10 +112,28 @@ struct MoveLeg_Request_
     this->trajectory_type = _arg;
     return *this;
   }
+  Type & set__origin(
+    const std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>> & _arg)
+  {
+    this->origin = _arg;
+    return *this;
+  }
   Type & set__duration(
     const float & _arg)
   {
     this->duration = _arg;
+    return *this;
+  }
+  Type & set__is_offset(
+    const bool & _arg)
+  {
+    this->is_offset = _arg;
+    return *this;
+  }
+  Type & set__spider_pose(
+    const std_msgs::msg::Float32MultiArray_<ContainerAllocator> & _arg)
+  {
+    this->spider_pose = _arg;
     return *this;
   }
 
@@ -153,7 +188,16 @@ struct MoveLeg_Request_
     if (this->trajectory_type != other.trajectory_type) {
       return false;
     }
+    if (this->origin != other.origin) {
+      return false;
+    }
     if (this->duration != other.duration) {
+      return false;
+    }
+    if (this->is_offset != other.is_offset) {
+      return false;
+    }
+    if (this->spider_pose != other.spider_pose) {
       return false;
     }
     return true;

@@ -20,7 +20,7 @@ extern "C"
 /// Struct defined in srv/SetBusWatchdog in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__SetBusWatchdog_Request
 {
-  float value;
+  int32_t value;
 } gwpspider_interfaces__srv__SetBusWatchdog_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__SetBusWatchdog_Request.

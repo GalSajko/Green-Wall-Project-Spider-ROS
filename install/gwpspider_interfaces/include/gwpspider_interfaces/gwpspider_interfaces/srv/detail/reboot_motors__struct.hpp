@@ -17,7 +17,7 @@
 
 // Include directives for member types
 // Member 'motors'
-#include "std_msgs/msg/detail/int16_multi_array__struct.hpp"
+#include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
 
 #ifndef _WIN32
 # define DEPRECATED__gwpspider_interfaces__srv__RebootMotors_Request __attribute__((deprecated))
@@ -51,12 +51,12 @@ struct RebootMotors_Request_
 
   // field types and members
   using _motors_type =
-    std_msgs::msg::Int16MultiArray_<ContainerAllocator>;
+    std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
   _motors_type motors;
 
   // setters for named parameter idiom
   Type & set__motors(
-    const std_msgs::msg::Int16MultiArray_<ContainerAllocator> & _arg)
+    const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
   {
     this->motors = _arg;
     return *this;

@@ -33,6 +33,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.c.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__functions.c.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__functions.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c.o.d"
   "libgwpspider_interfaces__rosidl_generator_c.pdb"
@@ -113,6 +115,10 @@ file(REMOVE_RECURSE
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__struct.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__functions.c"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__functions.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__struct.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__type_support.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h"
@@ -126,6 +132,7 @@ file(REMOVE_RECURSE
   "rosidl_generator_c/gwpspider_interfaces/srv/move_spider.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/reboot_motors.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/set_bus_watchdog.h"
+  "rosidl_generator_c/gwpspider_interfaces/srv/toggle_controller.h"
   "rosidl_generator_c/gwpspider_interfaces/srv/toggle_motors_torque.h"
 )
 
