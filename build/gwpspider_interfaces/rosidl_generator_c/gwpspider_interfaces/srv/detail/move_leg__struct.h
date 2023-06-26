@@ -35,6 +35,7 @@ typedef struct gwpspider_interfaces__srv__MoveLeg_Request
   float duration;
   bool is_offset;
   std_msgs__msg__Float32MultiArray spider_pose;
+  bool use_gripper;
 } gwpspider_interfaces__srv__MoveLeg_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__MoveLeg_Request.

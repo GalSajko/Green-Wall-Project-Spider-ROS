@@ -76,6 +76,13 @@ inline void to_flow_style_yaml(
   {
     out << "spider_pose: ";
     to_flow_style_yaml(msg.spider_pose, out);
+    out << ", ";
+  }
+
+  // member: use_gripper
+  {
+    out << "use_gripper: ";
+    rosidl_generator_traits::value_to_yaml(msg.use_gripper, out);
   }
   out << "}";
 }  // NOLINT(readability/fn_size)
@@ -150,6 +157,16 @@ inline void to_block_style_yaml(
     }
     out << "spider_pose:\n";
     to_block_style_yaml(msg.spider_pose, out, indentation + 2);
+  }
+
+  // member: use_gripper
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "use_gripper: ";
+    rosidl_generator_traits::value_to_yaml(msg.use_gripper, out);
+    out << "\n";
   }
 }  // NOLINT(readability/fn_size)
 

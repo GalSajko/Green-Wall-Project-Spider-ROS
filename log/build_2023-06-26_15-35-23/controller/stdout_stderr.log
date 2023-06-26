@@ -1,0 +1,25 @@
+running egg_info
+writing ../../../build/controller/controller.egg-info/PKG-INFO
+writing dependency_links to ../../../build/controller/controller.egg-info/dependency_links.txt
+writing entry points to ../../../build/controller/controller.egg-info/entry_points.txt
+writing requirements to ../../../build/controller/controller.egg-info/requires.txt
+writing top-level names to ../../../build/controller/controller.egg-info/top_level.txt
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+reading manifest file '../../../build/controller/controller.egg-info/SOURCES.txt'
+writing manifest file '../../../build/controller/controller.egg-info/SOURCES.txt'
+running build
+running build_py
+copying controller/joint_velocity_controller.py -> /home/spider/gwpspider_ws/build/controller/build/lib/controller
+running install
+running install_lib
+copying /home/spider/gwpspider_ws/build/controller/build/lib/controller/joint_velocity_controller.py -> /home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller
+byte-compiling /home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller/joint_velocity_controller.py to joint_velocity_controller.cpython-310.pyc
+  warnings.warn(
+running install_data
+running install_egg_info
+removing '/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../../build/controller/controller.egg-info to /home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info
+running install_scripts
+Installing joint_velocity_controller script to /home/spider/gwpspider_ws/install/controller/lib/controller
+Installing legs_states_publisher script to /home/spider/gwpspider_ws/install/controller/lib/controller
+writing list of installed files to '/home/spider/gwpspider_ws/build/controller/install.log'

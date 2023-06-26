@@ -12,6 +12,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__functions.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_controller__functions.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.h
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__functions.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__functions.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__functions.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_spider__functions.h
@@ -19,8 +20,10 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__functions.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support.h
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__struct.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.c
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__functions.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support.h
@@ -40,6 +43,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__struct.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_leg__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__functions.h
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__type_support.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_motors_torque__functions.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__struct.h
@@ -51,6 +55,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__struct.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__functions.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/get_modified_walking_instructions.h
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/distribute_forces.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/control_water_pump.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/toggle_motors_torque.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/move_gripper.h
@@ -108,6 +113,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__rosidl_typesupport_fastrtps_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__rosidl_typesupport_fastrtps_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_fastrtps_c.h
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__rosidl_typesupport_fastrtps_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__rosidl_typesupport_fastrtps_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__rosidl_typesupport_fastrtps_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
@@ -127,12 +133,14 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_introspection_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_controller__type_support.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__type_support.c
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__rosidl_typesupport_introspection_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_controller__rosidl_typesupport_introspection_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__type_support.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_spider__rosidl_typesupport_introspection_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__type_support.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__rosidl_typesupport_introspection_c.h
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__type_support.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__rosidl_typesupport_introspection_c.h
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/set_bus_watchdog__type_support.c
@@ -174,6 +182,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__builder.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_motors_torque__traits.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__struct.hpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__struct.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__traits.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__struct.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_leg__traits.hpp
@@ -187,6 +196,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__traits.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/set_bus_watchdog__struct.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__struct.hpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__builder.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__traits.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__traits.hpp
@@ -199,6 +209,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__traits.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__builder.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_spider__traits.hpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__traits.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/get_leg_trajectory.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/toggle_motors_torque.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/move_gripper.hpp
@@ -206,6 +217,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/move_spider.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/init_bno.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/control_water_pump.hpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/distribute_forces.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/get_walking_instructions.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/get_modified_walking_instructions.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/msg/gripper_command.hpp
@@ -241,6 +253,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_leg__rosidl_typesupport_fastrtps_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__rosidl_typesupport_fastrtps_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/init_bno__rosidl_typesupport_fastrtps_cpp.hpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__rosidl_typesupport_fastrtps_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_spider__rosidl_typesupport_fastrtps_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__rosidl_typesupport_fastrtps_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/reboot_motors__rosidl_typesupport_fastrtps_cpp.hpp
@@ -273,10 +286,12 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_leg_trajectory__rosidl_typesupport_introspection_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/control_water_pump__type_support.cpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.cpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__rosidl_typesupport_introspection_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_spider__rosidl_typesupport_introspection_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/set_bus_watchdog__rosidl_typesupport_introspection_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_spider__type_support.cpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/move_gripper__type_support.cpp
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/distribute_forces__type_support.cpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support.cpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/toggle_motors_torque__rosidl_typesupport_introspection_cpp.hpp
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/include/gwpspider_interfaces/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support.cpp
@@ -309,6 +324,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/gwpspider_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_typesupport_introspection_c.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/__init__.py
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_distribute_forces_s.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_move_leg.py
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_toggle_motors_torque.py
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_toggle_controller.py
@@ -318,6 +334,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_move_spider.py
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_control_water_pump.py
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_move_spider_s.c
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_distribute_forces.py
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_move_gripper_s.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/_reboot_motors_s.c
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages/gwpspider_interfaces/srv/__init__.py
@@ -374,6 +391,7 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/MoveLeg.idl
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/MoveSpider.idl
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ToggleController.idl
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/DistributeForces.idl
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/GripperCommand.msg
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/WaterPumpCommand.msg
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/msg/BnoData.msg
@@ -417,6 +435,9 @@
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ToggleController.srv
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ToggleController_Request.msg
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/ToggleController_Response.msg
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/DistributeForces.srv
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/DistributeForces_Request.msg
+/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/srv/DistributeForces_Response.msg
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/ament_index/resource_index/package_run_dependencies/gwpspider_interfaces
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/ament_index/resource_index/parent_prefix_path/gwpspider_interfaces
 /home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/environment/ament_prefix_path.sh

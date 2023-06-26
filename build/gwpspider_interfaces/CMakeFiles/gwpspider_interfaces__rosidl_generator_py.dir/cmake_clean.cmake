@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/msg/_water_pump_command_s.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c.o.d"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_distribute_forces_s.c.o"
+  "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_distribute_forces_s.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory_s.c.o"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory_s.c.o.d"
   "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_get_modified_walking_instructions_s.c.o"

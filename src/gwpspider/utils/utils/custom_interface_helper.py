@@ -1,7 +1,8 @@
 import numpy as np
 
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
-from gwpspider_interfaces.srv import GetLegTrajectory
+from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper
+from gwpspider_interfaces.msg import GripperCommand
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -59,6 +60,15 @@ def prepare_trajectory_request(request_data):
     request.goal_position = Float32MultiArray(data = goal_position)
     request.duration = duration
     request.trajectory_type = trajectory_type
+
+    return request
+
+def prepare_move_gripper_request(request_data):
+    leg, command = request_data
+
+    request = MoveGripper.Request()
+    request.instructions.leg = leg
+    request.instructions.command = command
 
     return request
 

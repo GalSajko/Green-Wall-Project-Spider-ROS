@@ -47,6 +47,7 @@ gwpspider_interfaces__srv__MoveLeg_Request__init(gwpspider_interfaces__srv__Move
     gwpspider_interfaces__srv__MoveLeg_Request__fini(msg);
     return false;
   }
+  // use_gripper
   return true;
 }
 
@@ -67,6 +68,7 @@ gwpspider_interfaces__srv__MoveLeg_Request__fini(gwpspider_interfaces__srv__Move
   // is_offset
   // spider_pose
   std_msgs__msg__Float32MultiArray__fini(&msg->spider_pose);
+  // use_gripper
 }
 
 bool
@@ -111,6 +113,10 @@ gwpspider_interfaces__srv__MoveLeg_Request__are_equal(const gwpspider_interfaces
   {
     return false;
   }
+  // use_gripper
+  if (lhs->use_gripper != rhs->use_gripper) {
+    return false;
+  }
   return true;
 }
 
@@ -152,6 +158,8 @@ gwpspider_interfaces__srv__MoveLeg_Request__copy(
   {
     return false;
   }
+  // use_gripper
+  output->use_gripper = input->use_gripper;
   return true;
 }
 

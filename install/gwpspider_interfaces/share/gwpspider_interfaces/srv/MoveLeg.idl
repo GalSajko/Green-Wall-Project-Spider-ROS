@@ -20,6 +20,8 @@ module gwpspider_interfaces {
       boolean is_offset;
 
       std_msgs::msg::Float32MultiArray spider_pose;
+
+      boolean use_gripper;
     };
     struct MoveLeg_Response {
       boolean success;

@@ -98,6 +98,8 @@ cdr_serialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.spider_pose,
     cdr);
+  // Member: use_gripper
+  cdr << (ros_message.use_gripper ? true : false);
   return true;
 }
 
@@ -133,6 +135,13 @@ cdr_deserialize(
   // Member: spider_pose
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
     cdr, ros_message.spider_pose);
+
+  // Member: use_gripper
+  {
+    uint8_t tmp;
+    cdr >> tmp;
+    ros_message.use_gripper = tmp ? true : false;
+  }
 
   return true;
 }
@@ -186,6 +195,12 @@ get_serialized_size(
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
     ros_message.spider_pose, current_alignment);
+  // Member: use_gripper
+  {
+    size_t item_size = sizeof(ros_message.use_gripper);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
 
   return current_alignment - initial_alignment;
 }
@@ -286,6 +301,13 @@ max_serialized_size_MoveLeg_Request(
       full_bounded &= inner_full_bounded;
       is_plain &= inner_is_plain;
     }
+  }
+
+  // Member: use_gripper
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint8_t);
   }
 
   return current_alignment - initial_alignment;

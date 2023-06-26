@@ -1,5 +1,7 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor
 
 import numpy as np
 import threading
@@ -17,8 +19,10 @@ class LegsStatesPublisher(Node):
     def __init__(self):
         Node.__init__(self, 'legs_states_publisher')
 
-        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, 'dynamixel_motors_data', self.calculate_legs_states_callback, 1)
-        self.bno_data_subscriber = self.create_subscription(BnoData, 'bno_readings', self.read_gravity_vector_callback, 1)
+        self.callback_group = ReentrantCallbackGroup()
+
+        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, 'dynamixel_motors_data', self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
+        self.bno_data_subscriber = self.create_subscription(BnoData, 'bno_readings', self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
 
         self.graviy_vector_locker = threading.Lock()
         self.legs_states_msg_locker = threading.Lock()
@@ -31,8 +35,8 @@ class LegsStatesPublisher(Node):
         self.tau_counter = 0
         self.force_counter = 0
 
-        self.legs_states_publisher = self.create_publisher(LegsStates, 'legs_states', 1)
-        self.timer = self.create_timer(0.005, self.publish_legs_states_callback)
+        self.legs_states_publisher = self.create_publisher(LegsStates, 'legs_states', 1, callback_group = self.callback_group)
+        self.timer = self.create_timer(0.005, self.publish_legs_states_callback, callback_group = self.callback_group)
 
     def publish_legs_states_callback(self):
         with self.legs_states_msg_locker:
@@ -65,8 +69,9 @@ class LegsStatesPublisher(Node):
 
 def main():
     rclpy.init()
+    executor = MultiThreadedExecutor()
     legs_states_publisher = LegsStatesPublisher()
-    rclpy.spin(legs_states_publisher)
+    rclpy.spin(legs_states_publisher, executor)
     rclpy.shutdown()
    
 if __name__ == '__main__':

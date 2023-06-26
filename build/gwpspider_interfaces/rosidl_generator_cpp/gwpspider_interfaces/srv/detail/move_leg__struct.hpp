@@ -50,6 +50,7 @@ struct MoveLeg_Request_
       this->origin = "";
       this->duration = 0.0f;
       this->is_offset = false;
+      this->use_gripper = false;
     }
   }
 
@@ -67,6 +68,7 @@ struct MoveLeg_Request_
       this->origin = "";
       this->duration = 0.0f;
       this->is_offset = false;
+      this->use_gripper = false;
     }
   }
 
@@ -92,6 +94,9 @@ struct MoveLeg_Request_
   using _spider_pose_type =
     std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
   _spider_pose_type spider_pose;
+  using _use_gripper_type =
+    bool;
+  _use_gripper_type use_gripper;
 
   // setters for named parameter idiom
   Type & set__leg(
@@ -134,6 +139,12 @@ struct MoveLeg_Request_
     const std_msgs::msg::Float32MultiArray_<ContainerAllocator> & _arg)
   {
     this->spider_pose = _arg;
+    return *this;
+  }
+  Type & set__use_gripper(
+    const bool & _arg)
+  {
+    this->use_gripper = _arg;
     return *this;
   }
 
@@ -198,6 +209,9 @@ struct MoveLeg_Request_
       return false;
     }
     if (this->spider_pose != other.spider_pose) {
+      return false;
+    }
+    if (this->use_gripper != other.use_gripper) {
       return false;
     }
     return true;

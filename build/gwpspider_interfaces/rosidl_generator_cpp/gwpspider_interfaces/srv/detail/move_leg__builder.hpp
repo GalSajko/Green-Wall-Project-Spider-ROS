@@ -21,16 +21,32 @@ namespace srv
 namespace builder
 {
 
+class Init_MoveLeg_Request_use_gripper
+{
+public:
+  explicit Init_MoveLeg_Request_use_gripper(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
+  : msg_(msg)
+  {}
+  ::gwpspider_interfaces::srv::MoveLeg_Request use_gripper(::gwpspider_interfaces::srv::MoveLeg_Request::_use_gripper_type arg)
+  {
+    msg_.use_gripper = std::move(arg);
+    return std::move(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveLeg_Request msg_;
+};
+
 class Init_MoveLeg_Request_spider_pose
 {
 public:
   explicit Init_MoveLeg_Request_spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
   : msg_(msg)
   {}
-  ::gwpspider_interfaces::srv::MoveLeg_Request spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request::_spider_pose_type arg)
+  Init_MoveLeg_Request_use_gripper spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request::_spider_pose_type arg)
   {
     msg_.spider_pose = std::move(arg);
-    return std::move(msg_);
+    return Init_MoveLeg_Request_use_gripper(msg_);
   }
 
 private:

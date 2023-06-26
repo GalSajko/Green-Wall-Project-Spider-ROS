@@ -20,6 +20,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/gwpspider_interfaces/srv/__init__.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_distribute_forces.py"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_distribute_forces_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_modified_walking_instructions.py"

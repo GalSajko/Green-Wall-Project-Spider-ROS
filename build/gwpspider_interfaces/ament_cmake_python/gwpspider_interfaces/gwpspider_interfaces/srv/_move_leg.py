@@ -68,6 +68,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         '_duration',
         '_is_offset',
         '_spider_pose',
+        '_use_gripper',
     ]
 
     _fields_and_field_types = {
@@ -78,6 +79,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         'duration': 'float',
         'is_offset': 'boolean',
         'spider_pose': 'std_msgs/Float32MultiArray',
+        'use_gripper': 'boolean',
     }
 
     SLOT_TYPES = (
@@ -88,6 +90,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         rosidl_parser.definition.BasicType('float'),  # noqa: E501
         rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
+        rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
@@ -103,6 +106,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         self.is_offset = kwargs.get('is_offset', bool())
         from std_msgs.msg import Float32MultiArray
         self.spider_pose = kwargs.get('spider_pose', Float32MultiArray())
+        self.use_gripper = kwargs.get('use_gripper', bool())
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -146,6 +150,8 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         if self.is_offset != other.is_offset:
             return False
         if self.spider_pose != other.spider_pose:
+            return False
+        if self.use_gripper != other.use_gripper:
             return False
         return True
 
@@ -250,6 +256,19 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
                 isinstance(value, Float32MultiArray), \
                 "The 'spider_pose' field must be a sub message of type 'Float32MultiArray'"
         self._spider_pose = value
+
+    @builtins.property
+    def use_gripper(self):
+        """Message field 'use_gripper'."""
+        return self._use_gripper
+
+    @use_gripper.setter
+    def use_gripper(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, bool), \
+                "The 'use_gripper' field must be of type 'bool'"
+        self._use_gripper = value
 
 
 # Import statements for member types

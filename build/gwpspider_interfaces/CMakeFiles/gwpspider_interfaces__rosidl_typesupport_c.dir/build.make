@@ -94,6 +94,7 @@ rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp:
 rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: rosidl_adapter/gwpspider_interfaces/srv/MoveLeg.idl
 rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: rosidl_adapter/gwpspider_interfaces/srv/MoveSpider.idl
 rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: rosidl_adapter/gwpspider_interfaces/srv/ToggleController.idl
+rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: rosidl_adapter/gwpspider_interfaces/srv/DistributeForces.idl
 rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
@@ -182,6 +183,9 @@ rosidl_typesupport_c/gwpspider_interfaces/srv/move_spider__type_support.cpp: ros
 
 rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp: rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp
+
+rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp: rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp
 
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp.o: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/flags.make
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp.o: rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp
@@ -449,6 +453,20 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/g
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp -o CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.s
 
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o: rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o -MF CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o.d -o CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o -c /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp
+
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp > CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.i
+
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp -o CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.s
+
 # Object files for target gwpspider_interfaces__rosidl_typesupport_c
 gwpspider_interfaces__rosidl_typesupport_c_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/msg/gripper_command__type_support.cpp.o" \
@@ -469,7 +487,8 @@ gwpspider_interfaces__rosidl_typesupport_c_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/reboot_motors__type_support.cpp.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/move_leg__type_support.cpp.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/move_spider__type_support.cpp.o" \
-"CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.o"
+"CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.o" \
+"CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o"
 
 # External object files for target gwpspider_interfaces__rosidl_typesupport_c
 gwpspider_interfaces__rosidl_typesupport_c_EXTERNAL_OBJECTS =
@@ -493,6 +512,7 @@ libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interface
 libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/move_leg__type_support.cpp.o
 libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/move_spider__type_support.cpp.o
 libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp.o
+libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp.o
 libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/build.make
 libgwpspider_interfaces__rosidl_typesupport_c.so: libgwpspider_interfaces__rosidl_generator_c.so
 libgwpspider_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_c.so
@@ -503,7 +523,7 @@ libgwpspider_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/libbuiltin
 libgwpspider_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 libgwpspider_interfaces__rosidl_typesupport_c.so: /opt/ros/humble/lib/librcutils.so
 libgwpspider_interfaces__rosidl_typesupport_c.so: CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX shared library libgwpspider_interfaces__rosidl_typesupport_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX shared library libgwpspider_interfaces__rosidl_typesupport_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -522,6 +542,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesup
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/msg/water_pump_command__type_support.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/srv/control_water_pump__type_support.cpp
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/srv/distribute_forces__type_support.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/srv/get_leg_trajectory__type_support.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/srv/get_modified_walking_instructions__type_support.cpp
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/gwpspider_interfaces/srv/get_walking_instructions__type_support.cpp

@@ -5,3 +5,4 @@ string origin
 float32 duration
 bool is_offset
 std_msgs/Float32MultiArray spider_pose
+bool use_gripper

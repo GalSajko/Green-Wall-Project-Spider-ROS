@@ -6,16 +6,18 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 import numpy as np
 import threading
 import queue
+import time
 
 from std_msgs.msg import Float32MultiArray
 
 from configuration import config, spider
 from utils import custom_interface_helper
 from calculations import kinematics as kin
+from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -27,6 +29,10 @@ class JointVelocityController(Node):
         self.do_init = True
         self.toggle_controller_locker = threading.Lock()
         self.do_run = True
+        self.force_mode_locker = threading.Lock()
+        self.is_force_mode = False
+        self.f_d = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+        self.force_mode_legs_ids = None
 
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         self.sentinel = object()
@@ -44,13 +50,16 @@ class JointVelocityController(Node):
 
         self.toggle_controller_service = self.create_service(ToggleController, 'toggle_controller_service', self.toggle_controller_callback)
 
-        self.callback_group = ReentrantCallbackGroup()
-        self.move_leg_service = self.create_service(MoveLeg, 'move_leg_service', self.move_leg_callback, callback_group = self.callback_group)
-        self.move_spider_service = self.create_service(MoveSpider, 'move_spider_service', self.move_spider_callback, callback_group = self.callback_group)
-        self.leg_trajectory_client = self.create_client(GetLegTrajectory, 'get_leg_trajectory', callback_group = self.callback_group)
+        self.moving_callbacks_group = ReentrantCallbackGroup()
+        self.move_leg_service = self.create_service(MoveLeg, 'move_leg_service', self.move_leg_callback, callback_group = self.moving_callbacks_group)
+        self.move_spider_service = self.create_service(MoveSpider, 'move_spider_service', self.move_spider_callback, callback_group = self.moving_callbacks_group)
+        self.leg_trajectory_client = self.create_client(GetLegTrajectory, 'get_leg_trajectory', callback_group = self.moving_callbacks_group)
+        self.move_gripper_client = self.create_client(MoveGripper, 'move_gripper_service', callback_group = self.moving_callbacks_group)
 
-        self.controller_publisher = self.create_publisher(Float32MultiArray, 'commanded_joints_velocities', 10)
-        self.timer = self.create_timer(self.PERIOD, self.controller_callback)
+        self.controller_callbacks_group = ReentrantCallbackGroup()
+        self.controller_publisher = self.create_publisher(Float32MultiArray, 'commanded_joints_velocities', 10, callback_group = self.controller_callbacks_group)
+        self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
+        self.distribute_forces_service = self.create_service(DistributeForces, 'distribute_forces_service', self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
     
     @property
     def PERIOD(self):
@@ -60,9 +69,15 @@ class JointVelocityController(Node):
         with self.legs_states_locker:
             x_a = self.legs_local_positions
             q_a = self.joints_positions
+            f_a = self.legs_forces
         
         with self.toggle_controller_locker:
             do_run = self.do_run
+
+        with self.force_mode_locker:
+            is_force_mode = self.is_force_mode
+            f_d = self.f_d
+            force_mode_legs_ids = self.force_mode_legs_ids
 
         if do_run:
             if self.do_init:
@@ -71,8 +86,26 @@ class JointVelocityController(Node):
                 self.do_init = False
 
             x_d, dx_d, ddx_d = self.__get_pos_vel_acc_from_queues()
+            
 
-            dx_c, self.last_legs_position_errors = self.__ee_position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
+            if is_force_mode:
+                legs_position_offsets_in_spider, legs_velocities_in_spider = self.__force_position_p_controller(f_d, f_a)
+                legs_position_offsets_in_local, legs_velocities_in_local = kin.get_xd_xdd_from_offsets(force_mode_legs_ids, legs_position_offsets_in_spider, legs_velocities_in_spider)
+
+                new_x_d = x_d[force_mode_legs_ids] + legs_position_offsets_in_local
+                new_x_d_norms = np.linalg.norm(new_x_d, axis = 1)
+                allowed_legs_ids = np.where(new_x_d_norms < spider.LEG_LENGTH_MAX_LIMIT)
+                on_limit_legs_ids = np.where(new_x_d_norms >= spider.LEG_LENGTH_MAX_LIMIT)
+
+                x_d[force_mode_legs_ids[allowed_legs_ids]] = new_x_d[allowed_legs_ids]
+                dx_d[force_mode_legs_ids[allowed_legs_ids]] = legs_velocities_in_local[allowed_legs_ids]
+                x_d[force_mode_legs_ids[on_limit_legs_ids]] = x_a[force_mode_legs_ids[on_limit_legs_ids]]
+
+                with self.legs_last_positons_locker:
+                    self.last_legs_positions[force_mode_legs_ids] = x_a[force_mode_legs_ids]
+
+
+            dx_c, self.last_legs_position_errors = self.__position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
             dq_c = kin.get_joints_velocities(q_a, dx_c)
         
         else:
@@ -89,6 +122,7 @@ class JointVelocityController(Node):
         origin = request.origin
         is_offset = request.is_offset
         spider_pose = request.spider_pose.data
+        use_gripper = request.use_gripper
 
         if leg_id not in spider.LEGS_IDS:
             response.success = False
@@ -120,6 +154,7 @@ class JointVelocityController(Node):
         future.add_done_callback(done_callback)
         event.wait()
         trajectory_response = future.result()
+        event.clear()
 
         position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
         velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
@@ -127,12 +162,45 @@ class JointVelocityController(Node):
 
         self.command_queues[leg_id] = queue.Queue()
 
+        if use_gripper:
+            get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, config.OPEN_GRIPPER_COMMAND))
+            future = self.move_gripper_client.call_async(get_move_gripper_request)
+            future.add_done_callback(done_callback)
+            event.wait()
+            move_gripper_response = future.result()
+            event.clear()
+
+            if not move_gripper_response.success:
+                print("Gripper did not open correctly.")
+                response.success = False
+                return response
+
         for idx, position in enumerate(position_trajectory):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        response.success = True
-        return response
+        position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
+        print(f"Position error before movement: {position_error}")
+        while np.linalg.norm(position_error) > 0.001:
+            position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
+            print(f"Position error during movement: {position_error}")
+            time.sleep(0.001)
+        
+        if use_gripper:
+            get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, config.CLOSE_GRIPPER_COMMAND))
+            future = self.move_gripper_client.call_async(get_move_gripper_request)
+            future.add_done_callback(done_callback)
+            event.wait()
+            move_gripper_response = future.result()
+            event.clear()
+            
+            if not move_gripper_response.success:
+                print("Gripper did not close correctly.")
+                response.success = False
+                return response
+        
+            response.success = True
+            return response
 
     def move_spider_callback(self, request, response):
         legs_ids = request.legs.data
@@ -222,8 +290,42 @@ class JointVelocityController(Node):
         
         response.success = True
         return response
+    
+    def distribute_forces_callback(self, request, response):
+        with self.force_mode_locker:
+            self.force_mode_legs_ids = np.array(request.legs_ids.data, dtype = np.int8)
+            self.is_force_mode = True
 
-    def __ee_position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        offload_leg_id = np.setdiff1d(spider.LEGS_IDS, request.legs_ids.data)
+        if len(offload_leg_id) > 1:
+            response.success = False
+            return response
+        
+        start_time = time.perf_counter()
+        elapsed_time = 0
+        while elapsed_time < config.FORCE_DISTRIBUTION_DURATION:
+            with self.legs_states_locker:
+                actual_torques = self.joints_torques
+                actual_angles = self.joints_positions
+            
+            distributed_forces = dyn.calculate_distributed_forces(actual_torques, actual_angles, request.legs_ids.data, offload_leg_id)
+            
+            if len(offload_leg_id):
+                distributed_forces = np.insert(distributed_forces, offload_leg_id[0], np.zeros(3, dtype = np.float32), axis = 0)
+
+            with self.force_mode_locker:
+                self.f_d = distributed_forces.astype(np.float32)
+
+            elapsed_time = time.perf_counter() - start_time
+            time.sleep(self.PERIOD)
+        
+        with self.force_mode_locker:
+            self.is_force_mode = False
+
+        response.success = True
+        return response
+
+    def __position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """PD controller. Feed-forward velocity is used only in force mode, otherwise its values are zeros.
 
         Args:
@@ -240,6 +342,22 @@ class JointVelocityController(Node):
         dx_c = np.array(self.k_p * legs_position_errors + self.k_d * dx_e + dx_d + config.K_ACC * ddx_d, dtype = np.float32)
 
         return dx_c, legs_position_errors
+
+    def __force_position_p_controller(self, f_d: np.ndarray, f_a: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        """Force-position P controller. Calculate position offsets and desired legs velocities in spider's origin from desired forces.
+
+        Args:
+            f_d (np.ndarray): 5x3 array of desired forces in spider's origin.
+            f_a (np.ndarray): 5x3 array of measured current forces in spider's origin.
+
+        Returns:
+            tuple[np.ndarray, np.ndarray]: Position offsets and velocities.
+        """
+        force_errors = f_d - f_a
+        legs_positions_in_spider = force_errors * config.K_P_FORCE
+        offsets = legs_positions_in_spider * self.PERIOD
+
+        return offsets, legs_positions_in_spider
     
     def __get_pos_vel_acc_from_queues(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Read current desired position, velocity and acceleration from queues for each leg. If leg-queue is empty, keep leg on latest position.

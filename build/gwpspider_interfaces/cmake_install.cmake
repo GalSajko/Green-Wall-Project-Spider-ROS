@@ -432,6 +432,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/DistributeForces.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/GripperCommand.msg")
 endif()
 
@@ -601,6 +605,18 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/ToggleController_Response.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/DistributeForces.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/DistributeForces_Request.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/DistributeForces_Response.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

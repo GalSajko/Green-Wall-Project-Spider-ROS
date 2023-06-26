@@ -16,6 +16,10 @@ srv/ControlWaterPump.idl
 srv/ControlWaterPump.srv
 srv/ControlWaterPump_Request.msg
 srv/ControlWaterPump_Response.msg
+srv/DistributeForces.idl
+srv/DistributeForces.srv
+srv/DistributeForces_Request.msg
+srv/DistributeForces_Response.msg
 srv/GetLegTrajectory.idl
 srv/GetLegTrajectory.srv
 srv/GetLegTrajectory_Request.msg

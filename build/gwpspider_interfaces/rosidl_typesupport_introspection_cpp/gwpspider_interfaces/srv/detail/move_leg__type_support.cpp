@@ -37,7 +37,7 @@ void MoveLeg_Request_fini_function(void * message_memory)
   typed_message->~MoveLeg_Request();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLeg_Request_message_member_array[7] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLeg_Request_message_member_array[8] = {
   {
     "leg",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT8,  // type
@@ -156,13 +156,30 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLeg_Reque
     nullptr,  // fetch(index, &value) function pointer
     nullptr,  // assign(index, value) function pointer
     nullptr  // resize(index) function pointer
+  },
+  {
+    "use_gripper",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_BOOLEAN,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(gwpspider_interfaces::srv::MoveLeg_Request, use_gripper),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
   }
 };
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers MoveLeg_Request_message_members = {
   "gwpspider_interfaces::srv",  // message namespace
   "MoveLeg_Request",  // message name
-  7,  // number of fields
+  8,  // number of fields
   sizeof(gwpspider_interfaces::srv::MoveLeg_Request),
   MoveLeg_Request_message_member_array,  // message members
   MoveLeg_Request_init_function,  // function to initialize message memory (memory has to be allocated)

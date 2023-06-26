@@ -36,6 +36,7 @@ set(srv_files
   "srv/MoveLeg.srv"
   "srv/MoveSpider.srv"
   "srv/ToggleController.srv"
+  "srv/DistributeForces.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
