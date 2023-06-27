@@ -44,14 +44,14 @@ void gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspectio
 
 static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspection_c__MoveLeg_Request_message_member_array[8] = {
   {
-    "leg",  // name
+    "leg_id",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_INT8,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveLeg_Request, leg),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__MoveLeg_Request, leg_id),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer

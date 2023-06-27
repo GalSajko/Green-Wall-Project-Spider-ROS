@@ -6,7 +6,7 @@
 module gwpspider_interfaces {
   module msg {
     struct GripperCommand {
-      int64 leg;
+      int64 leg_id;
 
       string command;
     };

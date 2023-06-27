@@ -13,19 +13,16 @@
 
 
 // Include directives for member types
-// Member `legs`
+// Member `legs_ids`
 #include "std_msgs/msg/int8_multi_array.h"
-// Member `legs`
+// Member `legs_ids`
 #include "std_msgs/msg/detail/int8_multi_array__rosidl_typesupport_introspection_c.h"
-// Member `goal_positions`
-// Member `spider_pose`
+// Member `used_pins_positions`
+// Member `goal_spider_pose`
 #include "std_msgs/msg/float32_multi_array.h"
-// Member `goal_positions`
-// Member `spider_pose`
+// Member `used_pins_positions`
+// Member `goal_spider_pose`
 #include "std_msgs/msg/detail/float32_multi_array__rosidl_typesupport_introspection_c.h"
-// Member `trajectory_type`
-// Member `origin`
-#include "rosidl_runtime_c/string_functions.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -46,16 +43,16 @@ void gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspec
   gwpspider_interfaces__srv__MoveSpider_Request__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_member_array[6] = {
+static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_member_array[4] = {
   {
-    "legs",  // name
+    "legs_ids",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
     NULL,  // members of sub message (initialized later)
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, legs),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, legs_ids),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -65,14 +62,14 @@ static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__s
     NULL  // resize(index) function pointer
   },
   {
-    "goal_positions",  // name
+    "used_pins_positions",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
     NULL,  // members of sub message (initialized later)
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, goal_positions),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, used_pins_positions),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -82,31 +79,14 @@ static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__s
     NULL  // resize(index) function pointer
   },
   {
-    "trajectory_type",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
+    "goal_spider_pose",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
-    NULL,  // members of sub message
+    NULL,  // members of sub message (initialized later)
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, trajectory_type),  // bytes offset in struct
-    NULL,  // default value
-    NULL,  // size() function pointer
-    NULL,  // get_const(index) function pointer
-    NULL,  // get(index) function pointer
-    NULL,  // fetch(index, &value) function pointer
-    NULL,  // assign(index, value) function pointer
-    NULL  // resize(index) function pointer
-  },
-  {
-    "origin",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
-    0,  // upper bound of string
-    NULL,  // members of sub message
-    false,  // is array
-    0,  // array size
-    false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, origin),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, goal_spider_pose),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -131,30 +111,13 @@ static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__s
     NULL,  // fetch(index, &value) function pointer
     NULL,  // assign(index, value) function pointer
     NULL  // resize(index) function pointer
-  },
-  {
-    "spider_pose",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
-    0,  // upper bound of string
-    NULL,  // members of sub message (initialized later)
-    false,  // is array
-    0,  // array size
-    false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveSpider_Request, spider_pose),  // bytes offset in struct
-    NULL,  // default value
-    NULL,  // size() function pointer
-    NULL,  // get_const(index) function pointer
-    NULL,  // get(index) function pointer
-    NULL,  // fetch(index, &value) function pointer
-    NULL,  // assign(index, value) function pointer
-    NULL  // resize(index) function pointer
   }
 };
 
 static const rosidl_typesupport_introspection_c__MessageMembers gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_members = {
   "gwpspider_interfaces__srv",  // message namespace
   "MoveSpider_Request",  // message name
-  6,  // number of fields
+  4,  // number of fields
   sizeof(gwpspider_interfaces__srv__MoveSpider_Request),
   gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_member_array,  // message members
   gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -176,7 +139,7 @@ ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspecti
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Int8MultiArray)();
   gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Float32MultiArray)();
-  gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_member_array[5].members_ =
+  gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_member_array[2].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Float32MultiArray)();
   if (!gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_type_support_handle.typesupport_identifier) {
     gwpspider_interfaces__srv__MoveSpider_Request__rosidl_typesupport_introspection_c__MoveSpider_Request_message_type_support_handle.typesupport_identifier =

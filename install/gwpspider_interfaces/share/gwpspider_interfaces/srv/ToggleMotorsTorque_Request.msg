@@ -1,2 +1,2 @@
-std_msgs/Int8MultiArray legs
+std_msgs/Int8MultiArray legs_ids
 string command

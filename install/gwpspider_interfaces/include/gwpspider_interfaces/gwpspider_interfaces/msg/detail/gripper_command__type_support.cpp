@@ -39,14 +39,14 @@ void GripperCommand_fini_function(void * message_memory)
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMember GripperCommand_message_member_array[2] = {
   {
-    "leg",  // name
+    "leg_id",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT64,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces::msg::GripperCommand, leg),  // bytes offset in struct
+    offsetof(gwpspider_interfaces::msg::GripperCommand, leg_id),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer

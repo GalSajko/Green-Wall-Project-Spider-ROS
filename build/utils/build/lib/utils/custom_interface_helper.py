@@ -1,8 +1,8 @@
 import numpy as np
+import threading
 
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
 from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper
-from gwpspider_interfaces.msg import GripperCommand
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -67,8 +67,21 @@ def prepare_move_gripper_request(request_data):
     leg, command = request_data
 
     request = MoveGripper.Request()
-    request.instructions.leg = leg
+    request.instructions.leg_id = leg
     request.instructions.command = command
 
     return request
 
+def async_service_call(client, request):
+    event = threading.Event()
+    def done_callback(_):
+        nonlocal event
+        event.set()
+
+    future = client.call_async(request)
+    future.add_done_callback(done_callback)
+    event.wait()
+    response = future.result()
+    event.clear()
+
+    return response

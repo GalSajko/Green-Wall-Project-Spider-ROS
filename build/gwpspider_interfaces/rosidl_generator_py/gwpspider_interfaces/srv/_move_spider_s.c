@@ -16,9 +16,6 @@
 #include "gwpspider_interfaces/srv/detail/move_spider__struct.h"
 #include "gwpspider_interfaces/srv/detail/move_spider__functions.h"
 
-#include "rosidl_runtime_c/string.h"
-#include "rosidl_runtime_c/string_functions.h"
-
 ROSIDL_GENERATOR_C_IMPORT
 bool std_msgs__msg__int8_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
 ROSIDL_GENERATOR_C_IMPORT
@@ -65,56 +62,37 @@ bool gwpspider_interfaces__srv__move_spider__request__convert_from_py(PyObject *
     assert(strncmp("gwpspider_interfaces.srv._move_spider.MoveSpider_Request", full_classname_dest, 56) == 0);
   }
   gwpspider_interfaces__srv__MoveSpider_Request * ros_message = _ros_message;
-  {  // legs
-    PyObject * field = PyObject_GetAttrString(_pymsg, "legs");
+  {  // legs_ids
+    PyObject * field = PyObject_GetAttrString(_pymsg, "legs_ids");
     if (!field) {
       return false;
     }
-    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->legs)) {
+    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->legs_ids)) {
       Py_DECREF(field);
       return false;
     }
     Py_DECREF(field);
   }
-  {  // goal_positions
-    PyObject * field = PyObject_GetAttrString(_pymsg, "goal_positions");
+  {  // used_pins_positions
+    PyObject * field = PyObject_GetAttrString(_pymsg, "used_pins_positions");
     if (!field) {
       return false;
     }
-    if (!std_msgs__msg__float32_multi_array__convert_from_py(field, &ros_message->goal_positions)) {
+    if (!std_msgs__msg__float32_multi_array__convert_from_py(field, &ros_message->used_pins_positions)) {
       Py_DECREF(field);
       return false;
     }
     Py_DECREF(field);
   }
-  {  // trajectory_type
-    PyObject * field = PyObject_GetAttrString(_pymsg, "trajectory_type");
+  {  // goal_spider_pose
+    PyObject * field = PyObject_GetAttrString(_pymsg, "goal_spider_pose");
     if (!field) {
       return false;
     }
-    assert(PyUnicode_Check(field));
-    PyObject * encoded_field = PyUnicode_AsUTF8String(field);
-    if (!encoded_field) {
+    if (!std_msgs__msg__float32_multi_array__convert_from_py(field, &ros_message->goal_spider_pose)) {
       Py_DECREF(field);
       return false;
     }
-    rosidl_runtime_c__String__assign(&ros_message->trajectory_type, PyBytes_AS_STRING(encoded_field));
-    Py_DECREF(encoded_field);
-    Py_DECREF(field);
-  }
-  {  // origin
-    PyObject * field = PyObject_GetAttrString(_pymsg, "origin");
-    if (!field) {
-      return false;
-    }
-    assert(PyUnicode_Check(field));
-    PyObject * encoded_field = PyUnicode_AsUTF8String(field);
-    if (!encoded_field) {
-      Py_DECREF(field);
-      return false;
-    }
-    rosidl_runtime_c__String__assign(&ros_message->origin, PyBytes_AS_STRING(encoded_field));
-    Py_DECREF(encoded_field);
     Py_DECREF(field);
   }
   {  // duration
@@ -124,17 +102,6 @@ bool gwpspider_interfaces__srv__move_spider__request__convert_from_py(PyObject *
     }
     assert(PyFloat_Check(field));
     ros_message->duration = (float)PyFloat_AS_DOUBLE(field);
-    Py_DECREF(field);
-  }
-  {  // spider_pose
-    PyObject * field = PyObject_GetAttrString(_pymsg, "spider_pose");
-    if (!field) {
-      return false;
-    }
-    if (!std_msgs__msg__float32_multi_array__convert_from_py(field, &ros_message->spider_pose)) {
-      Py_DECREF(field);
-      return false;
-    }
     Py_DECREF(field);
   }
 
@@ -159,62 +126,42 @@ PyObject * gwpspider_interfaces__srv__move_spider__request__convert_to_py(void *
     }
   }
   gwpspider_interfaces__srv__MoveSpider_Request * ros_message = (gwpspider_interfaces__srv__MoveSpider_Request *)raw_ros_message;
-  {  // legs
+  {  // legs_ids
     PyObject * field = NULL;
-    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->legs);
+    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->legs_ids);
     if (!field) {
       return NULL;
     }
     {
-      int rc = PyObject_SetAttrString(_pymessage, "legs", field);
+      int rc = PyObject_SetAttrString(_pymessage, "legs_ids", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
       }
     }
   }
-  {  // goal_positions
+  {  // used_pins_positions
     PyObject * field = NULL;
-    field = std_msgs__msg__float32_multi_array__convert_to_py(&ros_message->goal_positions);
+    field = std_msgs__msg__float32_multi_array__convert_to_py(&ros_message->used_pins_positions);
     if (!field) {
       return NULL;
     }
     {
-      int rc = PyObject_SetAttrString(_pymessage, "goal_positions", field);
+      int rc = PyObject_SetAttrString(_pymessage, "used_pins_positions", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
       }
     }
   }
-  {  // trajectory_type
+  {  // goal_spider_pose
     PyObject * field = NULL;
-    field = PyUnicode_DecodeUTF8(
-      ros_message->trajectory_type.data,
-      strlen(ros_message->trajectory_type.data),
-      "replace");
+    field = std_msgs__msg__float32_multi_array__convert_to_py(&ros_message->goal_spider_pose);
     if (!field) {
       return NULL;
     }
     {
-      int rc = PyObject_SetAttrString(_pymessage, "trajectory_type", field);
-      Py_DECREF(field);
-      if (rc) {
-        return NULL;
-      }
-    }
-  }
-  {  // origin
-    PyObject * field = NULL;
-    field = PyUnicode_DecodeUTF8(
-      ros_message->origin.data,
-      strlen(ros_message->origin.data),
-      "replace");
-    if (!field) {
-      return NULL;
-    }
-    {
-      int rc = PyObject_SetAttrString(_pymessage, "origin", field);
+      int rc = PyObject_SetAttrString(_pymessage, "goal_spider_pose", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
@@ -226,20 +173,6 @@ PyObject * gwpspider_interfaces__srv__move_spider__request__convert_to_py(void *
     field = PyFloat_FromDouble(ros_message->duration);
     {
       int rc = PyObject_SetAttrString(_pymessage, "duration", field);
-      Py_DECREF(field);
-      if (rc) {
-        return NULL;
-      }
-    }
-  }
-  {  // spider_pose
-    PyObject * field = NULL;
-    field = std_msgs__msg__float32_multi_array__convert_to_py(&ros_message->spider_pose);
-    if (!field) {
-      return NULL;
-    }
-    {
-      int rc = PyObject_SetAttrString(_pymessage, "spider_pose", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

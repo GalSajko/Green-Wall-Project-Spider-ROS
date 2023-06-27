@@ -21,7 +21,7 @@ gwpspider_interfaces__msg__GripperCommand__init(gwpspider_interfaces__msg__Gripp
   if (!msg) {
     return false;
   }
-  // leg
+  // leg_id
   // command
   if (!rosidl_runtime_c__String__init(&msg->command)) {
     gwpspider_interfaces__msg__GripperCommand__fini(msg);
@@ -36,7 +36,7 @@ gwpspider_interfaces__msg__GripperCommand__fini(gwpspider_interfaces__msg__Gripp
   if (!msg) {
     return;
   }
-  // leg
+  // leg_id
   // command
   rosidl_runtime_c__String__fini(&msg->command);
 }
@@ -47,8 +47,8 @@ gwpspider_interfaces__msg__GripperCommand__are_equal(const gwpspider_interfaces_
   if (!lhs || !rhs) {
     return false;
   }
-  // leg
-  if (lhs->leg != rhs->leg) {
+  // leg_id
+  if (lhs->leg_id != rhs->leg_id) {
     return false;
   }
   // command
@@ -68,8 +68,8 @@ gwpspider_interfaces__msg__GripperCommand__copy(
   if (!input || !output) {
     return false;
   }
-  // leg
-  output->leg = input->leg;
+  // leg_id
+  output->leg_id = input->leg_id;
   // command
   if (!rosidl_runtime_c__String__copy(
       &(input->command), &(output->command)))

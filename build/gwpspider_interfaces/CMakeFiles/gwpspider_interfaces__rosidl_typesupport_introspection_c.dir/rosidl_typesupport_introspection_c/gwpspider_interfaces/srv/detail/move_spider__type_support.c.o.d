@@ -74,5 +74,4 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_t
  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__functions.h \
  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__type_support.h \
  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__rosidl_typesupport_introspection_c.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h \
  /opt/ros/humble/include/rosidl_typesupport_introspection_c/rosidl_typesupport_introspection_c/service_introspection.h

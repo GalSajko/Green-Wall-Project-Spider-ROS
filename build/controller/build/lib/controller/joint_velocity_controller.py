@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import rclpy
 from rclpy.node import Node
 from rclpy.executors import MultiThreadedExecutor
@@ -10,7 +12,7 @@ import time
 
 from std_msgs.msg import Float32MultiArray
 
-from configuration import config, spider
+from configuration import robot_config, ros_config, spider
 from utils import custom_interface_helper
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
@@ -37,8 +39,8 @@ class JointVelocityController(Node):
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         self.sentinel = object()
 
-        self.k_p = np.ones((spider.NUMBER_OF_LEGS, 3), dtype = np.float32) * config.K_P
-        self.k_d = np.ones((spider.NUMBER_OF_LEGS, 3), dtype = np.float32) * config.K_D
+        self.k_p = np.ones((spider.NUMBER_OF_LEGS, 3), dtype = np.float32) * robot_config.K_P
+        self.k_d = np.ones((spider.NUMBER_OF_LEGS, 3), dtype = np.float32) * robot_config.K_D
 
         self.legs_states_locker = threading.Lock()
         self.legs_local_positions = None
@@ -46,24 +48,32 @@ class JointVelocityController(Node):
         self.legs_forces = None
         self.joints_torques = None
 
-        self.legs_states_subscriber = self.create_subscription(LegsStates, 'legs_states', self.read_legs_states_callback, 1)
+        self.legs_states_subscriber = self.create_subscription(LegsStates, ros_config.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1)
 
-        self.toggle_controller_service = self.create_service(ToggleController, 'toggle_controller_service', self.toggle_controller_callback)
+        self.toggle_controller_service = self.create_service(ToggleController, ros_config.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
 
         self.moving_callbacks_group = ReentrantCallbackGroup()
-        self.move_leg_service = self.create_service(MoveLeg, 'move_leg_service', self.move_leg_callback, callback_group = self.moving_callbacks_group)
-        self.move_spider_service = self.create_service(MoveSpider, 'move_spider_service', self.move_spider_callback, callback_group = self.moving_callbacks_group)
-        self.leg_trajectory_client = self.create_client(GetLegTrajectory, 'get_leg_trajectory', callback_group = self.moving_callbacks_group)
-        self.move_gripper_client = self.create_client(MoveGripper, 'move_gripper_service', callback_group = self.moving_callbacks_group)
+        self.move_leg_service = self.create_service(MoveLeg, ros_config.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.moving_callbacks_group)
+        self.move_spider_service = self.create_service(MoveSpider, ros_config.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.moving_callbacks_group)
+        self.leg_trajectory_client = self.create_client(GetLegTrajectory, ros_config.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.moving_callbacks_group)
+        self.move_gripper_client = self.create_client(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
 
         self.controller_callbacks_group = ReentrantCallbackGroup()
-        self.controller_publisher = self.create_publisher(Float32MultiArray, 'commanded_joints_velocities', 10, callback_group = self.controller_callbacks_group)
+        self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
-        self.distribute_forces_service = self.create_service(DistributeForces, 'distribute_forces_service', self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
+        self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
     
     @property
     def PERIOD(self):
-        return 1.0 / config.CONTROLLER_FREQUENCY
+        return 1.0 / robot_config.CONTROLLER_FREQUENCY
+    
+    @property
+    def LEG_MOVEMENT_PRECISION(self):
+        return 0.001
+    
+    @property
+    def SPIDER_MOVEMENT_PRECISION(self):
+        return 0.005
     
     def controller_callback(self):
         with self.legs_states_locker:
@@ -115,7 +125,7 @@ class JointVelocityController(Node):
         self.controller_publisher.publish(msg)
 
     def move_leg_callback(self, request, response):
-        leg_id = request.leg
+        leg_id = request.leg_id
         duration = request.duration
         goal_position = request.goal_position.data
         trajectory_type = request.trajectory_type
@@ -128,50 +138,31 @@ class JointVelocityController(Node):
             response.success = False
             return response
         
-        if origin not in (config.LEG_ORIGIN, config.GLOBAL_ORIGIN):
+        if origin not in (robot_config.LEG_ORIGIN, robot_config.GLOBAL_ORIGIN):
             print(f"Origin '{origin}' not recognized.")
             response.success = False
             return response
         
-        if origin == config.GLOBAL_ORIGIN and len(spider_pose) == 0:
+        if origin == robot_config.GLOBAL_ORIGIN and len(spider_pose) == 0:
             print("If goal position is given in global origin, spider pose should also be given.")
             response.success = False
             return response
-
+        
         with self.legs_states_locker:
             leg_current_position = self.legs_local_positions[leg_id]
-
-        event = threading.Event()
-        def done_callback(_):
-            nonlocal event
-            event.set()
         
         leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg_id, leg_current_position, goal_position, origin, is_offset, spider_pose)
-
-        get_trajectory_request = custom_interface_helper.prepare_trajectory_request((leg_current_position, leg_goal_position_in_local, duration, trajectory_type))
-
-        future = self.leg_trajectory_client.call_async(get_trajectory_request)
-        future.add_done_callback(done_callback)
-        event.wait()
-        trajectory_response = future.result()
-        event.clear()
-
-        position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
-        velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
-        acceleration_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.acceleration_trajectory)
+        position_trajectory, velocity_trajectory, acceleration_trajectory = self.__get_trajectory(
+            leg_current_position,
+            leg_goal_position_in_local,
+            trajectory_type,
+            duration,
+        )
 
         self.command_queues[leg_id] = queue.Queue()
 
-        if use_gripper:
-            get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, config.OPEN_GRIPPER_COMMAND))
-            future = self.move_gripper_client.call_async(get_move_gripper_request)
-            future.add_done_callback(done_callback)
-            event.wait()
-            move_gripper_response = future.result()
-            event.clear()
-
-            if not move_gripper_response.success:
-                print("Gripper did not open correctly.")
+        if use_gripper: 
+            if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
                 response.success = False
                 return response
 
@@ -179,48 +170,28 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
-        print(f"Position error before movement: {position_error}")
-        while np.linalg.norm(position_error) > 0.001:
+        with self.legs_states_locker:
             position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
-            print(f"Position error during movement: {position_error}")
+        while np.linalg.norm(position_error) > self.LEG_MOVEMENT_PRECISION:
+            with self.legs_states_locker:
+                position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
             time.sleep(0.001)
         
         if use_gripper:
-            get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, config.CLOSE_GRIPPER_COMMAND))
-            future = self.move_gripper_client.call_async(get_move_gripper_request)
-            future.add_done_callback(done_callback)
-            event.wait()
-            move_gripper_response = future.result()
-            event.clear()
-            
-            if not move_gripper_response.success:
-                print("Gripper did not close correctly.")
+            if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
                 response.success = False
                 return response
         
-            response.success = True
-            return response
+        response.success = True
+        return response
 
     def move_spider_callback(self, request, response):
-        legs_ids = request.legs.data
+        legs_ids = request.legs_ids.data
         duration = request.duration
-        trajectory_type = request.trajectory_type
-        origin = request.origin
-        legs_goal_positions = custom_interface_helper.unpack_2d_array_message(request.goal_positions)
-        spider_pose = request.spider_pose.data
-
-        if origin not in (config.LEG_ORIGIN, config.GLOBAL_ORIGIN):
-            print(f"Origin '{origin}' not recognized.")
-            response.success = False
-            return response
+        used_pins_positions = custom_interface_helper.unpack_2d_array_message(request.used_pins_positions)
+        goal_spider_pose = request.goal_spider_pose.data
         
-        if origin == config.GLOBAL_ORIGIN and len(spider_pose) == 0:
-            print("If goal position is given in global origin, spider pose should also be given.")
-            response.success = False
-            return response
-        
-        if len(legs_ids) != len(legs_goal_positions):
+        if len(legs_ids) != len(used_pins_positions):
             print("Number of moving legs and given goal positions should be the same.")
             response.success = False
             return response
@@ -232,40 +203,48 @@ class JointVelocityController(Node):
         dx_d = np.zeros((len(legs_ids), int(duration / self.PERIOD), 3), dtype = np.float32)
         ddx_d = np.zeros((len(legs_ids), int(duration / self.PERIOD), 3) , dtype = np.float32)
 
-        for leg in legs_ids:
-            if leg not in spider.LEGS_IDS:
+        for leg_id in legs_ids:
+            if leg_id not in spider.LEGS_IDS:
                 response.success = False
-                return response  
-            self.command_queues[leg] = queue.Queue()
+                return response
+            self.command_queues[leg_id] = queue.Queue()
         
-        for idx, leg in enumerate(legs_ids):
-            event = threading.Event()
-            def done_callback(_):
-                nonlocal event
-                event.set()
+        legs_goal_positions_in_local = np.zeros((len(legs_ids), 3))
+        for idx, leg_id in enumerate(legs_ids):
+            leg_goal_position_in_local = tf.convert_in_local_goal_positions(
+                leg_id,
+                legs_current_positions[leg_id],
+                used_pins_positions[idx],
+                robot_config.GLOBAL_ORIGIN,
+                False,
+                goal_spider_pose
+            )
+            legs_goal_positions_in_local[idx] = leg_goal_position_in_local
 
-            leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg, legs_current_positions[leg], legs_goal_positions[idx], origin, False, spider_pose)
-            get_trajectory_request = custom_interface_helper.prepare_trajectory_request((legs_current_positions[leg], leg_goal_position_in_local, duration, trajectory_type))
-
-            future = self.leg_trajectory_client.call_async(get_trajectory_request)
-            future.add_done_callback(done_callback)
-            event.wait()
-            trajectory_response = future.result()
-
-            position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
-            velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
-            acceleration_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.acceleration_trajectory)
+            position_trajectory, velocity_trajectory, acceleration_trajectory = self.__get_trajectory(
+                legs_current_positions[leg_id],
+                leg_goal_position_in_local,
+                robot_config.MINJERK_TRAJECTORY,
+                duration
+            )
 
             x_d[idx] = position_trajectory[:, :3]
             dx_d[idx] = velocity_trajectory[:, :3]
             ddx_d[idx] = acceleration_trajectory[:, :3]
 
         for i in range(len(x_d[0])):
-            for idx, leg in enumerate(legs_ids):
-                self.command_queues[leg].put([x_d[idx][i], dx_d[idx][i], ddx_d[idx][i]])
+            for idx, leg_id in enumerate(legs_ids):
+                self.command_queues[leg_id].put([x_d[idx][i], dx_d[idx][i], ddx_d[idx][i]])
 
-        for leg in legs_ids:
-            self.command_queues[leg].put(self.sentinel)
+        for leg_id in legs_ids:
+            self.command_queues[leg_id].put(self.sentinel)
+
+        with self.legs_states_locker:
+            position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
+        while (position_errors > self.SPIDER_MOVEMENT_PRECISION).any():
+            with self.legs_states_locker:
+                position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
+            time.sleep(0.001)
         
         response.success = True
         return response
@@ -278,14 +257,14 @@ class JointVelocityController(Node):
             self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
         
     def toggle_controller_callback(self, request, response):
-        if request.command not in (config.START_CONTROLLER_COMMAND, config.STOP_CONTROLLER_COMMAND):
+        if request.command not in (robot_config.START_CONTROLLER_COMMAND, robot_config.STOP_CONTROLLER_COMMAND):
             response.success = False
             return response
 
         with self.toggle_controller_locker:
-            self.do_run = request.command == config.START_CONTROLLER_COMMAND
+            self.do_run = request.command == robot_config.START_CONTROLLER_COMMAND
         
-        if request.command == config.STOP_CONTROLLER_COMMAND:
+        if request.command == robot_config.STOP_CONTROLLER_COMMAND:
             self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         
         response.success = True
@@ -303,7 +282,7 @@ class JointVelocityController(Node):
         
         start_time = time.perf_counter()
         elapsed_time = 0
-        while elapsed_time < config.FORCE_DISTRIBUTION_DURATION:
+        while elapsed_time < robot_config.FORCE_DISTRIBUTION_DURATION:
             with self.legs_states_locker:
                 actual_torques = self.joints_torques
                 actual_angles = self.joints_positions
@@ -339,7 +318,7 @@ class JointVelocityController(Node):
         """
         legs_position_errors = np.array(x_d - x_a)
         dx_e = (legs_position_errors - self.last_legs_position_errors) / self.PERIOD
-        dx_c = np.array(self.k_p * legs_position_errors + self.k_d * dx_e + dx_d + config.K_ACC * ddx_d, dtype = np.float32)
+        dx_c = np.array(self.k_p * legs_position_errors + self.k_d * dx_e + dx_d + robot_config.K_ACC * ddx_d, dtype = np.float32)
 
         return dx_c, legs_position_errors
 
@@ -354,7 +333,7 @@ class JointVelocityController(Node):
             tuple[np.ndarray, np.ndarray]: Position offsets and velocities.
         """
         force_errors = f_d - f_a
-        legs_positions_in_spider = force_errors * config.K_P_FORCE
+        legs_positions_in_spider = force_errors * robot_config.K_P_FORCE
         offsets = legs_positions_in_spider * self.PERIOD
 
         return offsets, legs_positions_in_spider
@@ -392,6 +371,30 @@ class JointVelocityController(Node):
 
         return x_d, dx_d, ddx_d
 
+    def __get_trajectory(self, current_position_in_local, goal_position_in_local, trajectory_type, duration):
+        get_trajectory_request = custom_interface_helper.prepare_trajectory_request((current_position_in_local, goal_position_in_local, duration, trajectory_type))
+        trajectory_response = custom_interface_helper.async_service_call(self.leg_trajectory_client, get_trajectory_request)
+
+        position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
+        velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
+        acceleration_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.acceleration_trajectory)
+
+        return position_trajectory, velocity_trajectory, acceleration_trajectory
+    
+    def __move_gripper(self, leg_id, command):
+        get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, command))
+        move_gripper_response = custom_interface_helper.async_service_call(self.move_gripper_client, get_move_gripper_request)
+
+        if command == robot_config.OPEN_GRIPPER_COMMAND:
+            message = 'open'
+        else:
+            message = 'close'
+
+        if not move_gripper_response.success:
+            print(f"Gripper did not {message} correctly.")
+        
+        return move_gripper_response.success
+    
 def main():
     rclpy.init()
     joint_velocity_controller = JointVelocityController()

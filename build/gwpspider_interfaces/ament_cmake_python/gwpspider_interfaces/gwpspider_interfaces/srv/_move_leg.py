@@ -61,7 +61,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
     """Message class 'MoveLeg_Request'."""
 
     __slots__ = [
-        '_leg',
+        '_leg_id',
         '_goal_position',
         '_trajectory_type',
         '_origin',
@@ -72,7 +72,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
     ]
 
     _fields_and_field_types = {
-        'leg': 'int8',
+        'leg_id': 'int8',
         'goal_position': 'std_msgs/Float32MultiArray',
         'trajectory_type': 'string',
         'origin': 'string',
@@ -97,7 +97,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        self.leg = kwargs.get('leg', int())
+        self.leg_id = kwargs.get('leg_id', int())
         from std_msgs.msg import Float32MultiArray
         self.goal_position = kwargs.get('goal_position', Float32MultiArray())
         self.trajectory_type = kwargs.get('trajectory_type', str())
@@ -137,7 +137,7 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if self.leg != other.leg:
+        if self.leg_id != other.leg_id:
             return False
         if self.goal_position != other.goal_position:
             return False
@@ -161,19 +161,19 @@ class MoveLeg_Request(metaclass=Metaclass_MoveLeg_Request):
         return copy(cls._fields_and_field_types)
 
     @builtins.property
-    def leg(self):
-        """Message field 'leg'."""
-        return self._leg
+    def leg_id(self):
+        """Message field 'leg_id'."""
+        return self._leg_id
 
-    @leg.setter
-    def leg(self, value):
+    @leg_id.setter
+    def leg_id(self, value):
         if __debug__:
             assert \
                 isinstance(value, int), \
-                "The 'leg' field must be of type 'int'"
+                "The 'leg_id' field must be of type 'int'"
             assert value >= -128 and value < 128, \
-                "The 'leg' field must be an integer in [-128, 127]"
-        self._leg = value
+                "The 'leg_id' field must be an integer in [-128, 127]"
+        self._leg_id = value
 
     @builtins.property
     def goal_position(self):

@@ -80,8 +80,8 @@ cdr_serialize(
   const gwpspider_interfaces::srv::MoveLeg_Request & ros_message,
   eprosima::fastcdr::Cdr & cdr)
 {
-  // Member: leg
-  cdr << ros_message.leg;
+  // Member: leg_id
+  cdr << ros_message.leg_id;
   // Member: goal_position
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.goal_position,
@@ -109,8 +109,8 @@ cdr_deserialize(
   eprosima::fastcdr::Cdr & cdr,
   gwpspider_interfaces::srv::MoveLeg_Request & ros_message)
 {
-  // Member: leg
-  cdr >> ros_message.leg;
+  // Member: leg_id
+  cdr >> ros_message.leg_id;
 
   // Member: goal_position
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
@@ -159,9 +159,9 @@ get_serialized_size(
   (void)padding;
   (void)wchar_size;
 
-  // Member: leg
+  // Member: leg_id
   {
-    size_t item_size = sizeof(ros_message.leg);
+    size_t item_size = sizeof(ros_message.leg_id);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -223,7 +223,7 @@ max_serialized_size_MoveLeg_Request(
   is_plain = true;
 
 
-  // Member: leg
+  // Member: leg_id
   {
     size_t array_size = 1;
 

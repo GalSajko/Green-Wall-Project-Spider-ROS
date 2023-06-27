@@ -39,14 +39,14 @@ void MoveLeg_Request_fini_function(void * message_memory)
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLeg_Request_message_member_array[8] = {
   {
-    "leg",  // name
+    "leg_id",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT8,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces::srv::MoveLeg_Request, leg),  // bytes offset in struct
+    offsetof(gwpspider_interfaces::srv::MoveLeg_Request, leg_id),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer

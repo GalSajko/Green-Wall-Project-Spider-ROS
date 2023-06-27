@@ -37,15 +37,15 @@ private:
   ::gwpspider_interfaces::msg::GripperCommand msg_;
 };
 
-class Init_GripperCommand_leg
+class Init_GripperCommand_leg_id
 {
 public:
-  Init_GripperCommand_leg()
+  Init_GripperCommand_leg_id()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  Init_GripperCommand_command leg(::gwpspider_interfaces::msg::GripperCommand::_leg_type arg)
+  Init_GripperCommand_command leg_id(::gwpspider_interfaces::msg::GripperCommand::_leg_id_type arg)
   {
-    msg_.leg = std::move(arg);
+    msg_.leg_id = std::move(arg);
     return Init_GripperCommand_command(msg_);
   }
 
@@ -64,7 +64,7 @@ template<>
 inline
 auto build<::gwpspider_interfaces::msg::GripperCommand>()
 {
-  return gwpspider_interfaces::msg::builder::Init_GripperCommand_leg();
+  return gwpspider_interfaces::msg::builder::Init_GripperCommand_leg_id();
 }
 
 }  // namespace gwpspider_interfaces

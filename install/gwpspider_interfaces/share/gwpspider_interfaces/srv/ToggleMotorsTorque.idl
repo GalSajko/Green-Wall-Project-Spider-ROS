@@ -7,7 +7,7 @@
 module gwpspider_interfaces {
   module srv {
     struct ToggleMotorsTorque_Request {
-      std_msgs::msg::Int8MultiArray legs;
+      std_msgs::msg::Int8MultiArray legs_ids;
 
       string command;
     };

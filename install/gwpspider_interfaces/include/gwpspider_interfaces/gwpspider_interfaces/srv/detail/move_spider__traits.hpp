@@ -15,10 +15,10 @@
 #include "rosidl_runtime_cpp/traits.hpp"
 
 // Include directives for member types
-// Member 'legs'
+// Member 'legs_ids'
 #include "std_msgs/msg/detail/int8_multi_array__traits.hpp"
-// Member 'goal_positions'
-// Member 'spider_pose'
+// Member 'used_pins_positions'
+// Member 'goal_spider_pose'
 #include "std_msgs/msg/detail/float32_multi_array__traits.hpp"
 
 namespace gwpspider_interfaces
@@ -32,31 +32,24 @@ inline void to_flow_style_yaml(
   std::ostream & out)
 {
   out << "{";
-  // member: legs
+  // member: legs_ids
   {
-    out << "legs: ";
-    to_flow_style_yaml(msg.legs, out);
+    out << "legs_ids: ";
+    to_flow_style_yaml(msg.legs_ids, out);
     out << ", ";
   }
 
-  // member: goal_positions
+  // member: used_pins_positions
   {
-    out << "goal_positions: ";
-    to_flow_style_yaml(msg.goal_positions, out);
+    out << "used_pins_positions: ";
+    to_flow_style_yaml(msg.used_pins_positions, out);
     out << ", ";
   }
 
-  // member: trajectory_type
+  // member: goal_spider_pose
   {
-    out << "trajectory_type: ";
-    rosidl_generator_traits::value_to_yaml(msg.trajectory_type, out);
-    out << ", ";
-  }
-
-  // member: origin
-  {
-    out << "origin: ";
-    rosidl_generator_traits::value_to_yaml(msg.origin, out);
+    out << "goal_spider_pose: ";
+    to_flow_style_yaml(msg.goal_spider_pose, out);
     out << ", ";
   }
 
@@ -64,13 +57,6 @@ inline void to_flow_style_yaml(
   {
     out << "duration: ";
     rosidl_generator_traits::value_to_yaml(msg.duration, out);
-    out << ", ";
-  }
-
-  // member: spider_pose
-  {
-    out << "spider_pose: ";
-    to_flow_style_yaml(msg.spider_pose, out);
   }
   out << "}";
 }  // NOLINT(readability/fn_size)
@@ -79,42 +65,31 @@ inline void to_block_style_yaml(
   const MoveSpider_Request & msg,
   std::ostream & out, size_t indentation = 0)
 {
-  // member: legs
+  // member: legs_ids
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    out << "legs:\n";
-    to_block_style_yaml(msg.legs, out, indentation + 2);
+    out << "legs_ids:\n";
+    to_block_style_yaml(msg.legs_ids, out, indentation + 2);
   }
 
-  // member: goal_positions
+  // member: used_pins_positions
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    out << "goal_positions:\n";
-    to_block_style_yaml(msg.goal_positions, out, indentation + 2);
+    out << "used_pins_positions:\n";
+    to_block_style_yaml(msg.used_pins_positions, out, indentation + 2);
   }
 
-  // member: trajectory_type
+  // member: goal_spider_pose
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    out << "trajectory_type: ";
-    rosidl_generator_traits::value_to_yaml(msg.trajectory_type, out);
-    out << "\n";
-  }
-
-  // member: origin
-  {
-    if (indentation > 0) {
-      out << std::string(indentation, ' ');
-    }
-    out << "origin: ";
-    rosidl_generator_traits::value_to_yaml(msg.origin, out);
-    out << "\n";
+    out << "goal_spider_pose:\n";
+    to_block_style_yaml(msg.goal_spider_pose, out, indentation + 2);
   }
 
   // member: duration
@@ -125,15 +100,6 @@ inline void to_block_style_yaml(
     out << "duration: ";
     rosidl_generator_traits::value_to_yaml(msg.duration, out);
     out << "\n";
-  }
-
-  // member: spider_pose
-  {
-    if (indentation > 0) {
-      out << std::string(indentation, ' ');
-    }
-    out << "spider_pose:\n";
-    to_block_style_yaml(msg.spider_pose, out, indentation + 2);
   }
 }  // NOLINT(readability/fn_size)
 
@@ -183,11 +149,11 @@ inline const char * name<gwpspider_interfaces::srv::MoveSpider_Request>()
 
 template<>
 struct has_fixed_size<gwpspider_interfaces::srv::MoveSpider_Request>
-  : std::integral_constant<bool, false> {};
+  : std::integral_constant<bool, has_fixed_size<std_msgs::msg::Float32MultiArray>::value && has_fixed_size<std_msgs::msg::Int8MultiArray>::value> {};
 
 template<>
 struct has_bounded_size<gwpspider_interfaces::srv::MoveSpider_Request>
-  : std::integral_constant<bool, false> {};
+  : std::integral_constant<bool, has_bounded_size<std_msgs::msg::Float32MultiArray>::value && has_bounded_size<std_msgs::msg::Int8MultiArray>::value> {};
 
 template<>
 struct is_message<gwpspider_interfaces::srv::MoveSpider_Request>

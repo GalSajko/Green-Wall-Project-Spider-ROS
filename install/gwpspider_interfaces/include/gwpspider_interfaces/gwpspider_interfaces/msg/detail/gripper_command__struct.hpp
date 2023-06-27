@@ -38,7 +38,7 @@ struct GripperCommand_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->leg = 0ll;
+      this->leg_id = 0ll;
       this->command = "";
     }
   }
@@ -49,24 +49,24 @@ struct GripperCommand_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->leg = 0ll;
+      this->leg_id = 0ll;
       this->command = "";
     }
   }
 
   // field types and members
-  using _leg_type =
+  using _leg_id_type =
     int64_t;
-  _leg_type leg;
+  _leg_id_type leg_id;
   using _command_type =
     std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
   _command_type command;
 
   // setters for named parameter idiom
-  Type & set__leg(
+  Type & set__leg_id(
     const int64_t & _arg)
   {
-    this->leg = _arg;
+    this->leg_id = _arg;
     return *this;
   }
   Type & set__command(
@@ -118,7 +118,7 @@ struct GripperCommand_
   // comparison operators
   bool operator==(const GripperCommand_ & other) const
   {
-    if (this->leg != other.leg) {
+    if (this->leg_id != other.leg_id) {
       return false;
     }
     if (this->command != other.command) {

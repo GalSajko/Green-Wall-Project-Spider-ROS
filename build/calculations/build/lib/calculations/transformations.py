@@ -5,7 +5,7 @@ import numba
 import math
 from gwpconfig import wall
 
-from configuration import config, spider
+from configuration import robot_config, spider
 
 def xyzrpy_to_matrix(xyzrpy: list, rotation_only: bool = False) -> np.ndarray:
     """Calculate global transformation matrix for global origin - spider relation.
@@ -127,7 +127,7 @@ def convert_in_local_goal_positions(
     Returns:
         np.ndarray: 1x3 array of leg's goal position, given in local origin.
     """
-    if origin == config.LEG_ORIGIN:
+    if origin == robot_config.LEG_ORIGIN:
         leg_goal_position_in_local = np.copy(leg_goal_position_or_offset)
         if is_offset:
             leg_goal_position_in_local += leg_current_position_in_local
@@ -152,19 +152,19 @@ def transform_vector(vector: np.ndarray, given_in_origin: str, transform_to_orig
     Returns:
         np.ndarray: Transformed vector.
     """
-    if given_in_origin not in (config.LEG_ORIGIN, config.SPIDER_ORIGIN):
+    if given_in_origin not in (robot_config.LEG_ORIGIN, robot_config.SPIDER_ORIGIN):
         raise ValueError(f"{given_in_origin} is not recognized as known origin.")
-    if transform_to_origin not in (config.LEG_ORIGIN, config.SPIDER_ORIGIN):
+    if transform_to_origin not in (robot_config.LEG_ORIGIN, robot_config.SPIDER_ORIGIN):
         raise ValueError(f"{transform_to_origin} is not recognized as known origin.")
     
     original_vector = np.copy(vector)
     if len(vector) == 3:
         original_vector = np.append(vector, 1)
 
-    if given_in_origin == config.LEG_ORIGIN and transform_to_origin == config.SPIDER_ORIGIN:
+    if given_in_origin == robot_config.LEG_ORIGIN and transform_to_origin == robot_config.SPIDER_ORIGIN:
         return np.dot(spider.T_BASES[leg_id], original_vector)[:3]
 
-    if given_in_origin == config.SPIDER_ORIGIN and transform_to_origin == config.LEG_ORIGIN:
+    if given_in_origin == robot_config.SPIDER_ORIGIN and transform_to_origin == robot_config.LEG_ORIGIN:
         return np.dot(np.linalg.inv(spider.T_BASES[leg_id]), original_vector)[:3]
     
     if given_in_origin == transform_to_origin:

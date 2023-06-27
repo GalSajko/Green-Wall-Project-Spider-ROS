@@ -2,22 +2,24 @@ import rclpy
 from rclpy.node import Node
 import numpy as np
 
+from std_msgs.msg import Float32MultiArray
+
 from arduino_communication.arduino_comm import ArduinoComm
+from configuration import ros_config
+
 from gwpspider_interfaces.srv import ControlWaterPump, InitBno
 from gwpspider_interfaces.msg import BnoData
-
-from std_msgs.msg import Float32MultiArray
 
 class WaterPumpBnoController(Node):
     def __init__(self):
         Node.__init__(self, 'water_pumps_bno_controller')
 
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
-        self.water_pump_service = self.create_service(ControlWaterPump, 'water_pump_service', self.water_pump_control_callback)
-        self.init_bno_service = self.create_service(InitBno, 'init_bno_service', self.init_bno_callback)
+        self.water_pump_service = self.create_service(ControlWaterPump, ros_config.WATER_PUMP_SERVICE, self.water_pump_control_callback)
+        self.init_bno_service = self.create_service(InitBno, ros_config.INIT_BNO_SERVICE, self.init_bno_callback)
 
         timer_period = 0
-        self.bno_reading_publisher = self.create_publisher(BnoData, 'bno_readings', 1)
+        self.bno_reading_publisher = self.create_publisher(BnoData, ros_config.BNO_DATA_TOPIC, 1)
         self.timer = self.create_timer(timer_period, self.get_gravity_vector_callback)
     
     @property

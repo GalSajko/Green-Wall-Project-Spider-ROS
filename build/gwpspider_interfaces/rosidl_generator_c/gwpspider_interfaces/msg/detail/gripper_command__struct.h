@@ -24,7 +24,7 @@ extern "C"
 /// Struct defined in msg/GripperCommand in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__msg__GripperCommand
 {
-  int64_t leg;
+  int64_t leg_id;
   rosidl_runtime_c__String command;
 } gwpspider_interfaces__msg__GripperCommand;
 

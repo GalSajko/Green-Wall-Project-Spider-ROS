@@ -4,7 +4,7 @@ import math
 import numpy as np
 import numba
 
-from configuration import config
+from configuration import robot_config
 
 def calculate_signed_angle_between_two_vectors(first_vector: np.ndarray, second_vector: np.ndarray) -> float:
     """Calculate signed angle between two vectors.
@@ -54,12 +54,12 @@ def running_average(buffer: list, counter: int, new_value: list) -> tuple[float,
     return average, buffer, counter
 
 @numba.jit(nopython = True, cache = True)
-def damped_pseudoinverse(J: np.ndarray, damping: float = config.FORCE_DAMPING) -> np.ndarray:
+def damped_pseudoinverse(J: np.ndarray, damping: float = robot_config.FORCE_DAMPING) -> np.ndarray:
     """Calculate damped Moore-Penrose pseudo inverse.
 
     Args:
         J (list): 3x3 matrix whose pseudo inverse will be calculated.
-        damping (float): Damping factor. Defaults to config.FORCE_DAMPING.
+        damping (float): Damping factor. Defaults to robot_config.FORCE_DAMPING.
 
     Returns:
         np.ndarray: 3x3 damped pseudo inverse of J.

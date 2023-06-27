@@ -4,7 +4,7 @@ import numpy as np
 import math
 import numba
 
-from configuration import config, spider
+from configuration import robot_config, spider
 from calculations import kinematics as kin
 from calculations import mathtools as mathTools
 from calculations import transformations as tf
@@ -263,7 +263,7 @@ def _get_spider_external_forces(measured_torques: np.ndarray, joints_values: np.
     """
     measured_torques_array = measured_torques.flatten()
     J_f = _create_J_f_matrix()
-    x_a = kin.all_legs_positions(joints_values, config.SPIDER_ORIGIN)
+    x_a = kin.all_legs_positions(joints_values, robot_config.SPIDER_ORIGIN)
     J_m = _create_J_m_matrix(x_a)
     Jfm = np.r_[J_f, J_m]
     diag_J_hash_trans = create_diag_transpose_J_hash(joints_values)

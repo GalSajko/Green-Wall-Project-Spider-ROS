@@ -13,9 +13,9 @@
 
 
 // Include directives for member types
-// Member `legs`
+// Member `legs_ids`
 #include "std_msgs/msg/int8_multi_array.h"
-// Member `legs`
+// Member `legs_ids`
 #include "std_msgs/msg/detail/int8_multi_array__rosidl_typesupport_introspection_c.h"
 // Member `command`
 #include "rosidl_runtime_c/string_functions.h"
@@ -41,14 +41,14 @@ void gwpspider_interfaces__srv__ToggleMotorsTorque_Request__rosidl_typesupport_i
 
 static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__ToggleMotorsTorque_Request__rosidl_typesupport_introspection_c__ToggleMotorsTorque_Request_message_member_array[2] = {
   {
-    "legs",  // name
+    "legs_ids",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
     NULL,  // members of sub message (initialized later)
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__ToggleMotorsTorque_Request, legs),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__ToggleMotorsTorque_Request, legs_ids),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer

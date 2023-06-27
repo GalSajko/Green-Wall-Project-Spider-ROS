@@ -8,17 +8,13 @@
 module gwpspider_interfaces {
   module srv {
     struct MoveSpider_Request {
-      std_msgs::msg::Int8MultiArray legs;
+      std_msgs::msg::Int8MultiArray legs_ids;
 
-      std_msgs::msg::Float32MultiArray goal_positions;
+      std_msgs::msg::Float32MultiArray used_pins_positions;
 
-      string trajectory_type;
-
-      string origin;
+      std_msgs::msg::Float32MultiArray goal_spider_pose;
 
       float duration;
-
-      std_msgs::msg::Float32MultiArray spider_pose;
     };
     struct MoveSpider_Response {
       boolean success;

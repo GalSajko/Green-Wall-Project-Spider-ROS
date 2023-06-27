@@ -15,7 +15,7 @@
 #include "rosidl_runtime_cpp/traits.hpp"
 
 // Include directives for member types
-// Member 'legs'
+// Member 'legs_ids'
 #include "std_msgs/msg/detail/int8_multi_array__traits.hpp"
 
 namespace gwpspider_interfaces
@@ -29,10 +29,10 @@ inline void to_flow_style_yaml(
   std::ostream & out)
 {
   out << "{";
-  // member: legs
+  // member: legs_ids
   {
-    out << "legs: ";
-    to_flow_style_yaml(msg.legs, out);
+    out << "legs_ids: ";
+    to_flow_style_yaml(msg.legs_ids, out);
     out << ", ";
   }
 
@@ -48,13 +48,13 @@ inline void to_block_style_yaml(
   const ToggleMotorsTorque_Request & msg,
   std::ostream & out, size_t indentation = 0)
 {
-  // member: legs
+  // member: legs_ids
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    out << "legs:\n";
-    to_block_style_yaml(msg.legs, out, indentation + 2);
+    out << "legs_ids:\n";
+    to_block_style_yaml(msg.legs_ids, out, indentation + 2);
   }
 
   // member: command

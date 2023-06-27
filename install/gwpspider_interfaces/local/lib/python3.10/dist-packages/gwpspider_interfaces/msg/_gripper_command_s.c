@@ -53,13 +53,13 @@ bool gwpspider_interfaces__msg__gripper_command__convert_from_py(PyObject * _pym
     assert(strncmp("gwpspider_interfaces.msg._gripper_command.GripperCommand", full_classname_dest, 56) == 0);
   }
   gwpspider_interfaces__msg__GripperCommand * ros_message = _ros_message;
-  {  // leg
-    PyObject * field = PyObject_GetAttrString(_pymsg, "leg");
+  {  // leg_id
+    PyObject * field = PyObject_GetAttrString(_pymsg, "leg_id");
     if (!field) {
       return false;
     }
     assert(PyLong_Check(field));
-    ros_message->leg = PyLong_AsLongLong(field);
+    ros_message->leg_id = PyLong_AsLongLong(field);
     Py_DECREF(field);
   }
   {  // command
@@ -99,11 +99,11 @@ PyObject * gwpspider_interfaces__msg__gripper_command__convert_to_py(void * raw_
     }
   }
   gwpspider_interfaces__msg__GripperCommand * ros_message = (gwpspider_interfaces__msg__GripperCommand *)raw_ros_message;
-  {  // leg
+  {  // leg_id
     PyObject * field = NULL;
-    field = PyLong_FromLongLong(ros_message->leg);
+    field = PyLong_FromLongLong(ros_message->leg_id);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "leg", field);
+      int rc = PyObject_SetAttrString(_pymessage, "leg_id", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

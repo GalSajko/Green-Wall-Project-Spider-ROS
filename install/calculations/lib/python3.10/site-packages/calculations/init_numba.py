@@ -1,6 +1,6 @@
 import numpy as np
 
-from configuration import config, spider
+from configuration import robot_config, spider
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
 from calculations import mathtools as mt
@@ -24,7 +24,7 @@ def init_numba_functions():
     dyn.calculate_torques(0, random_three_three_three_matrix, random_three_three_matrix)
     dyn.create_diag_transpose_J_hash(random_five_three_array)
 
-    kin.all_legs_positions(five_three_array, config.LEG_ORIGIN)
+    kin.all_legs_positions(five_three_array, robot_config.LEG_ORIGIN)
     kin.leg_forward_kinematics(one_three_array)
     kin.spider_base_to_leg_tip_forward_kinematics(0, one_three_array)
     kin.leg_inverse_kinematics(np.array((0.3, 0.0, 0.0), dtype = np.float32))

@@ -51,9 +51,9 @@ static bool _GripperCommand__cdr_serialize(
     return false;
   }
   const _GripperCommand__ros_msg_type * ros_message = static_cast<const _GripperCommand__ros_msg_type *>(untyped_ros_message);
-  // Field name: leg
+  // Field name: leg_id
   {
-    cdr << ros_message->leg;
+    cdr << ros_message->leg_id;
   }
 
   // Field name: command
@@ -82,9 +82,9 @@ static bool _GripperCommand__cdr_deserialize(
     return false;
   }
   _GripperCommand__ros_msg_type * ros_message = static_cast<_GripperCommand__ros_msg_type *>(untyped_ros_message);
-  // Field name: leg
+  // Field name: leg_id
   {
-    cdr >> ros_message->leg;
+    cdr >> ros_message->leg_id;
   }
 
   // Field name: command
@@ -120,9 +120,9 @@ size_t get_serialized_size_gwpspider_interfaces__msg__GripperCommand(
   (void)padding;
   (void)wchar_size;
 
-  // field.name leg
+  // field.name leg_id
   {
-    size_t item_size = sizeof(ros_message->leg);
+    size_t item_size = sizeof(ros_message->leg_id);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -157,7 +157,7 @@ size_t max_serialized_size_gwpspider_interfaces__msg__GripperCommand(
   full_bounded = true;
   is_plain = true;
 
-  // member: leg
+  // member: leg_id
   {
     size_t array_size = 1;
 

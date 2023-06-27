@@ -133,15 +133,15 @@ private:
   ::gwpspider_interfaces::srv::MoveLeg_Request msg_;
 };
 
-class Init_MoveLeg_Request_leg
+class Init_MoveLeg_Request_leg_id
 {
 public:
-  Init_MoveLeg_Request_leg()
+  Init_MoveLeg_Request_leg_id()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  Init_MoveLeg_Request_goal_position leg(::gwpspider_interfaces::srv::MoveLeg_Request::_leg_type arg)
+  Init_MoveLeg_Request_goal_position leg_id(::gwpspider_interfaces::srv::MoveLeg_Request::_leg_id_type arg)
   {
-    msg_.leg = std::move(arg);
+    msg_.leg_id = std::move(arg);
     return Init_MoveLeg_Request_goal_position(msg_);
   }
 
@@ -160,7 +160,7 @@ template<>
 inline
 auto build<::gwpspider_interfaces::srv::MoveLeg_Request>()
 {
-  return gwpspider_interfaces::srv::builder::Init_MoveLeg_Request_leg();
+  return gwpspider_interfaces::srv::builder::Init_MoveLeg_Request_leg_id();
 }
 
 }  // namespace gwpspider_interfaces

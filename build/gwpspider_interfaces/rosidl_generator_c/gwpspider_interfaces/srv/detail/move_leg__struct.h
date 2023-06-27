@@ -28,7 +28,7 @@ extern "C"
 /// Struct defined in srv/MoveLeg in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__MoveLeg_Request
 {
-  int8_t leg;
+  int8_t leg_id;
   std_msgs__msg__Float32MultiArray goal_position;
   rosidl_runtime_c__String trajectory_type;
   rosidl_runtime_c__String origin;

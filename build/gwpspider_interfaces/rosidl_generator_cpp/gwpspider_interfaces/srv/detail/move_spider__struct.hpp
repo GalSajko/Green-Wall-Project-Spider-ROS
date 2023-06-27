@@ -16,10 +16,10 @@
 
 
 // Include directives for member types
-// Member 'legs'
+// Member 'legs_ids'
 #include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
-// Member 'goal_positions'
-// Member 'spider_pose'
+// Member 'used_pins_positions'
+// Member 'goal_spider_pose'
 #include "std_msgs/msg/detail/float32_multi_array__struct.hpp"
 
 #ifndef _WIN32
@@ -41,90 +41,66 @@ struct MoveSpider_Request_
   using Type = MoveSpider_Request_<ContainerAllocator>;
 
   explicit MoveSpider_Request_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : legs(_init),
-    goal_positions(_init),
-    spider_pose(_init)
+  : legs_ids(_init),
+    used_pins_positions(_init),
+    goal_spider_pose(_init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->trajectory_type = "";
-      this->origin = "";
       this->duration = 0.0f;
     }
   }
 
   explicit MoveSpider_Request_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : legs(_alloc, _init),
-    goal_positions(_alloc, _init),
-    trajectory_type(_alloc),
-    origin(_alloc),
-    spider_pose(_alloc, _init)
+  : legs_ids(_alloc, _init),
+    used_pins_positions(_alloc, _init),
+    goal_spider_pose(_alloc, _init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->trajectory_type = "";
-      this->origin = "";
       this->duration = 0.0f;
     }
   }
 
   // field types and members
-  using _legs_type =
+  using _legs_ids_type =
     std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
-  _legs_type legs;
-  using _goal_positions_type =
+  _legs_ids_type legs_ids;
+  using _used_pins_positions_type =
     std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
-  _goal_positions_type goal_positions;
-  using _trajectory_type_type =
-    std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
-  _trajectory_type_type trajectory_type;
-  using _origin_type =
-    std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
-  _origin_type origin;
+  _used_pins_positions_type used_pins_positions;
+  using _goal_spider_pose_type =
+    std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
+  _goal_spider_pose_type goal_spider_pose;
   using _duration_type =
     float;
   _duration_type duration;
-  using _spider_pose_type =
-    std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
-  _spider_pose_type spider_pose;
 
   // setters for named parameter idiom
-  Type & set__legs(
+  Type & set__legs_ids(
     const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
   {
-    this->legs = _arg;
+    this->legs_ids = _arg;
     return *this;
   }
-  Type & set__goal_positions(
+  Type & set__used_pins_positions(
     const std_msgs::msg::Float32MultiArray_<ContainerAllocator> & _arg)
   {
-    this->goal_positions = _arg;
+    this->used_pins_positions = _arg;
     return *this;
   }
-  Type & set__trajectory_type(
-    const std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>> & _arg)
+  Type & set__goal_spider_pose(
+    const std_msgs::msg::Float32MultiArray_<ContainerAllocator> & _arg)
   {
-    this->trajectory_type = _arg;
-    return *this;
-  }
-  Type & set__origin(
-    const std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>> & _arg)
-  {
-    this->origin = _arg;
+    this->goal_spider_pose = _arg;
     return *this;
   }
   Type & set__duration(
     const float & _arg)
   {
     this->duration = _arg;
-    return *this;
-  }
-  Type & set__spider_pose(
-    const std_msgs::msg::Float32MultiArray_<ContainerAllocator> & _arg)
-  {
-    this->spider_pose = _arg;
     return *this;
   }
 
@@ -170,22 +146,16 @@ struct MoveSpider_Request_
   // comparison operators
   bool operator==(const MoveSpider_Request_ & other) const
   {
-    if (this->legs != other.legs) {
+    if (this->legs_ids != other.legs_ids) {
       return false;
     }
-    if (this->goal_positions != other.goal_positions) {
+    if (this->used_pins_positions != other.used_pins_positions) {
       return false;
     }
-    if (this->trajectory_type != other.trajectory_type) {
-      return false;
-    }
-    if (this->origin != other.origin) {
+    if (this->goal_spider_pose != other.goal_spider_pose) {
       return false;
     }
     if (this->duration != other.duration) {
-      return false;
-    }
-    if (this->spider_pose != other.spider_pose) {
       return false;
     }
     return true;

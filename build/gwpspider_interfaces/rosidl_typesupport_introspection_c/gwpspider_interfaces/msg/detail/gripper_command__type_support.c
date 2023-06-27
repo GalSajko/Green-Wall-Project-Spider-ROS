@@ -37,14 +37,14 @@ void gwpspider_interfaces__msg__GripperCommand__rosidl_typesupport_introspection
 
 static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__msg__GripperCommand__rosidl_typesupport_introspection_c__GripperCommand_message_member_array[2] = {
   {
-    "leg",  // name
+    "leg_id",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_INT64,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__msg__GripperCommand, leg),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__msg__GripperCommand, leg_id),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer

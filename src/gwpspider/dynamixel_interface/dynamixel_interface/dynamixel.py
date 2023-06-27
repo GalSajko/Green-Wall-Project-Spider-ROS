@@ -8,7 +8,7 @@ import time
 
 from std_msgs.msg import Float32MultiArray
 
-from configuration import config, spider
+from configuration import robot_config, ros_config, spider
 from utils import mappers, custom_interface_helper
 
 from gwpspider_interfaces.srv import ToggleMotorsTorque, SetBusWatchdog, RebootMotors
@@ -40,17 +40,17 @@ class MotorDriver(Node):
         
         self.__init_group_read_write()
         self.__init_port()
-        self.__toggle_motors_torque(spider.LEGS_IDS, config.ENABLE_LEGS_COMMAND)
+        self.__toggle_motors_torque(spider.LEGS_IDS, robot_config.ENABLE_LEGS_COMMAND)
 
-        self.toggle_torque_service = self.create_service(ToggleMotorsTorque, 'toggle_motors_torque', self.toggle_motors_torque_callback)
-        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, 'set_bus_watchdog', self.set_bus_watchdog_callback)
-        self.reboot_motors_service = self.create_service(RebootMotors, 'reboot_motors', self.reboot_motors_callback)
+        self.toggle_torque_service = self.create_service(ToggleMotorsTorque, ros_config.TOGGLE_MOTORS_TORQUE_SERVICE, self.toggle_motors_torque_callback)
+        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, ros_config.SET_BUS_WATCHDOG_SERVICE, self.set_bus_watchdog_callback)
+        self.reboot_motors_service = self.create_service(RebootMotors, ros_config.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback)
 
-        self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, 'dynamixel_motors_data', 1)
+        self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, ros_config.DYNAMIXEL_MOTORS_DATA_TOPIC, 1)
         timer_period = 0.007
         self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback)
 
-        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, 'commanded_joints_velocities', self.sync_write_motors_velocities_callback, 10)
+        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, self.sync_write_motors_velocities_callback, 10)
     
     #region properties
     @property
@@ -323,7 +323,7 @@ class MotorDriver(Node):
                 return False
             
         motors_array = self.motors_ids[legs_ids].flatten()
-        action = command == config.ENABLE_LEGS_COMMAND
+        action = command == robot_config.ENABLE_LEGS_COMMAND
         message = 'enabled' if action else 'disabled'
 
         for motor_id in motors_array:

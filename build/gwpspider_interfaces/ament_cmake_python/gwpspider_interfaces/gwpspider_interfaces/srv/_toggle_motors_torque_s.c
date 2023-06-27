@@ -57,12 +57,12 @@ bool gwpspider_interfaces__srv__toggle_motors_torque__request__convert_from_py(P
     assert(strncmp("gwpspider_interfaces.srv._toggle_motors_torque.ToggleMotorsTorque_Request", full_classname_dest, 73) == 0);
   }
   gwpspider_interfaces__srv__ToggleMotorsTorque_Request * ros_message = _ros_message;
-  {  // legs
-    PyObject * field = PyObject_GetAttrString(_pymsg, "legs");
+  {  // legs_ids
+    PyObject * field = PyObject_GetAttrString(_pymsg, "legs_ids");
     if (!field) {
       return false;
     }
-    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->legs)) {
+    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->legs_ids)) {
       Py_DECREF(field);
       return false;
     }
@@ -105,14 +105,14 @@ PyObject * gwpspider_interfaces__srv__toggle_motors_torque__request__convert_to_
     }
   }
   gwpspider_interfaces__srv__ToggleMotorsTorque_Request * ros_message = (gwpspider_interfaces__srv__ToggleMotorsTorque_Request *)raw_ros_message;
-  {  // legs
+  {  // legs_ids
     PyObject * field = NULL;
-    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->legs);
+    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->legs_ids);
     if (!field) {
       return NULL;
     }
     {
-      int rc = PyObject_SetAttrString(_pymessage, "legs", field);
+      int rc = PyObject_SetAttrString(_pymessage, "legs_ids", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

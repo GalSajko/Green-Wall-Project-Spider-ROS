@@ -9,7 +9,7 @@ import threading
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
 from calculations import mathtools
-from configuration import config, spider
+from configuration import robot_config, ros_config, spider
 from utils import custom_interface_helper
 
 from gwpspider_interfaces.msg import DynamixelMotorsData, LegsStates, BnoData
@@ -21,8 +21,8 @@ class LegsStatesPublisher(Node):
 
         self.callback_group = ReentrantCallbackGroup()
 
-        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, 'dynamixel_motors_data', self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
-        self.bno_data_subscriber = self.create_subscription(BnoData, 'bno_readings', self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
+        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, ros_config.DYNAMIXEL_MOTORS_DATA_TOPIC, self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
+        self.bno_data_subscriber = self.create_subscription(BnoData, ros_config.BNO_DATA_TOPIC, self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
 
         self.graviy_vector_locker = threading.Lock()
         self.legs_states_msg_locker = threading.Lock()
@@ -35,7 +35,7 @@ class LegsStatesPublisher(Node):
         self.tau_counter = 0
         self.force_counter = 0
 
-        self.legs_states_publisher = self.create_publisher(LegsStates, 'legs_states', 1, callback_group = self.callback_group)
+        self.legs_states_publisher = self.create_publisher(LegsStates, ros_config.LEGS_STATES_TOPIC, 1, callback_group = self.callback_group)
         self.timer = self.create_timer(0.005, self.publish_legs_states_callback, callback_group = self.callback_group)
 
     def publish_legs_states_callback(self):
@@ -53,7 +53,7 @@ class LegsStatesPublisher(Node):
             gravity_vector = self.gravity_vector
 
         if gravity_vector is not None:
-            x_a = kin.all_legs_positions(q_a, config.LEG_ORIGIN)
+            x_a = kin.all_legs_positions(q_a, robot_config.LEG_ORIGIN)
             tau, f = dyn.get_torques_and_forces_on_legs_tips(q_a, i_a, gravity_vector)   
             tau_mean, self.tau_buffer, self.tau_counter = mathtools.running_average(self.tau_buffer, self.tau_counter, tau)
             force_mean, self.force_buffer, self.force_counter = mathtools.running_average(self.force_buffer, self.force_counter, f)

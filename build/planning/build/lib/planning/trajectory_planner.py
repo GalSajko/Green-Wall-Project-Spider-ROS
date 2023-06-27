@@ -4,7 +4,7 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
 
-from configuration import config
+from configuration import robot_config, ros_config
 from utils import custom_interface_helper
 
 from gwpspider_interfaces.srv import GetLegTrajectory
@@ -15,7 +15,7 @@ class TrajectoryPlanner(Node):
         Node.__init__(self, 'trajectory_planner')
         
         self.callback_group = ReentrantCallbackGroup()
-        self.trajectory_service = self.create_service(GetLegTrajectory, 'get_leg_trajectory', self.get_leg_trajectory_callback, callback_group = self.callback_group)
+        self.trajectory_service = self.create_service(GetLegTrajectory, ros_config.GET_LEG_TRAJECTORY_SERVICE, self.get_leg_trajectory_callback, callback_group = self.callback_group)
 
     def get_leg_trajectory_callback(self, request, response):
         current_position = np.array(request.current_position.data)
@@ -45,10 +45,10 @@ class TrajectoryPlanner(Node):
         Returns:
             tuple[np.ndarray, np.ndarray, np.ndarray]: Position, velocity and acceleration trajectory, if calculation was succesfull.
         """
-        if trajectory_type not in (config.BEZIER_TRAJECTORY, config.MINJERK_TRAJECTORY):
+        if trajectory_type not in (robot_config.BEZIER_TRAJECTORY, robot_config.MINJERK_TRAJECTORY):
             raise ValueError("Wrong type of trajectory.")
         
-        if trajectory_type == config.BEZIER_TRAJECTORY:
+        if trajectory_type == robot_config.BEZIER_TRAJECTORY:
             return self.__bezier_trajectory(leg_current_position, leg_goal_position, duration)
         return self.__min_jerk_trajectory(leg_current_position, leg_goal_position, duration)
 
@@ -93,7 +93,7 @@ class TrajectoryPlanner(Node):
         start_pose = np.array(start_pose, dtype = np.float32)
         goal_pose = np.array(goal_pose, dtype = np.float32)
 
-        time_step = 1 / config.CONTROLLER_FREQUENCY
+        time_step = 1 / robot_config.CONTROLLER_FREQUENCY
         number_of_steps = int(duration / time_step)
         time_vector = np.linspace(0, duration, number_of_steps)
 
@@ -133,7 +133,7 @@ class TrajectoryPlanner(Node):
 
         start_position, goal_position = np.array(start_position), np.array(goal_position)
 
-        time_step = 1 / config.CONTROLLER_FREQUENCY
+        time_step = 1 / robot_config.CONTROLLER_FREQUENCY
         number_of_steps = int(duration / time_step)
         time_vector = np.linspace(0, duration, number_of_steps)
 

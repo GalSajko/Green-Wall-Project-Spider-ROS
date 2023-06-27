@@ -66,9 +66,9 @@ static bool _MoveLeg_Request__cdr_serialize(
     return false;
   }
   const _MoveLeg_Request__ros_msg_type * ros_message = static_cast<const _MoveLeg_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: leg
+  // Field name: leg_id
   {
-    cdr << ros_message->leg;
+    cdr << ros_message->leg_id;
   }
 
   // Field name: goal_position
@@ -154,9 +154,9 @@ static bool _MoveLeg_Request__cdr_deserialize(
     return false;
   }
   _MoveLeg_Request__ros_msg_type * ros_message = static_cast<_MoveLeg_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: leg
+  // Field name: leg_id
   {
-    cdr >> ros_message->leg;
+    cdr >> ros_message->leg_id;
   }
 
   // Field name: goal_position
@@ -255,9 +255,9 @@ size_t get_serialized_size_gwpspider_interfaces__srv__MoveLeg_Request(
   (void)padding;
   (void)wchar_size;
 
-  // field.name leg
+  // field.name leg_id
   {
-    size_t item_size = sizeof(ros_message->leg);
+    size_t item_size = sizeof(ros_message->leg_id);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -322,7 +322,7 @@ size_t max_serialized_size_gwpspider_interfaces__srv__MoveLeg_Request(
   full_bounded = true;
   is_plain = true;
 
-  // member: leg
+  // member: leg_id
   {
     size_t array_size = 1;
 

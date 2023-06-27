@@ -11,14 +11,11 @@
 #include "rcutils/allocator.h"
 
 // Include directives for member types
-// Member `legs`
+// Member `legs_ids`
 #include "std_msgs/msg/detail/int8_multi_array__functions.h"
-// Member `goal_positions`
-// Member `spider_pose`
+// Member `used_pins_positions`
+// Member `goal_spider_pose`
 #include "std_msgs/msg/detail/float32_multi_array__functions.h"
-// Member `trajectory_type`
-// Member `origin`
-#include "rosidl_runtime_c/string_functions.h"
 
 bool
 gwpspider_interfaces__srv__MoveSpider_Request__init(gwpspider_interfaces__srv__MoveSpider_Request * msg)
@@ -26,32 +23,22 @@ gwpspider_interfaces__srv__MoveSpider_Request__init(gwpspider_interfaces__srv__M
   if (!msg) {
     return false;
   }
-  // legs
-  if (!std_msgs__msg__Int8MultiArray__init(&msg->legs)) {
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__init(&msg->legs_ids)) {
     gwpspider_interfaces__srv__MoveSpider_Request__fini(msg);
     return false;
   }
-  // goal_positions
-  if (!std_msgs__msg__Float32MultiArray__init(&msg->goal_positions)) {
+  // used_pins_positions
+  if (!std_msgs__msg__Float32MultiArray__init(&msg->used_pins_positions)) {
     gwpspider_interfaces__srv__MoveSpider_Request__fini(msg);
     return false;
   }
-  // trajectory_type
-  if (!rosidl_runtime_c__String__init(&msg->trajectory_type)) {
-    gwpspider_interfaces__srv__MoveSpider_Request__fini(msg);
-    return false;
-  }
-  // origin
-  if (!rosidl_runtime_c__String__init(&msg->origin)) {
+  // goal_spider_pose
+  if (!std_msgs__msg__Float32MultiArray__init(&msg->goal_spider_pose)) {
     gwpspider_interfaces__srv__MoveSpider_Request__fini(msg);
     return false;
   }
   // duration
-  // spider_pose
-  if (!std_msgs__msg__Float32MultiArray__init(&msg->spider_pose)) {
-    gwpspider_interfaces__srv__MoveSpider_Request__fini(msg);
-    return false;
-  }
   return true;
 }
 
@@ -61,17 +48,13 @@ gwpspider_interfaces__srv__MoveSpider_Request__fini(gwpspider_interfaces__srv__M
   if (!msg) {
     return;
   }
-  // legs
-  std_msgs__msg__Int8MultiArray__fini(&msg->legs);
-  // goal_positions
-  std_msgs__msg__Float32MultiArray__fini(&msg->goal_positions);
-  // trajectory_type
-  rosidl_runtime_c__String__fini(&msg->trajectory_type);
-  // origin
-  rosidl_runtime_c__String__fini(&msg->origin);
+  // legs_ids
+  std_msgs__msg__Int8MultiArray__fini(&msg->legs_ids);
+  // used_pins_positions
+  std_msgs__msg__Float32MultiArray__fini(&msg->used_pins_positions);
+  // goal_spider_pose
+  std_msgs__msg__Float32MultiArray__fini(&msg->goal_spider_pose);
   // duration
-  // spider_pose
-  std_msgs__msg__Float32MultiArray__fini(&msg->spider_pose);
 }
 
 bool
@@ -80,38 +63,26 @@ gwpspider_interfaces__srv__MoveSpider_Request__are_equal(const gwpspider_interfa
   if (!lhs || !rhs) {
     return false;
   }
-  // legs
+  // legs_ids
   if (!std_msgs__msg__Int8MultiArray__are_equal(
-      &(lhs->legs), &(rhs->legs)))
+      &(lhs->legs_ids), &(rhs->legs_ids)))
   {
     return false;
   }
-  // goal_positions
+  // used_pins_positions
   if (!std_msgs__msg__Float32MultiArray__are_equal(
-      &(lhs->goal_positions), &(rhs->goal_positions)))
+      &(lhs->used_pins_positions), &(rhs->used_pins_positions)))
   {
     return false;
   }
-  // trajectory_type
-  if (!rosidl_runtime_c__String__are_equal(
-      &(lhs->trajectory_type), &(rhs->trajectory_type)))
-  {
-    return false;
-  }
-  // origin
-  if (!rosidl_runtime_c__String__are_equal(
-      &(lhs->origin), &(rhs->origin)))
+  // goal_spider_pose
+  if (!std_msgs__msg__Float32MultiArray__are_equal(
+      &(lhs->goal_spider_pose), &(rhs->goal_spider_pose)))
   {
     return false;
   }
   // duration
   if (lhs->duration != rhs->duration) {
-    return false;
-  }
-  // spider_pose
-  if (!std_msgs__msg__Float32MultiArray__are_equal(
-      &(lhs->spider_pose), &(rhs->spider_pose)))
-  {
     return false;
   }
   return true;
@@ -125,38 +96,26 @@ gwpspider_interfaces__srv__MoveSpider_Request__copy(
   if (!input || !output) {
     return false;
   }
-  // legs
+  // legs_ids
   if (!std_msgs__msg__Int8MultiArray__copy(
-      &(input->legs), &(output->legs)))
+      &(input->legs_ids), &(output->legs_ids)))
   {
     return false;
   }
-  // goal_positions
+  // used_pins_positions
   if (!std_msgs__msg__Float32MultiArray__copy(
-      &(input->goal_positions), &(output->goal_positions)))
+      &(input->used_pins_positions), &(output->used_pins_positions)))
   {
     return false;
   }
-  // trajectory_type
-  if (!rosidl_runtime_c__String__copy(
-      &(input->trajectory_type), &(output->trajectory_type)))
-  {
-    return false;
-  }
-  // origin
-  if (!rosidl_runtime_c__String__copy(
-      &(input->origin), &(output->origin)))
+  // goal_spider_pose
+  if (!std_msgs__msg__Float32MultiArray__copy(
+      &(input->goal_spider_pose), &(output->goal_spider_pose)))
   {
     return false;
   }
   // duration
   output->duration = input->duration;
-  // spider_pose
-  if (!std_msgs__msg__Float32MultiArray__copy(
-      &(input->spider_pose), &(output->spider_pose)))
-  {
-    return false;
-  }
   return true;
 }
 

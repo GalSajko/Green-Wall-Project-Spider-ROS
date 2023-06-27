@@ -56,9 +56,9 @@ cdr_serialize(
   const gwpspider_interfaces::srv::ToggleMotorsTorque_Request & ros_message,
   eprosima::fastcdr::Cdr & cdr)
 {
-  // Member: legs
+  // Member: legs_ids
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
-    ros_message.legs,
+    ros_message.legs_ids,
     cdr);
   // Member: command
   cdr << ros_message.command;
@@ -71,9 +71,9 @@ cdr_deserialize(
   eprosima::fastcdr::Cdr & cdr,
   gwpspider_interfaces::srv::ToggleMotorsTorque_Request & ros_message)
 {
-  // Member: legs
+  // Member: legs_ids
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
-    cdr, ros_message.legs);
+    cdr, ros_message.legs_ids);
 
   // Member: command
   cdr >> ros_message.command;
@@ -94,11 +94,11 @@ get_serialized_size(
   (void)padding;
   (void)wchar_size;
 
-  // Member: legs
+  // Member: legs_ids
 
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
-    ros_message.legs, current_alignment);
+    ros_message.legs_ids, current_alignment);
   // Member: command
   current_alignment += padding +
     eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
@@ -125,7 +125,7 @@ max_serialized_size_ToggleMotorsTorque_Request(
   is_plain = true;
 
 
-  // Member: legs
+  // Member: legs_ids
   {
     size_t array_size = 1;
 

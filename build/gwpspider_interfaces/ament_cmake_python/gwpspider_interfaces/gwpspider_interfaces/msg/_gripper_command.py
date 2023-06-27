@@ -55,12 +55,12 @@ class GripperCommand(metaclass=Metaclass_GripperCommand):
     """Message class 'GripperCommand'."""
 
     __slots__ = [
-        '_leg',
+        '_leg_id',
         '_command',
     ]
 
     _fields_and_field_types = {
-        'leg': 'int64',
+        'leg_id': 'int64',
         'command': 'string',
     }
 
@@ -73,7 +73,7 @@ class GripperCommand(metaclass=Metaclass_GripperCommand):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        self.leg = kwargs.get('leg', int())
+        self.leg_id = kwargs.get('leg_id', int())
         self.command = kwargs.get('command', str())
 
     def __repr__(self):
@@ -105,7 +105,7 @@ class GripperCommand(metaclass=Metaclass_GripperCommand):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if self.leg != other.leg:
+        if self.leg_id != other.leg_id:
             return False
         if self.command != other.command:
             return False
@@ -117,19 +117,19 @@ class GripperCommand(metaclass=Metaclass_GripperCommand):
         return copy(cls._fields_and_field_types)
 
     @builtins.property
-    def leg(self):
-        """Message field 'leg'."""
-        return self._leg
+    def leg_id(self):
+        """Message field 'leg_id'."""
+        return self._leg_id
 
-    @leg.setter
-    def leg(self, value):
+    @leg_id.setter
+    def leg_id(self, value):
         if __debug__:
             assert \
                 isinstance(value, int), \
-                "The 'leg' field must be of type 'int'"
+                "The 'leg_id' field must be of type 'int'"
             assert value >= -9223372036854775808 and value < 9223372036854775808, \
-                "The 'leg' field must be an integer in [-9223372036854775808, 9223372036854775807]"
-        self._leg = value
+                "The 'leg_id' field must be an integer in [-9223372036854775808, 9223372036854775807]"
+        self._leg_id = value
 
     @builtins.property
     def command(self):

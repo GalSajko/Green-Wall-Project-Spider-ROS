@@ -37,15 +37,15 @@ private:
   ::gwpspider_interfaces::srv::ToggleMotorsTorque_Request msg_;
 };
 
-class Init_ToggleMotorsTorque_Request_legs
+class Init_ToggleMotorsTorque_Request_legs_ids
 {
 public:
-  Init_ToggleMotorsTorque_Request_legs()
+  Init_ToggleMotorsTorque_Request_legs_ids()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  Init_ToggleMotorsTorque_Request_command legs(::gwpspider_interfaces::srv::ToggleMotorsTorque_Request::_legs_type arg)
+  Init_ToggleMotorsTorque_Request_command legs_ids(::gwpspider_interfaces::srv::ToggleMotorsTorque_Request::_legs_ids_type arg)
   {
-    msg_.legs = std::move(arg);
+    msg_.legs_ids = std::move(arg);
     return Init_ToggleMotorsTorque_Request_command(msg_);
   }
 
@@ -64,7 +64,7 @@ template<>
 inline
 auto build<::gwpspider_interfaces::srv::ToggleMotorsTorque_Request>()
 {
-  return gwpspider_interfaces::srv::builder::Init_ToggleMotorsTorque_Request_legs();
+  return gwpspider_interfaces::srv::builder::Init_ToggleMotorsTorque_Request_legs_ids();
 }
 
 }  // namespace gwpspider_interfaces

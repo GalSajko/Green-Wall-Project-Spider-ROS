@@ -16,7 +16,7 @@
 
 
 // Include directives for member types
-// Member 'legs'
+// Member 'legs_ids'
 #include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
 
 #ifndef _WIN32
@@ -38,7 +38,7 @@ struct ToggleMotorsTorque_Request_
   using Type = ToggleMotorsTorque_Request_<ContainerAllocator>;
 
   explicit ToggleMotorsTorque_Request_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : legs(_init)
+  : legs_ids(_init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
@@ -48,7 +48,7 @@ struct ToggleMotorsTorque_Request_
   }
 
   explicit ToggleMotorsTorque_Request_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : legs(_alloc, _init),
+  : legs_ids(_alloc, _init),
     command(_alloc)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
@@ -59,18 +59,18 @@ struct ToggleMotorsTorque_Request_
   }
 
   // field types and members
-  using _legs_type =
+  using _legs_ids_type =
     std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
-  _legs_type legs;
+  _legs_ids_type legs_ids;
   using _command_type =
     std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
   _command_type command;
 
   // setters for named parameter idiom
-  Type & set__legs(
+  Type & set__legs_ids(
     const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
   {
-    this->legs = _arg;
+    this->legs_ids = _arg;
     return *this;
   }
   Type & set__command(
@@ -122,7 +122,7 @@ struct ToggleMotorsTorque_Request_
   // comparison operators
   bool operator==(const ToggleMotorsTorque_Request_ & other) const
   {
-    if (this->legs != other.legs) {
+    if (this->legs_ids != other.legs_ids) {
       return false;
     }
     if (this->command != other.command) {

@@ -24,7 +24,7 @@ gwpspider_interfaces__srv__MoveLeg_Request__init(gwpspider_interfaces__srv__Move
   if (!msg) {
     return false;
   }
-  // leg
+  // leg_id
   // goal_position
   if (!std_msgs__msg__Float32MultiArray__init(&msg->goal_position)) {
     gwpspider_interfaces__srv__MoveLeg_Request__fini(msg);
@@ -57,7 +57,7 @@ gwpspider_interfaces__srv__MoveLeg_Request__fini(gwpspider_interfaces__srv__Move
   if (!msg) {
     return;
   }
-  // leg
+  // leg_id
   // goal_position
   std_msgs__msg__Float32MultiArray__fini(&msg->goal_position);
   // trajectory_type
@@ -77,8 +77,8 @@ gwpspider_interfaces__srv__MoveLeg_Request__are_equal(const gwpspider_interfaces
   if (!lhs || !rhs) {
     return false;
   }
-  // leg
-  if (lhs->leg != rhs->leg) {
+  // leg_id
+  if (lhs->leg_id != rhs->leg_id) {
     return false;
   }
   // goal_position
@@ -128,8 +128,8 @@ gwpspider_interfaces__srv__MoveLeg_Request__copy(
   if (!input || !output) {
     return false;
   }
-  // leg
-  output->leg = input->leg;
+  // leg_id
+  output->leg_id = input->leg_id;
   // goal_position
   if (!std_msgs__msg__Float32MultiArray__copy(
       &(input->goal_position), &(output->goal_position)))

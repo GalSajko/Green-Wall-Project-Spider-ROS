@@ -5,7 +5,7 @@ import numpy as np
 import itertools as itt
 import numba
 
-from configuration import spider, config
+from configuration import spider, robot_config
 from calculations import transformations as tf
 from calculations import mathtools as mathTools
 
@@ -25,12 +25,12 @@ def all_legs_positions(joints_values: np.ndarray, fk_type: str, legs: list = spi
     Returns:
         np.ndarray: 5x3 array of (x, y, z) positions of all legs, given in selected origin.
     """
-    if fk_type not in (config.SPIDER_ORIGIN, config.LEG_ORIGIN):
+    if fk_type not in (robot_config.SPIDER_ORIGIN, robot_config.LEG_ORIGIN):
         raise ValueError("Invalid value of FK type parameter.")
 
     x_a = np.zeros((len(legs), 3), dtype = np.float32)
     for leg in legs:
-        if fk_type == config.LEG_ORIGIN:
+        if fk_type == robot_config.LEG_ORIGIN:
             x_a[leg] = leg_forward_kinematics(joints_values[leg])[:,3][:3]
             continue
         x_a[leg] = spider_base_to_leg_tip_forward_kinematics(leg, joints_values[leg])[:,3][:3]

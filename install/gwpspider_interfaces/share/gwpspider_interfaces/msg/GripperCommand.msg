@@ -1,2 +1,2 @@
-int64 leg
+int64 leg_id
 string command

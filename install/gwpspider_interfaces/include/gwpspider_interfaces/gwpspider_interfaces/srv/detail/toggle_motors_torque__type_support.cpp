@@ -39,14 +39,14 @@ void ToggleMotorsTorque_Request_fini_function(void * message_memory)
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMember ToggleMotorsTorque_Request_message_member_array[2] = {
   {
-    "legs",  // name
+    "legs_ids",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
     ::rosidl_typesupport_introspection_cpp::get_message_type_support_handle<std_msgs::msg::Int8MultiArray>(),  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces::srv::ToggleMotorsTorque_Request, legs),  // bytes offset in struct
+    offsetof(gwpspider_interfaces::srv::ToggleMotorsTorque_Request, legs_ids),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer

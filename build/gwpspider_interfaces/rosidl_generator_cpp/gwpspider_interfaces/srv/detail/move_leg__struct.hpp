@@ -45,7 +45,7 @@ struct MoveLeg_Request_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->leg = 0;
+      this->leg_id = 0;
       this->trajectory_type = "";
       this->origin = "";
       this->duration = 0.0f;
@@ -63,7 +63,7 @@ struct MoveLeg_Request_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->leg = 0;
+      this->leg_id = 0;
       this->trajectory_type = "";
       this->origin = "";
       this->duration = 0.0f;
@@ -73,9 +73,9 @@ struct MoveLeg_Request_
   }
 
   // field types and members
-  using _leg_type =
+  using _leg_id_type =
     int8_t;
-  _leg_type leg;
+  _leg_id_type leg_id;
   using _goal_position_type =
     std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
   _goal_position_type goal_position;
@@ -99,10 +99,10 @@ struct MoveLeg_Request_
   _use_gripper_type use_gripper;
 
   // setters for named parameter idiom
-  Type & set__leg(
+  Type & set__leg_id(
     const int8_t & _arg)
   {
-    this->leg = _arg;
+    this->leg_id = _arg;
     return *this;
   }
   Type & set__goal_position(
@@ -190,7 +190,7 @@ struct MoveLeg_Request_
   // comparison operators
   bool operator==(const MoveLeg_Request_ & other) const
   {
-    if (this->leg != other.leg) {
+    if (this->leg_id != other.leg_id) {
       return false;
     }
     if (this->goal_position != other.goal_position) {

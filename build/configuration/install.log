@@ -1,7 +1,9 @@
-/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/config.py
+/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/ros_config.py
+/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/robot_config.py
 /home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/__init__.py
 /home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/spider.py
-/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/__pycache__/config.cpython-310.pyc
+/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/__pycache__/ros_config.cpython-310.pyc
+/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/__pycache__/robot_config.cpython-310.pyc
 /home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/__pycache__/__init__.cpython-310.pyc
 /home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages/configuration/__pycache__/spider.cpython-310.pyc
 /home/spider/gwpspider_ws/install/configuration/share/ament_index/resource_index/packages/configuration

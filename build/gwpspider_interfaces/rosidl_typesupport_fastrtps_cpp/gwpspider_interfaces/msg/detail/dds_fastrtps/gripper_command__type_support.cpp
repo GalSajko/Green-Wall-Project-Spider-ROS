@@ -32,8 +32,8 @@ cdr_serialize(
   const gwpspider_interfaces::msg::GripperCommand & ros_message,
   eprosima::fastcdr::Cdr & cdr)
 {
-  // Member: leg
-  cdr << ros_message.leg;
+  // Member: leg_id
+  cdr << ros_message.leg_id;
   // Member: command
   cdr << ros_message.command;
   return true;
@@ -45,8 +45,8 @@ cdr_deserialize(
   eprosima::fastcdr::Cdr & cdr,
   gwpspider_interfaces::msg::GripperCommand & ros_message)
 {
-  // Member: leg
-  cdr >> ros_message.leg;
+  // Member: leg_id
+  cdr >> ros_message.leg_id;
 
   // Member: command
   cdr >> ros_message.command;
@@ -67,9 +67,9 @@ get_serialized_size(
   (void)padding;
   (void)wchar_size;
 
-  // Member: leg
+  // Member: leg_id
   {
-    size_t item_size = sizeof(ros_message.leg);
+    size_t item_size = sizeof(ros_message.leg_id);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -99,7 +99,7 @@ max_serialized_size_GripperCommand(
   is_plain = true;
 
 
-  // Member: leg
+  // Member: leg_id
   {
     size_t array_size = 1;
 

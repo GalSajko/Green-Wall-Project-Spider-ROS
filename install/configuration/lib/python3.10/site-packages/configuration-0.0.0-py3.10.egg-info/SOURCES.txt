@@ -9,7 +9,8 @@ setup.py
 ../../../build/configuration/configuration.egg-info/top_level.txt
 ../../../build/configuration/configuration.egg-info/zip-safe
 configuration/__init__.py
-configuration/config.py
+configuration/robot_config.py
+configuration/ros_config.py
 configuration/spider.py
 resource/configuration
 test/test_copyright.py

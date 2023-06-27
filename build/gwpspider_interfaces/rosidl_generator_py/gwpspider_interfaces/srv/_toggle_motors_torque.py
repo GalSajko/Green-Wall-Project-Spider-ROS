@@ -59,12 +59,12 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
     """Message class 'ToggleMotorsTorque_Request'."""
 
     __slots__ = [
-        '_legs',
+        '_legs_ids',
         '_command',
     ]
 
     _fields_and_field_types = {
-        'legs': 'std_msgs/Int8MultiArray',
+        'legs_ids': 'std_msgs/Int8MultiArray',
         'command': 'string',
     }
 
@@ -78,7 +78,7 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
         from std_msgs.msg import Int8MultiArray
-        self.legs = kwargs.get('legs', Int8MultiArray())
+        self.legs_ids = kwargs.get('legs_ids', Int8MultiArray())
         self.command = kwargs.get('command', str())
 
     def __repr__(self):
@@ -110,7 +110,7 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if self.legs != other.legs:
+        if self.legs_ids != other.legs_ids:
             return False
         if self.command != other.command:
             return False
@@ -122,18 +122,18 @@ class ToggleMotorsTorque_Request(metaclass=Metaclass_ToggleMotorsTorque_Request)
         return copy(cls._fields_and_field_types)
 
     @builtins.property
-    def legs(self):
-        """Message field 'legs'."""
-        return self._legs
+    def legs_ids(self):
+        """Message field 'legs_ids'."""
+        return self._legs_ids
 
-    @legs.setter
-    def legs(self, value):
+    @legs_ids.setter
+    def legs_ids(self, value):
         if __debug__:
             from std_msgs.msg import Int8MultiArray
             assert \
                 isinstance(value, Int8MultiArray), \
-                "The 'legs' field must be a sub message of type 'Int8MultiArray'"
-        self._legs = value
+                "The 'legs_ids' field must be a sub message of type 'Int8MultiArray'"
+        self._legs_ids = value
 
     @builtins.property
     def command(self):

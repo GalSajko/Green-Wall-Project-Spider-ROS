@@ -30,10 +30,10 @@ inline void to_flow_style_yaml(
   std::ostream & out)
 {
   out << "{";
-  // member: leg
+  // member: leg_id
   {
-    out << "leg: ";
-    rosidl_generator_traits::value_to_yaml(msg.leg, out);
+    out << "leg_id: ";
+    rosidl_generator_traits::value_to_yaml(msg.leg_id, out);
     out << ", ";
   }
 
@@ -91,13 +91,13 @@ inline void to_block_style_yaml(
   const MoveLeg_Request & msg,
   std::ostream & out, size_t indentation = 0)
 {
-  // member: leg
+  // member: leg_id
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    out << "leg: ";
-    rosidl_generator_traits::value_to_yaml(msg.leg, out);
+    out << "leg_id: ";
+    rosidl_generator_traits::value_to_yaml(msg.leg_id, out);
     out << "\n";
   }
 

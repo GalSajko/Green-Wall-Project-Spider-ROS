@@ -1303,8 +1303,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpsp
   /opt/ros/humble/include/rcutils/rcutils/types/rcutils_ret.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__functions.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/rosidl_generator_c__visibility_control.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__functions.h \
-  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__functions.h
 
 CMakeFiles/gwpspider_interfaces__rosidl_generator_c.dir/rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c.o: rosidl_generator_c/gwpspider_interfaces/srv/detail/reboot_motors__functions.c \
   /usr/include/stdc-predef.h \

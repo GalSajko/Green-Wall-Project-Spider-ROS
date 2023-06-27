@@ -104,24 +104,20 @@ cdr_serialize(
   const gwpspider_interfaces::srv::MoveSpider_Request & ros_message,
   eprosima::fastcdr::Cdr & cdr)
 {
-  // Member: legs
+  // Member: legs_ids
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
-    ros_message.legs,
+    ros_message.legs_ids,
     cdr);
-  // Member: goal_positions
+  // Member: used_pins_positions
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
-    ros_message.goal_positions,
+    ros_message.used_pins_positions,
     cdr);
-  // Member: trajectory_type
-  cdr << ros_message.trajectory_type;
-  // Member: origin
-  cdr << ros_message.origin;
+  // Member: goal_spider_pose
+  std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
+    ros_message.goal_spider_pose,
+    cdr);
   // Member: duration
   cdr << ros_message.duration;
-  // Member: spider_pose
-  std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
-    ros_message.spider_pose,
-    cdr);
   return true;
 }
 
@@ -131,26 +127,20 @@ cdr_deserialize(
   eprosima::fastcdr::Cdr & cdr,
   gwpspider_interfaces::srv::MoveSpider_Request & ros_message)
 {
-  // Member: legs
+  // Member: legs_ids
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
-    cdr, ros_message.legs);
+    cdr, ros_message.legs_ids);
 
-  // Member: goal_positions
+  // Member: used_pins_positions
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
-    cdr, ros_message.goal_positions);
+    cdr, ros_message.used_pins_positions);
 
-  // Member: trajectory_type
-  cdr >> ros_message.trajectory_type;
-
-  // Member: origin
-  cdr >> ros_message.origin;
+  // Member: goal_spider_pose
+  std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
+    cdr, ros_message.goal_spider_pose);
 
   // Member: duration
   cdr >> ros_message.duration;
-
-  // Member: spider_pose
-  std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
-    cdr, ros_message.spider_pose);
 
   return true;
 }
@@ -168,35 +158,27 @@ get_serialized_size(
   (void)padding;
   (void)wchar_size;
 
-  // Member: legs
+  // Member: legs_ids
 
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
-    ros_message.legs, current_alignment);
-  // Member: goal_positions
+    ros_message.legs_ids, current_alignment);
+  // Member: used_pins_positions
 
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
-    ros_message.goal_positions, current_alignment);
-  // Member: trajectory_type
-  current_alignment += padding +
-    eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
-    (ros_message.trajectory_type.size() + 1);
-  // Member: origin
-  current_alignment += padding +
-    eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
-    (ros_message.origin.size() + 1);
+    ros_message.used_pins_positions, current_alignment);
+  // Member: goal_spider_pose
+
+  current_alignment +=
+    std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
+    ros_message.goal_spider_pose, current_alignment);
   // Member: duration
   {
     size_t item_size = sizeof(ros_message.duration);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // Member: spider_pose
-
-  current_alignment +=
-    std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
-    ros_message.spider_pose, current_alignment);
 
   return current_alignment - initial_alignment;
 }
@@ -219,7 +201,7 @@ max_serialized_size_MoveSpider_Request(
   is_plain = true;
 
 
-  // Member: legs
+  // Member: legs_ids
   {
     size_t array_size = 1;
 
@@ -235,7 +217,7 @@ max_serialized_size_MoveSpider_Request(
     }
   }
 
-  // Member: goal_positions
+  // Member: used_pins_positions
   {
     size_t array_size = 1;
 
@@ -251,29 +233,19 @@ max_serialized_size_MoveSpider_Request(
     }
   }
 
-  // Member: trajectory_type
+  // Member: goal_spider_pose
   {
     size_t array_size = 1;
 
-    full_bounded = false;
-    is_plain = false;
-    for (size_t index = 0; index < array_size; ++index) {
-      current_alignment += padding +
-        eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
-        1;
-    }
-  }
 
-  // Member: origin
-  {
-    size_t array_size = 1;
-
-    full_bounded = false;
-    is_plain = false;
     for (size_t index = 0; index < array_size; ++index) {
-      current_alignment += padding +
-        eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
-        1;
+      bool inner_full_bounded;
+      bool inner_is_plain;
+      current_alignment +=
+        std_msgs::msg::typesupport_fastrtps_cpp::max_serialized_size_Float32MultiArray(
+        inner_full_bounded, inner_is_plain, current_alignment);
+      full_bounded &= inner_full_bounded;
+      is_plain &= inner_is_plain;
     }
   }
 
@@ -283,22 +255,6 @@ max_serialized_size_MoveSpider_Request(
 
     current_alignment += array_size * sizeof(uint32_t) +
       eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
-  }
-
-  // Member: spider_pose
-  {
-    size_t array_size = 1;
-
-
-    for (size_t index = 0; index < array_size; ++index) {
-      bool inner_full_bounded;
-      bool inner_is_plain;
-      current_alignment +=
-        std_msgs::msg::typesupport_fastrtps_cpp::max_serialized_size_Float32MultiArray(
-        inner_full_bounded, inner_is_plain, current_alignment);
-      full_bounded &= inner_full_bounded;
-      is_plain &= inner_is_plain;
-    }
   }
 
   return current_alignment - initial_alignment;

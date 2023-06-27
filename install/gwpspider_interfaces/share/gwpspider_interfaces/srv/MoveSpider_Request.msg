@@ -1,6 +1,4 @@
-std_msgs/Int8MultiArray legs
-std_msgs/Float32MultiArray goal_positions
-string trajectory_type
-string origin
+std_msgs/Int8MultiArray legs_ids
+std_msgs/Float32MultiArray used_pins_positions
+std_msgs/Float32MultiArray goal_spider_pose
 float32 duration
-std_msgs/Float32MultiArray spider_pose
