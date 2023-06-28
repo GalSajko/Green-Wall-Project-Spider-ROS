@@ -21,6 +21,7 @@ class GrippersController(Node):
 
         self.grippers_states = None
         self.grippers_states_locker = threading.Lock()
+        self.serial_comm_locker = threading.Lock()
 
         self.callback_group = ReentrantCallbackGroup()
         self.move_service = self.create_service(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, self.move_gripper_callback, callback_group = self.callback_group)
@@ -55,7 +56,8 @@ class GrippersController(Node):
             return response
         
         msg = command + str(leg_id) + '\n'
-        self.arduino_comm.write(msg)
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
     
         if command == robot_config.OPEN_GRIPPER_COMMAND:
             excpected_state = robot_config.IS_GRIPPER_OPEN_RESPONSE
@@ -83,9 +85,11 @@ class GrippersController(Node):
     
     def publish_states_callback(self):
         msg = String()
+        with self.serial_comm_locker:
+            states = self.arduino_comm.read()
         with self.grippers_states_locker:
-            self.grippers_states = self.arduino_comm.read()
-            msg.data = self.grippers_states
+            self.grippers_states = states
+        msg.data = states
         self.states_publisher.publish(msg)
 
 def main():

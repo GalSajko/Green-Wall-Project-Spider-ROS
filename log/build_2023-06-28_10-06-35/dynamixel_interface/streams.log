@@ -1,0 +1,26 @@
+[0.623s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface': PYTHONPATH=/home/spider/gwpspider_ws/build/dynamixel_interface/prefix_override:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/dynamixel_interface build --build-base /home/spider/gwpspider_ws/build/dynamixel_interface/build install --record /home/spider/gwpspider_ws/build/dynamixel_interface/install.log --single-version-externally-managed
+[0.858s] running egg_info
+[0.858s] writing ../../../build/dynamixel_interface/dynamixel_interface.egg-info/PKG-INFO
+[0.859s] writing dependency_links to ../../../build/dynamixel_interface/dynamixel_interface.egg-info/dependency_links.txt
+[0.859s] writing entry points to ../../../build/dynamixel_interface/dynamixel_interface.egg-info/entry_points.txt
+[0.859s] writing requirements to ../../../build/dynamixel_interface/dynamixel_interface.egg-info/requires.txt
+[0.859s] writing top-level names to ../../../build/dynamixel_interface/dynamixel_interface.egg-info/top_level.txt
+[0.861s] reading manifest file '../../../build/dynamixel_interface/dynamixel_interface.egg-info/SOURCES.txt'
+[0.862s] writing manifest file '../../../build/dynamixel_interface/dynamixel_interface.egg-info/SOURCES.txt'
+[0.862s] running build
+[0.862s] running build_py
+[0.862s] copying dynamixel_interface/dynamixel.py -> /home/spider/gwpspider_ws/build/dynamixel_interface/build/lib/dynamixel_interface
+[0.862s] running install
+[0.862s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.862s]   warnings.warn(
+[0.863s] running install_lib
+[0.863s] copying /home/spider/gwpspider_ws/build/dynamixel_interface/build/lib/dynamixel_interface/dynamixel.py -> /home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages/dynamixel_interface
+[0.864s] byte-compiling /home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages/dynamixel_interface/dynamixel.py to dynamixel.cpython-310.pyc
+[0.867s] running install_data
+[0.867s] running install_egg_info
+[0.869s] removing '/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages/dynamixel_interface-0.0.0-py3.10.egg-info' (and everything under it)
+[0.869s] Copying ../../../build/dynamixel_interface/dynamixel_interface.egg-info to /home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages/dynamixel_interface-0.0.0-py3.10.egg-info
+[0.870s] running install_scripts
+[0.893s] Installing dynamixel_driver script to /home/spider/gwpspider_ws/install/dynamixel_interface/lib/dynamixel_interface
+[0.893s] writing list of installed files to '/home/spider/gwpspider_ws/build/dynamixel_interface/install.log'
+[0.915s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/dynamixel_interface/prefix_override:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/dynamixel_interface build --build-base /home/spider/gwpspider_ws/build/dynamixel_interface/build install --record /home/spider/gwpspider_ws/build/dynamixel_interface/install.log --single-version-externally-managed

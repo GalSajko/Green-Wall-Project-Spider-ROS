@@ -11,6 +11,7 @@ import queue
 import time
 
 from std_msgs.msg import Float32MultiArray
+from std_srvs.srv import Trigger
 
 from configuration import robot_config, ros_config, spider
 from utils import custom_interface_helper
@@ -19,7 +20,7 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -62,6 +63,10 @@ class JointVelocityController(Node):
         self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
         self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
+        self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, ros_config.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
+        self.update_last_legs_positions_service = self.create_service(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
+
+        self.get_logger().info("Controller is running.")
     
     @property
     def PERIOD(self):
@@ -89,7 +94,7 @@ class JointVelocityController(Node):
             f_d = self.f_d
             force_mode_legs_ids = self.force_mode_legs_ids
 
-        if do_run:
+        if do_run and x_a is not None:
             if self.do_init:
                 with self.legs_last_positons_locker:
                     self.last_legs_positions = x_a
@@ -117,6 +122,10 @@ class JointVelocityController(Node):
 
             dx_c, self.last_legs_position_errors = self.__position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
             dq_c = kin.get_joints_velocities(q_a, dx_c)
+
+            if is_force_mode:
+                dq_c[dq_c > 1.0] = 1.0
+                dq_c[dq_c < -1.0] = -1.0
         
         else:
             dq_c = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG))
@@ -125,6 +134,11 @@ class JointVelocityController(Node):
         self.controller_publisher.publish(msg)
 
     def move_leg_callback(self, request, response):
+        if not self.do_run:
+            print("Controller is not running.")
+            response.success = False
+            return response
+        
         leg_id = request.leg_id
         duration = request.duration
         goal_position = request.goal_position.data
@@ -161,7 +175,7 @@ class JointVelocityController(Node):
 
         self.command_queues[leg_id] = queue.Queue()
 
-        if use_gripper: 
+        if use_gripper:
             if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
                 response.success = False
                 return response
@@ -186,6 +200,11 @@ class JointVelocityController(Node):
         return response
 
     def move_spider_callback(self, request, response):
+        if not self.do_run:
+            print("Controller is not running.")
+            response.success = False
+            return response
+        
         legs_ids = request.legs_ids.data
         duration = request.duration
         used_pins_positions = custom_interface_helper.unpack_2d_array_message(request.used_pins_positions)
@@ -302,6 +321,34 @@ class JointVelocityController(Node):
             self.is_force_mode = False
 
         response.success = True
+        return response
+    
+    def apply_force_on_leg_callback(self, request, response):
+        if request.leg_id not in spider.LEGS_IDS:
+            print(f"Leg with ID {request.leg_id} was not recognized.")
+            response.success = False
+            return response
+        
+        with self.force_mode_locker:
+            self.force_mode_legs_ids = np.array([request.leg_id], dtype = np.int8)
+            self.is_force_mode = True
+            self.f_d[request.leg_id] = np.array(request.desired_force.data, dtype = np.float32)
+        
+        response.success = True
+        return response
+    
+    def update_last_legs_positions_callback(self, _, response):
+        with self.legs_states_locker:
+            x_a = self.legs_local_positions
+        
+        if x_a is not None:
+            with self.legs_last_positons_locker:
+                self.last_legs_positions = x_a
+
+            response.success = True
+            return response
+        
+        response.success = False
         return response
 
     def __position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:

@@ -112,6 +112,9 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleController_Response.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/DistributeForces.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/DistributeForces_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/DistributeForces_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/ApplyForceLeg.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ApplyForceLeg_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ApplyForceLeg_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl

@@ -1,3 +1,4 @@
+from gwpspider_interfaces.srv._apply_force_leg import ApplyForceLeg  # noqa: F401
 from gwpspider_interfaces.srv._control_water_pump import ControlWaterPump  # noqa: F401
 from gwpspider_interfaces.srv._distribute_forces import DistributeForces  # noqa: F401
 from gwpspider_interfaces.srv._get_leg_trajectory import GetLegTrajectory  # noqa: F401

@@ -21,6 +21,7 @@ class GrippersController(Node):
 
         self.grippers_states = None
         self.grippers_states_locker = threading.Lock()
+        self.serial_comm_locker = threading.Lock()
 
         self.callback_group = ReentrantCallbackGroup()
         self.move_service = self.create_service(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, self.move_gripper_callback, callback_group = self.callback_group)
@@ -45,17 +46,18 @@ class GrippersController(Node):
         command = request.instructions.command
 
         if leg_id not in spider.LEGS_IDS:
-            print(f"Leg with ID {leg_id} was not recognized.")
+            self.get_logger().info(f"Leg with ID {leg_id} was not recognized.")
             response.success = False
             return response
         
         if command not in (robot_config.OPEN_GRIPPER_COMMAND, robot_config.CLOSE_GRIPPER_COMMAND):
-            print(f"Command {command} was not recognized.")
+            self.get_logger().info(f"Command {command} was not recognized.")
             response.success = False
             return response
         
         msg = command + str(leg_id) + '\n'
-        self.arduino_comm.write(msg)
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
     
         if command == robot_config.OPEN_GRIPPER_COMMAND:
             excpected_state = robot_config.IS_GRIPPER_OPEN_RESPONSE
@@ -74,7 +76,7 @@ class GrippersController(Node):
                 time.sleep(0.01)
             elapsed_time = time.time() - start_time
             if elapsed_time > self.MAX_ALLOWED_GRIPPER_MOVEMENT_TIME:
-                print(f"Gripper did not {message} correctly")
+                self.get_logger().info(f"Gripper did not {message} correctly")
                 response.success = False
                 return response
 
@@ -83,9 +85,11 @@ class GrippersController(Node):
     
     def publish_states_callback(self):
         msg = String()
+        with self.serial_comm_locker:
+            states = self.arduino_comm.read()
         with self.grippers_states_locker:
-            self.grippers_states = self.arduino_comm.read()
-            msg.data = self.grippers_states
+            self.grippers_states = states
+        msg.data = states
         self.states_publisher.publish(msg)
 
 def main():

@@ -22,6 +22,8 @@ MOVE_LEG_SERVICE = 'move_leg_service'
 MOVE_SPIDER_SERVICE = 'move_spider_service'
 TOGGLE_CONTROLLER_SERVICE = 'toggle_controller_service'
 DISTRIBUTE_FORCES_SERVICE = 'distribute_forces_service'
+APPLY_FORCE_ON_LEG_SERVICE = 'apply_force_on_leg_service'
+UPDATE_LAST_LEGS_POSITIONS_SERVICE = 'update_last_legs_positions_service'
 
 # Dynamixel
 TOGGLE_MOTORS_TORQUE_SERVICE = 'toggle_motors_torque_service'
