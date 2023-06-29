@@ -46,12 +46,12 @@ class GrippersController(Node):
         command = request.instructions.command
 
         if leg_id not in spider.LEGS_IDS:
-            print(f"Leg with ID {leg_id} was not recognized.")
+            self.get_logger().info(f"Leg with ID {leg_id} was not recognized.")
             response.success = False
             return response
         
         if command not in (robot_config.OPEN_GRIPPER_COMMAND, robot_config.CLOSE_GRIPPER_COMMAND):
-            print(f"Command {command} was not recognized.")
+            self.get_logger().info(f"Command {command} was not recognized.")
             response.success = False
             return response
         
@@ -76,7 +76,7 @@ class GrippersController(Node):
                 time.sleep(0.01)
             elapsed_time = time.time() - start_time
             if elapsed_time > self.MAX_ALLOWED_GRIPPER_MOVEMENT_TIME:
-                print(f"Gripper did not {message} correctly")
+                self.get_logger().info(f"Gripper did not {message} correctly")
                 response.success = False
                 return response
 

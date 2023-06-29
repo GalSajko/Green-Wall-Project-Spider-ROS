@@ -62,6 +62,7 @@ class JointVelocityController(Node):
         self.controller_callbacks_group = ReentrantCallbackGroup()
         self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
+        
         self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
         self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, ros_config.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
@@ -135,7 +136,7 @@ class JointVelocityController(Node):
 
     def move_leg_callback(self, request, response):
         if not self.do_run:
-            print("Controller is not running.")
+            self.get_logger().info("Controller is not running.")
             response.success = False
             return response
         
@@ -153,12 +154,12 @@ class JointVelocityController(Node):
             return response
         
         if origin not in (robot_config.LEG_ORIGIN, robot_config.GLOBAL_ORIGIN):
-            print(f"Origin '{origin}' not recognized.")
+            self.get_logger().info(f"Origin '{origin}' not recognized.")
             response.success = False
             return response
         
         if origin == robot_config.GLOBAL_ORIGIN and len(spider_pose) == 0:
-            print("If goal position is given in global origin, spider pose should also be given.")
+            self.get_logger().info("If goal position is given in global origin, spider pose should also be given.")
             response.success = False
             return response
         
@@ -201,7 +202,7 @@ class JointVelocityController(Node):
 
     def move_spider_callback(self, request, response):
         if not self.do_run:
-            print("Controller is not running.")
+            self.get_logger().info("Controller is not running.")
             response.success = False
             return response
         
@@ -211,7 +212,7 @@ class JointVelocityController(Node):
         goal_spider_pose = request.goal_spider_pose.data
         
         if len(legs_ids) != len(used_pins_positions):
-            print("Number of moving legs and given goal positions should be the same.")
+            self.get_logger().info("Number of moving legs and given goal positions should be the same.")
             response.success = False
             return response
 
@@ -325,7 +326,7 @@ class JointVelocityController(Node):
     
     def apply_force_on_leg_callback(self, request, response):
         if request.leg_id not in spider.LEGS_IDS:
-            print(f"Leg with ID {request.leg_id} was not recognized.")
+            self.get_logger().info(f"Leg with ID {request.leg_id} was not recognized.")
             response.success = False
             return response
         
@@ -420,7 +421,7 @@ class JointVelocityController(Node):
 
     def __get_trajectory(self, current_position_in_local, goal_position_in_local, trajectory_type, duration):
         get_trajectory_request = custom_interface_helper.prepare_trajectory_request((current_position_in_local, goal_position_in_local, duration, trajectory_type))
-        trajectory_response = custom_interface_helper.async_service_call(self.leg_trajectory_client, get_trajectory_request)
+        trajectory_response = custom_interface_helper.async_service_call_from_service(self.leg_trajectory_client, get_trajectory_request)
 
         position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
         velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
@@ -430,7 +431,7 @@ class JointVelocityController(Node):
     
     def __move_gripper(self, leg_id, command):
         get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, command))
-        move_gripper_response = custom_interface_helper.async_service_call(self.move_gripper_client, get_move_gripper_request)
+        move_gripper_response = custom_interface_helper.async_service_call_from_service(self.move_gripper_client, get_move_gripper_request)
 
         if command == robot_config.OPEN_GRIPPER_COMMAND:
             message = 'open'
@@ -438,7 +439,7 @@ class JointVelocityController(Node):
             message = 'close'
 
         if not move_gripper_response.success:
-            print(f"Gripper did not {message} correctly.")
+            self.get_logger().info(f"Gripper did not {message} correctly.")
         
         return move_gripper_response.success
     

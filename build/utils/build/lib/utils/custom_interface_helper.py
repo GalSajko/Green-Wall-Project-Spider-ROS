@@ -1,8 +1,10 @@
+import rclpy
+
 import numpy as np
 import threading
 
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
-from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper
+from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -72,7 +74,16 @@ def prepare_move_gripper_request(request_data):
 
     return request
 
-def async_service_call(client, request):
+def prepare_modified_walking_instructions_request(request_data):
+    start_legs_positions, goal_pose = request_data
+
+    request = GetModifiedWalkingInstructions.Request()
+    request.start_legs_positions = create_multiple_2d_array_messages([start_legs_positions])
+    request.goal_pose = Float32MultiArray(data = goal_pose)
+
+    return request
+
+def async_service_call_from_service(client, request):
     event = threading.Event()
     def done_callback(_):
         nonlocal event
@@ -85,3 +96,8 @@ def async_service_call(client, request):
     event.clear()
 
     return response
+
+def async_service_call(client, request, node):
+    future = client.call_async(request)
+    rclpy.spin_until_future_complete(node, future)
+    return future.result()

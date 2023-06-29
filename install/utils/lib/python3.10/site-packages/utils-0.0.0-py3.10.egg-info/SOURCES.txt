@@ -14,4 +14,5 @@ test/test_flake8.py
 test/test_pep257.py
 utils/__init__.py
 utils/custom_interface_helper.py
+utils/json_file_manager.py
 utils/mappers.py

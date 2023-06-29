@@ -190,7 +190,7 @@ class MotorDriver(Node):
         command = request.command
 
         if command == robot_config.ENABLE_LEGS_COMMAND:
-            update_last_legs_positions_response = custom_interface_helper.async_service_call(self.update_last_legs_positions_client, Trigger.Request())
+            update_last_legs_positions_response = custom_interface_helper.async_service_call_from_service(self.update_last_legs_positions_client, Trigger.Request())
             if not update_last_legs_positions_response.success:
                 response.success = False
                 return response

@@ -2,6 +2,7 @@
 """
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import SingleThreadedExecutor
 
 import numpy as np
 import math
@@ -268,7 +269,8 @@ class PathPlanner(Node):
 def main():
     rclpy.init()
     path_planner = PathPlanner()
-    rclpy.spin(path_planner)
+    executor = SingleThreadedExecutor()
+    rclpy.spin(path_planner, executor)
     rclpy.shutdown()
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@
 """
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import SingleThreadedExecutor
 
 import numpy as np
 import math
@@ -198,7 +199,7 @@ class PathPlanner(Node):
         start_pose[2] = spider.SPIDER_WALKING_HEIGHT
         start_pose = np.append(start_pose, 0.0)
         correction_offset = 0.005
-        print("CALCULATING INITIAL POSE...")
+        self.get_logger().info("CALCULATING INITIAL POSE...")
         counter = 0
         while True:
             potential_legs_lengths = np.zeros(len(spider.LEGS_IDS), dtype = np.float32)
@@ -207,7 +208,7 @@ class PathPlanner(Node):
                 potential_legs_lengths[leg] = np.linalg.norm(start_legs_positions[leg] - leg_base_position_in_global)
             if (not (potential_legs_lengths > spider.LEG_LENGTH_MAX_LIMIT).any()) or counter > 100:
                 if (potential_legs_lengths > 0.6).any():
-                    print("CALCULATED INITIAL POSE WOULD CAUSE OVER-EXTENSION OF AT LEAST ONE LEG. CHANGE LEGS' POSITIONS IN A WAY THAT WOULD NOT COUSE OVER-EXTENSION. SAFETY KILLING A PROGRAM...")
+                    self.get_logger().info("CALCULATED INITIAL POSE WOULD CAUSE OVER-EXTENSION OF AT LEAST ONE LEG. CHANGE LEGS' POSITIONS IN A WAY THAT WOULD NOT COUSE OVER-EXTENSION. SAFETY KILLING A PROGRAM...")
                     return False
                 break
             over_extended_legs_ids = np.where(potential_legs_lengths > spider.LEG_LENGTH_MAX_LIMIT)[0]
@@ -268,7 +269,8 @@ class PathPlanner(Node):
 def main():
     rclpy.init()
     path_planner = PathPlanner()
-    rclpy.spin(path_planner)
+    executor = SingleThreadedExecutor()
+    rclpy.spin(path_planner, executor)
     rclpy.shutdown()
 
 if __name__ == '__main__':

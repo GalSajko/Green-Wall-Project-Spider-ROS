@@ -148,11 +148,11 @@ class MotorDriver(Node):
                 ]
                 success = self.group_sync_write_velocity.changeParam(motor, commanded_joints_velocities_in_bytes)
                 if not success:
-                    print(f"Failed changing Group Sync Writer parameter in motor {motor}")
+                    self.get_logger().info(f"Failed changing Group Sync Writer parameter in motor {motor}")
         with self.serial_comm_locker:
             success = self.group_sync_write_velocity.txPacket()
         if success != dxl.COMM_SUCCESS:
-            print("Failed to write velocities to motors.")
+            self.get_logger().info("Failed to write velocities to motors.")
         
     def sync_read_motors_data_callback(self):
         """Read positions, currents, hardware errors and temperature registers from all connected motors.
@@ -190,7 +190,7 @@ class MotorDriver(Node):
         command = request.command
 
         if command == robot_config.ENABLE_LEGS_COMMAND:
-            update_last_legs_positions_response = custom_interface_helper.async_service_call(self.update_last_legs_positions_client, Trigger.Request())
+            update_last_legs_positions_response = custom_interface_helper.async_service_call_from_service(self.update_last_legs_positions_client, Trigger.Request())
             if not update_last_legs_positions_response.success:
                 response.success = False
                 return response
@@ -207,7 +207,7 @@ class MotorDriver(Node):
                 result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, int(request.value))
             success = self.__comm_result_and_error_reader(result, error)
             if success:
-                print(f"Watchdog on motor {motor_id} has been successfully set to {request.value}")
+                self.get_logger().info(f"Watchdog on motor {motor_id} has been successfully set to {request.value}")
             else:
                 response.success = False
                 return response
@@ -222,7 +222,7 @@ class MotorDriver(Node):
         motors_to_reboot = motors_to_reboot.flatten()
         for motor in motors_to_reboot:
             if motor not in self.motors_ids:
-                print(f"Motor with id {motor} does not exits - it cannot be rebooted.")
+                self.get_logger().info(f"Motor with id {motor} does not exits - it cannot be rebooted.")
                 response.success = False
                 return response
             
@@ -230,7 +230,7 @@ class MotorDriver(Node):
                 result, error = self.packet_handler.reboot(self.port_handler, int(motor))
             success = self.__comm_result_and_error_reader(result, error)
             if not success:
-                print(f"Error while rebooting motor with id {motor}.")
+                self.get_logger().info(f"Error while rebooting motor with id {motor}.")
                 response.success = False
                 return response
             
@@ -239,11 +239,11 @@ class MotorDriver(Node):
                     result, error = self.packet_handler.reboot(self.port_handler, int(motor + 1))
                 success = self.__comm_result_and_error_reader(result, error)
                 if not success:
-                    print(f"Error while rebooting motor with id {motor + 1}.")
+                    self.get_logger().info(f"Error while rebooting motor with id {motor + 1}.")
                     response.success = False
                     return response
         
-        print(f"Motors with ids {motors_to_reboot} have been successfully rebooted.")
+        self.get_logger().info(f"Motors with ids {motors_to_reboot} have been successfully rebooted.")
         response.success = True
         return response
     #endregion
@@ -266,10 +266,10 @@ class MotorDriver(Node):
             bool: True if communication was successfull, False otherwise.
         """
         if result != dxl.COMM_SUCCESS:
-            print(f"{self.packet_handler.getTxRxResult(result)}")
+            self.get_logger().info(f"{self.packet_handler.getTxRxResult(result)}")
             return False
         if error != 0:
-            print(f"{self.packet_handler.getTxRxResult(error)}")
+            self.get_logger().info(f"{self.packet_handler.getTxRxResult(error)}")
             return False
 
         return True
@@ -278,14 +278,14 @@ class MotorDriver(Node):
         """Initialize USB port and set baudrate. Note that baudrate should match with baudrate that is already set on motors.
         """
         if self.port_handler.openPort():
-            print("Port successfully opened.")
+            self.get_logger().info("Port successfully opened.")
         else:
-            print("Failed to open the port.")
+            self.get_logger().info("Failed to open the port.")
 
         if self.port_handler.setBaudRate(self.BAUDRATE):
-            print("Baudrate successfully changed.")
+            self.get_logger().info("Baudrate successfully changed.")
         else:
-            print("Failed to change the baudrate.")
+            self.get_logger().info("Failed to change the baudrate.")
     
     def __init_group_read_write(self) -> bool:
         """Add parameters for all motors into storage for group-sync reading and writing.
@@ -314,7 +314,7 @@ class MotorDriver(Node):
                 ]
                 result_write = self.group_sync_write_velocity.addParam(motor, init_velocity_in_bytes)
                 if not result_write:
-                    print(f"Failed adding parameter {motor} to Group Sync Writer.")
+                    self.get_logger().info(f"Failed adding parameter {motor} to Group Sync Writer.")
                     return False
 
         return True
@@ -331,14 +331,14 @@ class MotorDriver(Node):
             result_hardware_error = self.group_sync_read_hardware_error.addParam(motor)
             result_temperature = self.group_sync_read_temperature.addParam(motor)
             if not (result_position and result_current and result_hardware_error and result_temperature):
-                print(f"Failed adding parameter {motor} to Group Sync Reader.")
+                self.get_logger().info(f"Failed adding parameter {motor} to Group Sync Reader.")
                 return False
         return True
     
     def __toggle_motors_torque(self, legs_ids, command):
         for leg_id in legs_ids:
             if leg_id not in spider.LEGS_IDS:
-                print(f"Leg with id {leg_id} does not exist.")
+                self.get_logger().info(f"Leg with id {leg_id} does not exist.")
                 return False
             
         motors_array = self.motors_ids[legs_ids].flatten()
@@ -350,7 +350,7 @@ class MotorDriver(Node):
                 result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.TORQUE_ENABLE_ADDR, action)
             success = self.__comm_result_and_error_reader(result, error)
             if success:
-                print(f"Motor {motor_id} has been successfully {message}.")
+                self.get_logger().info(f"Motor {motor_id} has been successfully {message}.")
             else:
                 return False
         

@@ -62,6 +62,7 @@ class JointVelocityController(Node):
         self.controller_callbacks_group = ReentrantCallbackGroup()
         self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
+
         self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
         self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, ros_config.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
@@ -420,7 +421,7 @@ class JointVelocityController(Node):
 
     def __get_trajectory(self, current_position_in_local, goal_position_in_local, trajectory_type, duration):
         get_trajectory_request = custom_interface_helper.prepare_trajectory_request((current_position_in_local, goal_position_in_local, duration, trajectory_type))
-        trajectory_response = custom_interface_helper.async_service_call(self.leg_trajectory_client, get_trajectory_request)
+        trajectory_response = custom_interface_helper.async_service_call_from_service(self.leg_trajectory_client, get_trajectory_request)
 
         position_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.position_trajectory)
         velocity_trajectory = custom_interface_helper.unpack_2d_array_message(trajectory_response.trajectories.velocity_trajectory)
@@ -430,7 +431,7 @@ class JointVelocityController(Node):
     
     def __move_gripper(self, leg_id, command):
         get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, command))
-        move_gripper_response = custom_interface_helper.async_service_call(self.move_gripper_client, get_move_gripper_request)
+        move_gripper_response = custom_interface_helper.async_service_call_from_service(self.move_gripper_client, get_move_gripper_request)
 
         if command == robot_config.OPEN_GRIPPER_COMMAND:
             message = 'open'
