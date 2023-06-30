@@ -14,6 +14,11 @@ def generate_launch_description():
             name = 'trajectory_planner'
         ),
         Node(
+            package = 'planning',
+            executable = 'path_planner',
+            name = 'path_planner'
+        ),
+        Node(
             package = 'arduino_communication',
             executable = 'grippers_controller',
             name = 'grippers_controller'

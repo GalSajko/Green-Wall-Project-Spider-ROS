@@ -62,7 +62,7 @@ class JointVelocityController(Node):
         self.controller_callbacks_group = ReentrantCallbackGroup()
         self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
-        
+
         self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
         self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, ros_config.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
@@ -239,7 +239,7 @@ class JointVelocityController(Node):
                 False,
                 goal_spider_pose
             )
-            legs_goal_positions_in_local[idx] = leg_goal_position_in_local
+            legs_goal_positions_in_local[leg_id] = leg_goal_position_in_local
 
             position_trajectory, velocity_trajectory, acceleration_trajectory = self.__get_trajectory(
                 legs_current_positions[leg_id],

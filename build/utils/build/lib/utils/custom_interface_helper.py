@@ -3,8 +3,8 @@ import rclpy
 import numpy as np
 import threading
 
-from std_msgs.msg import Float32MultiArray, MultiArrayDimension
-from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions
+from std_msgs.msg import Float32MultiArray, MultiArrayDimension, Int8MultiArray
+from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -80,6 +80,17 @@ def prepare_modified_walking_instructions_request(request_data):
     request = GetModifiedWalkingInstructions.Request()
     request.start_legs_positions = create_multiple_2d_array_messages([start_legs_positions])
     request.goal_pose = Float32MultiArray(data = goal_pose)
+
+    return request
+
+def prepare_move_spider_request(request_data):
+    legs_ids, used_pins_positions, goal_spider_pose, duration = request_data
+
+    request = MoveSpider.Request()
+    request.legs_ids = Int8MultiArray(data = legs_ids)
+    request.used_pins_positions = create_multiple_2d_array_messages([used_pins_positions])
+    request.goal_spider_pose = Float32MultiArray(data = goal_spider_pose)
+    request.duration = duration
 
     return request
 

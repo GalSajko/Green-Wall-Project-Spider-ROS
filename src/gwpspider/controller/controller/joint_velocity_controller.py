@@ -207,9 +207,9 @@ class JointVelocityController(Node):
             return response
         
         legs_ids = request.legs_ids.data
-        duration = request.duration
         used_pins_positions = custom_interface_helper.unpack_2d_array_message(request.used_pins_positions)
         goal_spider_pose = request.goal_spider_pose.data
+        duration = request.duration
         
         if len(legs_ids) != len(used_pins_positions):
             self.get_logger().info("Number of moving legs and given goal positions should be the same.")
@@ -239,7 +239,7 @@ class JointVelocityController(Node):
                 False,
                 goal_spider_pose
             )
-            legs_goal_positions_in_local[idx] = leg_goal_position_in_local
+            legs_goal_positions_in_local[leg_id] = leg_goal_position_in_local
 
             position_trajectory, velocity_trajectory, acceleration_trajectory = self.__get_trajectory(
                 legs_current_positions[leg_id],
