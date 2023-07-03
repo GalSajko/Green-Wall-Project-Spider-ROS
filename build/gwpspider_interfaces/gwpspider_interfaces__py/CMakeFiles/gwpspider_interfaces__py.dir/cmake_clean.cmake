@@ -28,6 +28,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_leg_trajectory_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_modified_walking_instructions.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_modified_walking_instructions_s.c"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_get_spider_pose.py"
+  "../rosidl_generator_py/gwpspider_interfaces/srv/_get_spider_pose_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_walking_instructions.py"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_get_walking_instructions_s.c"
   "../rosidl_generator_py/gwpspider_interfaces/srv/_init_bno.py"

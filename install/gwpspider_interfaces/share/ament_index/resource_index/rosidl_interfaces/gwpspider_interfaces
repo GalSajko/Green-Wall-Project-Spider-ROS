@@ -32,6 +32,10 @@ srv/GetModifiedWalkingInstructions.idl
 srv/GetModifiedWalkingInstructions.srv
 srv/GetModifiedWalkingInstructions_Request.msg
 srv/GetModifiedWalkingInstructions_Response.msg
+srv/GetSpiderPose.idl
+srv/GetSpiderPose.srv
+srv/GetSpiderPose_Request.msg
+srv/GetSpiderPose_Response.msg
 srv/GetWalkingInstructions.idl
 srv/GetWalkingInstructions.srv
 srv/GetWalkingInstructions_Request.msg

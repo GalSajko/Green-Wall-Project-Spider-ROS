@@ -1,0 +1,20 @@
+running egg_info
+writing ../../../build/calculations/calculations.egg-info/PKG-INFO
+writing dependency_links to ../../../build/calculations/calculations.egg-info/dependency_links.txt
+writing entry points to ../../../build/calculations/calculations.egg-info/entry_points.txt
+writing requirements to ../../../build/calculations/calculations.egg-info/requires.txt
+writing top-level names to ../../../build/calculations/calculations.egg-info/top_level.txt
+reading manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+writing manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+  warnings.warn(
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../../build/calculations/calculations.egg-info to /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/spider/gwpspider_ws/build/calculations/install.log'

@@ -157,31 +157,34 @@ class MotorDriver(Node):
     def sync_read_motors_data_callback(self):
         """Read positions, currents, hardware errors and temperature registers from all connected motors.
         """
-        with self.serial_comm_locker:
-            _ = self.group_sync_read_current.fastSyncRead()
-            _ = self.group_sync_read_position.fastSyncRead()
-            _ = self.group_sync_read_hardware_error.fastSyncRead()
-            _ = self.group_sync_read_temperature.fastSyncRead()
+        try:
+            with self.serial_comm_locker:
+                _ = self.group_sync_read_current.fastSyncRead()
+                _ = self.group_sync_read_position.fastSyncRead()
+                _ = self.group_sync_read_hardware_error.fastSyncRead()
+                _ = self.group_sync_read_temperature.fastSyncRead()
 
-        currents = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
-        positions = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
-        hardware_errors = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
-        temperatures = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
-            
-        for leg in spider.LEGS_IDS:
-            for idx, motor_in_leg in enumerate(self.motors_ids[leg]):
-                positions[leg][idx] = self.group_sync_read_position.getData(motor_in_leg, self.PRESENT_POSITION_ADDR, self.PRESENT_POSITION_DATA_LENGTH)
-                currents[leg][idx] = self.group_sync_read_current.getData(motor_in_leg, self.PRESENT_CURRENT_ADDR, self.PRESENT_CURRENT_DATA_LENGTH)
-                hardware_errors[leg][idx] = self.group_sync_read_hardware_error.getData(motor_in_leg, self.HARDWARE_ERROR_ADDR, self.HARDWARE_ERROR_DATA_LENGTH)
-                temperatures[leg][idx] = self.group_sync_read_temperature.getData(motor_in_leg, self.PRESENT_TEMPERATURE_ADDR, self.PRESENT_TEMPERATURE_DATA_LENGTH)
+            currents = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
+            positions = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
+            hardware_errors = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
+            temperatures = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
+                
+            for leg in spider.LEGS_IDS:
+                for idx, motor_in_leg in enumerate(self.motors_ids[leg]):
+                    positions[leg][idx] = self.group_sync_read_position.getData(motor_in_leg, self.PRESENT_POSITION_ADDR, self.PRESENT_POSITION_DATA_LENGTH)
+                    currents[leg][idx] = self.group_sync_read_current.getData(motor_in_leg, self.PRESENT_CURRENT_ADDR, self.PRESENT_CURRENT_DATA_LENGTH)
+                    hardware_errors[leg][idx] = self.group_sync_read_hardware_error.getData(motor_in_leg, self.HARDWARE_ERROR_ADDR, self.HARDWARE_ERROR_DATA_LENGTH)
+                    temperatures[leg][idx] = self.group_sync_read_temperature.getData(motor_in_leg, self.PRESENT_TEMPERATURE_ADDR, self.PRESENT_TEMPERATURE_DATA_LENGTH)
 
-        mapped_positions = mappers.map_position_encoder_values_to_model_angles_radians(positions)
-        mapped_currents = mappers.map_current_encoder_values_to_motors_currents_ampers(currents)
+            mapped_positions = mappers.map_position_encoder_values_to_model_angles_radians(positions)
+            mapped_currents = mappers.map_current_encoder_values_to_motors_currents_ampers(currents)
 
-        msg_list = custom_interface_helper.create_multiple_2d_array_messages((mapped_positions, mapped_currents, hardware_errors, temperatures))
-        msg = DynamixelMotorsData(positions = msg_list[0], currents = msg_list[1], motor_errors = msg_list[2], temperatures = msg_list[3])
+            msg_list = custom_interface_helper.create_multiple_2d_array_messages((mapped_positions, mapped_currents, hardware_errors, temperatures))
+            msg = DynamixelMotorsData(positions = msg_list[0], currents = msg_list[1], motor_errors = msg_list[2], temperatures = msg_list[3])
 
-        self.motors_data_publisher.publish(msg)
+            self.motors_data_publisher.publish(msg)
+        except KeyError as ke:
+            self.get_logger().info(f"Error at reading motors data: {ke}.")
     
     def toggle_motors_torque_callback(self, request, response):
         """Toggle torque in motors.

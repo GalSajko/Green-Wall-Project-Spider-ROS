@@ -311,8 +311,15 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
   rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__type_support.h:
 
@@ -791,6 +798,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h:
 /usr/include/python3.10/cpython/pydebug.h:
 
 /usr/include/python3.10/cpython/fileobject.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__functions.h:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 

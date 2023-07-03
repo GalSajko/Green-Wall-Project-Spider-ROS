@@ -38,6 +38,8 @@ class LegsStatesPublisher(Node):
         self.legs_states_publisher = self.create_publisher(LegsStates, ros_config.LEGS_STATES_TOPIC, 1, callback_group = self.callback_group)
         self.timer = self.create_timer(0.005, self.publish_legs_states_callback, callback_group = self.callback_group)
 
+        self.get_logger().info("Legs states publisher is running.")
+
     def publish_legs_states_callback(self):
         with self.legs_states_msg_locker:
             legs_states_msg = self.legs_states_msg

@@ -1,0 +1,22 @@
+[2.471s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/calculations': PYTHONPATH=/home/spider/gwpspider_ws/build/calculations/prefix_override:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/calculations build --build-base /home/spider/gwpspider_ws/build/calculations/build install --record /home/spider/gwpspider_ws/build/calculations/install.log --single-version-externally-managed
+[3.135s] running egg_info
+[3.136s] writing ../../../build/calculations/calculations.egg-info/PKG-INFO
+[3.137s] writing dependency_links to ../../../build/calculations/calculations.egg-info/dependency_links.txt
+[3.137s] writing entry points to ../../../build/calculations/calculations.egg-info/entry_points.txt
+[3.137s] writing requirements to ../../../build/calculations/calculations.egg-info/requires.txt
+[3.138s] writing top-level names to ../../../build/calculations/calculations.egg-info/top_level.txt
+[3.145s] reading manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+[3.147s] writing manifest file '../../../build/calculations/calculations.egg-info/SOURCES.txt'
+[3.147s] running build
+[3.161s] running build_py
+[3.162s] running install
+[3.162s] running install_lib
+[3.164s] running install_data
+[3.165s] running install_egg_info
+[3.168s] removing '/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations-0.0.0-py3.10.egg-info' (and everything under it)
+[3.180s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[3.180s]   warnings.warn(
+[3.185s] Copying ../../../build/calculations/calculations.egg-info to /home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations-0.0.0-py3.10.egg-info
+[3.186s] running install_scripts
+[3.257s] writing list of installed files to '/home/spider/gwpspider_ws/build/calculations/install.log'
+[3.638s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/calculations' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/calculations/prefix_override:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/calculations build --build-base /home/spider/gwpspider_ws/build/calculations/build install --record /home/spider/gwpspider_ws/build/calculations/install.log --single-version-externally-managed

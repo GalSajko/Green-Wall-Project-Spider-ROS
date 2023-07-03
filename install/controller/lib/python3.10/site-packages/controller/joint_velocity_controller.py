@@ -20,7 +20,7 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -49,7 +49,8 @@ class JointVelocityController(Node):
         self.legs_forces = None
         self.joints_torques = None
 
-        self.legs_states_subscriber = self.create_subscription(LegsStates, ros_config.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1)
+        self.reading_callback_group = ReentrantCallbackGroup()
+        self.legs_states_subscriber = self.create_subscription(LegsStates, ros_config.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.reading_callback_group)
 
         self.toggle_controller_service = self.create_service(ToggleController, ros_config.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
 
@@ -58,6 +59,7 @@ class JointVelocityController(Node):
         self.move_spider_service = self.create_service(MoveSpider, ros_config.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.moving_callbacks_group)
         self.leg_trajectory_client = self.create_client(GetLegTrajectory, ros_config.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.moving_callbacks_group)
         self.move_gripper_client = self.create_client(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
+        self.get_spider_pose_service = self.create_service(GetSpiderPose, ros_config.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.moving_callbacks_group)
 
         self.controller_callbacks_group = ReentrantCallbackGroup()
         self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
@@ -207,9 +209,9 @@ class JointVelocityController(Node):
             return response
         
         legs_ids = request.legs_ids.data
-        duration = request.duration
         used_pins_positions = custom_interface_helper.unpack_2d_array_message(request.used_pins_positions)
         goal_spider_pose = request.goal_spider_pose.data
+        duration = request.duration
         
         if len(legs_ids) != len(used_pins_positions):
             self.get_logger().info("Number of moving legs and given goal positions should be the same.")
@@ -259,14 +261,17 @@ class JointVelocityController(Node):
         for leg_id in legs_ids:
             self.command_queues[leg_id].put(self.sentinel)
 
-        with self.legs_states_locker:
-            position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
-        while (position_errors > self.SPIDER_MOVEMENT_PRECISION).any():
-            with self.legs_states_locker:
-                position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
-            time.sleep(0.001)
+        # with self.legs_states_locker:
+        #     position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
+        # while (position_errors > self.SPIDER_MOVEMENT_PRECISION).any():
+        #     with self.legs_states_locker:
+        #         position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
+        #     self.get_logger().info(f"Spider movement errors: {position_errors}")
+        #     time.sleep(0.001)
+        time.sleep(duration + 0.5)
         
         response.success = True
+        self.get_logger().info("Spider has moved.")
         return response
  
     def read_legs_states_callback(self, msg):
@@ -351,6 +356,19 @@ class JointVelocityController(Node):
         
         response.success = False
         return response
+    
+    def get_spider_pose_callback(self, request, response):
+        legs_ids = request.legs_ids.data
+        legs_global_positions = custom_interface_helper.unpack_2d_array_message(request.legs_global_positions)
+
+        with self.legs_states_locker:
+            q_a = self.joints_positions
+        
+        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a)
+
+        response.spider_pose = Float32MultiArray(data = spider_pose)
+        return response
+
 
     def __position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """PD controller. Feed-forward velocity is used only in force mode, otherwise its values are zeros.

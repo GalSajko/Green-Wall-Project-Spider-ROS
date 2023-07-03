@@ -18,6 +18,7 @@ gwpspider_interfaces/srv/_control_water_pump.py
 gwpspider_interfaces/srv/_distribute_forces.py
 gwpspider_interfaces/srv/_get_leg_trajectory.py
 gwpspider_interfaces/srv/_get_modified_walking_instructions.py
+gwpspider_interfaces/srv/_get_spider_pose.py
 gwpspider_interfaces/srv/_get_walking_instructions.py
 gwpspider_interfaces/srv/_init_bno.py
 gwpspider_interfaces/srv/_move_gripper.py

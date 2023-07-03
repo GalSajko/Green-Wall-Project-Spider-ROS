@@ -4,7 +4,9 @@ import numpy as np
 import threading
 
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension, Int8MultiArray
-from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg
+
+from configuration import robot_config
+from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg, DistributeForces, GetSpiderPose
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -69,7 +71,7 @@ def prepare_move_gripper_request(request_data):
     leg, command = request_data
 
     request = MoveGripper.Request()
-    request.instructions.leg_id = leg
+    request.instructions.leg_id = int(leg)
     request.instructions.command = command
 
     return request
@@ -94,6 +96,36 @@ def prepare_move_spider_request(request_data):
 
     return request
 
+def prepare_distribute_forces_request(request_data):
+    request = DistributeForces.Request()
+    request.legs_ids = Int8MultiArray(data = request_data)
+
+    return request
+
+def prepare_move_leg_request(request_data):
+    leg_id, goal_position, trajectory_type, origin, duration, is_offset, spider_pose, use_gripper = request_data
+
+    request = MoveLeg.Request()
+    request.leg_id = int(leg_id)
+    request.goal_position = Float32MultiArray(data = goal_position)
+    request.trajectory_type = trajectory_type
+    request.origin = origin
+    request.duration = duration
+    request.is_offset = is_offset
+    request.spider_pose = Float32MultiArray(data = spider_pose)
+    request.use_gripper = use_gripper
+
+    return request
+
+def prepare_get_spider_pose_request(request_data):
+    legs_ids, legs_global_positions = request_data
+
+    request = GetSpiderPose.Request()
+    request.legs_ids = Int8MultiArray(data = legs_ids)
+    request.legs_global_positions = create_multiple_2d_array_messages([legs_global_positions])
+
+    return request
+
 def async_service_call_from_service(client, request):
     event = threading.Event()
     def done_callback(_):
@@ -111,4 +143,5 @@ def async_service_call_from_service(client, request):
 def async_service_call(client, request, node):
     future = client.call_async(request)
     rclpy.spin_until_future_complete(node, future)
+
     return future.result()

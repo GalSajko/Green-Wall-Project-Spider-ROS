@@ -9,7 +9,7 @@ class JsonFileManager():
     def __init__(self):
         self.FILENAME = "/home/spider/gwpspider_ws/src/gwpspider/data/spider_state_dict"
 
-        self.pins = wall.create_grid(True)
+        self.pins = np.array(wall.create_grid(True), dtype = np.float32)
         self.state_dict = {
             robot_config.STATE_DICT_POSE_KEY : [],
             robot_config.STATE_DICT_PINS_KEY : []
@@ -24,7 +24,7 @@ class JsonFileManager():
             legs_moving_order (list): Legs moving order.
         """
         sorted_legs_ids = np.argsort(legs_moving_order)
-        sorted_pins = current_pins[sorted_legs_ids]
+        sorted_pins = np.array(current_pins[sorted_legs_ids], dtype = np.float32)
 
         pins_ids = []
         for used_pin in sorted_pins:
@@ -44,7 +44,8 @@ class JsonFileManager():
             leg_id (int): Leg id.
             pin (list): 1x3 array of pin position.
         """
-        pin_id = np.flatnonzero((self.pins == pin).all(1))[0]
+        pin_id = np.flatnonzero((np.array(self.pins, dtype = np.float32) == np.array(pin, dtype = np.float32)).all(1))[0]
+
         self.state_dict[robot_config.STATE_DICT_PINS_KEY][leg_id] = int(pin_id)
 
         self.__write_json()
