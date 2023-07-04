@@ -137,9 +137,14 @@ static bool _MoveLeg_Request__cdr_serialize(
     }
   }
 
-  // Field name: use_gripper
+  // Field name: open_gripper
   {
-    cdr << (ros_message->use_gripper ? true : false);
+    cdr << (ros_message->open_gripper ? true : false);
+  }
+
+  // Field name: close_gripper
+  {
+    cdr << (ros_message->close_gripper ? true : false);
   }
 
   return true;
@@ -231,11 +236,18 @@ static bool _MoveLeg_Request__cdr_deserialize(
     }
   }
 
-  // Field name: use_gripper
+  // Field name: open_gripper
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message->use_gripper = tmp ? true : false;
+    ros_message->open_gripper = tmp ? true : false;
+  }
+
+  // Field name: close_gripper
+  {
+    uint8_t tmp;
+    cdr >> tmp;
+    ros_message->close_gripper = tmp ? true : false;
   }
 
   return true;
@@ -289,9 +301,15 @@ size_t get_serialized_size_gwpspider_interfaces__srv__MoveLeg_Request(
 
   current_alignment += get_serialized_size_std_msgs__msg__Float32MultiArray(
     &(ros_message->spider_pose), current_alignment);
-  // field.name use_gripper
+  // field.name open_gripper
   {
-    size_t item_size = sizeof(ros_message->use_gripper);
+    size_t item_size = sizeof(ros_message->open_gripper);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // field.name close_gripper
+  {
+    size_t item_size = sizeof(ros_message->close_gripper);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -395,7 +413,13 @@ size_t max_serialized_size_gwpspider_interfaces__srv__MoveLeg_Request(
       is_plain &= inner_is_plain;
     }
   }
-  // member: use_gripper
+  // member: open_gripper
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint8_t);
+  }
+  // member: close_gripper
   {
     size_t array_size = 1;
 

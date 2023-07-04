@@ -140,13 +140,22 @@ bool gwpspider_interfaces__srv__move_leg__request__convert_from_py(PyObject * _p
     }
     Py_DECREF(field);
   }
-  {  // use_gripper
-    PyObject * field = PyObject_GetAttrString(_pymsg, "use_gripper");
+  {  // open_gripper
+    PyObject * field = PyObject_GetAttrString(_pymsg, "open_gripper");
     if (!field) {
       return false;
     }
     assert(PyBool_Check(field));
-    ros_message->use_gripper = (Py_True == field);
+    ros_message->open_gripper = (Py_True == field);
+    Py_DECREF(field);
+  }
+  {  // close_gripper
+    PyObject * field = PyObject_GetAttrString(_pymsg, "close_gripper");
+    if (!field) {
+      return false;
+    }
+    assert(PyBool_Check(field));
+    ros_message->close_gripper = (Py_True == field);
     Py_DECREF(field);
   }
 
@@ -266,11 +275,22 @@ PyObject * gwpspider_interfaces__srv__move_leg__request__convert_to_py(void * ra
       }
     }
   }
-  {  // use_gripper
+  {  // open_gripper
     PyObject * field = NULL;
-    field = PyBool_FromLong(ros_message->use_gripper ? 1 : 0);
+    field = PyBool_FromLong(ros_message->open_gripper ? 1 : 0);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "use_gripper", field);
+      int rc = PyObject_SetAttrString(_pymessage, "open_gripper", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
+  {  // close_gripper
+    PyObject * field = NULL;
+    field = PyBool_FromLong(ros_message->close_gripper ? 1 : 0);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "close_gripper", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

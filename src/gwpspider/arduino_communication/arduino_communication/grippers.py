@@ -12,6 +12,7 @@ from configuration import ros_config, robot_config, spider
 from arduino_communication.arduino_comm import ArduinoComm
 
 from gwpspider_interfaces.srv import MoveGripper
+from gwpspider_interfaces.msg import GripperState, GrippersStates
 
 class GrippersController(Node):
     def __init__(self):
@@ -25,8 +26,8 @@ class GrippersController(Node):
 
         self.callback_group = ReentrantCallbackGroup()
         self.move_service = self.create_service(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, self.move_gripper_callback, callback_group = self.callback_group)
-        self.states_publisher = self.create_publisher(String, ros_config.GRIPPER_STATES_TOPIC, 10, callback_group = self.callback_group)
-        timer_period = 0.01
+        self.states_publisher = self.create_publisher(GrippersStates, ros_config.GRIPPER_STATES_TOPIC, 1, callback_group = self.callback_group)
+        timer_period = 0.0
         self.timer = self.create_timer(timer_period, self.publish_states_callback, callback_group = self.callback_group)
     
     @property
@@ -39,7 +40,7 @@ class GrippersController(Node):
     
     @property
     def MAX_ALLOWED_GRIPPER_MOVEMENT_TIME(self):
-        return 3.0
+        return 3.5
     
     def move_gripper_callback(self, request, response):
         leg_id = request.instructions.leg_id
@@ -84,12 +85,33 @@ class GrippersController(Node):
         return response
     
     def publish_states_callback(self):
-        msg = String()
+        msg = GrippersStates()
         with self.serial_comm_locker:
             states = self.arduino_comm.read()
         with self.grippers_states_locker:
             self.grippers_states = states
-        msg.data = states
+            
+        for leg_id in spider.LEGS_IDS:
+            sub_msg = GripperState()
+
+            fingers_state = states[leg_id]
+            switch_state = states[leg_id + 5]
+
+            sub_msg.fingers_state = fingers_state
+            sub_msg.switch_state = switch_state
+            sub_msg.is_attached = fingers_state == robot_config.IS_GRIPPER_CLOSE_RESPONSE and switch_state == robot_config.IS_GRIPPER_CLOSE_RESPONSE
+            
+            if leg_id == 0:
+                msg.first_gripper = sub_msg
+            elif leg_id == 1:
+                msg.second_gripper = sub_msg
+            elif leg_id == 2:
+                msg.third_gripper = sub_msg
+            elif leg_id == 3:
+                msg.fourth_gripper = sub_msg
+            elif leg_id == 4:
+                msg.fifth_gripper = sub_msg
+
         self.states_publisher.publish(msg)
 
 def main():

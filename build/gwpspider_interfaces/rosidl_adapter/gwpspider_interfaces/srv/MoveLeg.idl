@@ -21,7 +21,9 @@ module gwpspider_interfaces {
 
       std_msgs::msg::Float32MultiArray spider_pose;
 
-      boolean use_gripper;
+      boolean open_gripper;
+
+      boolean close_gripper;
     };
     struct MoveLeg_Response {
       boolean success;

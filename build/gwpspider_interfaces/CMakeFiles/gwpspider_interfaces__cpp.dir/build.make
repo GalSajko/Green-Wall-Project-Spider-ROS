@@ -94,6 +94,14 @@ CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/
 CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/legs_states__builder.hpp
 CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/legs_states__struct.hpp
 CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/legs_states__traits.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_state.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__builder.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__struct.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__traits.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/grippers_states.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__builder.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__struct.hpp
+CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__traits.hpp
 CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/srv/move_gripper.hpp
 CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__builder.hpp
 CMakeFiles/gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/srv/detail/move_gripper__struct.hpp
@@ -177,6 +185,8 @@ rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapte
 rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/msg/WalkingInstructions.idl
 rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/msg/LegTrajectory.idl
 rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/msg/LegsStates.idl
+rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/msg/GripperState.idl
+rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/msg/GrippersStates.idl
 rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/srv/MoveGripper.idl
 rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/srv/ControlWaterPump.idl
 rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp: rosidl_adapter/gwpspider_interfaces/srv/InitBno.idl
@@ -307,6 +317,30 @@ rosidl_generator_cpp/gwpspider_interfaces/msg/detail/legs_states__struct.hpp: ro
 
 rosidl_generator_cpp/gwpspider_interfaces/msg/detail/legs_states__traits.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/legs_states__traits.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_state.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_state.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__builder.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__builder.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__struct.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__struct.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__traits.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__traits.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/grippers_states.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/grippers_states.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__builder.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__builder.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__struct.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__struct.hpp
+
+rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__traits.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__traits.hpp
 
 rosidl_generator_cpp/gwpspider_interfaces/srv/move_gripper.hpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/gwpspider_interfaces/srv/move_gripper.hpp
@@ -499,6 +533,12 @@ gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_command__builder.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_command__struct.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_command__traits.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__builder.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__struct.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/gripper_state__traits.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__builder.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__struct.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/grippers_states__traits.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__builder.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__struct.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/leg_trajectory__traits.hpp
@@ -513,6 +553,8 @@ gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/detail/water_pump_command__traits.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/dynamixel_motors_data.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_command.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/gripper_state.hpp
+gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/grippers_states.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/leg_trajectory.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/legs_states.hpp
 gwpspider_interfaces__cpp: rosidl_generator_cpp/gwpspider_interfaces/msg/walking_instructions.hpp

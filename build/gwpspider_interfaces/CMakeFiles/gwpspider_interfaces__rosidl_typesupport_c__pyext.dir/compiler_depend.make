@@ -269,6 +269,12 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h \
   rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h \
@@ -358,6 +364,16 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__functio
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h:
 
@@ -706,6 +722,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__functions.h
 /usr/include/python3.10/cpython/fileutils.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h:
 

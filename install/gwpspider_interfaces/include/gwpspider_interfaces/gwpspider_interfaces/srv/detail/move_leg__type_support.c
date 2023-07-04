@@ -42,7 +42,7 @@ void gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspectio
   gwpspider_interfaces__srv__MoveLeg_Request__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspection_c__MoveLeg_Request_message_member_array[8] = {
+static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspection_c__MoveLeg_Request_message_member_array[9] = {
   {
     "leg_id",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_INT8,  // type
@@ -163,14 +163,31 @@ static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__s
     NULL  // resize(index) function pointer
   },
   {
-    "use_gripper",  // name
+    "open_gripper",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_BOOLEAN,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveLeg_Request, use_gripper),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__MoveLeg_Request, open_gripper),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "close_gripper",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_BOOLEAN,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(gwpspider_interfaces__srv__MoveLeg_Request, close_gripper),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -184,7 +201,7 @@ static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__s
 static const rosidl_typesupport_introspection_c__MessageMembers gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspection_c__MoveLeg_Request_message_members = {
   "gwpspider_interfaces__srv",  // message namespace
   "MoveLeg_Request",  // message name
-  8,  // number of fields
+  9,  // number of fields
   sizeof(gwpspider_interfaces__srv__MoveLeg_Request),
   gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspection_c__MoveLeg_Request_message_member_array,  // message members
   gwpspider_interfaces__srv__MoveLeg_Request__rosidl_typesupport_introspection_c__MoveLeg_Request_init_function,  // function to initialize message memory (memory has to be allocated)

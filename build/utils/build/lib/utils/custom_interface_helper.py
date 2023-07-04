@@ -103,7 +103,7 @@ def prepare_distribute_forces_request(request_data):
     return request
 
 def prepare_move_leg_request(request_data):
-    leg_id, goal_position, trajectory_type, origin, duration, is_offset, spider_pose, use_gripper = request_data
+    leg_id, goal_position, trajectory_type, origin, duration, is_offset, spider_pose, open_gripper, close_gripper = request_data
 
     request = MoveLeg.Request()
     request.leg_id = int(leg_id)
@@ -113,7 +113,8 @@ def prepare_move_leg_request(request_data):
     request.duration = duration
     request.is_offset = is_offset
     request.spider_pose = Float32MultiArray(data = spider_pose)
-    request.use_gripper = use_gripper
+    request.open_gripper = open_gripper
+    request.close_gripper = close_gripper
 
     return request
 

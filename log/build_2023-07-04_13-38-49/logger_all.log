@@ -1,0 +1,639 @@
+[0.424s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.424s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f223d5d5ff0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f223ddd45b0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f223ddd45b0>>)
+[0.462s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.462s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.462s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.462s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.462s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.462s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.462s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/spider/gwpspider_ws'
+[0.462s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extensions ['ignore', 'ignore_ament_install']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'ignore'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'ignore_ament_install'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extensions ['colcon_pkg']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'colcon_pkg'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extensions ['colcon_meta']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'colcon_meta'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extensions ['ros']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'ros'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extensions ['cmake', 'python']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'cmake'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'python'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extensions ['python_setup_py']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider) by extension 'python_setup_py'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extensions ['ignore', 'ignore_ament_install']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extension 'ignore'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extension 'ignore_ament_install'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extensions ['colcon_pkg']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extension 'colcon_pkg'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extensions ['colcon_meta']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extension 'colcon_meta'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extensions ['ros']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/application) by extension 'ros'
+[0.481s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/application' with type 'ros.ament_python' and name 'application'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extensions ['ignore', 'ignore_ament_install']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extension 'ignore'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extension 'ignore_ament_install'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extensions ['colcon_pkg']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extension 'colcon_pkg'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extensions ['colcon_meta']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extension 'colcon_meta'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extensions ['ros']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/arduino_communication) by extension 'ros'
+[0.482s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/arduino_communication' with type 'ros.ament_python' and name 'arduino_communication'
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extensions ['ignore', 'ignore_ament_install']
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extension 'ignore'
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extension 'ignore_ament_install'
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extensions ['colcon_pkg']
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extension 'colcon_pkg'
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extensions ['colcon_meta']
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extension 'colcon_meta'
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extensions ['ros']
+[0.482s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/calculations) by extension 'ros'
+[0.483s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/calculations' with type 'ros.ament_python' and name 'calculations'
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extensions ['ignore', 'ignore_ament_install']
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extension 'ignore'
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extension 'ignore_ament_install'
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extensions ['colcon_pkg']
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extension 'colcon_pkg'
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extensions ['colcon_meta']
+[0.483s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extension 'colcon_meta'
+[0.484s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extensions ['ros']
+[0.484s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/configuration) by extension 'ros'
+[0.484s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/configuration' with type 'ros.ament_python' and name 'configuration'
+[0.484s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extensions ['ignore', 'ignore_ament_install']
+[0.484s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extension 'ignore'
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extension 'ignore_ament_install'
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extensions ['colcon_pkg']
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extension 'colcon_pkg'
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extensions ['colcon_meta']
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extension 'colcon_meta'
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extensions ['ros']
+[0.485s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/controller) by extension 'ros'
+[0.485s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/controller' with type 'ros.ament_python' and name 'controller'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extensions ['ignore', 'ignore_ament_install']
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'ignore'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'ignore_ament_install'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extensions ['colcon_pkg']
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'colcon_pkg'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extensions ['colcon_meta']
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'colcon_meta'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extensions ['ros']
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'ros'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extensions ['cmake', 'python']
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'cmake'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'python'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extensions ['python_setup_py']
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/data) by extension 'python_setup_py'
+[0.486s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extensions ['ignore', 'ignore_ament_install']
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extension 'ignore'
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extension 'ignore_ament_install'
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extensions ['colcon_pkg']
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extension 'colcon_pkg'
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extensions ['colcon_meta']
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extension 'colcon_meta'
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extensions ['ros']
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/dynamixel_interface) by extension 'ros'
+[0.487s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/dynamixel_interface' with type 'ros.ament_python' and name 'dynamixel_interface'
+[0.487s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extension 'ignore'
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extension 'ignore_ament_install'
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extensions ['colcon_pkg']
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extension 'colcon_pkg'
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extensions ['colcon_meta']
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extension 'colcon_meta'
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extensions ['ros']
+[0.488s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_interfaces) by extension 'ros'
+[0.489s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/gwpspider_interfaces' with type 'ros.ament_cmake' and name 'gwpspider_interfaces'
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extensions ['ignore', 'ignore_ament_install']
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extension 'ignore'
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extension 'ignore_ament_install'
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extensions ['colcon_pkg']
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extension 'colcon_pkg'
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extensions ['colcon_meta']
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extension 'colcon_meta'
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extensions ['ros']
+[0.489s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/gwpspider_launch) by extension 'ros'
+[0.490s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/gwpspider_launch' with type 'ros.ament_cmake' and name 'gwpspider_launch'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extensions ['ignore', 'ignore_ament_install']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extension 'ignore'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extension 'ignore_ament_install'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extensions ['colcon_pkg']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extension 'colcon_pkg'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extensions ['colcon_meta']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extension 'colcon_meta'
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extensions ['ros']
+[0.490s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/planning) by extension 'ros'
+[0.491s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/planning' with type 'ros.ament_python' and name 'planning'
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extensions ['ignore', 'ignore_ament_install']
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extension 'ignore'
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extension 'ignore_ament_install'
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extensions ['colcon_pkg']
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extension 'colcon_pkg'
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extensions ['colcon_meta']
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extension 'colcon_meta'
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extensions ['ros']
+[0.491s] Level 1:colcon.colcon_core.package_identification:_identify(src/gwpspider/utils) by extension 'ros'
+[0.492s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gwpspider/utils' with type 'ros.ament_python' and name 'utils'
+[0.492s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.492s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.492s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.492s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.492s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.522s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.522s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.525s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 10 installed packages in /home/spider/gwpspider_ws/install
+[0.527s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 270 installed packages in /opt/ros/humble
+[0.528s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.595s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'cmake_args' from command line to 'None'
+[0.595s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'cmake_target' from command line to 'None'
+[0.595s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.596s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'cmake_clean_cache' from command line to 'False'
+[0.596s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'cmake_clean_first' from command line to 'False'
+[0.596s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'cmake_force_configure' from command line to 'False'
+[0.596s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'ament_cmake_args' from command line to 'None'
+[0.596s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'catkin_cmake_args' from command line to 'None'
+[0.596s] Level 5:colcon.colcon_core.verb:set package 'application' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.596s] DEBUG:colcon.colcon_core.verb:Building package 'application' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/application', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/application', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/application', 'symlink_install': False, 'test_result_base': None}
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'cmake_args' from command line to 'None'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'cmake_target' from command line to 'None'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'cmake_clean_cache' from command line to 'False'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'cmake_clean_first' from command line to 'False'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'cmake_force_configure' from command line to 'False'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'ament_cmake_args' from command line to 'None'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'catkin_cmake_args' from command line to 'None'
+[0.597s] Level 5:colcon.colcon_core.verb:set package 'arduino_communication' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.597s] DEBUG:colcon.colcon_core.verb:Building package 'arduino_communication' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/arduino_communication', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/arduino_communication', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication', 'symlink_install': False, 'test_result_base': None}
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'cmake_args' from command line to 'None'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'cmake_target' from command line to 'None'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'cmake_clean_cache' from command line to 'False'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'cmake_clean_first' from command line to 'False'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'cmake_force_configure' from command line to 'False'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'ament_cmake_args' from command line to 'None'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'catkin_cmake_args' from command line to 'None'
+[0.598s] Level 5:colcon.colcon_core.verb:set package 'calculations' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.598s] DEBUG:colcon.colcon_core.verb:Building package 'calculations' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/calculations', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/calculations', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/calculations', 'symlink_install': False, 'test_result_base': None}
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'cmake_args' from command line to 'None'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'cmake_target' from command line to 'None'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'cmake_clean_cache' from command line to 'False'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'cmake_clean_first' from command line to 'False'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'cmake_force_configure' from command line to 'False'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'ament_cmake_args' from command line to 'None'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'catkin_cmake_args' from command line to 'None'
+[0.599s] Level 5:colcon.colcon_core.verb:set package 'configuration' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.599s] DEBUG:colcon.colcon_core.verb:Building package 'configuration' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/configuration', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/configuration', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/configuration', 'symlink_install': False, 'test_result_base': None}
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'cmake_args' from command line to 'None'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'cmake_target' from command line to 'None'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'cmake_clean_cache' from command line to 'False'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'cmake_clean_first' from command line to 'False'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'cmake_force_configure' from command line to 'False'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'ament_cmake_args' from command line to 'None'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'catkin_cmake_args' from command line to 'None'
+[0.600s] Level 5:colcon.colcon_core.verb:set package 'controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.600s] DEBUG:colcon.colcon_core.verb:Building package 'controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/controller', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/controller', 'symlink_install': False, 'test_result_base': None}
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'cmake_args' from command line to 'None'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'cmake_target' from command line to 'None'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'cmake_clean_cache' from command line to 'False'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'cmake_clean_first' from command line to 'False'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'cmake_force_configure' from command line to 'False'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'ament_cmake_args' from command line to 'None'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'catkin_cmake_args' from command line to 'None'
+[0.601s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_interface' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.601s] DEBUG:colcon.colcon_core.verb:Building package 'dynamixel_interface' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/dynamixel_interface', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/dynamixel_interface', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface', 'symlink_install': False, 'test_result_base': None}
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.602s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.602s] DEBUG:colcon.colcon_core.verb:Building package 'gwpspider_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/gwpspider_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/gwpspider_interfaces', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.603s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'cmake_args' from command line to 'None'
+[0.603s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'cmake_target' from command line to 'None'
+[0.603s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.603s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'cmake_clean_cache' from command line to 'False'
+[0.603s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'cmake_clean_first' from command line to 'False'
+[0.603s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'cmake_force_configure' from command line to 'False'
+[0.604s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'ament_cmake_args' from command line to 'None'
+[0.604s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'catkin_cmake_args' from command line to 'None'
+[0.604s] Level 5:colcon.colcon_core.verb:set package 'gwpspider_launch' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.604s] DEBUG:colcon.colcon_core.verb:Building package 'gwpspider_launch' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/gwpspider_launch', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/gwpspider_launch', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/gwpspider_launch', 'symlink_install': False, 'test_result_base': None}
+[0.604s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'cmake_args' from command line to 'None'
+[0.604s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'cmake_target' from command line to 'None'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'cmake_clean_cache' from command line to 'False'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'cmake_clean_first' from command line to 'False'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'cmake_force_configure' from command line to 'False'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'ament_cmake_args' from command line to 'None'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'catkin_cmake_args' from command line to 'None'
+[0.605s] Level 5:colcon.colcon_core.verb:set package 'planning' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.605s] DEBUG:colcon.colcon_core.verb:Building package 'planning' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/planning', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/planning', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/planning', 'symlink_install': False, 'test_result_base': None}
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'cmake_args' from command line to 'None'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'cmake_target' from command line to 'None'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'cmake_clean_cache' from command line to 'False'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'cmake_clean_first' from command line to 'False'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'cmake_force_configure' from command line to 'False'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'ament_cmake_args' from command line to 'None'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'catkin_cmake_args' from command line to 'None'
+[0.606s] Level 5:colcon.colcon_core.verb:set package 'utils' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.606s] DEBUG:colcon.colcon_core.verb:Building package 'utils' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spider/gwpspider_ws/build/utils', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spider/gwpspider_ws/install/utils', 'merge_install': False, 'path': '/home/spider/gwpspider_ws/src/gwpspider/utils', 'symlink_install': False, 'test_result_base': None}
+[0.607s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.612s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.613s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/application' with build type 'ament_python'
+[0.613s] Level 1:colcon.colcon_core.shell:create_environment_hook('application', 'ament_prefix_path')
+[0.619s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.619s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/application/share/application/hook/ament_prefix_path.ps1'
+[0.620s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/application/share/application/hook/ament_prefix_path.dsv'
+[0.621s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/application/share/application/hook/ament_prefix_path.sh'
+[0.624s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.624s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.631s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication' with build type 'ament_python'
+[0.631s] Level 1:colcon.colcon_core.shell:create_environment_hook('arduino_communication', 'ament_prefix_path')
+[0.633s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/hook/ament_prefix_path.ps1'
+[0.634s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/hook/ament_prefix_path.dsv'
+[0.634s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/hook/ament_prefix_path.sh'
+[0.637s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.637s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.643s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/calculations' with build type 'ament_python'
+[0.643s] Level 1:colcon.colcon_core.shell:create_environment_hook('calculations', 'ament_prefix_path')
+[0.645s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/calculations/share/calculations/hook/ament_prefix_path.ps1'
+[0.646s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/calculations/share/calculations/hook/ament_prefix_path.dsv'
+[0.646s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/calculations/share/calculations/hook/ament_prefix_path.sh'
+[0.648s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.648s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.655s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/configuration' with build type 'ament_python'
+[0.655s] Level 1:colcon.colcon_core.shell:create_environment_hook('configuration', 'ament_prefix_path')
+[0.657s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/configuration/share/configuration/hook/ament_prefix_path.ps1'
+[0.658s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/configuration/share/configuration/hook/ament_prefix_path.dsv'
+[0.658s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/configuration/share/configuration/hook/ament_prefix_path.sh'
+[0.660s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.660s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.666s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/controller' with build type 'ament_python'
+[0.666s] Level 1:colcon.colcon_core.shell:create_environment_hook('controller', 'ament_prefix_path')
+[0.668s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/controller/share/controller/hook/ament_prefix_path.ps1'
+[0.668s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/controller/share/controller/hook/ament_prefix_path.dsv'
+[0.669s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/controller/share/controller/hook/ament_prefix_path.sh'
+[0.671s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.671s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.677s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface' with build type 'ament_python'
+[0.677s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_interface', 'ament_prefix_path')
+[0.678s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/hook/ament_prefix_path.ps1'
+[0.679s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/hook/ament_prefix_path.dsv'
+[0.679s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/hook/ament_prefix_path.sh'
+[0.681s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.681s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.685s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces' with build type 'ament_cmake'
+[0.685s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces'
+[0.687s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.687s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.692s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/gwpspider_launch' with build type 'ament_cmake'
+[0.692s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/spider/gwpspider_ws/src/gwpspider/gwpspider_launch'
+[0.694s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.694s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.016s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/application'
+[1.018s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.018s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.324s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication'
+[1.326s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.326s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.662s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/calculations'
+[1.663s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.663s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.027s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/configuration'
+[2.030s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.030s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.294s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/controller'
+[2.296s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.296s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.539s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface'
+[2.540s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.540s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.548s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[2.551s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_launch -- -j8 -l8
+[2.615s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_launch -- -j8 -l8
+[2.734s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_launch
+[2.807s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(gwpspider_launch)
+[2.816s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch' for CMake module files
+[2.808s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_launch
+[2.817s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch' for CMake config files
+[2.817s] Level 1:colcon.colcon_core.shell:create_environment_hook('gwpspider_launch', 'cmake_prefix_path')
+[2.820s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/hook/cmake_prefix_path.ps1'
+[2.822s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/hook/cmake_prefix_path.dsv'
+[2.823s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/hook/cmake_prefix_path.sh'
+[2.824s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/bin'
+[2.824s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/lib/pkgconfig/gwpspider_launch.pc'
+[2.825s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/lib/python3.10/site-packages'
+[2.825s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/bin'
+[2.828s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.ps1'
+[2.829s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.dsv'
+[2.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.sh'
+[2.832s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.bash'
+[2.834s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.zsh'
+[2.835s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/gwpspider_launch/share/colcon-core/packages/gwpspider_launch)
+[2.902s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(gwpspider_launch)
+[2.906s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch' for CMake module files
+[2.907s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch' for CMake config files
+[2.907s] Level 1:colcon.colcon_core.shell:create_environment_hook('gwpspider_launch', 'cmake_prefix_path')
+[2.909s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/hook/cmake_prefix_path.ps1'
+[2.910s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/hook/cmake_prefix_path.dsv'
+[2.911s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/hook/cmake_prefix_path.sh'
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/bin'
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/lib/pkgconfig/gwpspider_launch.pc'
+[2.913s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/lib/python3.10/site-packages'
+[2.913s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_launch/bin'
+[2.916s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.ps1'
+[2.917s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.dsv'
+[2.918s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.sh'
+[2.919s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.bash'
+[2.921s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.zsh'
+[2.922s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/gwpspider_launch/share/colcon-core/packages/gwpspider_launch)
+[2.924s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/planning' with build type 'ament_python'
+[2.925s] Level 1:colcon.colcon_core.shell:create_environment_hook('planning', 'ament_prefix_path')
+[2.928s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/planning/share/planning/hook/ament_prefix_path.ps1'
+[2.930s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/planning/share/planning/hook/ament_prefix_path.dsv'
+[2.930s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/planning/share/planning/hook/ament_prefix_path.sh'
+[2.933s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.934s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.263s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/planning'
+[3.264s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.264s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.272s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/controller': PYTHONPATH=/home/spider/gwpspider_ws/build/controller/prefix_override:/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/controller build --build-base /home/spider/gwpspider_ws/build/controller/build install --record /home/spider/gwpspider_ws/build/controller/install.log --single-version-externally-managed
+[3.277s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/application': PYTHONPATH=/home/spider/gwpspider_ws/build/application/prefix_override:/home/spider/gwpspider_ws/install/application/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/application build --build-base /home/spider/gwpspider_ws/build/application/build install --record /home/spider/gwpspider_ws/build/application/install.log --single-version-externally-managed
+[3.279s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface': PYTHONPATH=/home/spider/gwpspider_ws/build/dynamixel_interface/prefix_override:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/dynamixel_interface build --build-base /home/spider/gwpspider_ws/build/dynamixel_interface/build install --record /home/spider/gwpspider_ws/build/dynamixel_interface/install.log --single-version-externally-managed
+[3.279s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication': PYTHONPATH=/home/spider/gwpspider_ws/build/arduino_communication/prefix_override:/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/arduino_communication build --build-base /home/spider/gwpspider_ws/build/arduino_communication/build install --record /home/spider/gwpspider_ws/build/arduino_communication/install.log --single-version-externally-managed
+[3.280s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/configuration': PYTHONPATH=/home/spider/gwpspider_ws/build/configuration/prefix_override:/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/configuration build --build-base /home/spider/gwpspider_ws/build/configuration/build install --record /home/spider/gwpspider_ws/build/configuration/install.log --single-version-externally-managed
+[3.283s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/calculations': PYTHONPATH=/home/spider/gwpspider_ws/build/calculations/prefix_override:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/calculations build --build-base /home/spider/gwpspider_ws/build/calculations/build install --record /home/spider/gwpspider_ws/build/calculations/install.log --single-version-externally-managed
+[3.766s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface' for CMake module files
+[3.767s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface' for CMake config files
+[3.767s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface/lib'
+[3.768s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface/bin'
+[3.768s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface/lib/pkgconfig/dynamixel_interface.pc'
+[3.768s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages'
+[3.768s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_interface', 'pythonpath')
+[3.771s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/hook/pythonpath.ps1'
+[3.772s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/hook/pythonpath.dsv'
+[3.772s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/hook/pythonpath.sh'
+[3.773s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/dynamixel_interface/bin'
+[3.773s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_interface)
+[3.775s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/package.ps1'
+[3.776s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/package.dsv'
+[3.777s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/package.sh'
+[3.777s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/package.bash'
+[3.777s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/dynamixel_interface/share/dynamixel_interface/package.zsh'
+[3.778s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/dynamixel_interface/share/colcon-core/packages/dynamixel_interface)
+[3.778s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spider/gwpspider_ws/src/gwpspider/utils' with build type 'ament_python'
+[3.779s] Level 1:colcon.colcon_core.shell:create_environment_hook('utils', 'ament_prefix_path')
+[3.781s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/utils/share/utils/hook/ament_prefix_path.ps1'
+[3.782s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/utils/share/utils/hook/ament_prefix_path.dsv'
+[3.783s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/utils/share/utils/hook/ament_prefix_path.sh'
+[3.786s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.788s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/dynamixel_interface/prefix_override:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/dynamixel_interface build --build-base /home/spider/gwpspider_ws/build/dynamixel_interface/build install --record /home/spider/gwpspider_ws/build/dynamixel_interface/install.log --single-version-externally-managed
+[3.788s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.803s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication' for CMake module files
+[3.804s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/arduino_communication/prefix_override:/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/arduino_communication build --build-base /home/spider/gwpspider_ws/build/arduino_communication/build install --record /home/spider/gwpspider_ws/build/arduino_communication/install.log --single-version-externally-managed
+[3.805s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication' for CMake config files
+[3.806s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication/lib'
+[3.806s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication/bin'
+[3.807s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication/lib/pkgconfig/arduino_communication.pc'
+[3.807s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages'
+[3.807s] Level 1:colcon.colcon_core.shell:create_environment_hook('arduino_communication', 'pythonpath')
+[3.810s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/hook/pythonpath.ps1'
+[3.810s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/hook/pythonpath.dsv'
+[3.811s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/hook/pythonpath.sh'
+[3.812s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/arduino_communication/bin'
+[3.812s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(arduino_communication)
+[3.814s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/package.ps1'
+[3.815s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/package.dsv'
+[3.815s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/package.sh'
+[3.816s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/package.bash'
+[3.816s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/arduino_communication/share/arduino_communication/package.zsh'
+[3.817s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/arduino_communication/share/colcon-core/packages/arduino_communication)
+[3.822s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application' for CMake module files
+[3.823s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/application' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/application/prefix_override:/home/spider/gwpspider_ws/install/application/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/application build --build-base /home/spider/gwpspider_ws/build/application/build install --record /home/spider/gwpspider_ws/build/application/install.log --single-version-externally-managed
+[3.823s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application' for CMake config files
+[3.824s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application/lib'
+[3.824s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application/bin'
+[3.824s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application/lib/pkgconfig/application.pc'
+[3.824s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application/lib/python3.10/site-packages'
+[3.824s] Level 1:colcon.colcon_core.shell:create_environment_hook('application', 'pythonpath')
+[3.826s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/application/share/application/hook/pythonpath.ps1'
+[3.827s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/application/share/application/hook/pythonpath.dsv'
+[3.828s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/application/share/application/hook/pythonpath.sh'
+[3.828s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/application/bin'
+[3.828s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(application)
+[3.830s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/application/share/application/package.ps1'
+[3.830s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/application/share/application/package.dsv'
+[3.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/application/share/application/package.sh'
+[3.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/application/share/application/package.bash'
+[3.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/application/share/application/package.zsh'
+[3.831s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/application/share/colcon-core/packages/application)
+[3.834s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration' for CMake module files
+[3.835s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration' for CMake config files
+[3.836s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/configuration' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/configuration/prefix_override:/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/configuration build --build-base /home/spider/gwpspider_ws/build/configuration/build install --record /home/spider/gwpspider_ws/build/configuration/install.log --single-version-externally-managed
+[3.836s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration/lib'
+[3.836s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration/bin'
+[3.836s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration/lib/pkgconfig/configuration.pc'
+[3.836s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages'
+[3.837s] Level 1:colcon.colcon_core.shell:create_environment_hook('configuration', 'pythonpath')
+[3.838s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/configuration/share/configuration/hook/pythonpath.ps1'
+[3.838s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/configuration/share/configuration/hook/pythonpath.dsv'
+[3.839s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/configuration/share/configuration/hook/pythonpath.sh'
+[3.839s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/configuration/bin'
+[3.839s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(configuration)
+[3.840s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/configuration/share/configuration/package.ps1'
+[3.841s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/configuration/share/configuration/package.dsv'
+[3.841s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/configuration/share/configuration/package.sh'
+[3.842s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/configuration/share/configuration/package.bash'
+[3.842s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/configuration/share/configuration/package.zsh'
+[3.842s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/configuration/share/colcon-core/packages/configuration)
+[3.844s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller' for CMake module files
+[3.845s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller' for CMake config files
+[3.846s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/controller' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/controller/prefix_override:/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/controller build --build-base /home/spider/gwpspider_ws/build/controller/build install --record /home/spider/gwpspider_ws/build/controller/install.log --single-version-externally-managed
+[3.846s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller/lib'
+[3.846s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller/bin'
+[3.846s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller/lib/pkgconfig/controller.pc'
+[3.847s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages'
+[3.847s] Level 1:colcon.colcon_core.shell:create_environment_hook('controller', 'pythonpath')
+[3.848s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/controller/share/controller/hook/pythonpath.ps1'
+[3.848s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/controller/share/controller/hook/pythonpath.dsv'
+[3.849s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/controller/share/controller/hook/pythonpath.sh'
+[3.849s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/controller/bin'
+[3.849s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(controller)
+[3.851s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/controller/share/controller/package.ps1'
+[3.852s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/controller/share/controller/package.dsv'
+[3.853s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/controller/share/controller/package.sh'
+[3.853s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/controller/share/controller/package.bash'
+[3.854s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/controller/share/controller/package.zsh'
+[3.854s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/controller/share/colcon-core/packages/controller)
+[4.124s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spider/gwpspider_ws/src/gwpspider/utils'
+[4.126s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.126s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.132s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations' for CMake module files
+[4.133s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/calculations' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/calculations/prefix_override:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/calculations build --build-base /home/spider/gwpspider_ws/build/calculations/build install --record /home/spider/gwpspider_ws/build/calculations/install.log --single-version-externally-managed
+[4.133s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations' for CMake config files
+[4.134s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations/lib'
+[4.134s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations/bin'
+[4.134s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations/lib/pkgconfig/calculations.pc'
+[4.134s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages'
+[4.134s] Level 1:colcon.colcon_core.shell:create_environment_hook('calculations', 'pythonpath')
+[4.135s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/calculations/share/calculations/hook/pythonpath.ps1'
+[4.135s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/calculations/share/calculations/hook/pythonpath.dsv'
+[4.136s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/calculations/share/calculations/hook/pythonpath.sh'
+[4.136s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/calculations/bin'
+[4.136s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(calculations)
+[4.137s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/calculations/share/calculations/package.ps1'
+[4.138s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/calculations/share/calculations/package.dsv'
+[4.138s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/calculations/share/calculations/package.sh'
+[4.139s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/calculations/share/calculations/package.bash'
+[4.139s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/calculations/share/calculations/package.zsh'
+[4.139s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/calculations/share/colcon-core/packages/calculations)
+[4.143s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/planning': PYTHONPATH=/home/spider/gwpspider_ws/build/planning/prefix_override:/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/planning build --build-base /home/spider/gwpspider_ws/build/planning/build install --record /home/spider/gwpspider_ws/build/planning/install.log --single-version-externally-managed
+[4.452s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning' for CMake module files
+[4.453s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/planning' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/planning/prefix_override:/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/planning build --build-base /home/spider/gwpspider_ws/build/planning/build install --record /home/spider/gwpspider_ws/build/planning/install.log --single-version-externally-managed
+[4.454s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning' for CMake config files
+[4.454s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning/lib'
+[4.454s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning/bin'
+[4.454s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning/lib/pkgconfig/planning.pc'
+[4.455s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages'
+[4.455s] Level 1:colcon.colcon_core.shell:create_environment_hook('planning', 'pythonpath')
+[4.457s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/planning/share/planning/hook/pythonpath.ps1'
+[4.458s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/planning/share/planning/hook/pythonpath.dsv'
+[4.458s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/planning/share/planning/hook/pythonpath.sh'
+[4.459s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/planning/bin'
+[4.459s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(planning)
+[4.461s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/planning/share/planning/package.ps1'
+[4.462s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/planning/share/planning/package.dsv'
+[4.463s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/planning/share/planning/package.sh'
+[4.463s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/planning/share/planning/package.bash'
+[4.464s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/planning/share/planning/package.zsh'
+[4.464s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/planning/share/colcon-core/packages/planning)
+[4.485s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/utils': PYTHONPATH=/home/spider/gwpspider_ws/build/utils/prefix_override:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/utils build --build-base /home/spider/gwpspider_ws/build/utils/build install --record /home/spider/gwpspider_ws/build/utils/install.log --single-version-externally-managed
+[4.881s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils' for CMake module files
+[4.882s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils' for CMake config files
+[4.883s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/utils' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/utils/prefix_override:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/utils build --build-base /home/spider/gwpspider_ws/build/utils/build install --record /home/spider/gwpspider_ws/build/utils/install.log --single-version-externally-managed
+[4.883s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils/lib'
+[4.883s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils/bin'
+[4.883s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils/lib/pkgconfig/utils.pc'
+[4.884s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages'
+[4.884s] Level 1:colcon.colcon_core.shell:create_environment_hook('utils', 'pythonpath')
+[4.886s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/utils/share/utils/hook/pythonpath.ps1'
+[4.887s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/utils/share/utils/hook/pythonpath.dsv'
+[4.887s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/utils/share/utils/hook/pythonpath.sh'
+[4.888s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/utils/bin'
+[4.888s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(utils)
+[4.890s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/utils/share/utils/package.ps1'
+[4.891s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/utils/share/utils/package.dsv'
+[4.891s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/utils/share/utils/package.sh'
+[4.892s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/utils/share/utils/package.bash'
+[4.892s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/utils/share/utils/package.zsh'
+[4.892s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/utils/share/colcon-core/packages/utils)
+[22.255s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[22.591s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_interfaces
+[22.760s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(gwpspider_interfaces)
+[22.762s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces' for CMake module files
+[22.764s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces' for CMake config files
+[22.765s] Level 1:colcon.colcon_core.shell:create_environment_hook('gwpspider_interfaces', 'cmake_prefix_path')
+[22.767s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/cmake_prefix_path.ps1'
+[22.768s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_interfaces
+[22.768s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/cmake_prefix_path.dsv'
+[22.768s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/cmake_prefix_path.sh'
+[22.769s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib'
+[22.769s] Level 1:colcon.colcon_core.shell:create_environment_hook('gwpspider_interfaces', 'ld_library_path_lib')
+[22.770s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/ld_library_path_lib.ps1'
+[22.770s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/ld_library_path_lib.dsv'
+[22.770s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/ld_library_path_lib.sh'
+[22.771s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/bin'
+[22.771s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/pkgconfig/gwpspider_interfaces.pc'
+[22.771s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/python3.10/site-packages'
+[22.771s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/bin'
+[22.772s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.ps1'
+[22.773s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.dsv'
+[22.773s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.sh'
+[22.773s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.bash'
+[22.774s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.zsh'
+[22.774s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/colcon-core/packages/gwpspider_interfaces)
+[23.106s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(gwpspider_interfaces)
+[23.108s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces' for CMake module files
+[23.109s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces' for CMake config files
+[23.109s] Level 1:colcon.colcon_core.shell:create_environment_hook('gwpspider_interfaces', 'cmake_prefix_path')
+[23.110s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/cmake_prefix_path.ps1'
+[23.111s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/cmake_prefix_path.dsv'
+[23.111s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/cmake_prefix_path.sh'
+[23.112s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib'
+[23.112s] Level 1:colcon.colcon_core.shell:create_environment_hook('gwpspider_interfaces', 'ld_library_path_lib')
+[23.113s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/ld_library_path_lib.ps1'
+[23.113s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/ld_library_path_lib.dsv'
+[23.113s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/hook/ld_library_path_lib.sh'
+[23.114s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/bin'
+[23.114s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/pkgconfig/gwpspider_interfaces.pc'
+[23.114s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib/python3.10/site-packages'
+[23.114s] Level 1:colcon.colcon_core.environment:checking '/home/spider/gwpspider_ws/install/gwpspider_interfaces/bin'
+[23.115s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.ps1'
+[23.116s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.dsv'
+[23.116s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.sh'
+[23.117s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.bash'
+[23.117s] INFO:colcon.colcon_core.shell:Creating package script '/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/gwpspider_interfaces/package.zsh'
+[23.117s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spider/gwpspider_ws/install/gwpspider_interfaces/share/colcon-core/packages/gwpspider_interfaces)
+[23.117s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[23.118s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[23.118s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[23.118s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[23.126s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[23.126s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[23.126s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[23.135s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[23.136s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spider/gwpspider_ws/install/local_setup.ps1'
+[23.137s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/spider/gwpspider_ws/install/_local_setup_util_ps1.py'
+[23.138s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spider/gwpspider_ws/install/setup.ps1'
+[23.140s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spider/gwpspider_ws/install/local_setup.sh'
+[23.140s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/spider/gwpspider_ws/install/_local_setup_util_sh.py'
+[23.141s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spider/gwpspider_ws/install/setup.sh'
+[23.142s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spider/gwpspider_ws/install/local_setup.bash'
+[23.142s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spider/gwpspider_ws/install/setup.bash'
+[23.144s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spider/gwpspider_ws/install/local_setup.zsh'
+[23.144s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spider/gwpspider_ws/install/setup.zsh'

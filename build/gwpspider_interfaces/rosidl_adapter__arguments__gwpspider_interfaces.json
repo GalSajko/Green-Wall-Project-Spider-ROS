@@ -8,6 +8,8 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/WalkingInstructions.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/LegTrajectory.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/LegsStates.msg",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/GripperState.msg",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:msg/GrippersStates.msg",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveGripper.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/ControlWaterPump.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/InitBno.srv",

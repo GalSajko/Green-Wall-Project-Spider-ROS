@@ -21,6 +21,8 @@ set(msg_files
   "msg/WalkingInstructions.msg"
   "msg/LegTrajectory.msg"
   "msg/LegsStates.msg"
+  "msg/GripperState.msg"
+  "msg/GrippersStates.msg"
 )
 
 set(srv_files
@@ -39,6 +41,8 @@ set(srv_files
   "srv/DistributeForces.srv"
   "srv/ApplyForceLeg.srv"
   "srv/GetSpiderPose.srv"
+  "srv/MoveLegVelocityMode.srv"
+  "srv/ToggleAdditionalControllerMode.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

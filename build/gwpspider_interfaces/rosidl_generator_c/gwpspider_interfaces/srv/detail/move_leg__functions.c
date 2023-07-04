@@ -47,7 +47,8 @@ gwpspider_interfaces__srv__MoveLeg_Request__init(gwpspider_interfaces__srv__Move
     gwpspider_interfaces__srv__MoveLeg_Request__fini(msg);
     return false;
   }
-  // use_gripper
+  // open_gripper
+  // close_gripper
   return true;
 }
 
@@ -68,7 +69,8 @@ gwpspider_interfaces__srv__MoveLeg_Request__fini(gwpspider_interfaces__srv__Move
   // is_offset
   // spider_pose
   std_msgs__msg__Float32MultiArray__fini(&msg->spider_pose);
-  // use_gripper
+  // open_gripper
+  // close_gripper
 }
 
 bool
@@ -113,8 +115,12 @@ gwpspider_interfaces__srv__MoveLeg_Request__are_equal(const gwpspider_interfaces
   {
     return false;
   }
-  // use_gripper
-  if (lhs->use_gripper != rhs->use_gripper) {
+  // open_gripper
+  if (lhs->open_gripper != rhs->open_gripper) {
+    return false;
+  }
+  // close_gripper
+  if (lhs->close_gripper != rhs->close_gripper) {
     return false;
   }
   return true;
@@ -158,8 +164,10 @@ gwpspider_interfaces__srv__MoveLeg_Request__copy(
   {
     return false;
   }
-  // use_gripper
-  output->use_gripper = input->use_gripper;
+  // open_gripper
+  output->open_gripper = input->open_gripper;
+  // close_gripper
+  output->close_gripper = input->close_gripper;
   return true;
 }
 

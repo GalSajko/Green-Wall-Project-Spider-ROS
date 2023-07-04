@@ -228,6 +228,12 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__type_support.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__functions.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__type_support.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__struct.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__functions.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__type_support.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__struct.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/msg/detail/grippers_states__functions.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__type_support.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__functions.h \

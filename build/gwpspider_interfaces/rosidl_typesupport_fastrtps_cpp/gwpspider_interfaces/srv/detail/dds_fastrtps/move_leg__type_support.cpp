@@ -98,8 +98,10 @@ cdr_serialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.spider_pose,
     cdr);
-  // Member: use_gripper
-  cdr << (ros_message.use_gripper ? true : false);
+  // Member: open_gripper
+  cdr << (ros_message.open_gripper ? true : false);
+  // Member: close_gripper
+  cdr << (ros_message.close_gripper ? true : false);
   return true;
 }
 
@@ -136,11 +138,18 @@ cdr_deserialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
     cdr, ros_message.spider_pose);
 
-  // Member: use_gripper
+  // Member: open_gripper
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message.use_gripper = tmp ? true : false;
+    ros_message.open_gripper = tmp ? true : false;
+  }
+
+  // Member: close_gripper
+  {
+    uint8_t tmp;
+    cdr >> tmp;
+    ros_message.close_gripper = tmp ? true : false;
   }
 
   return true;
@@ -195,9 +204,15 @@ get_serialized_size(
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
     ros_message.spider_pose, current_alignment);
-  // Member: use_gripper
+  // Member: open_gripper
   {
-    size_t item_size = sizeof(ros_message.use_gripper);
+    size_t item_size = sizeof(ros_message.open_gripper);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // Member: close_gripper
+  {
+    size_t item_size = sizeof(ros_message.close_gripper);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -303,7 +318,14 @@ max_serialized_size_MoveLeg_Request(
     }
   }
 
-  // Member: use_gripper
+  // Member: open_gripper
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint8_t);
+  }
+
+  // Member: close_gripper
   {
     size_t array_size = 1;
 

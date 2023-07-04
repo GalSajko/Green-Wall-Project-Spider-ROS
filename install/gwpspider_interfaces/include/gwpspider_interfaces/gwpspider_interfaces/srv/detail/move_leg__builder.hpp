@@ -21,16 +21,32 @@ namespace srv
 namespace builder
 {
 
-class Init_MoveLeg_Request_use_gripper
+class Init_MoveLeg_Request_close_gripper
 {
 public:
-  explicit Init_MoveLeg_Request_use_gripper(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
+  explicit Init_MoveLeg_Request_close_gripper(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
   : msg_(msg)
   {}
-  ::gwpspider_interfaces::srv::MoveLeg_Request use_gripper(::gwpspider_interfaces::srv::MoveLeg_Request::_use_gripper_type arg)
+  ::gwpspider_interfaces::srv::MoveLeg_Request close_gripper(::gwpspider_interfaces::srv::MoveLeg_Request::_close_gripper_type arg)
   {
-    msg_.use_gripper = std::move(arg);
+    msg_.close_gripper = std::move(arg);
     return std::move(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveLeg_Request msg_;
+};
+
+class Init_MoveLeg_Request_open_gripper
+{
+public:
+  explicit Init_MoveLeg_Request_open_gripper(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
+  : msg_(msg)
+  {}
+  Init_MoveLeg_Request_close_gripper open_gripper(::gwpspider_interfaces::srv::MoveLeg_Request::_open_gripper_type arg)
+  {
+    msg_.open_gripper = std::move(arg);
+    return Init_MoveLeg_Request_close_gripper(msg_);
   }
 
 private:
@@ -43,10 +59,10 @@ public:
   explicit Init_MoveLeg_Request_spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request & msg)
   : msg_(msg)
   {}
-  Init_MoveLeg_Request_use_gripper spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request::_spider_pose_type arg)
+  Init_MoveLeg_Request_open_gripper spider_pose(::gwpspider_interfaces::srv::MoveLeg_Request::_spider_pose_type arg)
   {
     msg_.spider_pose = std::move(arg);
-    return Init_MoveLeg_Request_use_gripper(msg_);
+    return Init_MoveLeg_Request_open_gripper(msg_);
   }
 
 private:

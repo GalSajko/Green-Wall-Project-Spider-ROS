@@ -73,6 +73,8 @@ CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspid
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/WalkingInstructions.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/LegTrajectory.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/LegsStates.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/GripperState.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/GrippersStates.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/MoveGripper.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveGripper_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveGripper_Response.msg

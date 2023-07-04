@@ -20,7 +20,7 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -29,13 +29,20 @@ class JointVelocityController(Node):
         self.legs_last_positons_locker = threading.Lock()
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.last_legs_position_errors = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+
         self.do_init = True
         self.toggle_controller_locker = threading.Lock()
         self.do_run = True
+
         self.force_mode_locker = threading.Lock()
         self.is_force_mode = False
         self.f_d = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.force_mode_legs_ids = None
+
+        self.velocity_mode_locker = threading.Lock()
+        self.is_velocity_mode = False
+        self.velocity_mode_direction = None
+        self.velocity_mode_leg_id = None
 
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         self.sentinel = object()
@@ -60,6 +67,7 @@ class JointVelocityController(Node):
         self.leg_trajectory_client = self.create_client(GetLegTrajectory, ros_config.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.moving_callbacks_group)
         self.move_gripper_client = self.create_client(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
         self.get_spider_pose_service = self.create_service(GetSpiderPose, ros_config.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.moving_callbacks_group)
+        self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, ros_config.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.moving_callbacks_group)
 
         self.controller_callbacks_group = ReentrantCallbackGroup()
         self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
@@ -68,6 +76,12 @@ class JointVelocityController(Node):
         self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
         self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, ros_config.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
+        self.toggle_additional_controller_mode_service = self.create_service(
+            ToggleAdditionalControllerMode,
+            ros_config.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE,
+            self.toggle_additional_controller_mode_callback,
+            callback_group = self.controller_callbacks_group
+        )
 
         self.get_logger().info("Controller is running.")
     
@@ -83,6 +97,15 @@ class JointVelocityController(Node):
     def SPIDER_MOVEMENT_PRECISION(self):
         return 0.005
     
+    @property
+    def MAX_ALLOWED_FORCE(self):
+        return 4.0
+    
+    @property
+    def VELOCITY_AMP_FACTOR(self):
+        return 0.1
+
+    
     def controller_callback(self):
         with self.legs_states_locker:
             x_a = self.legs_local_positions
@@ -96,6 +119,11 @@ class JointVelocityController(Node):
             is_force_mode = self.is_force_mode
             f_d = self.f_d
             force_mode_legs_ids = self.force_mode_legs_ids
+        
+        with self.velocity_mode_locker:
+            is_velocity_mode = self.is_velocity_mode
+            velocity_mode_direction = self.velocity_mode_direction
+            velocity_mode_legs_ids = self.velocity_mode_leg_id
 
         if do_run and x_a is not None:
             if self.do_init:
@@ -121,9 +149,14 @@ class JointVelocityController(Node):
 
                 with self.legs_last_positons_locker:
                     self.last_legs_positions[force_mode_legs_ids] = x_a[force_mode_legs_ids]
+            
+            if is_velocity_mode:
+                dx_d[velocity_mode_legs_ids] = self.VELOCITY_AMP_FACTOR * velocity_mode_direction * int(np.linalg.norm(f_a[velocity_mode_legs_ids]) < self.MAX_ALLOWED_FORCE)
+                with self.legs_last_positons_locker:
+                    self.last_legs_positions[velocity_mode_legs_ids] = x_a[velocity_mode_legs_ids] + dx_d[velocity_mode_legs_ids] * self.PERIOD
 
 
-            dx_c, self.last_legs_position_errors = self.__position_velocity_pd_controlloer(x_a, x_d, dx_d, ddx_d)
+            dx_c, self.last_legs_position_errors = self.__position_velocity_pd_controller(x_a, x_d, dx_d, ddx_d)
             dq_c = kin.get_joints_velocities(q_a, dx_c)
 
             if is_force_mode:
@@ -149,7 +182,8 @@ class JointVelocityController(Node):
         origin = request.origin
         is_offset = request.is_offset
         spider_pose = request.spider_pose.data
-        use_gripper = request.use_gripper
+        open_gripper = request.open_gripper
+        close_gripper = request.close_gripper
 
         if leg_id not in spider.LEGS_IDS:
             response.success = False
@@ -178,7 +212,7 @@ class JointVelocityController(Node):
 
         self.command_queues[leg_id] = queue.Queue()
 
-        if use_gripper:
+        if open_gripper:
             if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
                 response.success = False
                 return response
@@ -194,7 +228,7 @@ class JointVelocityController(Node):
                 position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
             time.sleep(0.001)
         
-        if use_gripper:
+        if close_gripper:
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
                 response.success = False
                 return response
@@ -261,13 +295,6 @@ class JointVelocityController(Node):
         for leg_id in legs_ids:
             self.command_queues[leg_id].put(self.sentinel)
 
-        # with self.legs_states_locker:
-        #     position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
-        # while (position_errors > self.SPIDER_MOVEMENT_PRECISION).any():
-        #     with self.legs_states_locker:
-        #         position_errors = np.linalg.norm(legs_goal_positions_in_local - self.legs_local_positions[legs_ids], axis = 1)
-        #     self.get_logger().info(f"Spider movement errors: {position_errors}")
-        #     time.sleep(0.001)
         time.sleep(duration + 0.5)
         
         response.success = True
@@ -282,18 +309,35 @@ class JointVelocityController(Node):
             self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
         
     def toggle_controller_callback(self, request, response):
-        if request.command not in (robot_config.START_CONTROLLER_COMMAND, robot_config.STOP_CONTROLLER_COMMAND):
+        if request.command not in (robot_config.START_COMMAND, robot_config.STOP_COMMAND):
             response.success = False
             return response
 
         with self.toggle_controller_locker:
-            self.do_run = request.command == robot_config.START_CONTROLLER_COMMAND
+            self.do_run = request.command == robot_config.START_COMMAND
         
-        if request.command == robot_config.STOP_CONTROLLER_COMMAND:
+        if request.command == robot_config.STOP_COMMAND:
             self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
         
         response.success = True
         return response
+    
+    def toggle_additional_controller_mode_callback(self, request, response):
+        if request.mode not in (robot_config.VELOCITY_MODE, robot_config.FORCE_MODE):
+            self.get_logger().info(f"Controller mode {request.mode} not recognized.")
+            response.success = False
+            return response
+        
+        bool_command = request.command == robot_config.START_COMMAND
+
+        if request.mode == robot_config.VELOCITY_MODE:
+            with self.velocity_mode_locker:
+                self.is_velocity_mode = bool_command
+        
+        else:
+            with self.force_mode_locker:
+                self.is_force_mode = bool_command
+            
     
     def distribute_forces_callback(self, request, response):
         with self.force_mode_locker:
@@ -343,6 +387,18 @@ class JointVelocityController(Node):
         response.success = True
         return response
     
+    def move_leg_velocity_mode_callback(self, request, response):
+        if request.leg_id not in spider.LEGS_IDS:
+            self.get_logger().info(f"Leg with ID {request.leg_id} was not recognized.")
+            response.success = False
+            return response
+        
+        with self.velocity_mode_locker:
+            self.velocity_mode_leg_id = request.leg_id
+            self.is_velocity_mode = True
+            self.velocity_mode_direction = request.velocity_mode_direction.data
+
+    
     def update_last_legs_positions_callback(self, _, response):
         with self.legs_states_locker:
             x_a = self.legs_local_positions
@@ -369,8 +425,7 @@ class JointVelocityController(Node):
         response.spider_pose = Float32MultiArray(data = spider_pose)
         return response
 
-
-    def __position_velocity_pd_controlloer(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    def __position_velocity_pd_controller(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """PD controller. Feed-forward velocity is used only in force mode, otherwise its values are zeros.
 
         Args:

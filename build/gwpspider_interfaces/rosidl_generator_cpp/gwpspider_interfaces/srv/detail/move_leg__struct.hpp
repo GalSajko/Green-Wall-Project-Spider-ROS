@@ -50,7 +50,8 @@ struct MoveLeg_Request_
       this->origin = "";
       this->duration = 0.0f;
       this->is_offset = false;
-      this->use_gripper = false;
+      this->open_gripper = false;
+      this->close_gripper = false;
     }
   }
 
@@ -68,7 +69,8 @@ struct MoveLeg_Request_
       this->origin = "";
       this->duration = 0.0f;
       this->is_offset = false;
-      this->use_gripper = false;
+      this->open_gripper = false;
+      this->close_gripper = false;
     }
   }
 
@@ -94,9 +96,12 @@ struct MoveLeg_Request_
   using _spider_pose_type =
     std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
   _spider_pose_type spider_pose;
-  using _use_gripper_type =
+  using _open_gripper_type =
     bool;
-  _use_gripper_type use_gripper;
+  _open_gripper_type open_gripper;
+  using _close_gripper_type =
+    bool;
+  _close_gripper_type close_gripper;
 
   // setters for named parameter idiom
   Type & set__leg_id(
@@ -141,10 +146,16 @@ struct MoveLeg_Request_
     this->spider_pose = _arg;
     return *this;
   }
-  Type & set__use_gripper(
+  Type & set__open_gripper(
     const bool & _arg)
   {
-    this->use_gripper = _arg;
+    this->open_gripper = _arg;
+    return *this;
+  }
+  Type & set__close_gripper(
+    const bool & _arg)
+  {
+    this->close_gripper = _arg;
     return *this;
   }
 
@@ -211,7 +222,10 @@ struct MoveLeg_Request_
     if (this->spider_pose != other.spider_pose) {
       return false;
     }
-    if (this->use_gripper != other.use_gripper) {
+    if (this->open_gripper != other.open_gripper) {
+      return false;
+    }
+    if (this->close_gripper != other.close_gripper) {
       return false;
     }
     return true;

@@ -4,6 +4,10 @@ msg/DynamixelMotorsData.idl
 msg/DynamixelMotorsData.msg
 msg/GripperCommand.idl
 msg/GripperCommand.msg
+msg/GripperState.idl
+msg/GripperState.msg
+msg/GrippersStates.idl
+msg/GrippersStates.msg
 msg/LegTrajectory.idl
 msg/LegTrajectory.msg
 msg/LegsStates.idl
