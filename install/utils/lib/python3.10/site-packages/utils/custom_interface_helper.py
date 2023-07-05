@@ -6,7 +6,7 @@ import threading
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension, Int8MultiArray
 
 from configuration import robot_config
-from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg, DistributeForces, GetSpiderPose
+from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg, DistributeForces, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -68,10 +68,10 @@ def prepare_trajectory_request(request_data):
     return request
 
 def prepare_move_gripper_request(request_data):
-    leg, command = request_data
+    leg_id, command = request_data
 
     request = MoveGripper.Request()
-    request.instructions.leg_id = int(leg)
+    request.instructions.leg_id = int(leg_id)
     request.instructions.command = command
 
     return request
@@ -126,6 +126,25 @@ def prepare_get_spider_pose_request(request_data):
     request.legs_global_positions = create_multiple_2d_array_messages([legs_global_positions])
 
     return request
+
+def prepare_move_leg_velocity_mode_request(request_data):
+    leg_id, velocity_mode_direction = request_data
+
+    request = MoveLegVelocityMode.Request()
+    request.leg_id = int(leg_id)
+    request.velocity_mode_direction = Float32MultiArray(data = velocity_mode_direction)
+
+    return request
+
+def prepare_toggle_controller_mode_request(request_data):
+    mode, command = request_data
+
+    request = ToggleAdditionalControllerMode.Request()
+    request.mode = mode
+    request.command = command
+
+    return request
+
 
 def async_service_call_from_service(client, request):
     event = threading.Event()

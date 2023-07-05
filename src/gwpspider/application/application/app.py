@@ -13,7 +13,7 @@ from utils import custom_interface_helper
 from calculations import kinematics as kin
 from calculations import transformations as tf
 
-from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions, MoveLeg, MoveSpider, DistributeForces, GetSpiderPose, MoveGripper
+from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions, MoveLeg, MoveSpider, MoveGripper, DistributeForces, GetSpiderPose, ToggleAdditionalControllerMode, MoveLegVelocityMode
 from gwpspider_interfaces.msg import GrippersStates
 
 class App(Node):
@@ -46,7 +46,19 @@ class App(Node):
 
         self.get_spider_pose_client = self.create_client(GetSpiderPose, ros_config.GET_SPIDER_POSE_SERVICE, callback_group = self.callback_group)
         while not self.get_spider_pose_client.wait_for_service(timeout_sec = 1.0):
-            print("Distribute forces service not available...")
+            print("Spider pose service not available...")
+
+        self.toggle_controller_mode_client = self.create_client(ToggleAdditionalControllerMode, ros_config.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.callback_group)
+        while not self.toggle_controller_mode_client.wait_for_service(timeout_sec = 1.0):
+            print("Toggle additional controller mode service not available...")
+
+        self.move_leg_velocity_mode_client = self.create_client(MoveLegVelocityMode, ros_config.MOVE_LEG_VELOCITY_MODE_SERVICE, callback_group = self.callback_group)
+        while not self.move_leg_velocity_mode_client.wait_for_service(timeout_sec = 1.0):
+            print("Velocity mode leg moving service not available...")
+        
+        self.move_gripper_client = self.create_client(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
+        while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
+            print("Gripper moving service not available...")        
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, ros_config.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
 
@@ -77,12 +89,7 @@ class App(Node):
             previous_to_current_pins_offsets = current_pins_positions - previous_pins_positions
             for idx, leg_id in enumerate(current_legs_moving_order):
                 if previous_to_current_pins_offsets[idx].any():
-                    self.__move_leg_to_next_pin(leg_id, previous_to_current_pins_offsets[idx], current_pins_positions[idx], pose)
-                    with self.grippers_states_locker:
-                        is_attached = self.grippers_attached_states[leg_id]
-                    if not is_attached:
-                        # TODO: correction
-                        print("LEG NOT ATTACHED")
+                    self.__move_leg_to_next_pin(leg_id, previous_to_current_pins_offsets[idx], current_pins_positions[idx])
 
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
@@ -94,13 +101,12 @@ class App(Node):
                 msg.fifth_gripper.is_attached
             ]
         
-
     def __get_movement_instructions(self):
         # TODO: Add service call for getting plant and watering instructions, modify walking instructions call.
         if self.is_init:
             # Call service for plant position and watering info.
 
-            goal_pose = np.array([3.0, 1.5, 0.3, 0.0])
+            goal_pose = np.array([2.0, 0.75, 0.3, 0.0])
             spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
             walking_instructions_request = custom_interface_helper.prepare_modified_walking_instructions_request((start_legs_positions, goal_pose))
@@ -131,10 +137,12 @@ class App(Node):
 
         return spider_pose
     
-    def __move_leg_to_next_pin(self, leg_id, pin_to_pin_vector_in_global, goal_pin_position, pose):
+    def __move_leg_to_next_pin(self, leg_id, pin_to_pin_vector_in_global, goal_pin_position):
         self.__distribute_forces(np.delete(spider.LEGS_IDS, leg_id))
 
-        rpy = self.__get_spider_pose(spider.LEGS_IDS)[3:]
+        spider_pose = self.__get_spider_pose(spider.LEGS_IDS)
+        print(f"SPIDER POSE BEFORE LEG MOVEMENT: {spider_pose}")
+        rpy = spider_pose[3:]
         pin_to_pin_vector_in_local, leg_base_orientation_in_local = tf.get_pin_to_pin_vector_in_local(leg_id, rpy, pin_to_pin_vector_in_global)
 
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
@@ -144,7 +152,7 @@ class App(Node):
             robot_config.LEG_ORIGIN,
             2.5,
             True,
-            pose,
+            [],
             True,
             True
         ))
@@ -154,40 +162,60 @@ class App(Node):
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
         if not is_attached:
-            self.__automatic_correction(leg_id, leg_base_orientation_in_local)
+            self.__automatic_correction(leg_id, leg_base_orientation_in_local, goal_pin_position)
     
-    def __automatic_correction(self, leg_id, leg_base_orientation_in_local):
-        # open gripper
-        # move away from the wall
-        # in force mode move to all try-points.
+    def __automatic_correction(self, leg_id, leg_base_orientation_in_local, goal_pin_position):
         global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
         detach_z_offset = 0.08
-        offset_value = 0.15
-        offsets = [
+        offset_value = 0.1
+        detach_position = np.copy(goal_pin_position)
+        detach_position[2] += detach_z_offset
+        # offsets = np.array([
+        #     [0.0, 0.0, 0.0],
+        #     [0.0, offset_value, 0.0],
+        #     [offset_value, offset_value, 0.0],
+        #     [-offset_value, offset_value, 0.0],
+        #     [offset_value, 0.0, 0.0],
+        #     [-offset_value, 0.0, 0.0],
+        #     [0.0, -offset_value, 0.0],
+        #     [offset_value, -offset_value, 0.0],
+        #     [-offset_value, -offset_value, 0.0],
+        # ])
+        offsets = np.array([
             [0.0, 0.0, 0.0],
-            [0.0, offset_value, 0.0],
-            [0.0, -offset_value, 0.0],
-            [offset_value, 0.0, 0.0],
-            [-offset_value, 0.0, 0.0],
-            [offset_value, offset_value, 0.0],
-            [offset_value, -offset_value, 0.0],
-            [-offset_value, -offset_value, 0.0],
-            [-offset_value, offset_value, 0.0]
-        ]
-        move_leg_request = custom_interface_helper.prepare_move_leg_request((
-            leg_id,
-            global_z_direction_in_local * detach_z_offset,
-            robot_config.MINJERK_TRAJECTORY,
-            robot_config.LEG_ORIGIN,
-            2.0,
-            True,
-            [],
-            True,
-            False
-        ))
-        move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+            [0.0, 0.25, 0.0],
+            [0.0, -0.25, 0.0],
+            [-0.25, 0.0, 0.0],
+            [0.25, 0.0, 0.0]
+        ])
+        spider_pose = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))
+        print(f"SPIDER POSE BEFORE CORRECTION: {spider_pose}")
+        for offset in offsets:
+            move_leg_request = custom_interface_helper.prepare_move_leg_request((
+                leg_id,
+                detach_position,
+                robot_config.MINJERK_TRAJECTORY,
+                robot_config.GLOBAL_ORIGIN,
+                2.0,
+                False,
+                spider_pose,
+                True,
+                False
+            ))
+            move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
 
-        
+            velocity_direction = np.array([global_z_direction_in_local[0] + offset[0], global_z_direction_in_local[1] + offset[1], -global_z_direction_in_local[2]])
+            move_leg_velocity_mode_request = custom_interface_helper.prepare_move_leg_velocity_mode_request((leg_id, velocity_direction))
+            move_leg_velocity_mode_response = custom_interface_helper.async_service_call(self.move_leg_velocity_mode_client, move_leg_velocity_mode_request, self)
+
+            move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, robot_config.CLOSE_GRIPPER_COMMAND))
+            move_gripper_response = custom_interface_helper.async_service_call(self.move_gripper_client, move_gripper_request, self)
+            
+            with self.grippers_states_locker:
+                is_attached = self.grippers_attached_states[leg_id]
+            print(f"LEG {leg_id} is attached: {is_attached}")
+            if is_attached:
+                return
 
 def main():
     rclpy.init()

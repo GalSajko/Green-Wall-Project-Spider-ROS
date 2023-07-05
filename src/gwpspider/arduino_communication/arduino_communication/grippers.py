@@ -70,16 +70,16 @@ class GrippersController(Node):
         with self.grippers_states_locker:
             states = self.grippers_states
         
-        start_time = time.time()
-        while states[leg_id] != excpected_state:
-            with self.grippers_states_locker:
-                states = self.grippers_states
-                time.sleep(0.01)
-            elapsed_time = time.time() - start_time
-            if elapsed_time > self.MAX_ALLOWED_GRIPPER_MOVEMENT_TIME:
-                self.get_logger().info(f"Gripper did not {message} correctly")
-                response.success = False
-                return response
+        # start_time = time.time()
+        # while states[leg_id] != excpected_state:
+        #     with self.grippers_states_locker:
+        #         states = self.grippers_states
+            # elapsed_time = time.time() - start_time
+            # if elapsed_time > self.MAX_ALLOWED_GRIPPER_MOVEMENT_TIME:
+            #     self.get_logger().info(f"Gripper did not {message} correctly")
+            #     response.success = False
+            #     return response
+        time.sleep(2.0)
 
         response.success = True
         return response

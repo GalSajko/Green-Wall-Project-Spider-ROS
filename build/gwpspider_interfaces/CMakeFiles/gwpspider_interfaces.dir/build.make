@@ -120,6 +120,12 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ApplyForceLeg_Response.msg
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GetSpiderPose.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetSpiderPose_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetSpiderPose_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/MoveLegVelocityMode.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveLegVelocityMode_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/MoveLegVelocityMode_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/ToggleAdditionalControllerMode.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleAdditionalControllerMode_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/ToggleAdditionalControllerMode_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl

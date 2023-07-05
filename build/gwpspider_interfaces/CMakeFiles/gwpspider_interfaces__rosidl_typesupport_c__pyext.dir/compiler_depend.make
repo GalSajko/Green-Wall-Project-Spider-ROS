@@ -320,8 +320,18 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__struct.h:
 
@@ -417,6 +427,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__type_supp
 
 /usr/include/python3.10/cpython/bytesobject.h:
 
+rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__functions.h:
+
 /usr/include/python3.10/cpython/odictobject.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
@@ -440,6 +452,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__type_supp
 /usr/include/x86_64-linux-gnu/bits/statx.h:
 
 /usr/include/unistd.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
@@ -535,6 +549,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_contr
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__functions.h:
+
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
@@ -604,6 +620,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__str
 /usr/include/math.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__type_support.h:
 
 /usr/include/python3.10/funcobject.h:
 

@@ -104,6 +104,10 @@ class JointVelocityController(Node):
     @property
     def VELOCITY_AMP_FACTOR(self):
         return 0.1
+    
+    @property
+    def MAX_VELOCITY_MODE_TIME(self):
+        return 2.0
 
     
     def controller_callback(self):
@@ -132,7 +136,6 @@ class JointVelocityController(Node):
                 self.do_init = False
 
             x_d, dx_d, ddx_d = self.__get_pos_vel_acc_from_queues()
-            
 
             if is_force_mode:
                 legs_position_offsets_in_spider, legs_velocities_in_spider = self.__force_position_p_controller(f_d, f_a)
@@ -336,8 +339,7 @@ class JointVelocityController(Node):
         
         else:
             with self.force_mode_locker:
-                self.is_force_mode = bool_command
-            
+                self.is_force_mode = bool_command   
     
     def distribute_forces_callback(self, request, response):
         with self.force_mode_locker:
@@ -396,8 +398,22 @@ class JointVelocityController(Node):
         with self.velocity_mode_locker:
             self.velocity_mode_leg_id = request.leg_id
             self.is_velocity_mode = True
-            self.velocity_mode_direction = request.velocity_mode_direction.data
+            self.velocity_mode_direction = np.array(request.velocity_mode_direction.data)
+        
+        start_time = time.time()
+        while True:
+            with self.legs_states_locker:
+                f_a = self.legs_forces
+            elapsed_time = time.time() - start_time
+            if np.linalg.norm(f_a[request.leg_id]) > self.MAX_ALLOWED_FORCE or elapsed_time > self.MAX_VELOCITY_MODE_TIME:
+                break
+            time.sleep(0.001)
 
+        with self.velocity_mode_locker:
+            self.is_velocity_mode = False
+            
+        response.success = True
+        return response
     
     def update_last_legs_positions_callback(self, _, response):
         with self.legs_states_locker:

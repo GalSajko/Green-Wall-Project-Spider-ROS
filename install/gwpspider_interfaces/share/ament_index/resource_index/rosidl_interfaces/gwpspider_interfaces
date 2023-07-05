@@ -54,6 +54,10 @@ srv/MoveGripper_Request.msg
 srv/MoveGripper_Response.msg
 srv/MoveLeg.idl
 srv/MoveLeg.srv
+srv/MoveLegVelocityMode.idl
+srv/MoveLegVelocityMode.srv
+srv/MoveLegVelocityMode_Request.msg
+srv/MoveLegVelocityMode_Response.msg
 srv/MoveLeg_Request.msg
 srv/MoveLeg_Response.msg
 srv/MoveSpider.idl
@@ -68,6 +72,10 @@ srv/SetBusWatchdog.idl
 srv/SetBusWatchdog.srv
 srv/SetBusWatchdog_Request.msg
 srv/SetBusWatchdog_Response.msg
+srv/ToggleAdditionalControllerMode.idl
+srv/ToggleAdditionalControllerMode.srv
+srv/ToggleAdditionalControllerMode_Request.msg
+srv/ToggleAdditionalControllerMode_Response.msg
 srv/ToggleController.idl
 srv/ToggleController.srv
 srv/ToggleController_Request.msg
