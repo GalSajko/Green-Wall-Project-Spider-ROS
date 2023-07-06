@@ -106,7 +106,7 @@ class App(Node):
         if self.is_init:
             # Call service for plant position and watering info.
 
-            goal_pose = np.array([2.0, 0.75, 0.3, 0.0])
+            goal_pose = np.array([3.6, 1.5, 0.3, 0.0])
             spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
             walking_instructions_request = custom_interface_helper.prepare_modified_walking_instructions_request((start_legs_positions, goal_pose))
@@ -141,9 +141,8 @@ class App(Node):
         self.__distribute_forces(np.delete(spider.LEGS_IDS, leg_id))
 
         spider_pose = self.__get_spider_pose(spider.LEGS_IDS)
-        print(f"SPIDER POSE BEFORE LEG MOVEMENT: {spider_pose}")
         rpy = spider_pose[3:]
-        pin_to_pin_vector_in_local, leg_base_orientation_in_local = tf.get_pin_to_pin_vector_in_local(leg_id, rpy, pin_to_pin_vector_in_global)
+        pin_to_pin_vector_in_local, leg_base_orientation_in_local = tf.get_global_vector_in_local(leg_id, rpy, pin_to_pin_vector_in_global)
 
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
@@ -161,6 +160,7 @@ class App(Node):
 
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
+            self.get_logger().info(f"IS ATTACHED: {is_attached}")
         if not is_attached:
             self.__automatic_correction(leg_id, leg_base_orientation_in_local, goal_pin_position)
     
@@ -188,9 +188,7 @@ class App(Node):
             [-0.25, 0.0, 0.0],
             [0.25, 0.0, 0.0]
         ])
-        offsets_of_offsets = [0.0, 0.02, -0.02]
         spider_pose = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))
-        print(f"SPIDER POSE BEFORE CORRECTION: {spider_pose}")
         for offset in offsets:
             move_leg_request = custom_interface_helper.prepare_move_leg_request((
                 leg_id,
@@ -205,7 +203,8 @@ class App(Node):
             ))
             move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
 
-            velocity_direction = np.array([global_z_direction_in_local[0] + offset[0], global_z_direction_in_local[1] + offset[1], -global_z_direction_in_local[2]])
+            local_offset = tf.get_global_vector_in_local(leg_id, spider_pose[3:], offset)[0]
+            velocity_direction = np.array([global_z_direction_in_local[0] + local_offset[0], global_z_direction_in_local[1] + local_offset[1], -global_z_direction_in_local[2]], dtype = np.float32)
             move_leg_velocity_mode_request = custom_interface_helper.prepare_move_leg_velocity_mode_request((leg_id, velocity_direction))
             move_leg_velocity_mode_response = custom_interface_helper.async_service_call(self.move_leg_velocity_mode_client, move_leg_velocity_mode_request, self)
 
@@ -214,7 +213,7 @@ class App(Node):
             
             with self.grippers_states_locker:
                 is_attached = self.grippers_attached_states[leg_id]
-            print(f"LEG {leg_id} is attached: {is_attached}")
+            self.get_logger().info(f"IS ATTACHED: {is_attached}")
             if is_attached:
                 return
 

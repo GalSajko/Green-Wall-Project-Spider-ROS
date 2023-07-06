@@ -158,7 +158,6 @@ class JointVelocityController(Node):
                 with self.legs_last_positons_locker:
                     self.last_legs_positions[velocity_mode_legs_ids] = x_a[velocity_mode_legs_ids] + dx_d[velocity_mode_legs_ids] * self.PERIOD
 
-
             dx_c, self.last_legs_position_errors = self.__position_velocity_pd_controller(x_a, x_d, dx_d, ddx_d)
             dq_c = kin.get_joints_velocities(q_a, dx_c)
 
@@ -436,7 +435,7 @@ class JointVelocityController(Node):
         with self.legs_states_locker:
             q_a = self.joints_positions
         
-        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a)
+        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a, self)
 
         response.spider_pose = Float32MultiArray(data = spider_pose)
         return response

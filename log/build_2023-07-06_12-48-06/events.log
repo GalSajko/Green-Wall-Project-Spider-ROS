@@ -1,0 +1,46 @@
+[0.000000] (-) TimerEvent: {}
+[0.000429] (-) JobUnselected: {'identifier': 'application'}
+[0.000910] (-) JobUnselected: {'identifier': 'arduino_communication'}
+[0.000929] (-) JobUnselected: {'identifier': 'calculations'}
+[0.000945] (-) JobUnselected: {'identifier': 'configuration'}
+[0.000961] (-) JobUnselected: {'identifier': 'dynamixel_interface'}
+[0.000977] (-) JobUnselected: {'identifier': 'gwpspider_interfaces'}
+[0.000991] (-) JobUnselected: {'identifier': 'gwpspider_launch'}
+[0.001005] (-) JobUnselected: {'identifier': 'planning'}
+[0.001019] (-) JobUnselected: {'identifier': 'utils'}
+[0.001035] (controller) JobQueued: {'identifier': 'controller', 'dependencies': OrderedDict()}
+[0.001053] (controller) JobStarted: {'identifier': 'controller'}
+[0.099648] (-) TimerEvent: {}
+[0.199855] (-) TimerEvent: {}
+[0.300035] (-) TimerEvent: {}
+[0.400228] (-) TimerEvent: {}
+[0.500415] (-) TimerEvent: {}
+[0.558733] (controller) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../../build/controller', 'build', '--build-base', '/home/spider/gwpspider_ws/build/controller/build', 'install', '--record', '/home/spider/gwpspider_ws/build/controller/install.log', '--single-version-externally-managed'], 'cwd': '/home/spider/gwpspider_ws/src/gwpspider/controller', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'spider', 'SSH_CLIENT': '192.168.1.40 51784 22', 'LC_TIME': 'hr_HR.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/spider/gwpspider_ws/install/gwpspider_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'BROWSER': '/home/spider/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/spider', 'TERM_PROGRAM_VERSION': '1.79.2', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-4e1b35df-a193-4222-92e5-258fc76d92d0.sock', 'ROS_PYTHON_VERSION': '3', 'LC_MONETARY': 'hr_HR.UTF-8', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/spider/gwpspider_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'spider', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '4', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/spider/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/bin/remote-cli:/home/spider/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_ADDRESS': 'hr_HR.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LC_TELEPHONE': 'hr_HR.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-5822a10e01.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/gwpspider_launch:/home/spider/gwpspider_ws/install/gwpspider_interfaces:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble', 'SHELL': '/bin/bash', 'LC_NAME': 'hr_HR.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'hr_HR.UTF-8', 'LC_IDENTIFICATION': 'hr_HR.UTF-8', 'PWD': '/home/spider/gwpspider_ws/build/controller', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.40 51784 192.168.1.39 22', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/spider/gwpspider_ws/build/controller/prefix_override:/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/gwpspider_interfaces/local/lib/python3.10/dist-packages:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/configuration/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages:/home/spider/gwpspider_ws/install/application/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'LC_NUMERIC': 'hr_HR.UTF-8', 'LC_PAPER': 'hr_HR.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/spider/gwpspider_ws/install/gwpspider_launch:/home/spider/gwpspider_ws/install/gwpspider_interfaces'}, 'shell': False}
+[0.600479] (-) TimerEvent: {}
+[0.700688] (-) TimerEvent: {}
+[0.780955] (controller) StdoutLine: {'line': b'running egg_info\n'}
+[0.781643] (controller) StdoutLine: {'line': b'writing ../../../build/controller/controller.egg-info/PKG-INFO\n'}
+[0.781820] (controller) StdoutLine: {'line': b'writing dependency_links to ../../../build/controller/controller.egg-info/dependency_links.txt\n'}
+[0.781938] (controller) StdoutLine: {'line': b'writing entry points to ../../../build/controller/controller.egg-info/entry_points.txt\n'}
+[0.782019] (controller) StdoutLine: {'line': b'writing requirements to ../../../build/controller/controller.egg-info/requires.txt\n'}
+[0.782097] (controller) StdoutLine: {'line': b'writing top-level names to ../../../build/controller/controller.egg-info/top_level.txt\n'}
+[0.783571] (controller) StdoutLine: {'line': b"reading manifest file '../../../build/controller/controller.egg-info/SOURCES.txt'\n"}
+[0.784322] (controller) StdoutLine: {'line': b"writing manifest file '../../../build/controller/controller.egg-info/SOURCES.txt'\n"}
+[0.784411] (controller) StdoutLine: {'line': b'running build\n'}
+[0.784468] (controller) StdoutLine: {'line': b'running build_py\n'}
+[0.784700] (controller) StdoutLine: {'line': b'running install\n'}
+[0.784828] (controller) StderrLine: {'line': b'/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.\n'}
+[0.784961] (controller) StderrLine: {'line': b'  warnings.warn(\n'}
+[0.785077] (controller) StdoutLine: {'line': b'running install_lib\n'}
+[0.786122] (controller) StdoutLine: {'line': b'running install_data\n'}
+[0.786548] (controller) StdoutLine: {'line': b'running install_egg_info\n'}
+[0.787976] (controller) StdoutLine: {'line': b"removing '/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[0.788233] (controller) StdoutLine: {'line': b'Copying ../../../build/controller/controller.egg-info to /home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info\n'}
+[0.788803] (controller) StdoutLine: {'line': b'running install_scripts\n'}
+[0.800749] (-) TimerEvent: {}
+[0.808634] (controller) StdoutLine: {'line': b'Installing joint_velocity_controller script to /home/spider/gwpspider_ws/install/controller/lib/controller\n'}
+[0.808767] (controller) StdoutLine: {'line': b'Installing legs_states_publisher script to /home/spider/gwpspider_ws/install/controller/lib/controller\n'}
+[0.809034] (controller) StdoutLine: {'line': b"writing list of installed files to '/home/spider/gwpspider_ws/build/controller/install.log'\n"}
+[0.828773] (controller) CommandEnded: {'returncode': 0}
+[0.841482] (controller) JobEnded: {'identifier': 'controller', 'rc': 0}
+[0.842006] (-) EventReactorShutdown: {}

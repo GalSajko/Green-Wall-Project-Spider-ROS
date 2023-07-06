@@ -54,8 +54,8 @@ def xyzrpy_to_matrix(xyzrpy: list, rotation_only: bool = False) -> np.ndarray:
     
     return rotation_matrix
 
-def get_pin_to_pin_vector_in_local(leg_id: int, rpy: list, pin_to_pin_vector_in_global: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Calculate pin-to-pin vector in leg's local origin.
+def get_global_vector_in_local(leg_id: int, rpy: list, pin_to_pin_vector_in_global: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Calculate global vector in leg's local origin.
 
     Args:
         leg_id (int): Leg id.
@@ -63,7 +63,7 @@ def get_pin_to_pin_vector_in_local(leg_id: int, rpy: list, pin_to_pin_vector_in_
         pin_to_pin_vecor_in_global (np.ndarray): Vector from one pin to another, given in global origin.
 
     Returns:
-        tuple: 1x3 pin-to-pin vector in leg's local origin and 3x3 orientation matrix of leg's anchor in global origin.
+        tuple: 1x3 vector in leg's local origin and 3x3 orientation matrix of leg's anchor in global origin.
     """
     spider_rotation_in_global = xyzrpy_to_matrix(rpy, True)
     leg_base_orientation_in_global = np.linalg.inv(np.dot(spider_rotation_in_global, spider.T_BASES[leg_id][:3, :3]))

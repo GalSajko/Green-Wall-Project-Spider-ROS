@@ -177,7 +177,7 @@ def platform_forward_kinematics(legs_ids: list, legs_positions_in_global: np.nda
     
     return xyzrpy
 
-def get_spider_pose(legs_ids: list, legs_positions_in_global: np.ndarray, joints_values: np.ndarray) -> np.ndarray:
+def get_spider_pose(legs_ids: list, legs_positions_in_global: np.ndarray, joints_values: np.ndarray, node) -> np.ndarray:
     """Calculate spider's pose in global origin. If more than three legs are given, it calculates spider's pose from each
     combination of these three legs. Finally pose is determined as mean value of all calculations.
 
@@ -192,19 +192,21 @@ def get_spider_pose(legs_ids: list, legs_positions_in_global: np.ndarray, joints
     legs_positions_in_global = np.array(legs_positions_in_global)
     legs_ids = list(legs_ids)
     legs_combinations = list(itt.combinations(legs_ids, 3))
-    poses = np.zeros((len(legs_combinations), 6))
+    poses = np.zeros((len(legs_combinations), 6), dtype = np.float32)
     for combination_index, legs_subset in enumerate(legs_combinations):
         legs_subset = np.array(legs_subset)
         subset_indexes = [legs_ids.index(leg) for leg in legs_subset]
         # Skip calculations if all three selected legs are on the same line.
         if not (np.diff(legs_positions_in_global[subset_indexes][:, 0]).any() and np.diff(legs_positions_in_global[subset_indexes][:, 1]).any()):
+            poses[combination_index] = [np.nan] * 6
             continue
         joints_values_in_legs_subset = joints_values[legs_subset]
         legs_poses = np.zeros([3, 4, 4])
         for idx, leg in enumerate(legs_subset):
             legs_poses[idx] = spider_base_to_leg_tip_forward_kinematics(leg, joints_values_in_legs_subset[idx])
         poses[combination_index] = platform_forward_kinematics(legs_subset, legs_positions_in_global[(subset_indexes)], legs_poses)
-    pose = np.mean(np.array(poses), axis = 0)
+
+    pose = np.nanmean(poses, axis = 0)
 
     return pose
 
