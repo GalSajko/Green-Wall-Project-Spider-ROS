@@ -106,7 +106,7 @@ class App(Node):
         if self.is_init:
             # Call service for plant position and watering info.
 
-            goal_pose = np.array([3.6, 1.5, 0.3, 0.0])
+            goal_pose = np.array([2.2, 1.5, 0.3, 0.0])
             spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
             walking_instructions_request = custom_interface_helper.prepare_modified_walking_instructions_request((start_legs_positions, goal_pose))
@@ -167,27 +167,22 @@ class App(Node):
     def __automatic_correction(self, leg_id, leg_base_orientation_in_local, goal_pin_position):
         global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
         detach_z_offset = 0.08
-        offset_value = 0.1
+        y_offset_value = 0.25
+        x_offset_value = 0.12
         detach_position = np.copy(goal_pin_position)
         detach_position[2] += detach_z_offset
-        # offsets = np.array([
-        #     [0.0, 0.0, 0.0],
-        #     [0.0, offset_value, 0.0],
-        #     [offset_value, offset_value, 0.0],
-        #     [-offset_value, offset_value, 0.0],
-        #     [offset_value, 0.0, 0.0],
-        #     [-offset_value, 0.0, 0.0],
-        #     [0.0, -offset_value, 0.0],
-        #     [offset_value, -offset_value, 0.0],
-        #     [-offset_value, -offset_value, 0.0],
-        # ])
+
         offsets = np.array([
-            [0.0, 0.0, 0.0],
-            [0.0, 0.25, 0.0],
-            [0.0, -0.25, 0.0],
-            [-0.25, 0.0, 0.0],
-            [0.25, 0.0, 0.0]
+            [0.0, y_offset_value, 0.0],
+            [x_offset_value, y_offset_value, 0.0],
+            [-x_offset_value, y_offset_value, 0.0],
+            [x_offset_value, 0.0, 0.0],
+            [-x_offset_value, 0.0, 0.0],
+            [0.0, -y_offset_value / 2, 0.0],
+            [x_offset_value, -y_offset_value / 2, 0.0],
+            [-x_offset_value, -y_offset_value / 2, 0.0],
         ])
+
         spider_pose = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))
         for offset in offsets:
             move_leg_request = custom_interface_helper.prepare_move_leg_request((
