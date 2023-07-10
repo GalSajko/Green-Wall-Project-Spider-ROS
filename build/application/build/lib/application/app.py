@@ -14,7 +14,7 @@ from calculations import kinematics as kin
 from calculations import transformations as tf
 
 from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions, MoveLeg, MoveSpider, MoveGripper, DistributeForces, GetSpiderPose, ToggleAdditionalControllerMode, MoveLegVelocityMode
-from gwpspider_interfaces.msg import GrippersStates
+from gwpspider_interfaces.msg import GrippersStates, LegsStates
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class App(Node):
@@ -25,6 +25,9 @@ class App(Node):
         self.json_file_manager = json_file_manager.JsonFileManager()
         self.grippers_attached_states = [False] * spider.NUMBER_OF_LEGS
         self.grippers_states_locker = threading.Lock()
+
+        self.legs_local_positions = None
+        self.legs_positions_locker = threading.Lock()
 
         self.callback_group = ReentrantCallbackGroup()
 
@@ -62,6 +65,7 @@ class App(Node):
             print("Gripper moving service not available...")        
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
+        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
 
         print("All services available.")
 
@@ -101,13 +105,18 @@ class App(Node):
                 msg.fourth_gripper.is_attached,
                 msg.fifth_gripper.is_attached
             ]
+    
+    def read_legs_states_callback(self, msg):
+        positions = custom_interface_helper.unpack_2d_array_message(msg.legs_local_positions)
+        with self.legs_positions_locker:
+            self.legs_local_positions = positions
         
     def __get_movement_instructions(self):
         # TODO: Add service call for getting plant and watering instructions, modify walking instructions call.
         if self.is_init:
             # Call service for plant position and watering info.
 
-            goal_pose = np.array([2.2, 1.5, 0.3, 0.0])
+            goal_pose = np.array([3.5, 1.5, 0.3, 0.0])
             spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
             walking_instructions_request = custom_interface_helper.prepare_modified_walking_instructions_request((start_legs_positions, goal_pose))
@@ -161,7 +170,6 @@ class App(Node):
 
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
-            self.get_logger().info(f"IS ATTACHED: {is_attached}")
         if not is_attached:
             self.__automatic_correction(leg_id, leg_base_orientation_in_local, goal_pin_position)
     
@@ -185,19 +193,30 @@ class App(Node):
         ])
 
         spider_pose = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))
-        for offset in offsets:
+        for idx, offset in enumerate(offsets):
+            if idx == 0:
+                position = global_z_direction_in_local * detach_z_offset
+                is_offset = True
+            else:
+                position = local_detach_position
+                is_offset = False
+
             move_leg_request = custom_interface_helper.prepare_move_leg_request((
                 leg_id,
-                detach_position,
+                position,
                 robot_config.MINJERK_TRAJECTORY,
-                robot_config.GLOBAL_ORIGIN,
+                robot_config.LEG_ORIGIN,
                 2.0,
-                False,
-                spider_pose,
+                is_offset,
+                [],
                 True,
                 False
             ))
             move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+
+            if idx == 0:
+                with self.legs_positions_locker:
+                        local_detach_position = self.legs_local_positions[leg_id]
 
             local_offset = tf.get_global_vector_in_local(leg_id, spider_pose[3:], offset)[0]
             velocity_direction = np.array([global_z_direction_in_local[0] + local_offset[0], global_z_direction_in_local[1] + local_offset[1], -global_z_direction_in_local[2]], dtype = np.float32)
