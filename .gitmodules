@@ -1,0 +1,3 @@
+[submodule "src/gwpspider/gwpspider_interfaces"]
+	path = src/gwpspider/gwpspider_interfaces
+	url = https://github.com/GalSajko/gwpspider_interfaces.git
