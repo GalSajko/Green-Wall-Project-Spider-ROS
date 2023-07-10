@@ -8,11 +8,12 @@ from std_msgs.msg import String
 import time
 import threading
 
-from configuration import ros_config, robot_config, spider
+from configuration import robot_config, spider
 from arduino_communication.arduino_comm import ArduinoComm
 
 from gwpspider_interfaces.srv import MoveGripper
 from gwpspider_interfaces.msg import GripperState, GrippersStates
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class GrippersController(Node):
     def __init__(self):
@@ -25,8 +26,8 @@ class GrippersController(Node):
         self.serial_comm_locker = threading.Lock()
 
         self.callback_group = ReentrantCallbackGroup()
-        self.move_service = self.create_service(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, self.move_gripper_callback, callback_group = self.callback_group)
-        self.states_publisher = self.create_publisher(GrippersStates, ros_config.GRIPPER_STATES_TOPIC, 1, callback_group = self.callback_group)
+        self.move_service = self.create_service(MoveGripper, gid.MOVE_GRIPPER_SERVICE, self.move_gripper_callback, callback_group = self.callback_group)
+        self.states_publisher = self.create_publisher(GrippersStates, gid.GRIPPER_STATES_TOPIC, 1, callback_group = self.callback_group)
         timer_period = 0.0
         self.timer = self.create_timer(timer_period, self.publish_states_callback, callback_group = self.callback_group)
     

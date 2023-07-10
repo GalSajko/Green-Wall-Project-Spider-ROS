@@ -67,7 +67,7 @@ include CMakeFiles/ament_cmake_python_copy_gwpspider_interfaces.dir/compiler_dep
 include CMakeFiles/ament_cmake_python_copy_gwpspider_interfaces.dir/progress.make
 
 CMakeFiles/ament_cmake_python_copy_gwpspider_interfaces:
-	/home/spider/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -E copy_directory /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces /home/spider/gwpspider_ws/build/gwpspider_interfaces/ament_cmake_python/gwpspider_interfaces/gwpspider_interfaces
+	/home/spider/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -E copy_directory /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/gwpspider_interfaces /home/spider/gwpspider_ws/build/gwpspider_interfaces/ament_cmake_python/gwpspider_interfaces/gwpspider_interfaces
 
 ament_cmake_python_copy_gwpspider_interfaces: CMakeFiles/ament_cmake_python_copy_gwpspider_interfaces
 ament_cmake_python_copy_gwpspider_interfaces: CMakeFiles/ament_cmake_python_copy_gwpspider_interfaces.dir/build.make

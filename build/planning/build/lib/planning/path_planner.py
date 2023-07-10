@@ -8,13 +8,14 @@ import numpy as np
 import math
 from gwpconfig import wall
 
-from configuration import spider, ros_config
+from configuration import spider
 from calculations import mathtools as mt
 from calculations import transformations as tf
 from utils import custom_interface_helper
 
 from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions
 from gwpspider_interfaces.msg import WalkingInstructions
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class PathPlanner(Node):
     def __init__(self):
@@ -22,8 +23,8 @@ class PathPlanner(Node):
 
         self.MAX_LINEAR_STEP = 0.06
 
-        self.walking_instructions_service = self.create_service(GetWalkingInstructions, ros_config.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback)
-        self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, ros_config.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback)
+        self.walking_instructions_service = self.create_service(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback)
+        self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback)
 
     def get_walking_instructions_callback(self, request, response):
         start_pose = np.array(request.start_pose.data)

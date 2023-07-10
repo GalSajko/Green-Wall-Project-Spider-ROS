@@ -7,7 +7,7 @@ import numpy as np
 import time
 import threading
 
-from configuration import ros_config, spider, robot_config
+from configuration import spider, robot_config
 from utils import json_file_manager
 from utils import custom_interface_helper
 from calculations import kinematics as kin
@@ -15,6 +15,7 @@ from calculations import transformations as tf
 
 from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions, MoveLeg, MoveSpider, MoveGripper, DistributeForces, GetSpiderPose, ToggleAdditionalControllerMode, MoveLegVelocityMode
 from gwpspider_interfaces.msg import GrippersStates
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class App(Node):
     def __init__(self):
@@ -27,40 +28,40 @@ class App(Node):
 
         self.callback_group = ReentrantCallbackGroup()
 
-        # self.get_walking_instructions_client = self.create_client(GetWalkingInstructions, ros_config.GET_WALKING_INSTRUCTIONS_SERVICE)
-        self.get_modified_walking_instructions_client = self.create_client(GetModifiedWalkingInstructions, ros_config.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, callback_group = self.callback_group)
+        # self.get_walking_instructions_client = self.create_client(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
+        self.get_modified_walking_instructions_client = self.create_client(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, callback_group = self.callback_group)
         while not self.get_modified_walking_instructions_client.wait_for_service(timeout_sec = 1.0):
             print("Path planning service not available...")
 
-        self.move_leg_client = self.create_client(MoveLeg, ros_config.MOVE_LEG_SERVICE, callback_group = self.callback_group)
+        self.move_leg_client = self.create_client(MoveLeg, gid.MOVE_LEG_SERVICE, callback_group = self.callback_group)
         while not self.move_leg_client.wait_for_service(timeout_sec = 1.0):
             print("Leg moving service not available...")
 
-        self.move_spider_client = self.create_client(MoveSpider, ros_config.MOVE_SPIDER_SERVICE, callback_group = self.callback_group)
+        self.move_spider_client = self.create_client(MoveSpider, gid.MOVE_SPIDER_SERVICE, callback_group = self.callback_group)
         while not self.move_spider_client.wait_for_service(timeout_sec = 1.0):
             print("Spider moving service not available...")   
 
-        self.distribute_forces_client = self.create_client(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, callback_group = self.callback_group)
+        self.distribute_forces_client = self.create_client(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, callback_group = self.callback_group)
         while not self.distribute_forces_client.wait_for_service(timeout_sec = 1.0):
             print("Distribute forces service not available...")
 
-        self.get_spider_pose_client = self.create_client(GetSpiderPose, ros_config.GET_SPIDER_POSE_SERVICE, callback_group = self.callback_group)
+        self.get_spider_pose_client = self.create_client(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, callback_group = self.callback_group)
         while not self.get_spider_pose_client.wait_for_service(timeout_sec = 1.0):
             print("Spider pose service not available...")
 
-        self.toggle_controller_mode_client = self.create_client(ToggleAdditionalControllerMode, ros_config.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.callback_group)
+        self.toggle_controller_mode_client = self.create_client(ToggleAdditionalControllerMode, gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.callback_group)
         while not self.toggle_controller_mode_client.wait_for_service(timeout_sec = 1.0):
             print("Toggle additional controller mode service not available...")
 
-        self.move_leg_velocity_mode_client = self.create_client(MoveLegVelocityMode, ros_config.MOVE_LEG_VELOCITY_MODE_SERVICE, callback_group = self.callback_group)
+        self.move_leg_velocity_mode_client = self.create_client(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, callback_group = self.callback_group)
         while not self.move_leg_velocity_mode_client.wait_for_service(timeout_sec = 1.0):
             print("Velocity mode leg moving service not available...")
         
-        self.move_gripper_client = self.create_client(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
+        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
         while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
             print("Gripper moving service not available...")        
 
-        self.grippers_states_subscriber = self.create_subscription(GrippersStates, ros_config.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
+        self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
 
         print("All services available.")
 

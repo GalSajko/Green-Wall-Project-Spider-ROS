@@ -9,11 +9,11 @@ import threading
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
 from calculations import mathtools
-from configuration import robot_config, ros_config, spider
+from configuration import robot_config, spider
 from utils import custom_interface_helper
 
 from gwpspider_interfaces.msg import DynamixelMotorsData, LegsStates, BnoData
-
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class LegsStatesPublisher(Node):
     def __init__(self):
@@ -21,8 +21,8 @@ class LegsStatesPublisher(Node):
 
         self.callback_group = ReentrantCallbackGroup()
 
-        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, ros_config.DYNAMIXEL_MOTORS_DATA_TOPIC, self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
-        self.bno_data_subscriber = self.create_subscription(BnoData, ros_config.BNO_DATA_TOPIC, self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
+        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
+        self.bno_data_subscriber = self.create_subscription(BnoData, gid.BNO_DATA_TOPIC, self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
 
         self.graviy_vector_locker = threading.Lock()
         self.legs_states_msg_locker = threading.Lock()
@@ -35,7 +35,7 @@ class LegsStatesPublisher(Node):
         self.tau_counter = 0
         self.force_counter = 0
 
-        self.legs_states_publisher = self.create_publisher(LegsStates, ros_config.LEGS_STATES_TOPIC, 1, callback_group = self.callback_group)
+        self.legs_states_publisher = self.create_publisher(LegsStates, gid.LEGS_STATES_TOPIC, 1, callback_group = self.callback_group)
         self.timer = self.create_timer(0.005, self.publish_legs_states_callback, callback_group = self.callback_group)
 
         self.get_logger().info("Legs states publisher is running.")

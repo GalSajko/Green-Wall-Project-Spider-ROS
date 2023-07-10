@@ -13,7 +13,7 @@ import time
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger
 
-from configuration import robot_config, ros_config, spider
+from configuration import robot_config, spider
 from utils import custom_interface_helper
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
@@ -21,6 +21,7 @@ from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
 from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
     def __init__(self):
@@ -57,28 +58,28 @@ class JointVelocityController(Node):
         self.joints_torques = None
 
         self.reading_callback_group = ReentrantCallbackGroup()
-        self.legs_states_subscriber = self.create_subscription(LegsStates, ros_config.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.reading_callback_group)
+        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.reading_callback_group)
 
-        self.toggle_controller_service = self.create_service(ToggleController, ros_config.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
+        self.toggle_controller_service = self.create_service(ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
 
         self.moving_callbacks_group = ReentrantCallbackGroup()
-        self.move_leg_service = self.create_service(MoveLeg, ros_config.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.moving_callbacks_group)
-        self.move_spider_service = self.create_service(MoveSpider, ros_config.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.moving_callbacks_group)
-        self.leg_trajectory_client = self.create_client(GetLegTrajectory, ros_config.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.moving_callbacks_group)
-        self.move_gripper_client = self.create_client(MoveGripper, ros_config.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
-        self.get_spider_pose_service = self.create_service(GetSpiderPose, ros_config.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.moving_callbacks_group)
-        self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, ros_config.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.moving_callbacks_group)
+        self.move_leg_service = self.create_service(MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.moving_callbacks_group)
+        self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.moving_callbacks_group)
+        self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.moving_callbacks_group)
+        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
+        self.get_spider_pose_service = self.create_service(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.moving_callbacks_group)
+        self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.moving_callbacks_group)
 
         self.controller_callbacks_group = ReentrantCallbackGroup()
-        self.controller_publisher = self.create_publisher(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
+        self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
 
-        self.distribute_forces_service = self.create_service(DistributeForces, ros_config.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
-        self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, ros_config.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
-        self.update_last_legs_positions_service = self.create_service(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
+        self.distribute_forces_service = self.create_service(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
+        self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, gid.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
+        self.update_last_legs_positions_service = self.create_service(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
         self.toggle_additional_controller_mode_service = self.create_service(
             ToggleAdditionalControllerMode,
-            ros_config.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE,
+            gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE,
             self.toggle_additional_controller_mode_callback,
             callback_group = self.controller_callbacks_group
         )

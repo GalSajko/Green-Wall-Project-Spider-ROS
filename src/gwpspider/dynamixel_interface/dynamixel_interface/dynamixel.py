@@ -11,11 +11,12 @@ import threading
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger
 
-from configuration import robot_config, ros_config, spider
+from configuration import robot_config, spider
 from utils import mappers, custom_interface_helper
 
 from gwpspider_interfaces.srv import ToggleMotorsTorque, SetBusWatchdog, RebootMotors
 from gwpspider_interfaces.msg import DynamixelMotorsData
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class MotorDriver(Node):
     def __init__(self):
@@ -48,17 +49,17 @@ class MotorDriver(Node):
         self.__toggle_motors_torque(spider.LEGS_IDS, robot_config.ENABLE_LEGS_COMMAND)
 
         self.callback_group = ReentrantCallbackGroup()
-        self.toggle_torque_service = self.create_service(ToggleMotorsTorque, ros_config.TOGGLE_MOTORS_TORQUE_SERVICE, self.toggle_motors_torque_callback, callback_group = self.callback_group)
-        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, ros_config.SET_BUS_WATCHDOG_SERVICE, self.set_bus_watchdog_callback, callback_group = self.callback_group)
-        self.reboot_motors_service = self.create_service(RebootMotors, ros_config.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback, callback_group = self.callback_group)
+        self.toggle_torque_service = self.create_service(ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, self.toggle_motors_torque_callback, callback_group = self.callback_group)
+        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, self.set_bus_watchdog_callback, callback_group = self.callback_group)
+        self.reboot_motors_service = self.create_service(RebootMotors, gid.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback, callback_group = self.callback_group)
 
-        self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, ros_config.DYNAMIXEL_MOTORS_DATA_TOPIC, 1, callback_group = self.callback_group)
+        self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, 1, callback_group = self.callback_group)
         timer_period = 0.007
         self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback, callback_group = self.callback_group)
 
-        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, ros_config.COMMANDED_JOINTS_VELOCITIES_TOPIC, self.sync_write_motors_velocities_callback, 10, callback_group = self.callback_group)
+        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, self.sync_write_motors_velocities_callback, 10, callback_group = self.callback_group)
 
-        self.update_last_legs_positions_client = self.create_client(Trigger, ros_config.UPDATE_LAST_LEGS_POSITIONS_SERVICE, callback_group = self.callback_group)
+        self.update_last_legs_positions_client = self.create_client(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, callback_group = self.callback_group)
     
     #region properties
     @property

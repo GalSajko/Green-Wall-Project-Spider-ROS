@@ -4,18 +4,19 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
 
-from configuration import robot_config, ros_config
+from configuration import robot_config
 from utils import custom_interface_helper
 
 from gwpspider_interfaces.srv import GetLegTrajectory
 from gwpspider_interfaces.msg import LegTrajectory
+from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class TrajectoryPlanner(Node):
     def __init__(self):
         Node.__init__(self, 'trajectory_planner')
         
         self.callback_group = ReentrantCallbackGroup()
-        self.trajectory_service = self.create_service(GetLegTrajectory, ros_config.GET_LEG_TRAJECTORY_SERVICE, self.get_leg_trajectory_callback, callback_group = self.callback_group)
+        self.trajectory_service = self.create_service(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, self.get_leg_trajectory_callback, callback_group = self.callback_group)
 
     def get_leg_trajectory_callback(self, request, response):
         current_position = np.array(request.current_position.data)
