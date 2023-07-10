@@ -1,4 +1,0 @@
-std_msgs/Float32MultiArray joints_positions
-std_msgs/Float32MultiArray legs_local_positions
-std_msgs/Float32MultiArray forces
-std_msgs/Float32MultiArray torques

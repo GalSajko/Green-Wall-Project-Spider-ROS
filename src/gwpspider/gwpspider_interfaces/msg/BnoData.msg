@@ -1,2 +1,0 @@
-std_msgs/Float32MultiArray rpy
-std_msgs/Float32MultiArray gravity_vector

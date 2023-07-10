@@ -1,5 +1,0 @@
-gwpspider_interfaces/GripperState first_gripper
-gwpspider_interfaces/GripperState second_gripper
-gwpspider_interfaces/GripperState third_gripper
-gwpspider_interfaces/GripperState fourth_gripper
-gwpspider_interfaces/GripperState fifth_gripper
