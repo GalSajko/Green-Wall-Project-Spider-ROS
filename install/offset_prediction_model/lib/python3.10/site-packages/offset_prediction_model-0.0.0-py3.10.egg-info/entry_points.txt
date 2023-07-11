@@ -1,0 +1,3 @@
+[console_scripts]
+offset_predictor = offset_prediction_model.offset_predictor:main
+

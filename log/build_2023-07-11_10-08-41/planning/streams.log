@@ -1,0 +1,24 @@
+[0.911s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/planning': PYTHONPATH=/home/spider/gwpspider_ws/build/planning/prefix_override:/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/planning build --build-base /home/spider/gwpspider_ws/build/planning/build install --record /home/spider/gwpspider_ws/build/planning/install.log --single-version-externally-managed
+[1.153s] running egg_info
+[1.153s] writing ../../../build/planning/planning.egg-info/PKG-INFO
+[1.154s] writing dependency_links to ../../../build/planning/planning.egg-info/dependency_links.txt
+[1.154s] writing entry points to ../../../build/planning/planning.egg-info/entry_points.txt
+[1.154s] writing requirements to ../../../build/planning/planning.egg-info/requires.txt
+[1.154s] writing top-level names to ../../../build/planning/planning.egg-info/top_level.txt
+[1.155s] reading manifest file '../../../build/planning/planning.egg-info/SOURCES.txt'
+[1.156s] writing manifest file '../../../build/planning/planning.egg-info/SOURCES.txt'
+[1.156s] running build
+[1.156s] running build_py
+[1.157s] running install
+[1.157s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[1.157s]   warnings.warn(
+[1.157s] running install_lib
+[1.158s] running install_data
+[1.158s] running install_egg_info
+[1.160s] removing '/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning-0.0.0-py3.10.egg-info' (and everything under it)
+[1.160s] Copying ../../../build/planning/planning.egg-info to /home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages/planning-0.0.0-py3.10.egg-info
+[1.161s] running install_scripts
+[1.181s] Installing path_planner script to /home/spider/gwpspider_ws/install/planning/lib/planning
+[1.182s] Installing trajectory_planner script to /home/spider/gwpspider_ws/install/planning/lib/planning
+[1.182s] writing list of installed files to '/home/spider/gwpspider_ws/build/planning/install.log'
+[1.206s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/planning' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/planning/prefix_override:/home/spider/gwpspider_ws/install/planning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/planning build --build-base /home/spider/gwpspider_ws/build/planning/build install --record /home/spider/gwpspider_ws/build/planning/install.log --single-version-externally-managed

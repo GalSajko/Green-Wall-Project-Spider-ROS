@@ -1,0 +1,24 @@
+[2.397s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/controller': PYTHONPATH=/home/spider/gwpspider_ws/build/controller/prefix_override:/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/controller build --build-base /home/spider/gwpspider_ws/build/controller/build install --record /home/spider/gwpspider_ws/build/controller/install.log --single-version-externally-managed
+[2.923s] running egg_info
+[2.924s] writing ../../../build/controller/controller.egg-info/PKG-INFO
+[2.925s] writing dependency_links to ../../../build/controller/controller.egg-info/dependency_links.txt
+[2.925s] writing entry points to ../../../build/controller/controller.egg-info/entry_points.txt
+[2.925s] writing requirements to ../../../build/controller/controller.egg-info/requires.txt
+[2.926s] writing top-level names to ../../../build/controller/controller.egg-info/top_level.txt
+[2.929s] reading manifest file '../../../build/controller/controller.egg-info/SOURCES.txt'
+[2.930s] writing manifest file '../../../build/controller/controller.egg-info/SOURCES.txt'
+[2.930s] running build
+[2.930s] running build_py
+[2.931s] running install
+[2.931s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.931s]   warnings.warn(
+[2.931s] running install_lib
+[2.933s] running install_data
+[2.934s] running install_egg_info
+[2.937s] removing '/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info' (and everything under it)
+[2.942s] Copying ../../../build/controller/controller.egg-info to /home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages/controller-0.0.0-py3.10.egg-info
+[2.943s] running install_scripts
+[2.976s] Installing joint_velocity_controller script to /home/spider/gwpspider_ws/install/controller/lib/controller
+[2.976s] Installing legs_states_publisher script to /home/spider/gwpspider_ws/install/controller/lib/controller
+[2.977s] writing list of installed files to '/home/spider/gwpspider_ws/build/controller/install.log'
+[3.187s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/controller' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/controller/prefix_override:/home/spider/gwpspider_ws/install/controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/controller build --build-base /home/spider/gwpspider_ws/build/controller/build install --record /home/spider/gwpspider_ws/build/controller/install.log --single-version-externally-managed

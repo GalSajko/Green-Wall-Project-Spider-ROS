@@ -8,6 +8,7 @@ setup.py
 ../../../build/utils/utils.egg-info/requires.txt
 ../../../build/utils/utils.egg-info/top_level.txt
 ../../../build/utils/utils.egg-info/zip-safe
+resource/spider_state_dict
 resource/utils
 test/test_copyright.py
 test/test_flake8.py

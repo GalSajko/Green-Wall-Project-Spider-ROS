@@ -3,10 +3,13 @@ import numpy as np
 from gwpconfig import wall
 import os
 
+from ament_index_python import get_package_share_directory
+
 from configuration import robot_config
 
 class JsonFileManager():
     def __init__(self):
+        # self.dict_dir =  os.path.join(get_package_share_directory('utils'), 'resource/spider_state_dict')
         self.FILENAME = "/home/spider/gwpspider_ws/src/gwpspider/data/spider_state_dict"
 
         self.pins = np.array(wall.create_grid(True), dtype = np.float32)

@@ -1,0 +1,52 @@
+[1.490s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/offset_prediction_model:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[1.562s] -- Found ament_cmake: 1.3.4 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.781s] -- Found rclcpp: 16.0.4 (/opt/ros/humble/share/rclcpp/cmake)
+[1.839s] -- Found rosidl_generator_c: 3.1.4 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.846s] -- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.860s] -- Found rosidl_generator_cpp: 3.1.4 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.884s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.919s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.047s] -- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.050s] -- Found rmw_fastrtps_cpp: 6.2.2 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[2.187s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.482s] -- Found rclpy: 3.3.8 (/opt/ros/humble/share/rclpy/cmake)
+[2.495s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[3.151s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[3.528s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.641s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.668s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[3.706s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[3.707s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[3.707s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[3.778s] [31mCMake Error at /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:122 (add_custom_target):
+[3.779s]   add_custom_target cannot create target
+[3.779s]   "ament_cmake_python_copy_gwpspider_interfaces" because another target with
+[3.779s]   the same name already exists.  The existing target is a custom target
+[3.779s]   created in source directory
+[3.779s]   "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces".  See
+[3.779s]   documentation for policy CMP0002 for more details.
+[3.779s] Call Stack (most recent call first):
+[3.779s]   /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:39 (_ament_cmake_python_install_package)
+[3.780s]   CMakeLists.txt:58 (ament_python_install_package)
+[3.780s] 
+[3.780s] [0m
+[3.780s] [31mCMake Error at /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:141 (add_custom_target):
+[3.780s]   add_custom_target cannot create target
+[3.780s]   "ament_cmake_python_build_gwpspider_interfaces_egg" because another target
+[3.780s]   with the same name already exists.  The existing target is a custom target
+[3.780s]   created in source directory
+[3.780s]   "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces".  See
+[3.780s]   documentation for policy CMP0002 for more details.
+[3.781s] Call Stack (most recent call first):
+[3.781s]   /opt/ros/humble/share/ament_cmake_python/cmake/ament_python_install_package.cmake:39 (_ament_cmake_python_install_package)
+[3.781s]   CMakeLists.txt:58 (ament_python_install_package)
+[3.781s] 
+[3.781s] [0m
+[3.781s] -- Found ament_lint_auto: 0.12.6 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.790s] -- Added test 'flake8' to check Python code syntax and style conventions
+[3.790s] -- Added test 'lint_cmake' to check CMake code style
+[3.790s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[3.791s] -- Added test 'xmllint' to check XML markup files
+[3.793s] -- Configuring incomplete, errors occurred!
+[3.809s] gmake: *** [Makefile:5672: cmake_check_build_system] Error 1
+[3.812s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/offset_prediction_model:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8

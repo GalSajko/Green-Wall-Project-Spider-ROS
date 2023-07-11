@@ -30,46 +30,7 @@ class App(Node):
         self.legs_positions_locker = threading.Lock()
 
         self.callback_group = ReentrantCallbackGroup()
-
-        # self.get_walking_instructions_client = self.create_client(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
-        self.get_modified_walking_instructions_client = self.create_client(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, callback_group = self.callback_group)
-        while not self.get_modified_walking_instructions_client.wait_for_service(timeout_sec = 1.0):
-            print("Path planning service not available...")
-
-        self.move_leg_client = self.create_client(MoveLeg, gid.MOVE_LEG_SERVICE, callback_group = self.callback_group)
-        while not self.move_leg_client.wait_for_service(timeout_sec = 1.0):
-            print("Leg moving service not available...")
-
-        self.move_spider_client = self.create_client(MoveSpider, gid.MOVE_SPIDER_SERVICE, callback_group = self.callback_group)
-        while not self.move_spider_client.wait_for_service(timeout_sec = 1.0):
-            print("Spider moving service not available...")   
-
-        self.distribute_forces_client = self.create_client(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, callback_group = self.callback_group)
-        while not self.distribute_forces_client.wait_for_service(timeout_sec = 1.0):
-            print("Distribute forces service not available...")
-
-        self.get_spider_pose_client = self.create_client(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, callback_group = self.callback_group)
-        while not self.get_spider_pose_client.wait_for_service(timeout_sec = 1.0):
-            print("Spider pose service not available...")
-
-        self.toggle_controller_mode_client = self.create_client(ToggleAdditionalControllerMode, gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.callback_group)
-        while not self.toggle_controller_mode_client.wait_for_service(timeout_sec = 1.0):
-            print("Toggle additional controller mode service not available...")
-
-        self.move_leg_velocity_mode_client = self.create_client(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, callback_group = self.callback_group)
-        while not self.move_leg_velocity_mode_client.wait_for_service(timeout_sec = 1.0):
-            print("Velocity mode leg moving service not available...")
-        
-        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
-        while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
-            print("Gripper moving service not available...")        
-
-        self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
-        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
-
-        print("All services available.")
-
-        time.sleep(1)
+        self.__init_interfaces()
 
         self.working()
 
@@ -182,6 +143,7 @@ class App(Node):
         detach_position[2] += detach_z_offset
 
         offsets = np.array([
+            [0.0, 0.0, 0.0],
             [0.0, y_offset_value, 0.0],
             [x_offset_value, y_offset_value, 0.0],
             [-x_offset_value, y_offset_value, 0.0],
@@ -193,13 +155,9 @@ class App(Node):
         ])
 
         spider_pose = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))
-        for idx, offset in enumerate(offsets):
-            if idx == 0:
-                position = global_z_direction_in_local * detach_z_offset
-                is_offset = True
-            else:
-                position = local_detach_position
-                is_offset = False
+        for idx, offset in enumerate(offsets):            
+            is_offset = idx == 0
+            position = global_z_direction_in_local * detach_z_offset if is_offset else local_detach_position
 
             move_leg_request = custom_interface_helper.prepare_move_leg_request((
                 leg_id,
@@ -231,6 +189,47 @@ class App(Node):
             self.get_logger().info(f"IS ATTACHED: {is_attached}")
             if is_attached:
                 return
+    
+    def __init_interfaces(self):
+        # self.get_walking_instructions_client = self.create_client(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
+        self.get_modified_walking_instructions_client = self.create_client(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, callback_group = self.callback_group)
+        while not self.get_modified_walking_instructions_client.wait_for_service(timeout_sec = 1.0):
+            print("Path planning service not available...")
+
+        self.move_leg_client = self.create_client(MoveLeg, gid.MOVE_LEG_SERVICE, callback_group = self.callback_group)
+        while not self.move_leg_client.wait_for_service(timeout_sec = 1.0):
+            print("Leg moving service not available...")
+
+        self.move_spider_client = self.create_client(MoveSpider, gid.MOVE_SPIDER_SERVICE, callback_group = self.callback_group)
+        while not self.move_spider_client.wait_for_service(timeout_sec = 1.0):
+            print("Spider moving service not available...")
+
+        self.distribute_forces_client = self.create_client(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, callback_group = self.callback_group)
+        while not self.distribute_forces_client.wait_for_service(timeout_sec = 1.0):
+            print("Distribute forces service not available...")
+
+        self.get_spider_pose_client = self.create_client(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, callback_group = self.callback_group)
+        while not self.get_spider_pose_client.wait_for_service(timeout_sec = 1.0):
+            print("Spider pose service not available...")
+
+        self.toggle_controller_mode_client = self.create_client(ToggleAdditionalControllerMode, gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.callback_group)
+        while not self.toggle_controller_mode_client.wait_for_service(timeout_sec = 1.0):
+            print("Toggle additional controller mode service not available...")
+
+        self.move_leg_velocity_mode_client = self.create_client(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, callback_group = self.callback_group)
+        while not self.move_leg_velocity_mode_client.wait_for_service(timeout_sec = 1.0):
+            print("Velocity mode leg moving service not available...")
+        
+        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
+        while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
+            print("Gripper moving service not available...")  
+
+        self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
+        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
+
+        print("All services available.")
+
+        time.sleep(1)
 
 def main():
     rclpy.init()

@@ -28,6 +28,10 @@ srv/DistributeForces.idl
 srv/DistributeForces.srv
 srv/DistributeForces_Request.msg
 srv/DistributeForces_Response.msg
+srv/GetCorrectionOffset.idl
+srv/GetCorrectionOffset.srv
+srv/GetCorrectionOffset_Request.msg
+srv/GetCorrectionOffset_Response.msg
 srv/GetLegTrajectory.idl
 srv/GetLegTrajectory.srv
 srv/GetLegTrajectory_Request.msg
@@ -72,6 +76,10 @@ srv/SetBusWatchdog.idl
 srv/SetBusWatchdog.srv
 srv/SetBusWatchdog_Request.msg
 srv/SetBusWatchdog_Response.msg
+srv/SpiderGoal.idl
+srv/SpiderGoal.srv
+srv/SpiderGoal_Request.msg
+srv/SpiderGoal_Response.msg
 srv/ToggleAdditionalControllerMode.idl
 srv/ToggleAdditionalControllerMode.srv
 srv/ToggleAdditionalControllerMode_Request.msg
