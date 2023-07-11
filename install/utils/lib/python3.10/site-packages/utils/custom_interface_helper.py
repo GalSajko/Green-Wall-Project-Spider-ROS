@@ -6,7 +6,7 @@ import threading
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension, Int8MultiArray
 
 from configuration import robot_config
-from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg, DistributeForces, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode
+from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg, DistributeForces, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset
  
 def create_multiple_2d_array_messages(data):
     all_msgs = []
@@ -103,7 +103,7 @@ def prepare_distribute_forces_request(request_data):
     return request
 
 def prepare_move_leg_request(request_data):
-    leg_id, goal_position, trajectory_type, origin, duration, is_offset, spider_pose, open_gripper, close_gripper = request_data
+    leg_id, goal_position, trajectory_type, origin, duration, is_offset, spider_pose, open_gripper, close_gripper, use_prediction_model = request_data
 
     request = MoveLeg.Request()
     request.leg_id = int(leg_id)
@@ -115,6 +115,7 @@ def prepare_move_leg_request(request_data):
     request.spider_pose = Float32MultiArray(data = spider_pose)
     request.open_gripper = open_gripper
     request.close_gripper = close_gripper
+    request.use_prediction_model = use_prediction_model
 
     return request
 
@@ -145,6 +146,16 @@ def prepare_toggle_controller_mode_request(request_data):
 
     return request
 
+def prepare_get_correction_offset_request(request_data):
+    legs_current_positions, rpy, leg_goal_position, one_hot_legs = request_data
+
+    request = GetCorrectionOffset.Request()
+    request.legs_positions = Float32MultiArray(data = legs_current_positions.flatten())
+    request.rpy = Float32MultiArray(data = rpy)
+    request.commanded_position = Float32MultiArray(data = leg_goal_position)
+    request.one_hot_legs = Int8MultiArray(data = one_hot_legs)
+
+    return request
 
 def async_service_call_from_service(client, request):
     event = threading.Event()

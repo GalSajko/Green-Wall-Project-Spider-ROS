@@ -22,6 +22,8 @@ class App(Node):
         Node.__init__(self, 'application')
         self.is_init = True
 
+        self.use_prediction_model = True
+
         self.json_file_manager = json_file_manager.JsonFileManager()
         self.grippers_attached_states = [False] * spider.NUMBER_OF_LEGS
         self.grippers_states_locker = threading.Lock()
@@ -124,7 +126,8 @@ class App(Node):
             True,
             [],
             True,
-            True
+            True,
+            self.use_prediction_model
         ))
         self.json_file_manager.update_pins(leg_id, goal_pin_position)
         move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)

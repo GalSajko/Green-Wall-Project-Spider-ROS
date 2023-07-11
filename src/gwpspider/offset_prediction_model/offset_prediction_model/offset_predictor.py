@@ -29,7 +29,6 @@ class OffsetPredictor(Node):
 
         prediction_input_data = np.concatenate((legs_positions, rpy, commanded_position, one_hot_legs), axis = 0).astype(np.float64)
         offset = np.array(self.prediction_model(prediction_input_data), dtype = np.float32)
-        print(offset)
 
         response.correction_offset = Float32MultiArray(data = offset)
 

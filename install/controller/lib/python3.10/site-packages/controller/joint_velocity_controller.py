@@ -14,18 +14,21 @@ from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger
 
 from configuration import robot_config, spider
-from utils import custom_interface_helper
+from utils import custom_interface_helper, json_file_manager
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
     def __init__(self):
         Node.__init__(self, 'joint_velocity_controller')
+
+        self.use_prediction_model = True
+        self.json_file_manager = json_file_manager.JsonFileManager()
 
         self.legs_last_positons_locker = threading.Lock()
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
@@ -69,6 +72,7 @@ class JointVelocityController(Node):
         self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
         self.get_spider_pose_service = self.create_service(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.moving_callbacks_group)
         self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.moving_callbacks_group)
+        self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.get_correction_offset_service, callback_group = self.moving_callbacks_group)
 
         self.controller_callbacks_group = ReentrantCallbackGroup()
         self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
@@ -187,6 +191,7 @@ class JointVelocityController(Node):
         spider_pose = request.spider_pose.data
         open_gripper = request.open_gripper
         close_gripper = request.close_gripper
+        use_prediction_model = request.use_prediction_model
 
         if leg_id not in spider.LEGS_IDS:
             response.success = False
@@ -203,11 +208,26 @@ class JointVelocityController(Node):
             return response
         
         with self.legs_states_locker:
-            leg_current_position = self.legs_local_positions[leg_id]
+            legs_current_positions = self.legs_local_positions
         
-        leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg_id, leg_current_position, goal_position, origin, is_offset, spider_pose)
+        leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg_id, legs_current_positions[leg_id], goal_position, origin, is_offset, spider_pose)
+
+        if use_prediction_model:
+            one_hot_legs = np.zeros(spider.NUMBER_OF_LEGS)
+            one_hot_legs[leg_id] = 1
+            if not spider_pose:
+                legs_global_positions = self.json_file_manager.read_spider_state()[2]
+                spider_pose = self.__get_spider_pose(spider.LEGS_IDS, legs_global_positions)
+            
+            offset_request = custom_interface_helper.prepare_get_correction_offset_request((legs_current_positions, spider_pose[3:], leg_goal_position_in_local, one_hot_legs))
+            offset_response = custom_interface_helper.async_service_call(self.get_correction_offset_client, offset_request, self)
+
+            offset = offset_response.correction_offset
+
+            leg_goal_position_in_local += offset
+
         position_trajectory, velocity_trajectory, acceleration_trajectory = self.__get_trajectory(
-            leg_current_position,
+            legs_current_positions[leg_id],
             leg_goal_position_in_local,
             trajectory_type,
             duration,
@@ -433,13 +453,18 @@ class JointVelocityController(Node):
         legs_ids = request.legs_ids.data
         legs_global_positions = custom_interface_helper.unpack_2d_array_message(request.legs_global_positions)
 
-        with self.legs_states_locker:
-            q_a = self.joints_positions
-        
-        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a, self)
+        spider_pose = self.__get_spider_pose(legs_ids, legs_global_positions)
 
         response.spider_pose = Float32MultiArray(data = spider_pose)
         return response
+    
+    def __get_spider_pose(self, legs_ids, legs_global_positions):
+        with self.legs_states_locker:
+            q_a = self.joints_positions
+        
+        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a, self)        
+
+        return spider_pose
 
     def __position_velocity_pd_controller(self, x_a: np.ndarray, x_d: np.ndarray, dx_d: np.ndarray, ddx_d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """PD controller. Feed-forward velocity is used only in force mode, otherwise its values are zeros.
