@@ -167,7 +167,6 @@ def async_service_call_from_service(client, request):
     future.add_done_callback(done_callback)
     event.wait()
     response = future.result()
-    event.clear()
 
     return response
 

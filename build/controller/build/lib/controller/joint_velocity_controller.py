@@ -60,33 +60,13 @@ class JointVelocityController(Node):
         self.legs_forces = None
         self.joints_torques = None
 
-        self.reading_callback_group = ReentrantCallbackGroup()
-        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.reading_callback_group)
+        # self.reading_callback_group = ReentrantCallbackGroup()
+        # self.moving_callbacks_group = ReentrantCallbackGroup()
+        # self.controller_callbacks_group = ReentrantCallbackGroup()
 
-        self.toggle_controller_service = self.create_service(ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
+        self.callback_group = ReentrantCallbackGroup()
 
-        self.moving_callbacks_group = ReentrantCallbackGroup()
-        self.move_leg_service = self.create_service(MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.moving_callbacks_group)
-        self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.moving_callbacks_group)
-        self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.moving_callbacks_group)
-        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.moving_callbacks_group)
-        self.get_spider_pose_service = self.create_service(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.moving_callbacks_group)
-        self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.moving_callbacks_group)
-        self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.get_correction_offset_service, callback_group = self.moving_callbacks_group)
-
-        self.controller_callbacks_group = ReentrantCallbackGroup()
-        self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.controller_callbacks_group)
-        self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.controller_callbacks_group)
-
-        self.distribute_forces_service = self.create_service(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.controller_callbacks_group)
-        self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, gid.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.controller_callbacks_group)
-        self.update_last_legs_positions_service = self.create_service(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.controller_callbacks_group)
-        self.toggle_additional_controller_mode_service = self.create_service(
-            ToggleAdditionalControllerMode,
-            gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE,
-            self.toggle_additional_controller_mode_callback,
-            callback_group = self.controller_callbacks_group
-        )
+        self.__init_interfaces()
 
         self.get_logger().info("Controller is running.")
     
@@ -213,18 +193,8 @@ class JointVelocityController(Node):
         leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg_id, legs_current_positions[leg_id], goal_position, origin, is_offset, spider_pose)
 
         if use_prediction_model:
-            one_hot_legs = np.zeros(spider.NUMBER_OF_LEGS)
-            one_hot_legs[leg_id] = 1
-            if not spider_pose:
-                legs_global_positions = self.json_file_manager.read_spider_state()[2]
-                spider_pose = self.__get_spider_pose(spider.LEGS_IDS, legs_global_positions)
-            
-            offset_request = custom_interface_helper.prepare_get_correction_offset_request((legs_current_positions, spider_pose[3:], leg_goal_position_in_local, one_hot_legs))
-            offset_response = custom_interface_helper.async_service_call(self.get_correction_offset_client, offset_request, self)
-
-            offset = offset_response.correction_offset
-
-            leg_goal_position_in_local += offset
+            offset = self.__get_correction_offset(leg_id, legs_current_positions, leg_goal_position_in_local, spider_pose)
+            leg_goal_position_in_local = leg_goal_position_in_local + offset
 
         position_trajectory, velocity_trajectory, acceleration_trajectory = self.__get_trajectory(
             legs_current_positions[leg_id],
@@ -557,6 +527,44 @@ class JointVelocityController(Node):
         
         return move_gripper_response.success
     
+    def __get_correction_offset(self, leg_id, current_positions, goal_position, spider_pose):
+        one_hot_legs = np.zeros(spider.NUMBER_OF_LEGS, dtype = np.int8)
+        one_hot_legs[leg_id] = 1
+        if not spider_pose:
+            legs_global_positions = self.json_file_manager.read_spider_state()[2]
+            spider_pose = self.__get_spider_pose(spider.LEGS_IDS, legs_global_positions)
+
+        offset_request = custom_interface_helper.prepare_get_correction_offset_request((current_positions, spider_pose[3:], goal_position, one_hot_legs))
+        offset_response = custom_interface_helper.async_service_call_from_service(self.get_correction_offset_client, offset_request)
+
+        return np.array(offset_response.correction_offset.data, dtype = np.float32)
+    
+    def __init_interfaces(self):
+        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
+
+        self.toggle_controller_service = self.create_service(ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
+        
+        self.move_leg_service = self.create_service(MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.callback_group)
+        self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.callback_group)
+        self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
+        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
+        self.get_spider_pose_service = self.create_service(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.callback_group)
+        self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.callback_group)
+        self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.GET_CORRECTION_OFFSET_SERVICE, callback_group = self.callback_group)
+
+        self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.callback_group)
+        self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.callback_group)
+
+        self.distribute_forces_service = self.create_service(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.callback_group)
+        self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, gid.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.callback_group)
+        self.update_last_legs_positions_service = self.create_service(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.callback_group)
+        self.toggle_additional_controller_mode_service = self.create_service(
+            ToggleAdditionalControllerMode,
+            gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE,
+            self.toggle_additional_controller_mode_callback,
+            callback_group = self.callback_group
+        )
+
 def main():
     rclpy.init()
     joint_velocity_controller = JointVelocityController()

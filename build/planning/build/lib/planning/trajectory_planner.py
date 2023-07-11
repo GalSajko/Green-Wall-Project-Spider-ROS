@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import MultiThreadedExecutor
 from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
@@ -28,6 +29,7 @@ class TrajectoryPlanner(Node):
         trajectory_msg = LegTrajectory(position_trajectory = position_msg, velocity_trajectory = velocity_msg, acceleration_trajectory = acceleration_msg)
 
         response.trajectories = trajectory_msg
+        
         return response
 
     #region private methods
@@ -183,7 +185,8 @@ class TrajectoryPlanner(Node):
 def main():
     rclpy.init()
     trajectory_planner = TrajectoryPlanner()
-    rclpy.spin(trajectory_planner)
+    executor = MultiThreadedExecutor()
+    rclpy.spin(trajectory_planner, executor)
     rclpy.shutdown()
 
 if __name__ == '__main__':

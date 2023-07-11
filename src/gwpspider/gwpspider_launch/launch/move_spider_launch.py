@@ -37,5 +37,10 @@ def generate_launch_description():
             package = 'controller',
             executable = 'joint_velocity_controller',
             name = 'joint_velocity_controller'
+        ),
+        Node(
+            package = 'offset_prediction_model',
+            executable = 'offset_predictor',
+            name = 'offset_predictor'
         )
     ])

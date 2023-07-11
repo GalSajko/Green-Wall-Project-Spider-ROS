@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor
 from ament_index_python import get_package_share_directory
 
 import os
@@ -36,8 +37,9 @@ class OffsetPredictor(Node):
 
 def main():
     rclpy.init()
-    app = OffsetPredictor()
-    rclpy.spin(app)
+    offset_predictor = OffsetPredictor()
+    executor = MultiThreadedExecutor()
+    rclpy.spin(offset_predictor, executor)
     rclpy.shutdown()
 
 if __name__ == '__main__':

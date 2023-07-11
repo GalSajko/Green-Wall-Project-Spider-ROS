@@ -79,7 +79,7 @@ class App(Node):
         if self.is_init:
             # Call service for plant position and watering info.
 
-            goal_pose = np.array([3.5, 1.5, 0.3, 0.0])
+            goal_pose = np.array([2.2, 1.5, 0.3, 0.0])
             spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
             walking_instructions_request = custom_interface_helper.prepare_modified_walking_instructions_request((start_legs_positions, goal_pose))
@@ -171,6 +171,7 @@ class App(Node):
                 is_offset,
                 [],
                 True,
+                False,
                 False
             ))
             move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
