@@ -169,37 +169,37 @@ def transform_vector(vector: np.ndarray, given_in_origin: str, transform_to_orig
         return vector
 
 
-def get_watering_leg_and_pose(spider_pose: np.ndarray, plant_position: np.ndarray = None, do_refill: bool = False) -> tuple[int, np.ndarray]:
+def get_watering_leg_and_pose(spider_pose: np.ndarray, goal_position: np.ndarray, do_refill: bool) -> tuple[int, np.ndarray]:
     """Calculate spider's pose for watering the plant or refilling water tank and leg used for the task.
 
     Args:
         spider_pose (np.ndarray): Spider's current pose in global origin.
-        plant_position (np.ndarray, optional): 1x3 array of plant's position in global origin. Should be given, if task is to water a plant. Defaults to None.
-        do_refill(bool, otpional): If True, calculate refill position, otherwise calculate watering position, defaults to False.
+        goal_position (np.ndarray): 1x3 array of goal position (plant or refill position) in global origin. 
+        do_refill(bool, otpional): If True, calculate refill position, otherwise calculate watering position.
 
     Returns:
-        tuple: Leg id and spider's pose used for watering the plant.
+        tuple: Leg id and spider's pose used for watering the plant or refilling the water tank.
     """
-    if not do_refill and plant_position is None:
+    if not do_refill and goal_position is None:
         raise ValueError("If task is to water the plant, plant position should be given.")
     
     if not do_refill:
         first_leg_watering_pose = np.array([
-            plant_position[0] + spider.WATERING_XY_OFFSET_ABS[0],
-            plant_position[1] - spider.WATERING_XY_OFFSET_ABS[1],
+            goal_position[0] + spider.WATERING_XY_OFFSET_ABS[0],
+            goal_position[1] - spider.WATERING_XY_OFFSET_ABS[1],
             spider.SPIDER_WALKING_HEIGHT,
             0.0
         ])
         fourth_leg_watering_pose = np.array([
-            plant_position[0] - spider.WATERING_XY_OFFSET_ABS[0],
-            plant_position[1] - spider.WATERING_XY_OFFSET_ABS[1],
+            goal_position[0] - spider.WATERING_XY_OFFSET_ABS[0],
+            goal_position[1] - spider.WATERING_XY_OFFSET_ABS[1],
             spider.SPIDER_WALKING_HEIGHT,
             0.0
         ])
     
         max_x = wall.WALL_SIZE[0] - 0.8
         min_x = 1.8
-        if spider_pose[0] <= plant_position[0]:
+        if spider_pose[0] <= goal_position[0]:
             if spider_pose[0] <= min_x:
                 watering_leg = spider.WATERING_LEGS_IDS[0]
                 watering_pose = first_leg_watering_pose
@@ -212,7 +212,7 @@ def get_watering_leg_and_pose(spider_pose: np.ndarray, plant_position: np.ndarra
                 watering_pose = fourth_leg_watering_pose
             else:
                 watering_leg = spider.WATERING_LEGS_IDS[0]
-                watering_pose = first_leg_watering_pose    
+                watering_pose = first_leg_watering_pose
 
         return watering_leg, watering_pose
     

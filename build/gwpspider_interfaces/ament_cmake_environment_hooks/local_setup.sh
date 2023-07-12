@@ -154,7 +154,6 @@ fi
 ament_append_value AMENT_ENVIRONMENT_HOOKS "$AMENT_CURRENT_PREFIX/share/gwpspider_interfaces/environment/ament_prefix_path.sh"
 ament_append_value AMENT_ENVIRONMENT_HOOKS "$AMENT_CURRENT_PREFIX/share/gwpspider_interfaces/environment/library_path.sh"
 ament_append_value AMENT_ENVIRONMENT_HOOKS "$AMENT_CURRENT_PREFIX/share/gwpspider_interfaces/environment/path.sh"
-ament_append_value AMENT_ENVIRONMENT_HOOKS "$AMENT_CURRENT_PREFIX/share/gwpspider_interfaces/environment/pythonpath.sh"
 
 # source all shell-specific environment hooks of this package
 # if not returning them

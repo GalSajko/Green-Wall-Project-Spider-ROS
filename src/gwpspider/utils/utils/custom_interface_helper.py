@@ -6,8 +6,8 @@ import threading
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension, Int8MultiArray
 
 from configuration import robot_config
-from gwpspider_interfaces.srv import GetLegTrajectory, MoveGripper, GetModifiedWalkingInstructions, MoveSpider, MoveLeg, DistributeForces, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset
- 
+import gwpspider_interfaces.srv as gwp_services
+
 def create_multiple_2d_array_messages(data):
     all_msgs = []
     for single_data in data:
@@ -59,7 +59,7 @@ def unpack_3d_array_message(msg):
 def prepare_trajectory_request(request_data):
     current_position, goal_position, duration, trajectory_type = request_data
 
-    request = GetLegTrajectory.Request()
+    request = gwp_services.GetLegTrajectory.Request()
     request.current_position = Float32MultiArray(data = current_position)
     request.goal_position = Float32MultiArray(data = goal_position)
     request.duration = duration
@@ -70,16 +70,25 @@ def prepare_trajectory_request(request_data):
 def prepare_move_gripper_request(request_data):
     leg_id, command = request_data
 
-    request = MoveGripper.Request()
+    request = gwp_services.MoveGripper.Request()
     request.instructions.leg_id = int(leg_id)
     request.instructions.command = command
+
+    return request
+
+def prepare_walking_instructions_request(request_data):
+    start_pose, goal_pose = request_data
+
+    request = gwp_services.GetWalkingInstructions.Request()
+    request.start_pose = Float32MultiArray(data = start_pose)
+    request.goal_pose = Float32MultiArray(data = goal_pose)
 
     return request
 
 def prepare_modified_walking_instructions_request(request_data):
     start_legs_positions, goal_pose = request_data
 
-    request = GetModifiedWalkingInstructions.Request()
+    request = gwp_services.GetModifiedWalkingInstructions.Request()
     request.start_legs_positions = create_multiple_2d_array_messages([start_legs_positions])
     request.goal_pose = Float32MultiArray(data = goal_pose)
 
@@ -88,7 +97,7 @@ def prepare_modified_walking_instructions_request(request_data):
 def prepare_move_spider_request(request_data):
     legs_ids, used_pins_positions, goal_spider_pose, duration = request_data
 
-    request = MoveSpider.Request()
+    request = gwp_services.MoveSpider.Request()
     request.legs_ids = Int8MultiArray(data = legs_ids)
     request.used_pins_positions = create_multiple_2d_array_messages([used_pins_positions])
     request.goal_spider_pose = Float32MultiArray(data = goal_spider_pose)
@@ -97,7 +106,7 @@ def prepare_move_spider_request(request_data):
     return request
 
 def prepare_distribute_forces_request(request_data):
-    request = DistributeForces.Request()
+    request = gwp_services.DistributeForces.Request()
     request.legs_ids = Int8MultiArray(data = request_data)
 
     return request
@@ -105,7 +114,7 @@ def prepare_distribute_forces_request(request_data):
 def prepare_move_leg_request(request_data):
     leg_id, goal_position, trajectory_type, origin, duration, is_offset, spider_pose, open_gripper, close_gripper, use_prediction_model = request_data
 
-    request = MoveLeg.Request()
+    request = gwp_services.MoveLeg.Request()
     request.leg_id = int(leg_id)
     request.goal_position = Float32MultiArray(data = goal_position)
     request.trajectory_type = trajectory_type
@@ -122,7 +131,7 @@ def prepare_move_leg_request(request_data):
 def prepare_get_spider_pose_request(request_data):
     legs_ids, legs_global_positions = request_data
 
-    request = GetSpiderPose.Request()
+    request = gwp_services.GetSpiderPose.Request()
     request.legs_ids = Int8MultiArray(data = legs_ids)
     request.legs_global_positions = create_multiple_2d_array_messages([legs_global_positions])
 
@@ -131,7 +140,7 @@ def prepare_get_spider_pose_request(request_data):
 def prepare_move_leg_velocity_mode_request(request_data):
     leg_id, velocity_mode_direction = request_data
 
-    request = MoveLegVelocityMode.Request()
+    request = gwp_services.MoveLegVelocityMode.Request()
     request.leg_id = int(leg_id)
     request.velocity_mode_direction = Float32MultiArray(data = velocity_mode_direction)
 
@@ -140,7 +149,7 @@ def prepare_move_leg_velocity_mode_request(request_data):
 def prepare_toggle_controller_mode_request(request_data):
     mode, command = request_data
 
-    request = ToggleAdditionalControllerMode.Request()
+    request = gwp_services.ToggleAdditionalControllerMode.Request()
     request.mode = mode
     request.command = command
 
@@ -149,13 +158,13 @@ def prepare_toggle_controller_mode_request(request_data):
 def prepare_get_correction_offset_request(request_data):
     legs_current_positions, rpy, leg_goal_position, one_hot_legs = request_data
 
-    request = GetCorrectionOffset.Request()
+    request = gwp_services.GetCorrectionOffset.Request()
     request.legs_positions = Float32MultiArray(data = legs_current_positions.flatten())
     request.rpy = Float32MultiArray(data = rpy)
     request.commanded_position = Float32MultiArray(data = leg_goal_position)
     request.one_hot_legs = Int8MultiArray(data = one_hot_legs)
 
-    return request
+    return request 
 
 def async_service_call_from_service(client, request):
     event = threading.Event()

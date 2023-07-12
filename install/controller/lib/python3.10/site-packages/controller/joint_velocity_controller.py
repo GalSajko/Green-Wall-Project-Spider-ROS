@@ -27,6 +27,8 @@ class JointVelocityController(Node):
     def __init__(self):
         Node.__init__(self, 'joint_velocity_controller')
 
+        self.get_logger().info(gid.TEST)
+
         self.use_prediction_model = True
         self.json_file_manager = json_file_manager.JsonFileManager()
 
