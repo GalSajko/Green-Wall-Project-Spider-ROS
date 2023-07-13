@@ -76,6 +76,15 @@ def prepare_move_gripper_request(request_data):
 
     return request
 
+def prepare_walking_instructions_request(request_data):
+    start_pose, goal_pose = request_data
+
+    request = gwp_services.GetWalkingInstructions.Request()
+    request.start_pose = Float32MultiArray(data = start_pose)
+    request.goal_pose = Float32MultiArray(data = goal_pose)
+
+    return request
+
 def prepare_modified_walking_instructions_request(request_data):
     start_legs_positions, goal_pose = request_data
 
@@ -156,6 +165,15 @@ def prepare_get_correction_offset_request(request_data):
     request.one_hot_legs = Int8MultiArray(data = one_hot_legs)
 
     return request 
+
+def prepare_water_pump_request(request_data):
+    pump_id, volume = request_data
+
+    request = gwp_services.ControlWaterPump.Request()
+    request.pump = pump_id
+    request.volume = volume
+
+    return request
 
 def async_service_call_from_service(client, request):
     event = threading.Event()

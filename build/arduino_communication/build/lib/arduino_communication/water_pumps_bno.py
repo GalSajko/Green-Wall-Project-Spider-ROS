@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 import numpy as np
+import time
 
 from std_msgs.msg import Float32MultiArray
 
@@ -13,6 +14,8 @@ from gwpspider_interfaces import gwp_interfaces_data as gid
 class WaterPumpBnoController(Node):
     def __init__(self):
         Node.__init__(self, 'water_pumps_bno_controller')
+
+        self.PUMPS_FLOWS = [1.97, 2.05, 4.28]
 
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
         self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback)
@@ -30,11 +33,31 @@ class WaterPumpBnoController(Node):
     def DEVICE_NAME(self):
         return 'ttyUSB_BNOWP'
     
+    @property
+    def PUMP_OFF_COMMAND(self):
+        return '0'
+    
+    @property
+    def PUMP_ON_COMMAND(self):
+        return '1'
+    
     def water_pump_control_callback(self, request, response):
-        pump_id = request.instructions.pump
-        command = request.instructions.command
+        pump_id = request.pump
+        volume = request.volume
 
-        msg = command + str(pump_id) + '\n'
+        flow = self.PUMPS_FLOWS[pump_id]
+        watering_time = volume / flow
+
+        msg = self.PUMP_ON_COMMAND + str(pump_id) + '\n'
+        self.arduino_comm.write(msg)
+
+        start_time = time.time()
+        elapsed_time = 0.0
+        while elapsed_time < watering_time:
+            elapsed_time = time.time() - start_time
+            time.sleep(0.01)
+
+        msg = self.PUMP_OFF_COMMAND + str(pump_id) + '\n'
         self.arduino_comm.write(msg)
 
         response.success = True

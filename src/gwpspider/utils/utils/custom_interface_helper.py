@@ -166,6 +166,15 @@ def prepare_get_correction_offset_request(request_data):
 
     return request 
 
+def prepare_water_pump_request(request_data):
+    pump_id, volume = request_data
+
+    request = gwp_services.ControlWaterPump.Request()
+    request.pump = pump_id
+    request.volume = volume
+
+    return request
+
 def async_service_call_from_service(client, request):
     event = threading.Event()
     def done_callback(_):

@@ -38,7 +38,7 @@ class App(Node):
         self.working()
 
     def working(self):
-        poses, pins_instructions, watering_or_refill_leg_id = self.__get_movement_instructions()
+        poses, pins_instructions, plant_or_refill_position, watering_or_refill_leg_id, volume = self.__get_movement_instructions()
 
         for step, pose in enumerate(poses):
             current_pins_positions = pins_instructions[step, :, 1:]
@@ -61,6 +61,7 @@ class App(Node):
                     self.__move_leg_to_next_pin(leg_id, previous_to_current_pins_offsets[idx], current_pins_positions[idx])
         
         # TODO: Watering/refilling.
+        self.__watering(watering_or_refill_leg_id, plant_or_refill_position, poses[-1], volume)
 
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
@@ -80,11 +81,15 @@ class App(Node):
     def __get_movement_instructions(self):
         spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
-        spider_goal_request = gwp_services.SpiderGoal.Request()
-        # spider_goal_request.watering_success = self.was_watering_or_refilling_successful
-        spider_goal_response = custom_interface_helper.async_service_call(self.get_spider_goal_client, spider_goal_request, self)
+        # spider_goal_request = gwp_services.SpiderGoal.Request()
+        # spider_goal_request.watered = self.was_watering_or_refilling_successful
+        # spider_goal_response = custom_interface_helper.async_service_call(self.get_spider_goal_client, spider_goal_request, self)
 
-        watering_or_refill_leg_id, watering_or_refill_pose = tf.get_watering_leg_and_pose(spider_pose, spider_goal_response.data, spider_goal_response.go_refill)
+        watering_position = np.array([3.1, 1.625, 0.0])
+        go_refill = False
+        volume = 25.0
+
+        watering_or_refill_leg_id, watering_or_refill_pose = tf.get_watering_leg_and_pose(spider_pose, watering_position, go_refill)
 
         if self.is_init:
             walking_instructions_request = custom_interface_helper.prepare_modified_walking_instructions_request((start_legs_positions, watering_or_refill_pose))
@@ -96,7 +101,7 @@ class App(Node):
         poses = custom_interface_helper.unpack_2d_array_message(walking_instructions_response.walking_instructions.poses)
         pins_instructions = custom_interface_helper.unpack_3d_array_message(walking_instructions_response.walking_instructions.pins_instructions)
 
-        return poses, pins_instructions, watering_or_refill_leg_id
+        return poses, pins_instructions, watering_position, watering_or_refill_leg_id, volume
     
     def __move_spider(self, legs_ids, legs_positions, pose, duration):
         move_spider_request = custom_interface_helper.prepare_move_spider_request((legs_ids, legs_positions, pose, duration))
@@ -201,6 +206,51 @@ class App(Node):
             self.get_logger().info(f"IS ATTACHED: {is_attached}")
             if is_attached:
                 return
+            
+    def __watering(self, leg_id, position, spider_pose, volume):
+        # TODO: Activate breaks here.
+        self.__distribute_forces(np.delete(spider.LEGS_IDS, leg_id))
+        with self.legs_positions_locker:
+            leg_local_position_before_watering = self.legs_local_positions[leg_id]
+
+        watering_position = np.copy(position)
+        y_watering_offset = 0.125
+        watering_position[1] += y_watering_offset
+        move_leg_request = custom_interface_helper.prepare_move_leg_request((
+            leg_id,
+            watering_position,
+            robot_config.BEZIER_TRAJECTORY,
+            robot_config.GLOBAL_ORIGIN,
+            2.5,
+            False,
+            spider_pose,
+            True,
+            False,
+            False
+        ))
+        move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+
+        if leg_id not in (1, 2):
+            pump_id = 0
+        else:
+            pump_id = leg_id
+
+        water_pump_request = custom_interface_helper.prepare_water_pump_request((pump_id, volume))
+        water_pump_response = custom_interface_helper.async_service_call(self.water_pump_client, water_pump_request, self)
+
+        move_leg_request = custom_interface_helper.prepare_move_leg_request((
+            leg_id,
+            leg_local_position_before_watering,
+            robot_config.BEZIER_TRAJECTORY,
+            robot_config.LEG_ORIGIN,
+            2.5,
+            False,
+            [],
+            False,
+            True,
+            False
+        ))
+        move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
     
     def __init_interfaces(self):
         self.get_walking_instructions_client = self.create_client(gwp_services.GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
@@ -238,6 +288,10 @@ class App(Node):
         self.move_gripper_client = self.create_client(gwp_services.MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
         while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
             print("Gripper moving service not available...")  
+
+        self.water_pump_client = self.create_client(gwp_services.ControlWaterPump, gid.WATER_PUMP_SERVICE, callback_group = self.callback_group)
+        while not self.water_pump_client.wait_for_service(timeout_sec = 1.0):
+            print("Water pump service not available...")        
 
         self.get_spider_goal_client = self.create_client(gwp_services.SpiderGoal, gid.SEND_GOAL_SERVICE, callback_group = self.callback_group)
         while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):

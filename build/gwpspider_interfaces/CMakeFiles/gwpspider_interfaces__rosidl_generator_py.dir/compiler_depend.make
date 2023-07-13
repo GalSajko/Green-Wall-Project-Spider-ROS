@@ -2801,9 +2801,6 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwp
   /usr/include/python3.10/numpy/__multiarray_api.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/msg/detail/water_pump_command__struct.h \
-  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
-  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__functions.h \
   rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h
 
