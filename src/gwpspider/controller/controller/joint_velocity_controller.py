@@ -20,7 +20,7 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset, SetBusWatchdog
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
@@ -59,14 +59,12 @@ class JointVelocityController(Node):
         self.joints_positions = None
         self.legs_forces = None
         self.joints_torques = None
-
-        # self.reading_callback_group = ReentrantCallbackGroup()
-        # self.moving_callbacks_group = ReentrantCallbackGroup()
-        # self.controller_callbacks_group = ReentrantCallbackGroup()
-
+        
         self.callback_group = ReentrantCallbackGroup()
 
         self.__init_interfaces()
+
+        # self.__set_bus_watchdog(30)
 
         self.get_logger().info("Controller is running.")
     
@@ -84,7 +82,7 @@ class JointVelocityController(Node):
     
     @property
     def MAX_ALLOWED_FORCE(self):
-        return 4.0
+        return 5.5
     
     @property
     def VELOCITY_AMP_FACTOR(self):
@@ -173,6 +171,8 @@ class JointVelocityController(Node):
         close_gripper = request.close_gripper
         use_prediction_model = request.use_prediction_model
 
+        is_pin_to_pin_movement = open_gripper and close_gripper
+
         if leg_id not in spider.LEGS_IDS:
             response.success = False
             return response
@@ -187,9 +187,18 @@ class JointVelocityController(Node):
             response.success = False
             return response
         
+        self.command_queues[leg_id] = queue.Queue()
+
+        if is_pin_to_pin_movement:
+            self.__apply_force_on_leg_tip(leg_id, np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE]))
+        if open_gripper:
+            if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
+                response.success = False
+                return response
+            
         with self.legs_states_locker:
             legs_current_positions = self.legs_local_positions
-        
+
         leg_goal_position_in_local = tf.convert_in_local_goal_positions(leg_id, legs_current_positions[leg_id], goal_position, origin, is_offset, spider_pose)
 
         if use_prediction_model:
@@ -203,12 +212,8 @@ class JointVelocityController(Node):
             duration,
         )
 
-        self.command_queues[leg_id] = queue.Queue()
-
-        if open_gripper:
-            if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
-                response.success = False
-                return response
+        with self.force_mode_locker:
+            self.is_force_mode = False
 
         for idx, position in enumerate(position_trajectory):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
@@ -220,11 +225,22 @@ class JointVelocityController(Node):
             with self.legs_states_locker:
                 position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
             time.sleep(0.001)
-        
+
         if close_gripper:
+            with self.legs_states_locker:
+                f_a = self.legs_forces[leg_id]
+            force_direction = f_a / np.linalg.norm(f_a)
+            force_to_apply = force_direction * self.MAX_ALLOWED_FORCE
+            force_to_apply[:2] = force_to_apply[:2] * -1
+            self.__apply_force_on_leg_tip(leg_id, force_to_apply)
+            time.sleep(0.5)
+
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
                 response.success = False
                 return response
+            
+        with self.force_mode_locker:
+            self.is_force_mode = False
         
         response.success = True
         return response
@@ -370,11 +386,8 @@ class JointVelocityController(Node):
             self.get_logger().info(f"Leg with ID {request.leg_id} was not recognized.")
             response.success = False
             return response
-        
-        with self.force_mode_locker:
-            self.force_mode_legs_ids = np.array([request.leg_id], dtype = np.int8)
-            self.is_force_mode = True
-            self.f_d[request.leg_id] = np.array(request.desired_force.data, dtype = np.float32)
+    
+        self.__apply_force_on_leg_tip(request.leg_id, request.desired_force.data)
         
         response.success = True
         return response
@@ -539,6 +552,17 @@ class JointVelocityController(Node):
 
         return np.array(offset_response.correction_offset.data, dtype = np.float32)
     
+    def __apply_force_on_leg_tip(self, leg_id, desired_force):
+        with self.force_mode_locker:
+            self.force_mode_legs_ids = np.array([leg_id], dtype = np.int8)
+            self.is_force_mode = True
+            self.f_d[leg_id] = np.array(desired_force, dtype = np.float32)
+
+    def __set_bus_watchdog(self, value):
+        request = SetBusWatchdog.Request()
+        request.value = value
+        response = custom_interface_helper.async_service_call(self.set_bus_watchdog_service, request, self)
+    
     def __init_interfaces(self):
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
 
@@ -564,6 +588,7 @@ class JointVelocityController(Node):
             self.toggle_additional_controller_mode_callback,
             callback_group = self.callback_group
         )
+        self.set_bus_watchdog_service = self.create_client(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
 
 def main():
     rclpy.init()

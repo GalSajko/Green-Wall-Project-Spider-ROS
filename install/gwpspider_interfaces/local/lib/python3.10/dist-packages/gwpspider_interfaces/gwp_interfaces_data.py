@@ -10,6 +10,9 @@ COMMANDED_JOINTS_VELOCITIES_TOPIC = 'commanded_joint_velocities_topic'
 # Dynamixel
 DYNAMIXEL_MOTORS_DATA_TOPIC = 'dynamixel_motors_data'
 
+# App
+SPIDER_POSE_TOPIC = 'spider_pose_topic'
+
 
 # SERVICES
 # Arduino

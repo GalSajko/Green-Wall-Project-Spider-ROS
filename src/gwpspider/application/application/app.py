@@ -17,6 +17,8 @@ import gwpspider_interfaces.srv as gwp_services
 from gwpspider_interfaces.msg import GrippersStates, LegsStates
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
+from std_msgs.msg import Float32MultiArray
+
 class App(Node):
     def __init__(self):
         Node.__init__(self, 'application')
@@ -24,6 +26,8 @@ class App(Node):
         self.was_watering_or_refilling_successful = False
 
         self.use_prediction_model = True
+
+        self.spider_pose = None
 
         self.json_file_manager = json_file_manager.JsonFileManager()
         self.grippers_attached_states = [False] * spider.NUMBER_OF_LEGS
@@ -36,6 +40,10 @@ class App(Node):
         self.__init_interfaces()
 
         self.working()
+    
+    @property
+    def LEG_MOVEMENT_DURATION_AMP(self):
+        return 12.5
 
     def working(self):
         poses, pins_instructions, plant_or_refill_position, watering_or_refill_leg_id, volume = self.__get_movement_instructions()
@@ -60,7 +68,6 @@ class App(Node):
                 if previous_to_current_pins_offsets[idx].any():
                     self.__move_leg_to_next_pin(leg_id, previous_to_current_pins_offsets[idx], current_pins_positions[idx])
         
-        # TODO: Watering/refilling.
         self.__watering(watering_or_refill_leg_id, plant_or_refill_position, poses[-1], volume)
 
     def grippers_states_callback(self, msg):
@@ -85,7 +92,7 @@ class App(Node):
         # spider_goal_request.watered = self.was_watering_or_refilling_successful
         # spider_goal_response = custom_interface_helper.async_service_call(self.get_spider_goal_client, spider_goal_request, self)
 
-        watering_position = np.array([3.1, 1.625, 0.0])
+        watering_position = np.array([2.1, 2.125, 0.0])
         go_refill = False
         volume = 25.0
 
@@ -130,12 +137,14 @@ class App(Node):
         rpy = spider_pose[3:]
         pin_to_pin_vector_in_local, leg_base_orientation_in_local = tf.get_global_vector_in_local(leg_id, rpy, pin_to_pin_vector_in_global)
 
+        duration = self.LEG_MOVEMENT_DURATION_AMP * np.linalg.norm(pin_to_pin_vector_in_global)
+
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
             pin_to_pin_vector_in_local,
             robot_config.BEZIER_TRAJECTORY,
             robot_config.LEG_ORIGIN,
-            2.5,
+            duration,
             True,
             [],
             True,
@@ -148,10 +157,10 @@ class App(Node):
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
         if not is_attached:
-            self.__automatic_correction(leg_id, leg_base_orientation_in_local, goal_pin_position)
+            global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
+            self.__automatic_correction(leg_id, global_z_direction_in_local, goal_pin_position)
     
-    def __automatic_correction(self, leg_id, leg_base_orientation_in_local, goal_pin_position):
-        global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
+    def __automatic_correction(self, leg_id, correction_direction, goal_pin_position):
         detach_z_offset = 0.08
         y_offset_value = 0.25
         x_offset_value = 0.12
@@ -171,9 +180,9 @@ class App(Node):
         ])
 
         spider_pose = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))
-        for idx, offset in enumerate(offsets):            
+        for idx, offset in enumerate(offsets):           
             is_offset = idx == 0
-            position = global_z_direction_in_local * detach_z_offset if is_offset else local_detach_position
+            position = correction_direction * detach_z_offset if is_offset else local_detach_position
 
             move_leg_request = custom_interface_helper.prepare_move_leg_request((
                 leg_id,
@@ -194,7 +203,7 @@ class App(Node):
                         local_detach_position = self.legs_local_positions[leg_id]
 
             local_offset = tf.get_global_vector_in_local(leg_id, spider_pose[3:], offset)[0]
-            velocity_direction = np.array([global_z_direction_in_local[0] + local_offset[0], global_z_direction_in_local[1] + local_offset[1], -global_z_direction_in_local[2]], dtype = np.float32)
+            velocity_direction = np.array([correction_direction[0] + local_offset[0], correction_direction[1] + local_offset[1], -correction_direction[2]], dtype = np.float32)
             move_leg_velocity_mode_request = custom_interface_helper.prepare_move_leg_velocity_mode_request((leg_id, velocity_direction))
             move_leg_velocity_mode_response = custom_interface_helper.async_service_call(self.move_leg_velocity_mode_client, move_leg_velocity_mode_request, self)
 
@@ -203,7 +212,6 @@ class App(Node):
             
             with self.grippers_states_locker:
                 is_attached = self.grippers_attached_states[leg_id]
-            self.get_logger().info(f"IS ATTACHED: {is_attached}")
             if is_attached:
                 return
             
@@ -251,7 +259,14 @@ class App(Node):
             False
         ))
         move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
-    
+
+        with self.grippers_states_locker:
+            is_attached = self.grippers_attached_states[leg_id]
+        if not is_attached:
+            rpy = self.__get_spider_pose(np.delete(spider.LEGS_IDS, leg_id))[3:]
+            correction_direction = tf.get_global_vector_in_local(leg_id, rpy, np.array([0.0, 0.0, 1.0], dtype = np.float32))[0]
+            self.__automatic_correction(leg_id, correction_direction, leg_local_position_before_watering)
+
     def __init_interfaces(self):
         self.get_walking_instructions_client = self.create_client(gwp_services.GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
         while not self.get_walking_instructions_client.wait_for_service(timeout_sec = 1.0):
