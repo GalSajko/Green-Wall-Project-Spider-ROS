@@ -49,9 +49,9 @@ static bool _SpiderGoal_Request__cdr_serialize(
     return false;
   }
   const _SpiderGoal_Request__ros_msg_type * ros_message = static_cast<const _SpiderGoal_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: watered
+  // Field name: request_new_goal
   {
-    cdr << (ros_message->watered ? true : false);
+    cdr << (ros_message->request_new_goal ? true : false);
   }
 
   return true;
@@ -66,11 +66,11 @@ static bool _SpiderGoal_Request__cdr_deserialize(
     return false;
   }
   _SpiderGoal_Request__ros_msg_type * ros_message = static_cast<_SpiderGoal_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: watered
+  // Field name: request_new_goal
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message->watered = tmp ? true : false;
+    ros_message->request_new_goal = tmp ? true : false;
   }
 
   return true;
@@ -90,9 +90,9 @@ size_t get_serialized_size_gwpspider_interfaces__srv__SpiderGoal_Request(
   (void)padding;
   (void)wchar_size;
 
-  // field.name watered
+  // field.name request_new_goal
   {
-    size_t item_size = sizeof(ros_message->watered);
+    size_t item_size = sizeof(ros_message->request_new_goal);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -123,7 +123,7 @@ size_t max_serialized_size_gwpspider_interfaces__srv__SpiderGoal_Request(
   full_bounded = true;
   is_plain = true;
 
-  // member: watered
+  // member: request_new_goal
   {
     size_t array_size = 1;
 

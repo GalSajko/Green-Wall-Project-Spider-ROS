@@ -10,7 +10,6 @@ import threading
 from configuration import spider, robot_config
 from utils import json_file_manager
 from utils import custom_interface_helper
-from calculations import kinematics as kin
 from calculations import transformations as tf
 
 import gwpspider_interfaces.srv as gwp_services
@@ -23,7 +22,7 @@ class App(Node):
     def __init__(self):
         Node.__init__(self, 'application')
         self.is_init = True
-        self.was_watering_or_refilling_successful = False
+        self.request_new_goal = True
 
         self.use_prediction_model = True
 
@@ -84,7 +83,15 @@ class App(Node):
         positions = custom_interface_helper.unpack_2d_array_message(msg.legs_local_positions)
         with self.legs_positions_locker:
             self.legs_local_positions = positions
-        
+    
+    def spider_pose_publisher_callback(self):
+        with self.grippers_states_locker:
+            attached_legs = [i for i, j in enumerate(self.grippers_attached_states) if j]
+        spider_pose = self.__get_spider_pose(attached_legs, True)
+
+        msg = Float32MultiArray(data = spider_pose)
+        self.spider_pose_publisher.publish(msg)
+     
     def __get_movement_instructions(self):
         spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
@@ -122,10 +129,13 @@ class App(Node):
 
         return distribute_forces_response.success
     
-    def __get_spider_pose(self, legs_ids):
+    def __get_spider_pose(self, legs_ids, call_from_service = False):
         _, _, legs_global_positions = self.json_file_manager.read_spider_state()
         get_spider_pose_request = custom_interface_helper.prepare_get_spider_pose_request((legs_ids, legs_global_positions[legs_ids]))
-        get_spider_pose_response = custom_interface_helper.async_service_call(self.get_spider_pose_client, get_spider_pose_request, self)
+        if not call_from_service:
+            get_spider_pose_response = custom_interface_helper.async_service_call(self.get_spider_pose_client, get_spider_pose_request, self)
+        else:
+            get_spider_pose_response = custom_interface_helper.async_service_call_from_service(self.get_spider_pose_client, get_spider_pose_request)
         spider_pose = get_spider_pose_response.spider_pose.data
 
         return spider_pose
@@ -311,6 +321,9 @@ class App(Node):
         self.get_spider_goal_client = self.create_client(gwp_services.SpiderGoal, gid.SEND_GOAL_SERVICE, callback_group = self.callback_group)
         while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
             print("Spider goal service not available...")  
+
+        self.spider_pose_publisher = self.create_publisher(Float32MultiArray, gid.SPIDER_POSE_TOPIC, 1, callback_group = self.callback_group)
+        self.spider_pose_publisher_timer = self.create_timer(5, self.spider_pose_publisher_callback, callback_group = self.callback_group)
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)

@@ -21,15 +21,15 @@ namespace srv
 namespace builder
 {
 
-class Init_SpiderGoal_Request_watered
+class Init_SpiderGoal_Request_request_new_goal
 {
 public:
-  Init_SpiderGoal_Request_watered()
+  Init_SpiderGoal_Request_request_new_goal()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  ::gwpspider_interfaces::srv::SpiderGoal_Request watered(::gwpspider_interfaces::srv::SpiderGoal_Request::_watered_type arg)
+  ::gwpspider_interfaces::srv::SpiderGoal_Request request_new_goal(::gwpspider_interfaces::srv::SpiderGoal_Request::_request_new_goal_type arg)
   {
-    msg_.watered = std::move(arg);
+    msg_.request_new_goal = std::move(arg);
     return std::move(msg_);
   }
 
@@ -48,7 +48,7 @@ template<>
 inline
 auto build<::gwpspider_interfaces::srv::SpiderGoal_Request>()
 {
-  return gwpspider_interfaces::srv::builder::Init_SpiderGoal_Request_watered();
+  return gwpspider_interfaces::srv::builder::Init_SpiderGoal_Request_request_new_goal();
 }
 
 }  // namespace gwpspider_interfaces

@@ -20,7 +20,7 @@ extern "C"
 /// Struct defined in srv/SpiderGoal in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__SpiderGoal_Request
 {
-  bool watered;
+  bool request_new_goal;
 } gwpspider_interfaces__srv__SpiderGoal_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__SpiderGoal_Request.

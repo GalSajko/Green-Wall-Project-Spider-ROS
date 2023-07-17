@@ -6,7 +6,7 @@
 module gwpspider_interfaces {
   module srv {
     struct SpiderGoal_Request {
-      boolean watered;
+      boolean request_new_goal;
     };
     struct SpiderGoal_Response {
       sequence<float> watering_position;

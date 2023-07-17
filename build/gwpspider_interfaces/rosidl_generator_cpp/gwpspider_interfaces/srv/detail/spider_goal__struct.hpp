@@ -38,7 +38,7 @@ struct SpiderGoal_Request_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->watered = false;
+      this->request_new_goal = false;
     }
   }
 
@@ -48,20 +48,20 @@ struct SpiderGoal_Request_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->watered = false;
+      this->request_new_goal = false;
     }
   }
 
   // field types and members
-  using _watered_type =
+  using _request_new_goal_type =
     bool;
-  _watered_type watered;
+  _request_new_goal_type request_new_goal;
 
   // setters for named parameter idiom
-  Type & set__watered(
+  Type & set__request_new_goal(
     const bool & _arg)
   {
-    this->watered = _arg;
+    this->request_new_goal = _arg;
     return *this;
   }
 
@@ -107,7 +107,7 @@ struct SpiderGoal_Request_
   // comparison operators
   bool operator==(const SpiderGoal_Request_ & other) const
   {
-    if (this->watered != other.watered) {
+    if (this->request_new_goal != other.request_new_goal) {
       return false;
     }
     return true;

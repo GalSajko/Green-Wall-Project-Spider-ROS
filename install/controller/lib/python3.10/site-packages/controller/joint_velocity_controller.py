@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import rclpy
 from rclpy.node import Node
 from rclpy.executors import MultiThreadedExecutor
@@ -59,7 +57,7 @@ class JointVelocityController(Node):
         self.joints_positions = None
         self.legs_forces = None
         self.joints_torques = None
-
+        
         self.callback_group = ReentrantCallbackGroup()
 
         self.__init_interfaces()
@@ -558,7 +556,6 @@ class JointVelocityController(Node):
             self.is_force_mode = True
             self.f_d[leg_id] = np.array(desired_force, dtype = np.float32)
 
-    
     def __set_bus_watchdog(self, value):
         request = SetBusWatchdog.Request()
         request.value = value
