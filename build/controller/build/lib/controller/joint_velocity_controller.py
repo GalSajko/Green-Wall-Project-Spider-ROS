@@ -343,7 +343,7 @@ class JointVelocityController(Node):
         
         else:
             with self.force_mode_locker:
-                self.is_force_mode = bool_command   
+                self.is_force_mode = bool_command
     
     def distribute_forces_callback(self, request, response):
         with self.force_mode_locker:
@@ -443,7 +443,7 @@ class JointVelocityController(Node):
         with self.legs_states_locker:
             q_a = self.joints_positions
         
-        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a, self)        
+        spider_pose = kin.get_spider_pose(legs_ids, legs_global_positions, q_a)
 
         return spider_pose
 

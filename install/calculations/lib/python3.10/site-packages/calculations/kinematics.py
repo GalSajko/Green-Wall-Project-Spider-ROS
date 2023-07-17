@@ -177,7 +177,7 @@ def platform_forward_kinematics(legs_ids: list, legs_positions_in_global: np.nda
     
     return xyzrpy
 
-def get_spider_pose(legs_ids: list, legs_positions_in_global: np.ndarray, joints_values: np.ndarray, node) -> np.ndarray:
+def get_spider_pose(legs_ids: list, legs_positions_in_global: np.ndarray, joints_values: np.ndarray) -> np.ndarray:
     """Calculate spider's pose in global origin. If more than three legs are given, it calculates spider's pose from each
     combination of these three legs. Finally pose is determined as mean value of all calculations.
 
