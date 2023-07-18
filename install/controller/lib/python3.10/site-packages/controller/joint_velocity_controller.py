@@ -228,8 +228,9 @@ class JointVelocityController(Node):
             with self.legs_states_locker:
                 f_a = self.legs_forces[leg_id]
             force_direction = f_a / np.linalg.norm(f_a)
-            force_to_apply = force_direction * self.MAX_ALLOWED_FORCE
-            force_to_apply[:2] = force_to_apply[:2] * -1
+            force_to_apply = force_direction
+            force_to_apply[:2] *= -1
+            force_to_apply[2] *= self.MAX_ALLOWED_FORCE
             self.__apply_force_on_leg_tip(leg_id, force_to_apply)
             time.sleep(0.5)
 
@@ -430,15 +431,6 @@ class JointVelocityController(Node):
         response.success = False
         return response
     
-    def get_spider_pose_callback(self, request, response):
-        legs_ids = request.legs_ids.data
-        legs_global_positions = custom_interface_helper.unpack_2d_array_message(request.legs_global_positions)
-
-        spider_pose = self.__get_spider_pose(legs_ids, legs_global_positions)
-
-        response.spider_pose = Float32MultiArray(data = spider_pose)
-        return response
-    
     def __get_spider_pose(self, legs_ids, legs_global_positions):
         with self.legs_states_locker:
             q_a = self.joints_positions
@@ -570,7 +562,6 @@ class JointVelocityController(Node):
         self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.callback_group)
         self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
         self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
-        self.get_spider_pose_service = self.create_service(GetSpiderPose, gid.GET_SPIDER_POSE_SERVICE, self.get_spider_pose_callback, callback_group = self.callback_group)
         self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.callback_group)
         self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.GET_CORRECTION_OFFSET_SERVICE, callback_group = self.callback_group)
 
