@@ -225,14 +225,9 @@ class JointVelocityController(Node):
             time.sleep(0.001)
 
         if close_gripper:
-            with self.legs_states_locker:
-                f_a = self.legs_forces[leg_id]
-            force_direction = f_a / np.linalg.norm(f_a)
-            force_to_apply = force_direction
-            force_to_apply[:2] *= -1
-            force_to_apply[2] *= self.MAX_ALLOWED_FORCE
+            force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
             self.__apply_force_on_leg_tip(leg_id, force_to_apply)
-            time.sleep(0.5)
+            # time.sleep(0.5)
 
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
                 response.success = False
