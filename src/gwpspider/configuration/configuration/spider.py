@@ -73,9 +73,6 @@ NUMBER_OF_MOTORS_IN_LEG = 3
 # Radius of spiders platform, in meters.
 BODY_RADIUS = 0.15
 SPIDER_WALKING_HEIGHT = 0.3
-# Leg id used for (re)filling water tank.
-REFILLING_LEG_ID = 2
-REFILLING_Y_WALL_POSITION = 0.6
 # Leg limit to avoid singularity.
 LEG_LENGTH_MAX_LIMIT = 0.58
 LEG_LENGTH_MIN_LIMIT = 0.32
@@ -108,6 +105,8 @@ VECTORS_TO_COG_SEGMENT = np.array([
 # Spider's watering position regarding to plant position.
 WATERING_XY_OFFSET_ABS = [0.45, 0.15]
 WATERING_LEGS_IDS = [1, 4]
+REFILLING_LEG_ID = 2
 REFILLING_LEG_OFFSET = np.array([-0.2, -0.65, -0.2], dtype = np.float32)
+REFILLING_Y_WALL_POSITION = 1.2 # Change to 0.6
 LEGS_IDS = np.array([0, 1, 2, 3, 4], dtype = np.int8)
 #endregion

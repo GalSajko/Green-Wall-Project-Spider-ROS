@@ -212,6 +212,7 @@ class JointVelocityController(Node):
 
         with self.force_mode_locker:
             self.is_force_mode = False
+        time.sleep(0.1)
 
         for idx, position in enumerate(position_trajectory):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
@@ -235,6 +236,7 @@ class JointVelocityController(Node):
             
         with self.force_mode_locker:
             self.is_force_mode = False
+        time.sleep(0.1)
         
         response.success = True
         return response

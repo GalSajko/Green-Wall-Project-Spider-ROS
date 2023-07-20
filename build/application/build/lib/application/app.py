@@ -18,14 +18,13 @@ from gwpspider_interfaces.msg import GrippersStates, LegsStates
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 from std_msgs.msg import Float32MultiArray
+from std_srvs.srv import Empty
 
 class App(Node):
     def __init__(self):
         Node.__init__(self, 'application')
 
         self.is_init = True
-        self.request_new_goal = True
-
         self.use_prediction_model = True
 
         self.spider_pose = None
@@ -73,7 +72,6 @@ class App(Node):
                         self.__move_leg_to_next_pin(leg_id, previous_to_current_pins_offsets[idx], current_pins_positions[idx])
             
             self.__watering(watering_or_refill_leg_id, plant_or_refill_position, poses[-1], volume)
-            self.request_new_goal = True
 
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
@@ -102,12 +100,9 @@ class App(Node):
         spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
         spider_goal_request = gwp_services.SpiderGoal.Request()
-        spider_goal_request.request_new_goal = self.request_new_goal
         spider_goal_response = custom_interface_helper.async_service_call(self.get_spider_goal_client, spider_goal_request, self)
 
         self.get_logger().info(f"GOAL INFO: {spider_goal_response}")
-
-        self.request_new_goal = False
 
         watering_or_refill_leg_id, watering_or_refill_pose = tf.get_watering_leg_and_pose(spider_pose, spider_goal_response.watering_position, spider_goal_response.go_refill)
 
@@ -257,6 +252,9 @@ class App(Node):
         water_pump_request = custom_interface_helper.prepare_water_pump_request((pump_id, volume))
         water_pump_response = custom_interface_helper.async_service_call(self.water_pump_client, water_pump_request, self)
 
+        watering_success_request = Empty.Request()
+        watering_success_response = custom_interface_helper.async_service_call(self.set_watering_success_flag_client, watering_success_request, self)
+
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
             leg_local_position_before_watering,
@@ -318,6 +316,10 @@ class App(Node):
         self.get_spider_goal_client = self.create_client(gwp_services.SpiderGoal, gid.SEND_GOAL_SERVICE, callback_group = self.callback_group)
         while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
             print("Spider goal service not available...")  
+
+        self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
+        while not self.set_watering_success_flag_client.wait_for_service(timeout_sec = 1.0):
+            print("Watering success flag service not available...")
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
