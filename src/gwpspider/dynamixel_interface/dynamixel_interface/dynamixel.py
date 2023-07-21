@@ -54,7 +54,7 @@ class MotorDriver(Node):
         self.reboot_motors_service = self.create_service(RebootMotors, gid.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback, callback_group = self.callback_group)
 
         self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, 1, callback_group = self.callback_group)
-        timer_period = 0.007
+        timer_period = 0.005
         self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback, callback_group = self.callback_group)
 
         self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, self.sync_write_motors_velocities_callback, 10, callback_group = self.callback_group)

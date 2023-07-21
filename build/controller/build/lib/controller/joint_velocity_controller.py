@@ -554,17 +554,9 @@ class JointVelocityController(Node):
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
 
         self.toggle_controller_service = self.create_service(ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
-        
         self.move_leg_service = self.create_service(MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.callback_group)
         self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.callback_group)
-        self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
-        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
         self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.callback_group)
-        self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.GET_CORRECTION_OFFSET_SERVICE, callback_group = self.callback_group)
-
-        self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.callback_group)
-        self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.callback_group)
-
         self.distribute_forces_service = self.create_service(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.callback_group)
         self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, gid.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.callback_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.callback_group)
@@ -574,7 +566,22 @@ class JointVelocityController(Node):
             self.toggle_additional_controller_mode_callback,
             callback_group = self.callback_group
         )
+
+        self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
+        while not self.leg_trajectory_client.wait_for_service(timeout_sec = 1.0):
+            print("Trajectory service not available...")  
+        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
+        while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
+            print("Gripper service not available...")          
+        self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.GET_CORRECTION_OFFSET_SERVICE, callback_group = self.callback_group)
+        while not self.get_correction_offset_client.wait_for_service(timeout_sec = 1.0):
+            print("Offset prediction model service not available...")  
         self.set_bus_watchdog_service = self.create_client(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
+        while not self.set_bus_watchdog_service.wait_for_service(timeout_sec = 1.0):
+            print("Bus watchdog service not available...")  
+
+        self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.callback_group)
+        self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.callback_group)
 
 def main():
     rclpy.init()
