@@ -315,9 +315,9 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
   rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__functions.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__type_support.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__functions.h \
@@ -341,9 +341,9 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/spider_goal__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__type_support.h:
 
-rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h:
+rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__functions.h:
 
-rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__struct.h:
+rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__struct.h:
 
@@ -527,8 +527,6 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__type_support
 
 /usr/include/python3.10/genobject.h:
 
-rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__type_support.h:
-
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
@@ -638,6 +636,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h:
 /usr/include/linux/limits.h:
 
 /usr/include/python3.10/namespaceobject.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__type_support.h:
 

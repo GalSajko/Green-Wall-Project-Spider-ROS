@@ -3,11 +3,12 @@
 // generated code does not contain a copyright notice
 
 #include "std_msgs/msg/Float32MultiArray.idl"
+#include "std_msgs/msg/Int8MultiArray.idl"
 
 module gwpspider_interfaces {
   module srv {
     struct ApplyForceLeg_Request {
-      int8 leg_id;
+      std_msgs::msg::Int8MultiArray legs_ids;
 
       std_msgs::msg::Float32MultiArray desired_force;
     };

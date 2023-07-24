@@ -37,15 +37,15 @@ private:
   ::gwpspider_interfaces::srv::ApplyForceLeg_Request msg_;
 };
 
-class Init_ApplyForceLeg_Request_leg_id
+class Init_ApplyForceLeg_Request_legs_ids
 {
 public:
-  Init_ApplyForceLeg_Request_leg_id()
+  Init_ApplyForceLeg_Request_legs_ids()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  Init_ApplyForceLeg_Request_desired_force leg_id(::gwpspider_interfaces::srv::ApplyForceLeg_Request::_leg_id_type arg)
+  Init_ApplyForceLeg_Request_desired_force legs_ids(::gwpspider_interfaces::srv::ApplyForceLeg_Request::_legs_ids_type arg)
   {
-    msg_.leg_id = std::move(arg);
+    msg_.legs_ids = std::move(arg);
     return Init_ApplyForceLeg_Request_desired_force(msg_);
   }
 
@@ -64,7 +64,7 @@ template<>
 inline
 auto build<::gwpspider_interfaces::srv::ApplyForceLeg_Request>()
 {
-  return gwpspider_interfaces::srv::builder::Init_ApplyForceLeg_Request_leg_id();
+  return gwpspider_interfaces::srv::builder::Init_ApplyForceLeg_Request_legs_ids();
 }
 
 }  // namespace gwpspider_interfaces

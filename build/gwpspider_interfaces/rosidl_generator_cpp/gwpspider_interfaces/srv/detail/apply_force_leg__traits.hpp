@@ -15,6 +15,8 @@
 #include "rosidl_runtime_cpp/traits.hpp"
 
 // Include directives for member types
+// Member 'legs_ids'
+#include "std_msgs/msg/detail/int8_multi_array__traits.hpp"
 // Member 'desired_force'
 #include "std_msgs/msg/detail/float32_multi_array__traits.hpp"
 
@@ -29,10 +31,10 @@ inline void to_flow_style_yaml(
   std::ostream & out)
 {
   out << "{";
-  // member: leg_id
+  // member: legs_ids
   {
-    out << "leg_id: ";
-    rosidl_generator_traits::value_to_yaml(msg.leg_id, out);
+    out << "legs_ids: ";
+    to_flow_style_yaml(msg.legs_ids, out);
     out << ", ";
   }
 
@@ -48,14 +50,13 @@ inline void to_block_style_yaml(
   const ApplyForceLeg_Request & msg,
   std::ostream & out, size_t indentation = 0)
 {
-  // member: leg_id
+  // member: legs_ids
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    out << "leg_id: ";
-    rosidl_generator_traits::value_to_yaml(msg.leg_id, out);
-    out << "\n";
+    out << "legs_ids:\n";
+    to_block_style_yaml(msg.legs_ids, out, indentation + 2);
   }
 
   // member: desired_force
@@ -114,11 +115,11 @@ inline const char * name<gwpspider_interfaces::srv::ApplyForceLeg_Request>()
 
 template<>
 struct has_fixed_size<gwpspider_interfaces::srv::ApplyForceLeg_Request>
-  : std::integral_constant<bool, has_fixed_size<std_msgs::msg::Float32MultiArray>::value> {};
+  : std::integral_constant<bool, has_fixed_size<std_msgs::msg::Float32MultiArray>::value && has_fixed_size<std_msgs::msg::Int8MultiArray>::value> {};
 
 template<>
 struct has_bounded_size<gwpspider_interfaces::srv::ApplyForceLeg_Request>
-  : std::integral_constant<bool, has_bounded_size<std_msgs::msg::Float32MultiArray>::value> {};
+  : std::integral_constant<bool, has_bounded_size<std_msgs::msg::Float32MultiArray>::value && has_bounded_size<std_msgs::msg::Int8MultiArray>::value> {};
 
 template<>
 struct is_message<gwpspider_interfaces::srv::ApplyForceLeg_Request>

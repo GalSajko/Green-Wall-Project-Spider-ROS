@@ -1,12 +1,13 @@
 import rclpy
 from rclpy.node import Node
-from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.callback_groups import ReentrantCallbackGroup, MutuallyExclusiveCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 
 import dynamixel_sdk as dxl
 import numpy as np
 import os
 import threading
+import time
 
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger
@@ -48,19 +49,10 @@ class MotorDriver(Node):
         self.__init_port()
         self.__toggle_motors_torque(spider.LEGS_IDS, robot_config.ENABLE_LEGS_COMMAND)
 
-        self.callback_group = ReentrantCallbackGroup()
-        self.toggle_torque_service = self.create_service(ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, self.toggle_motors_torque_callback, callback_group = self.callback_group)
-        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, self.set_bus_watchdog_callback, callback_group = self.callback_group)
-        self.reboot_motors_service = self.create_service(RebootMotors, gid.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback, callback_group = self.callback_group)
+        self.reentrant_callback_group = ReentrantCallbackGroup()
+        self.exclusive_callback_group = MutuallyExclusiveCallbackGroup()
+        self.__init_interfaces()
 
-        self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, 1, callback_group = self.callback_group)
-        timer_period = 0.005
-        self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback, callback_group = self.callback_group)
-
-        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, self.sync_write_motors_velocities_callback, 10, callback_group = self.callback_group)
-
-        self.update_last_legs_positions_client = self.create_client(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, callback_group = self.callback_group)
-    
     #region properties
     @property
     def MOTOR_SERIES(self):
@@ -150,8 +142,7 @@ class MotorDriver(Node):
                 success = self.group_sync_write_velocity.changeParam(motor, commanded_joints_velocities_in_bytes)
                 if not success:
                     self.get_logger().info(f"Failed changing Group Sync Writer parameter in motor {motor}")
-        with self.serial_comm_locker:
-            success = self.group_sync_write_velocity.txPacket()
+        success = self.group_sync_write_velocity.txPacket()
         if success != dxl.COMM_SUCCESS:
             self.get_logger().info("Failed to write velocities to motors.")
         
@@ -159,11 +150,10 @@ class MotorDriver(Node):
         """Read positions, currents, hardware errors and temperature registers from all connected motors.
         """
         try:
-            with self.serial_comm_locker:
-                _ = self.group_sync_read_current.fastSyncRead()
-                _ = self.group_sync_read_position.fastSyncRead()
-                _ = self.group_sync_read_hardware_error.fastSyncRead()
-                _ = self.group_sync_read_temperature.fastSyncRead()
+            _ = self.group_sync_read_current.fastSyncRead()
+            _ = self.group_sync_read_position.fastSyncRead()
+            _ = self.group_sync_read_hardware_error.fastSyncRead()
+            _ = self.group_sync_read_temperature.fastSyncRead()
 
             currents = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
             positions = np.zeros((spider.NUMBER_OF_LEGS, spider.NUMBER_OF_MOTORS_IN_LEG), dtype = np.float32)
@@ -207,8 +197,7 @@ class MotorDriver(Node):
         """
         motors_array = self.motors_ids.flatten()
         for motor_id in motors_array:
-            with self.serial_comm_locker:
-                result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, int(request.value))
+            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.BUS_WATCHDOG_ADDR, int(request.value))
             success = self.__comm_result_and_error_reader(result, error)
             if success:
                 self.get_logger().info(f"Watchdog on motor {motor_id} has been successfully set to {request.value}")
@@ -229,9 +218,8 @@ class MotorDriver(Node):
                 self.get_logger().info(f"Motor with id {motor} does not exits - it cannot be rebooted.")
                 response.success = False
                 return response
-            
-            with self.serial_comm_locker:
-                result, error = self.packet_handler.reboot(self.port_handler, int(motor))
+
+            result, error = self.packet_handler.reboot(self.port_handler, int(motor))
             success = self.__comm_result_and_error_reader(result, error)
             if not success:
                 self.get_logger().info(f"Error while rebooting motor with id {motor}.")
@@ -239,8 +227,7 @@ class MotorDriver(Node):
                 return response
             
             if str(motor)[1] == '3':
-                with self.serial_comm_locker:
-                    result, error = self.packet_handler.reboot(self.port_handler, int(motor + 1))
+                result, error = self.packet_handler.reboot(self.port_handler, int(motor + 1))
                 success = self.__comm_result_and_error_reader(result, error)
                 if not success:
                     self.get_logger().info(f"Error while rebooting motor with id {motor + 1}.")
@@ -257,7 +244,6 @@ class MotorDriver(Node):
         """
         cmd = f'sudo setserial {self.USB_DEVICE_NAME} low_latency'
         os.system(cmd)
-
 
     def __comm_result_and_error_reader(self, result: str, error: str) -> bool:
         """Read communication result and error.
@@ -350,8 +336,7 @@ class MotorDriver(Node):
         message = 'enabled' if action else 'disabled'
 
         for motor_id in motors_array:
-            with self.serial_comm_locker:
-                result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.TORQUE_ENABLE_ADDR, action)
+            result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.TORQUE_ENABLE_ADDR, action)
             success = self.__comm_result_and_error_reader(result, error)
             if success:
                 self.get_logger().info(f"Motor {motor_id} has been successfully {message}.")
@@ -359,6 +344,19 @@ class MotorDriver(Node):
                 return False
         
         return True
+
+    def __init_interfaces(self):
+        self.toggle_torque_service = self.create_service(ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, self.toggle_motors_torque_callback, callback_group = self.exclusive_callback_group)
+        self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, self.set_bus_watchdog_callback, callback_group = self.exclusive_callback_group)
+        self.reboot_motors_service = self.create_service(RebootMotors, gid.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback, callback_group = self.exclusive_callback_group)
+
+        self.motors_data_publisher = self.create_publisher(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, 1, callback_group = self.exclusive_callback_group)
+        timer_period = 1 / robot_config.CONTROLLER_FREQUENCY
+        self.timer = self.create_timer(timer_period, self.sync_read_motors_data_callback, callback_group = self.exclusive_callback_group)
+
+        self.joints_velocity_subscriber = self.create_subscription(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, self.sync_write_motors_velocities_callback, 10, callback_group = self.exclusive_callback_group)
+
+        self.update_last_legs_positions_client = self.create_client(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, callback_group = self.exclusive_callback_group)
 
 def main():
     rclpy.init()

@@ -16,6 +16,8 @@
 
 
 // Include directives for member types
+// Member 'legs_ids'
+#include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
 // Member 'desired_force'
 #include "std_msgs/msg/detail/float32_multi_array__struct.hpp"
 
@@ -38,38 +40,32 @@ struct ApplyForceLeg_Request_
   using Type = ApplyForceLeg_Request_<ContainerAllocator>;
 
   explicit ApplyForceLeg_Request_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : desired_force(_init)
+  : legs_ids(_init),
+    desired_force(_init)
   {
-    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
-      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
-    {
-      this->leg_id = 0;
-    }
+    (void)_init;
   }
 
   explicit ApplyForceLeg_Request_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : desired_force(_alloc, _init)
+  : legs_ids(_alloc, _init),
+    desired_force(_alloc, _init)
   {
-    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
-      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
-    {
-      this->leg_id = 0;
-    }
+    (void)_init;
   }
 
   // field types and members
-  using _leg_id_type =
-    int8_t;
-  _leg_id_type leg_id;
+  using _legs_ids_type =
+    std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
+  _legs_ids_type legs_ids;
   using _desired_force_type =
     std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
   _desired_force_type desired_force;
 
   // setters for named parameter idiom
-  Type & set__leg_id(
-    const int8_t & _arg)
+  Type & set__legs_ids(
+    const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
   {
-    this->leg_id = _arg;
+    this->legs_ids = _arg;
     return *this;
   }
   Type & set__desired_force(
@@ -121,7 +117,7 @@ struct ApplyForceLeg_Request_
   // comparison operators
   bool operator==(const ApplyForceLeg_Request_ & other) const
   {
-    if (this->leg_id != other.leg_id) {
+    if (this->legs_ids != other.legs_ids) {
       return false;
     }
     if (this->desired_force != other.desired_force) {

@@ -2297,7 +2297,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwp
   rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h
 
-CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_apply_force_leg_s.c.o: rosidl_generator_py/gwpspider_interfaces/srv/_apply_force_leg_s.c \
+CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_apply_forces_on_legs_s.c.o: rosidl_generator_py/gwpspider_interfaces/srv/_apply_forces_on_legs_s.c \
   /usr/include/stdc-predef.h \
   /usr/include/python3.10/Python.h \
   /usr/include/python3.10/patchlevel.h \
@@ -2544,13 +2544,14 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwp
   /usr/include/python3.10/numpy/_neighborhood_iterator_imp.h \
   /usr/include/python3.10/numpy/__multiarray_api.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__struct.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__functions.h \
   rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h
 
 CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c.o: rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c \
@@ -7176,6 +7177,8 @@ rosidl_generator_py/gwpspider_interfaces/srv/_move_leg_s.c:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_gripper__struct.h:
 
+rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c:
+
 rosidl_generator_c/gwpspider_interfaces/srv/detail/init_bno__functions.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/init_bno__struct.h:
@@ -7216,13 +7219,7 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__functions
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/control_water_pump__struct.h:
 
-rosidl_generator_py/gwpspider_interfaces/srv/_move_gripper_s.c:
-
-rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__functions.h:
-
-rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_force_leg__struct.h:
-
-rosidl_generator_py/gwpspider_interfaces/srv/_apply_force_leg_s.c:
+rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__functions.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/water_pump_command__functions.h:
 
@@ -7452,6 +7449,8 @@ rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c:
 
 /usr/include/python3.10/namespaceobject.h:
 
+rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__struct.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
 /usr/include/python3.10/pystrcmp.h:
@@ -7507,6 +7506,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h:
 /usr/include/python3.10/cpython/bytesobject.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+rosidl_generator_py/gwpspider_interfaces/srv/_apply_forces_on_legs_s.c:
 
 /usr/include/python3.10/numpy/npy_common.h:
 

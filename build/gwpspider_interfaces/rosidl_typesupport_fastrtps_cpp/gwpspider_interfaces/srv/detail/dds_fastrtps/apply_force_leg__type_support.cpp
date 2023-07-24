@@ -23,6 +23,30 @@ namespace msg
 namespace typesupport_fastrtps_cpp
 {
 bool cdr_serialize(
+  const std_msgs::msg::Int8MultiArray &,
+  eprosima::fastcdr::Cdr &);
+bool cdr_deserialize(
+  eprosima::fastcdr::Cdr &,
+  std_msgs::msg::Int8MultiArray &);
+size_t get_serialized_size(
+  const std_msgs::msg::Int8MultiArray &,
+  size_t current_alignment);
+size_t
+max_serialized_size_Int8MultiArray(
+  bool & full_bounded,
+  bool & is_plain,
+  size_t current_alignment);
+}  // namespace typesupport_fastrtps_cpp
+}  // namespace msg
+}  // namespace std_msgs
+
+namespace std_msgs
+{
+namespace msg
+{
+namespace typesupport_fastrtps_cpp
+{
+bool cdr_serialize(
   const std_msgs::msg::Float32MultiArray &,
   eprosima::fastcdr::Cdr &);
 bool cdr_deserialize(
@@ -56,8 +80,10 @@ cdr_serialize(
   const gwpspider_interfaces::srv::ApplyForceLeg_Request & ros_message,
   eprosima::fastcdr::Cdr & cdr)
 {
-  // Member: leg_id
-  cdr << ros_message.leg_id;
+  // Member: legs_ids
+  std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
+    ros_message.legs_ids,
+    cdr);
   // Member: desired_force
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.desired_force,
@@ -71,8 +97,9 @@ cdr_deserialize(
   eprosima::fastcdr::Cdr & cdr,
   gwpspider_interfaces::srv::ApplyForceLeg_Request & ros_message)
 {
-  // Member: leg_id
-  cdr >> ros_message.leg_id;
+  // Member: legs_ids
+  std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
+    cdr, ros_message.legs_ids);
 
   // Member: desired_force
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
@@ -94,12 +121,11 @@ get_serialized_size(
   (void)padding;
   (void)wchar_size;
 
-  // Member: leg_id
-  {
-    size_t item_size = sizeof(ros_message.leg_id);
-    current_alignment += item_size +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
-  }
+  // Member: legs_ids
+
+  current_alignment +=
+    std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
+    ros_message.legs_ids, current_alignment);
   // Member: desired_force
 
   current_alignment +=
@@ -127,11 +153,20 @@ max_serialized_size_ApplyForceLeg_Request(
   is_plain = true;
 
 
-  // Member: leg_id
+  // Member: legs_ids
   {
     size_t array_size = 1;
 
-    current_alignment += array_size * sizeof(uint8_t);
+
+    for (size_t index = 0; index < array_size; ++index) {
+      bool inner_full_bounded;
+      bool inner_is_plain;
+      current_alignment +=
+        std_msgs::msg::typesupport_fastrtps_cpp::max_serialized_size_Int8MultiArray(
+        inner_full_bounded, inner_is_plain, current_alignment);
+      full_bounded &= inner_full_bounded;
+      is_plain &= inner_is_plain;
+    }
   }
 
   // Member: desired_force

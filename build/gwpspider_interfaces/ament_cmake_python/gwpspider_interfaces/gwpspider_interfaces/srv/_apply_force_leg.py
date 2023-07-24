@@ -46,6 +46,10 @@ class Metaclass_ApplyForceLeg_Request(type):
             if Float32MultiArray.__class__._TYPE_SUPPORT is None:
                 Float32MultiArray.__class__.__import_type_support__()
 
+            from std_msgs.msg import Int8MultiArray
+            if Int8MultiArray.__class__._TYPE_SUPPORT is None:
+                Int8MultiArray.__class__.__import_type_support__()
+
     @classmethod
     def __prepare__(cls, name, bases, **kwargs):
         # list constant names here so that they appear in the help text of
@@ -59,17 +63,17 @@ class ApplyForceLeg_Request(metaclass=Metaclass_ApplyForceLeg_Request):
     """Message class 'ApplyForceLeg_Request'."""
 
     __slots__ = [
-        '_leg_id',
+        '_legs_ids',
         '_desired_force',
     ]
 
     _fields_and_field_types = {
-        'leg_id': 'int8',
+        'legs_ids': 'std_msgs/Int8MultiArray',
         'desired_force': 'std_msgs/Float32MultiArray',
     }
 
     SLOT_TYPES = (
-        rosidl_parser.definition.BasicType('int8'),  # noqa: E501
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int8MultiArray'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Float32MultiArray'),  # noqa: E501
     )
 
@@ -77,7 +81,8 @@ class ApplyForceLeg_Request(metaclass=Metaclass_ApplyForceLeg_Request):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        self.leg_id = kwargs.get('leg_id', int())
+        from std_msgs.msg import Int8MultiArray
+        self.legs_ids = kwargs.get('legs_ids', Int8MultiArray())
         from std_msgs.msg import Float32MultiArray
         self.desired_force = kwargs.get('desired_force', Float32MultiArray())
 
@@ -110,7 +115,7 @@ class ApplyForceLeg_Request(metaclass=Metaclass_ApplyForceLeg_Request):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if self.leg_id != other.leg_id:
+        if self.legs_ids != other.legs_ids:
             return False
         if self.desired_force != other.desired_force:
             return False
@@ -122,19 +127,18 @@ class ApplyForceLeg_Request(metaclass=Metaclass_ApplyForceLeg_Request):
         return copy(cls._fields_and_field_types)
 
     @builtins.property
-    def leg_id(self):
-        """Message field 'leg_id'."""
-        return self._leg_id
+    def legs_ids(self):
+        """Message field 'legs_ids'."""
+        return self._legs_ids
 
-    @leg_id.setter
-    def leg_id(self, value):
+    @legs_ids.setter
+    def legs_ids(self, value):
         if __debug__:
+            from std_msgs.msg import Int8MultiArray
             assert \
-                isinstance(value, int), \
-                "The 'leg_id' field must be of type 'int'"
-            assert value >= -128 and value < 128, \
-                "The 'leg_id' field must be an integer in [-128, 127]"
-        self._leg_id = value
+                isinstance(value, Int8MultiArray), \
+                "The 'legs_ids' field must be a sub message of type 'Int8MultiArray'"
+        self._legs_ids = value
 
     @builtins.property
     def desired_force(self):

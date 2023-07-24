@@ -13,6 +13,10 @@
 
 
 // Include directives for member types
+// Member `legs_ids`
+#include "std_msgs/msg/int8_multi_array.h"
+// Member `legs_ids`
+#include "std_msgs/msg/detail/int8_multi_array__rosidl_typesupport_introspection_c.h"
 // Member `desired_force`
 #include "std_msgs/msg/float32_multi_array.h"
 // Member `desired_force`
@@ -39,14 +43,14 @@ void gwpspider_interfaces__srv__ApplyForceLeg_Request__rosidl_typesupport_intros
 
 static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__ApplyForceLeg_Request__rosidl_typesupport_introspection_c__ApplyForceLeg_Request_message_member_array[2] = {
   {
-    "leg_id",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_INT8,  // type
+    "legs_ids",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
-    NULL,  // members of sub message
+    NULL,  // members of sub message (initialized later)
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__ApplyForceLeg_Request, leg_id),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__ApplyForceLeg_Request, legs_ids),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -95,6 +99,8 @@ static rosidl_message_type_support_t gwpspider_interfaces__srv__ApplyForceLeg_Re
 ROSIDL_TYPESUPPORT_INTROSPECTION_C_EXPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, gwpspider_interfaces, srv, ApplyForceLeg_Request)() {
+  gwpspider_interfaces__srv__ApplyForceLeg_Request__rosidl_typesupport_introspection_c__ApplyForceLeg_Request_message_member_array[0].members_ =
+    ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Int8MultiArray)();
   gwpspider_interfaces__srv__ApplyForceLeg_Request__rosidl_typesupport_introspection_c__ApplyForceLeg_Request_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Float32MultiArray)();
   if (!gwpspider_interfaces__srv__ApplyForceLeg_Request__rosidl_typesupport_introspection_c__ApplyForceLeg_Request_message_type_support_handle.typesupport_identifier) {

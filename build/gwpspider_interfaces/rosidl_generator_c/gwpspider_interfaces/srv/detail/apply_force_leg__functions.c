@@ -11,6 +11,8 @@
 #include "rcutils/allocator.h"
 
 // Include directives for member types
+// Member `legs_ids`
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"
 // Member `desired_force`
 #include "std_msgs/msg/detail/float32_multi_array__functions.h"
 
@@ -20,7 +22,11 @@ gwpspider_interfaces__srv__ApplyForceLeg_Request__init(gwpspider_interfaces__srv
   if (!msg) {
     return false;
   }
-  // leg_id
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__init(&msg->legs_ids)) {
+    gwpspider_interfaces__srv__ApplyForceLeg_Request__fini(msg);
+    return false;
+  }
   // desired_force
   if (!std_msgs__msg__Float32MultiArray__init(&msg->desired_force)) {
     gwpspider_interfaces__srv__ApplyForceLeg_Request__fini(msg);
@@ -35,7 +41,8 @@ gwpspider_interfaces__srv__ApplyForceLeg_Request__fini(gwpspider_interfaces__srv
   if (!msg) {
     return;
   }
-  // leg_id
+  // legs_ids
+  std_msgs__msg__Int8MultiArray__fini(&msg->legs_ids);
   // desired_force
   std_msgs__msg__Float32MultiArray__fini(&msg->desired_force);
 }
@@ -46,8 +53,10 @@ gwpspider_interfaces__srv__ApplyForceLeg_Request__are_equal(const gwpspider_inte
   if (!lhs || !rhs) {
     return false;
   }
-  // leg_id
-  if (lhs->leg_id != rhs->leg_id) {
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__are_equal(
+      &(lhs->legs_ids), &(rhs->legs_ids)))
+  {
     return false;
   }
   // desired_force
@@ -67,8 +76,12 @@ gwpspider_interfaces__srv__ApplyForceLeg_Request__copy(
   if (!input || !output) {
     return false;
   }
-  // leg_id
-  output->leg_id = input->leg_id;
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__copy(
+      &(input->legs_ids), &(output->legs_ids)))
+  {
+    return false;
+  }
   // desired_force
   if (!std_msgs__msg__Float32MultiArray__copy(
       &(input->desired_force), &(output->desired_force)))

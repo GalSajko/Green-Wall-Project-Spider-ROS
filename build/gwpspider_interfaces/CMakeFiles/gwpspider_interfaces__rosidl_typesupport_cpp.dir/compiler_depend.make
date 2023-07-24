@@ -1817,7 +1817,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_c
   /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/type_support_map.h \
   /opt/ros/humble/include/rosidl_typesupport_cpp/rosidl_typesupport_cpp/message_type_support_dispatch.hpp
 
-CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/srv/apply_force_leg__type_support.cpp.o: rosidl_typesupport_cpp/gwpspider_interfaces/srv/apply_force_leg__type_support.cpp \
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gwpspider_interfaces/srv/apply_forces_on_legs__type_support.cpp.o: rosidl_typesupport_cpp/gwpspider_interfaces/srv/apply_forces_on_legs__type_support.cpp \
   /usr/include/stdc-predef.h \
   /usr/include/c++/11/cstddef \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
@@ -1835,7 +1835,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_c
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
   /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
-  rosidl_generator_cpp/gwpspider_interfaces/srv/detail/apply_force_leg__struct.hpp \
+  rosidl_generator_cpp/gwpspider_interfaces/srv/detail/apply_forces_on_legs__struct.hpp \
   /usr/include/c++/11/algorithm \
   /usr/include/c++/11/utility \
   /usr/include/c++/11/bits/stl_relops.h \
@@ -2011,9 +2011,10 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_c
   /usr/include/c++/11/stdexcept \
   /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/message_initialization.hpp \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_initialization.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.hpp \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.hpp \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.hpp \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.hpp \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.hpp \
   /opt/ros/humble/include/rosidl_typesupport_cpp/rosidl_typesupport_cpp/identifier.hpp \
   /opt/ros/humble/include/rosidl_typesupport_cpp/rosidl_typesupport_cpp/visibility_control.h \
   /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/message_type_support.hpp \
@@ -5764,8 +5765,6 @@ rosidl_typesupport_cpp/gwpspider_interfaces/msg/gripper_state__type_support.cpp:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
 
-rosidl_generator_cpp/gwpspider_interfaces/srv/detail/apply_force_leg__struct.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 rosidl_typesupport_cpp/gwpspider_interfaces/srv/move_leg_velocity_mode__type_support.cpp:
@@ -5982,10 +5981,6 @@ rosidl_generator_cpp/gwpspider_interfaces/srv/detail/get_spider_pose__struct.hpp
 
 /usr/include/c++/11/ext/type_traits.h:
 
-rosidl_typesupport_cpp/gwpspider_interfaces/msg/bno_data__type_support.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
 /usr/include/c++/11/new:
@@ -6190,7 +6185,17 @@ rosidl_generator_cpp/gwpspider_interfaces/srv/detail/get_walking_instructions__s
 
 rosidl_typesupport_cpp/gwpspider_interfaces/msg/water_pump_command__type_support.cpp:
 
-rosidl_typesupport_cpp/gwpspider_interfaces/srv/apply_force_leg__type_support.cpp:
+rosidl_typesupport_cpp/gwpspider_interfaces/msg/bno_data__type_support.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
+
+rosidl_typesupport_cpp/gwpspider_interfaces/srv/apply_forces_on_legs__type_support.cpp:
+
+rosidl_generator_cpp/gwpspider_interfaces/srv/detail/apply_forces_on_legs__struct.hpp:
+
+/usr/include/c++/11/cstdint:
+
+/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.hpp:
 
 /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h:
 
@@ -6215,10 +6220,6 @@ rosidl_typesupport_cpp/gwpspider_interfaces/srv/distribute_forces__type_support.
 rosidl_typesupport_cpp/gwpspider_interfaces/srv/get_correction_offset__type_support.cpp:
 
 rosidl_generator_cpp/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__struct.hpp:
-
-/usr/include/c++/11/cstdint:
-
-/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.hpp:
 
 rosidl_typesupport_cpp/gwpspider_interfaces/srv/get_leg_trajectory__type_support.cpp:
 

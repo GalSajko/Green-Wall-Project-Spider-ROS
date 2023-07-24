@@ -18,7 +18,7 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForceLeg, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset, SetBusWatchdog
+from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForcesOnLegs, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset, SetBusWatchdog
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
@@ -80,7 +80,7 @@ class JointVelocityController(Node):
     
     @property
     def MAX_ALLOWED_FORCE(self):
-        return 5.5
+        return 2.0
     
     @property
     def VELOCITY_AMP_FACTOR(self):
@@ -188,7 +188,7 @@ class JointVelocityController(Node):
         self.command_queues[leg_id] = queue.Queue()
 
         if is_pin_to_pin_movement:
-            self.__apply_force_on_leg_tip(leg_id, np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE]))
+            self.__apply_forces_on_leg_tips(leg_id, np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE]))
         if open_gripper:
             if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
                 response.success = False
@@ -226,8 +226,10 @@ class JointVelocityController(Node):
             time.sleep(0.001)
 
         if close_gripper:
-            force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
-            self.__apply_force_on_leg_tip(leg_id, force_to_apply)
+            with self.legs_states_locker:
+                f_a = self.legs_forces[leg_id]
+            force_to_apply = np.array([np.sign(f_a[0]) * (-1), np.sign(f_a[1]) * (-1), -self.MAX_ALLOWED_FORCE])
+            self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
             # time.sleep(0.5)
 
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
@@ -377,13 +379,16 @@ class JointVelocityController(Node):
         response.success = True
         return response
     
-    def apply_force_on_leg_callback(self, request, response):
-        if request.leg_id not in spider.LEGS_IDS:
-            self.get_logger().info(f"Leg with ID {request.leg_id} was not recognized.")
-            response.success = False
-            return response
+    def apply_forces_on_legs_callback(self, request, response):
+        legs_ids = np.array(request.legs_ids.data)
+        for leg_id in legs_ids:
+            if leg_id not in spider.LEGS_IDS:
+                self.get_logger().info(f"Leg with ID {leg_id} was not recognized.")
+                response.success = False
+                return response
     
-        self.__apply_force_on_leg_tip(request.leg_id, request.desired_force.data)
+        desired_forces = custom_interface_helper.unpack_2d_array_message(request.desired_forces)
+        self.__apply_forces_on_leg_tips(legs_ids, desired_forces)
         
         response.success = True
         return response
@@ -539,11 +544,11 @@ class JointVelocityController(Node):
 
         return np.array(offset_response.correction_offset.data, dtype = np.float32)
     
-    def __apply_force_on_leg_tip(self, leg_id, desired_force):
+    def __apply_forces_on_leg_tips(self, legs_ids, desired_forces):
         with self.force_mode_locker:
-            self.force_mode_legs_ids = np.array([leg_id], dtype = np.int8)
+            self.force_mode_legs_ids = np.array(legs_ids, dtype = np.int8)
             self.is_force_mode = True
-            self.f_d[leg_id] = np.array(desired_force, dtype = np.float32)
+            self.f_d[legs_ids] = np.array(desired_forces, dtype = np.float32)
 
     def __set_bus_watchdog(self, value):
         request = SetBusWatchdog.Request()
@@ -558,7 +563,7 @@ class JointVelocityController(Node):
         self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.callback_group)
         self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.callback_group)
         self.distribute_forces_service = self.create_service(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.callback_group)
-        self.apply_force_on_leg_service = self.create_service(ApplyForceLeg, gid.APPLY_FORCE_ON_LEG_SERVICE, self.apply_force_on_leg_callback, callback_group = self.callback_group)
+        self.apply_force_on_leg_service = self.create_service(ApplyForcesOnLegs, gid.APPLY_FORCES_ON_LEGS_SERVICE, self.apply_forces_on_legs_callback, callback_group = self.callback_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.callback_group)
         self.toggle_additional_controller_mode_service = self.create_service(
             ToggleAdditionalControllerMode,
