@@ -32,7 +32,7 @@ class WaterPumpBnoController(Node):
     # TODO: Change to 35 after breaks are added.
     @property
     def RECEIVED_MESSAGE_LENGTH(self):
-        return 31
+        return 35
     
     @property
     def DEVICE_NAME(self):
@@ -114,8 +114,7 @@ class WaterPumpBnoController(Node):
         y_gravity = float(received_msg[20 : 25])
         z_gravity = float(received_msg[25 : 30])
 
-        # battery_voltage = float(received_msg[30 : 34])
-        battery_voltage = float('17.4')
+        battery_voltage = float(received_msg[30 : 34])
 
         gravity_vector = np.array([x_gravity, y_gravity, z_gravity], dtype = np.float32)
         rpy = np.array([roll, pitch, yaw], dtype = np.float32)
