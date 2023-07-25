@@ -7,7 +7,7 @@ from std_msgs.msg import Float32MultiArray, Float32
 
 from arduino_communication.arduino_comm import ArduinoComm
 
-from gwpspider_interfaces.srv import ControlWaterPump, InitBno
+from gwpspider_interfaces.srv import ControlWaterPump, InitBno, BreaksControl
 from gwpspider_interfaces.msg import BnoData
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
@@ -15,11 +15,10 @@ class WaterPumpBnoController(Node):
     def __init__(self):
         Node.__init__(self, 'water_pumps_bno_controller')
 
-        self.PUMPS_FLOWS = [1.97, 2.05, 4.28]
-
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
         self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback)
         self.init_bno_service = self.create_service(InitBno, gid.INIT_BNO_SERVICE, self.init_bno_callback)
+        self.breaks_control_service = self.create_service(BreaksControl, gid.BREAKS_SERVICE, self.breaks_control_callback)
 
         timer_period = 0
         self.bno_reading_publisher = self.create_publisher(BnoData, gid.BNO_DATA_TOPIC, 1)
@@ -27,8 +26,13 @@ class WaterPumpBnoController(Node):
         self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1)
     
     @property
+    def PUMPS_FLOWS(self):
+        return [1.97, 2.05, 4.28]
+
+    # TODO: Change to 35 after breaks are added.
+    @property
     def RECEIVED_MESSAGE_LENGTH(self):
-        return 35
+        return 31
     
     @property
     def DEVICE_NAME(self):
@@ -78,6 +82,11 @@ class WaterPumpBnoController(Node):
 
         if command not in (self.BREAKS_OFF_COMMAND, self.BREAKS_ON_COMMAND):
             self.get_logger().info(f"Command {command} not recognized.")
+            response.success = False
+            return response
+        
+        if not (0 <= break_id <= 5):
+            self.get_logger().info(f"Break with ID {break_id} is not recognized.")
             response.success = False
             return response
 

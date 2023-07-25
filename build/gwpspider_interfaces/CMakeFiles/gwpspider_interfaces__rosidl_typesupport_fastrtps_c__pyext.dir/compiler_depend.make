@@ -332,8 +332,15 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
   rosidl_generator_c/gwpspider_interfaces/srv/detail/spider_goal__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__functions.h:
 
@@ -540,6 +547,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/get_spider_pose__type_support
 rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__struct.h:
 
 /usr/include/assert.h:
 
