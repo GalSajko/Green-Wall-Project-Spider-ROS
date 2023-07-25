@@ -24,6 +24,8 @@ file(REMOVE_RECURSE
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/__init__.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_apply_forces_on_legs.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_apply_forces_on_legs_s.c"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_breaks_control.py"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_breaks_control_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_control_water_pump_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_distribute_forces.py"

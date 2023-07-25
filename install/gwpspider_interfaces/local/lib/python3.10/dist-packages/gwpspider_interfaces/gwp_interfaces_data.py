@@ -2,6 +2,7 @@
 # Arduino
 GRIPPER_STATES_TOPIC = 'grippers_states'
 BNO_DATA_TOPIC = 'bno_data_topic'
+BATTERY_VOLTAGE_TOPIC = 'battery_voltage_topic'
 
 # Controller
 LEGS_STATES_TOPIC = 'legs_states_topic'
@@ -19,6 +20,7 @@ SPIDER_POSE_TOPIC = 'spider_pose_topic'
 MOVE_GRIPPER_SERVICE = 'move_gripper_service'
 WATER_PUMP_SERVICE = 'water_pump_service'
 INIT_BNO_SERVICE = 'init_bno_service'
+BREAKS_SERVICE = 'breaks_service'
 
 # Controller
 MOVE_LEG_SERVICE = 'move_leg_service'

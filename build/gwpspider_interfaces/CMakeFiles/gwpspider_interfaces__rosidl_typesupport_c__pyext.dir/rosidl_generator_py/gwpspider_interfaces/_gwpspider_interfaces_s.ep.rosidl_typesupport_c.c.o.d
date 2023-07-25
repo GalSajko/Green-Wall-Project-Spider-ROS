@@ -291,4 +291,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generato
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/spider_goal__functions.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__type_support.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__struct.h \
- /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__functions.h
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__functions.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__type_support.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__struct.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__functions.h

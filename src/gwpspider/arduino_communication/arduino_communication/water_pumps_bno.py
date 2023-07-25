@@ -3,7 +3,7 @@ from rclpy.node import Node
 import numpy as np
 import time
 
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float32MultiArray, Float32
 
 from arduino_communication.arduino_comm import ArduinoComm
 
@@ -24,10 +24,11 @@ class WaterPumpBnoController(Node):
         timer_period = 0
         self.bno_reading_publisher = self.create_publisher(BnoData, gid.BNO_DATA_TOPIC, 1)
         self.timer = self.create_timer(timer_period, self.get_gravity_vector_callback)
+        self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1)
     
     @property
     def RECEIVED_MESSAGE_LENGTH(self):
-        return 31
+        return 35
     
     @property
     def DEVICE_NAME(self):
@@ -40,6 +41,14 @@ class WaterPumpBnoController(Node):
     @property
     def PUMP_ON_COMMAND(self):
         return '1'
+    
+    @property
+    def BREAKS_OFF_COMMAND(self):
+        return '4'
+
+    @property
+    def BREAKS_ON_COMMAND(self):
+        return '5'
     
     def water_pump_control_callback(self, request, response):
         pump_id = request.pump
@@ -63,6 +72,21 @@ class WaterPumpBnoController(Node):
         response.success = True
         return response
     
+    def breaks_control_callback(self, request, response):
+        break_id = request.break_id
+        command = request.command
+
+        if command not in (self.BREAKS_OFF_COMMAND, self.BREAKS_ON_COMMAND):
+            self.get_logger().info(f"Command {command} not recognized.")
+            response.success = False
+            return response
+
+        msg = command + str(break_id) + '\n'
+        self.arduino_comm.write(msg)
+
+        response.success = True
+        return response
+    
     def init_bno_callback(self, request, response):
         msg = request.command + '\n'
         self.arduino_comm.write(msg)
@@ -81,15 +105,20 @@ class WaterPumpBnoController(Node):
         y_gravity = float(received_msg[20 : 25])
         z_gravity = float(received_msg[25 : 30])
 
+        # battery_voltage = float(received_msg[30 : 34])
+        battery_voltage = float('17.4')
+
         gravity_vector = np.array([x_gravity, y_gravity, z_gravity], dtype = np.float32)
         rpy = np.array([roll, pitch, yaw], dtype = np.float32)
 
         gravity_vector_msg = Float32MultiArray(data = gravity_vector)
         rpy_msg = Float32MultiArray(data = rpy)
 
-        msg = BnoData(rpy = rpy_msg, gravity_vector = gravity_vector_msg)
+        bno_msg = BnoData(rpy = rpy_msg, gravity_vector = gravity_vector_msg)
+        voltage_msg = Float32(data = battery_voltage)
         
-        self.bno_reading_publisher.publish(msg)
+        self.bno_reading_publisher.publish(bno_msg)
+        self.battery_voltage_publisher.publish(voltage_msg)
 
 
 def main():

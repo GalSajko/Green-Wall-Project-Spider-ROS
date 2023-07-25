@@ -17,8 +17,8 @@ from calculations import kinematics as kin
 from calculations import dynamics as dyn
 from calculations import transformations as tf
 
+import gwpspider_interfaces.srv as gwp_services
 from gwpspider_interfaces.msg import LegsStates
-from gwpspider_interfaces.srv import MoveLeg, GetLegTrajectory, MoveSpider, ToggleController, DistributeForces, MoveGripper, ApplyForcesOnLegs, GetSpiderPose, MoveLegVelocityMode, ToggleAdditionalControllerMode, GetCorrectionOffset, SetBusWatchdog
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
@@ -230,7 +230,6 @@ class JointVelocityController(Node):
                 f_a = self.legs_forces[leg_id]
             force_to_apply = np.array([np.sign(f_a[0]) * (-1), np.sign(f_a[1]) * (-1), -self.MAX_ALLOWED_FORCE])
             self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
-            # time.sleep(0.5)
 
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
                 response.success = False
@@ -545,43 +544,48 @@ class JointVelocityController(Node):
         return np.array(offset_response.correction_offset.data, dtype = np.float32)
     
     def __apply_forces_on_leg_tips(self, legs_ids, desired_forces):
+        try:
+            _ = iter(legs_ids)
+            legs_ids = np.array(legs_ids, dtype = np.int8)
+        except TypeError:
+            legs_ids = np.array([legs_ids], dtype = np.int8)
         with self.force_mode_locker:
-            self.force_mode_legs_ids = np.array(legs_ids, dtype = np.int8)
+            self.force_mode_legs_ids = legs_ids
             self.is_force_mode = True
             self.f_d[legs_ids] = np.array(desired_forces, dtype = np.float32)
 
     def __set_bus_watchdog(self, value):
-        request = SetBusWatchdog.Request()
+        request = gwp_services.SetBusWatchdog.Request()
         request.value = value
         response = custom_interface_helper.async_service_call(self.set_bus_watchdog_service, request, self)
     
     def __init_interfaces(self):
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
 
-        self.toggle_controller_service = self.create_service(ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
-        self.move_leg_service = self.create_service(MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.callback_group)
-        self.move_spider_service = self.create_service(MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.callback_group)
-        self.move_leg_velocity_mode_service = self.create_service(MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.callback_group)
-        self.distribute_forces_service = self.create_service(DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.callback_group)
-        self.apply_force_on_leg_service = self.create_service(ApplyForcesOnLegs, gid.APPLY_FORCES_ON_LEGS_SERVICE, self.apply_forces_on_legs_callback, callback_group = self.callback_group)
+        self.toggle_controller_service = self.create_service(gwp_services.ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
+        self.move_leg_service = self.create_service(gwp_services.MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.callback_group)
+        self.move_spider_service = self.create_service(gwp_services.MoveSpider, gid.MOVE_SPIDER_SERVICE, self.move_spider_callback, callback_group = self.callback_group)
+        self.move_leg_velocity_mode_service = self.create_service(gwp_services.MoveLegVelocityMode, gid.MOVE_LEG_VELOCITY_MODE_SERVICE, self.move_leg_velocity_mode_callback, callback_group = self.callback_group)
+        self.distribute_forces_service = self.create_service(gwp_services.DistributeForces, gid.DISTRIBUTE_FORCES_SERVICE, self.distribute_forces_callback, callback_group = self.callback_group)
+        self.apply_force_on_leg_service = self.create_service(gwp_services.ApplyForcesOnLegs, gid.APPLY_FORCES_ON_LEGS_SERVICE, self.apply_forces_on_legs_callback, callback_group = self.callback_group)
         self.update_last_legs_positions_service = self.create_service(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, self.update_last_legs_positions_callback, callback_group = self.callback_group)
         self.toggle_additional_controller_mode_service = self.create_service(
-            ToggleAdditionalControllerMode,
+            gwp_services.ToggleAdditionalControllerMode,
             gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE,
             self.toggle_additional_controller_mode_callback,
             callback_group = self.callback_group
         )
 
-        self.leg_trajectory_client = self.create_client(GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
+        self.leg_trajectory_client = self.create_client(gwp_services.GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
         while not self.leg_trajectory_client.wait_for_service(timeout_sec = 1.0):
             print("Trajectory service not available...")  
-        self.move_gripper_client = self.create_client(MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
+        self.move_gripper_client = self.create_client(gwp_services.MoveGripper, gid.MOVE_GRIPPER_SERVICE, callback_group = self.callback_group)
         while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
             print("Gripper service not available...")          
-        self.get_correction_offset_client = self.create_client(GetCorrectionOffset, gid.GET_CORRECTION_OFFSET_SERVICE, callback_group = self.callback_group)
+        self.get_correction_offset_client = self.create_client(gwp_services.GetCorrectionOffset, gid.GET_CORRECTION_OFFSET_SERVICE, callback_group = self.callback_group)
         while not self.get_correction_offset_client.wait_for_service(timeout_sec = 1.0):
             print("Offset prediction model service not available...")  
-        self.set_bus_watchdog_service = self.create_client(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
+        self.set_bus_watchdog_service = self.create_client(gwp_services.SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
         while not self.set_bus_watchdog_service.wait_for_service(timeout_sec = 1.0):
             print("Bus watchdog service not available...")  
 

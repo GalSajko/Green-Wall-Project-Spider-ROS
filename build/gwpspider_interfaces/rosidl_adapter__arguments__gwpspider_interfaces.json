@@ -28,6 +28,7 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/MoveLegVelocityMode.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/ToggleAdditionalControllerMode.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/SpiderGoal.srv",
-    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetCorrectionOffset.srv"
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetCorrectionOffset.srv",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/BreaksControl.srv"
   ]
 }

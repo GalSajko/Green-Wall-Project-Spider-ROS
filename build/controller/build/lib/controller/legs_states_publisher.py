@@ -19,33 +19,21 @@ class LegsStatesPublisher(Node):
     def __init__(self):
         Node.__init__(self, 'legs_states_publisher')
 
-        self.callback_group = ReentrantCallbackGroup()
-
-        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
-        self.bno_data_subscriber = self.create_subscription(BnoData, gid.BNO_DATA_TOPIC, self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
-
         self.graviy_vector_locker = threading.Lock()
-        self.legs_states_msg_locker = threading.Lock()
 
         self.gravity_vector = None
-        self.legs_states_msg = None
 
         self.force_buffer = np.zeros((10, spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.tau_buffer = np.zeros((10, spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.tau_counter = 0
         self.force_counter = 0
 
+        self.callback_group = ReentrantCallbackGroup()
+        self.motors_data_subscriber = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.calculate_legs_states_callback, 1, callback_group = self.callback_group)
+        self.bno_data_subscriber = self.create_subscription(BnoData, gid.BNO_DATA_TOPIC, self.read_gravity_vector_callback, 1, callback_group = self.callback_group)
         self.legs_states_publisher = self.create_publisher(LegsStates, gid.LEGS_STATES_TOPIC, 1, callback_group = self.callback_group)
-        self.timer = self.create_timer(0.005, self.publish_legs_states_callback, callback_group = self.callback_group)
 
         self.get_logger().info("Legs states publisher is running.")
-
-    def publish_legs_states_callback(self):
-        with self.legs_states_msg_locker:
-            legs_states_msg = self.legs_states_msg
-
-        if legs_states_msg is not None:
-            self.legs_states_publisher.publish(self.legs_states_msg)
 
     def calculate_legs_states_callback(self, msg):
         q_a = np.reshape(msg.positions.data, (msg.positions.layout.dim[0].size, msg.positions.layout.dim[1].size))
@@ -62,8 +50,9 @@ class LegsStatesPublisher(Node):
 
             msg_list = custom_interface_helper.create_multiple_2d_array_messages((q_a, x_a, force_mean, tau_mean))
 
-            with self.legs_states_msg_locker:
-                self.legs_states_msg = LegsStates(joints_positions = msg_list[0], legs_local_positions = msg_list[1], forces = msg_list[2], torques = msg_list[3])
+            legs_states_msg = LegsStates(joints_positions = msg_list[0], legs_local_positions = msg_list[1], forces = msg_list[2], torques = msg_list[3])
+            
+            self.legs_states_publisher.publish(legs_states_msg)
 
     def read_gravity_vector_callback(self, msg):
         with self.graviy_vector_locker:
