@@ -330,7 +330,7 @@ class JointVelocityController(Node):
     
     def toggle_additional_controller_mode_callback(self, request, response):
         if request.mode not in (robot_config.VELOCITY_MODE, robot_config.FORCE_MODE):
-            self.get_logger().info(f"Controller mode {request.mode} not recognized.")
+            self.get_logger().info(f"Controller mode '{request.mode}' not recognized.")
             response.success = False
             return response
         
@@ -343,6 +343,9 @@ class JointVelocityController(Node):
         else:
             with self.force_mode_locker:
                 self.is_force_mode = bool_command
+        
+        response.success = True
+        return response
     
     def distribute_forces_callback(self, request, response):
         with self.force_mode_locker:

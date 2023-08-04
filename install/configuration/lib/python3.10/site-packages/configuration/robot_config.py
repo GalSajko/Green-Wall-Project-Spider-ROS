@@ -29,17 +29,8 @@ RESTING_STATE = 'resting'
 TRANSITION_STATE = 'transition'
 
 # ADDITIONAL CONTROLLER MODES NAMES
-FORCE_MODE = 'force_mode'
-VELOCITY_MODE = 'velocity_mode'
-
-# THREAD NAMES
-WORKING_THREAD_NAME = 'working_thread'
-TRANSITION_THREAD_NAME = 'transition_thread'
-RESTING_THREAD_NAME = 'resting_thread'
-SAFETY_THREAD_NAME = 'safety_thread'
-CONTROL_THREAD_NAME = 'control_thread'
-UPDATE_DATA_THREAD_NAME = 'update_data_thread'
-SEND_MESSAGE_DATA_THREAD_NAME = 'send_message_thread'
+FORCE_MODE = 'force'
+VELOCITY_MODE = 'velocity'
 
 # SPIDER STATE DICT KEYS
 STATE_DICT_POSE_KEY = 'pose'

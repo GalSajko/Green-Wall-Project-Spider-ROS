@@ -1,7 +1,11 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import ReentrantCallbackGroup, MutuallyExclusiveCallbackGroup
+
 import numpy as np
 import time
+import threading
 
 from std_msgs.msg import Float32MultiArray, Float32
 
@@ -15,15 +19,18 @@ class WaterPumpBnoController(Node):
     def __init__(self):
         Node.__init__(self, 'water_pumps_bno_controller')
 
+        self.reentrant_callback_group = ReentrantCallbackGroup()
+        self.serial_comm_locker = threading.Lock()
+
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
-        self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback)
-        self.init_bno_service = self.create_service(InitBno, gid.INIT_BNO_SERVICE, self.init_bno_callback)
-        self.breaks_control_service = self.create_service(BreaksControl, gid.BREAKS_SERVICE, self.breaks_control_callback)
+        self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback, callback_group = self.reentrant_callback_group)
+        self.init_bno_service = self.create_service(InitBno, gid.INIT_BNO_SERVICE, self.init_bno_callback, callback_group = self.reentrant_callback_group)
+        self.breaks_control_service = self.create_service(BreaksControl, gid.BREAKS_SERVICE, self.breaks_control_callback, callback_group = self.reentrant_callback_group)
 
         timer_period = 0
-        self.bno_reading_publisher = self.create_publisher(BnoData, gid.BNO_DATA_TOPIC, 1)
-        self.timer = self.create_timer(timer_period, self.get_gravity_vector_callback)
-        self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1)
+        self.bno_reading_publisher = self.create_publisher(BnoData, gid.BNO_DATA_TOPIC, 1, callback_group = self.reentrant_callback_group)
+        self.timer = self.create_timer(timer_period, self.get_bno_and_battery_data_callback, callback_group = self.reentrant_callback_group)
+        self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1, callback_group = self.reentrant_callback_group)
     
     @property
     def PUMPS_FLOWS(self):
@@ -62,7 +69,8 @@ class WaterPumpBnoController(Node):
         watering_time = volume / flow
 
         msg = self.PUMP_ON_COMMAND + str(pump_id) + '\n'
-        self.arduino_comm.write(msg)
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
 
         start_time = time.time()
         elapsed_time = 0.0
@@ -71,7 +79,8 @@ class WaterPumpBnoController(Node):
             time.sleep(0.01)
 
         msg = self.PUMP_OFF_COMMAND + str(pump_id) + '\n'
-        self.arduino_comm.write(msg)
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
 
         response.success = True
         return response
@@ -91,20 +100,23 @@ class WaterPumpBnoController(Node):
             return response
 
         msg = command + str(break_id) + '\n'
-        self.arduino_comm.write(msg)
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
 
         response.success = True
         return response
     
     def init_bno_callback(self, request, response):
         msg = request.command + '\n'
-        self.arduino_comm.write(msg)
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
 
         response.success = True
         return response
     
-    def get_gravity_vector_callback(self):
-        received_msg = self.arduino_comm.read()
+    def get_bno_and_battery_data_callback(self):
+        with self.serial_comm_locker:
+            received_msg = self.arduino_comm.read()
 
         roll = float(received_msg[0 : 5])
         pitch = float(received_msg[5 : 10])
@@ -132,7 +144,8 @@ class WaterPumpBnoController(Node):
 def main():
     rclpy.init()
     water_pumps_bno_controller = WaterPumpBnoController()
-    rclpy.spin(water_pumps_bno_controller)
+    executor = MultiThreadedExecutor()
+    rclpy.spin(water_pumps_bno_controller, executor)
     rclpy.shutdown()
 
 if __name__ == '__main__':
