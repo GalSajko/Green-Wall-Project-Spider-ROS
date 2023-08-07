@@ -7,6 +7,7 @@ import numpy as np
 import threading
 import queue
 import time
+from matplotlib import pyplot as plt
 
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger
@@ -18,7 +19,7 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 import gwpspider_interfaces.srv as gwp_services
-from gwpspider_interfaces.msg import LegsStates
+from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
@@ -31,6 +32,9 @@ class JointVelocityController(Node):
         self.legs_last_positons_locker = threading.Lock()
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.last_legs_position_errors = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
+
+        self.collect_data = False
+        self.currents_data = []
 
         self.do_init = True
         self.toggle_controller_locker = threading.Lock()
@@ -301,11 +305,25 @@ class JointVelocityController(Node):
         for leg_id in legs_ids:
             self.command_queues[leg_id].put(self.sentinel)
 
+        self.collect_data = True
         time.sleep(duration + 0.5)
+        self.collect_data = False
+
+        time_vector = np.linspace(0, duration + 0.5, len(self.currents_data))
+
+        currents_data = np.array(self.currents_data)
+
+        np.savetxt('currents_1.csv', np.c_[currents_data, time_vector], delimiter = ',')
         
         response.success = True
         self.get_logger().info("Spider has moved.")
         return response
+
+    def read_dxl_data_callback(self, msg):
+        if self.collect_data:
+            currents = msg.currents.data
+            self.currents_data.append(currents)
+
  
     def read_legs_states_callback(self, msg):
         with self.legs_states_locker:
@@ -564,6 +582,8 @@ class JointVelocityController(Node):
     
     def __init_interfaces(self):
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
+
+        self.test_dxl_data = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.read_dxl_data_callback, 1, callback_group = self.callback_group)
 
         self.toggle_controller_service = self.create_service(gwp_services.ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
         self.move_leg_service = self.create_service(gwp_services.MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.callback_group)

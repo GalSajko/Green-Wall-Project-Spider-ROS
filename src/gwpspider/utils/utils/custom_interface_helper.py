@@ -155,6 +155,15 @@ def prepare_toggle_controller_mode_request(request_data):
 
     return request
 
+def prepare_toggle_motors_torque_request(request_data):
+    legs_ids, command = request_data
+
+    request = gwp_services.ToggleMotorsTorque.Request()
+    request.legs_ids = Int8MultiArray(data = legs_ids)
+    request.command = command
+
+    return request
+
 def prepare_get_correction_offset_request(request_data):
     legs_current_positions, rpy, leg_goal_position, one_hot_legs = request_data
 
@@ -172,6 +181,15 @@ def prepare_water_pump_request(request_data):
     request = gwp_services.ControlWaterPump.Request()
     request.pump = pump_id
     request.volume = volume
+
+    return request
+
+def prepare_apply_forces_on_legs_request(request_data):
+    legs_ids, desired_forces = request_data
+
+    request = gwp_services.ApplyForcesOnLegs.Request()
+    request.legs_ids = Int8MultiArray(data = legs_ids)
+    request.desired_forces = create_multiple_2d_array_messages([desired_forces])
 
     return request
 

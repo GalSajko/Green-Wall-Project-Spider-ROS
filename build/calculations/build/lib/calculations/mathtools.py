@@ -53,6 +53,29 @@ def running_average(buffer: list, counter: int, new_value: list) -> tuple[float,
 
     return average, buffer, counter
 
+def integrate_array(buffer: np.ndarray, new_values: np.ndarray, counter: int) -> tuple[np.ndarray, np.ndarray, int]:
+    """Integrate array element wise.
+
+    Args:
+        buffer (np.ndarray): Array to integrate
+        new_values (np.ndarray): New values to be added at the end of the array.
+        counter (int): Index at which new values are writen in array, if it is not already full.
+
+    Returns:
+        tuple: Element wise sum of buffer, shifted buffer, updated counter.
+    """
+    if counter < len(buffer):
+        buffer[counter] = new_values
+        counter += 1
+
+        return np.sum(buffer, axis = 0), buffer, counter
+    
+    buffer = np.roll(buffer, -1, axis = 0)
+    buffer[-1] = new_values
+
+    return np.sum(buffer, axis = 0), buffer, counter
+
+
 @numba.jit(nopython = True, cache = True)
 def damped_pseudoinverse(J: np.ndarray, damping: float = robot_config.FORCE_DAMPING) -> np.ndarray:
     """Calculate damped Moore-Penrose pseudo inverse.

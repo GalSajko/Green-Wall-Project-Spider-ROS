@@ -1,0 +1,23 @@
+[1.375s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/offset_prediction_model': PYTHONPATH=/home/spider/gwpspider_ws/build/offset_prediction_model/prefix_override:/home/spider/gwpspider_ws/install/offset_prediction_model/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/offset_prediction_model build --build-base /home/spider/gwpspider_ws/build/offset_prediction_model/build install --record /home/spider/gwpspider_ws/build/offset_prediction_model/install.log --single-version-externally-managed
+[1.735s] running egg_info
+[1.736s] writing ../../../build/offset_prediction_model/offset_prediction_model.egg-info/PKG-INFO
+[1.737s] writing dependency_links to ../../../build/offset_prediction_model/offset_prediction_model.egg-info/dependency_links.txt
+[1.737s] writing entry points to ../../../build/offset_prediction_model/offset_prediction_model.egg-info/entry_points.txt
+[1.737s] writing requirements to ../../../build/offset_prediction_model/offset_prediction_model.egg-info/requires.txt
+[1.737s] writing top-level names to ../../../build/offset_prediction_model/offset_prediction_model.egg-info/top_level.txt
+[1.740s] reading manifest file '../../../build/offset_prediction_model/offset_prediction_model.egg-info/SOURCES.txt'
+[1.741s] writing manifest file '../../../build/offset_prediction_model/offset_prediction_model.egg-info/SOURCES.txt'
+[1.741s] running build
+[1.741s] running build_py
+[1.742s] running install
+[1.742s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[1.742s]   warnings.warn(
+[1.742s] running install_lib
+[1.744s] running install_data
+[1.745s] running install_egg_info
+[1.747s] removing '/home/spider/gwpspider_ws/install/offset_prediction_model/lib/python3.10/site-packages/offset_prediction_model-0.0.0-py3.10.egg-info' (and everything under it)
+[1.750s] Copying ../../../build/offset_prediction_model/offset_prediction_model.egg-info to /home/spider/gwpspider_ws/install/offset_prediction_model/lib/python3.10/site-packages/offset_prediction_model-0.0.0-py3.10.egg-info
+[1.752s] running install_scripts
+[1.785s] Installing offset_predictor script to /home/spider/gwpspider_ws/install/offset_prediction_model/lib/offset_prediction_model
+[1.786s] writing list of installed files to '/home/spider/gwpspider_ws/build/offset_prediction_model/install.log'
+[1.830s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/offset_prediction_model' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/offset_prediction_model/prefix_override:/home/spider/gwpspider_ws/install/offset_prediction_model/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/offset_prediction_model build --build-base /home/spider/gwpspider_ws/build/offset_prediction_model/build install --record /home/spider/gwpspider_ws/build/offset_prediction_model/install.log --single-version-externally-managed

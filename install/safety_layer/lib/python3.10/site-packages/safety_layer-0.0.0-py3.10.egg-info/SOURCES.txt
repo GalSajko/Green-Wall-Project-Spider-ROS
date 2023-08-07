@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../../build/safety_layer/safety_layer.egg-info/PKG-INFO
+../../../build/safety_layer/safety_layer.egg-info/SOURCES.txt
+../../../build/safety_layer/safety_layer.egg-info/dependency_links.txt
+../../../build/safety_layer/safety_layer.egg-info/entry_points.txt
+../../../build/safety_layer/safety_layer.egg-info/requires.txt
+../../../build/safety_layer/safety_layer.egg-info/top_level.txt
+../../../build/safety_layer/safety_layer.egg-info/zip-safe
+resource/safety_layer
+safety_layer/__init__.py
+safety_layer/safety.py
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py

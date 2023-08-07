@@ -22,7 +22,7 @@ from std_srvs.srv import Empty
 
 class App(Node):
     def __init__(self):
-        Node.__init__(self, 'application')
+        Node.__init__(self, 'application') 
 
         self.is_init = True
         self.use_prediction_model = True

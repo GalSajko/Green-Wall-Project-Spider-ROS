@@ -42,5 +42,10 @@ def generate_launch_description():
             package = 'offset_prediction_model',
             executable = 'offset_predictor',
             name = 'offset_predictor'
-        )
+        ),
+        # Node(
+        #     package = 'safety_layer',
+        #     executable = 'safety',
+        #     name = 'safety_node'
+        # )
     ])
