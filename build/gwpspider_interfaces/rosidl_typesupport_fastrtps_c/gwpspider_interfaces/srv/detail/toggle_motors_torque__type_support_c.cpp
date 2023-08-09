@@ -36,7 +36,7 @@ extern "C"
 
 #include "rosidl_runtime_c/string.h"  // command
 #include "rosidl_runtime_c/string_functions.h"  // command
-#include "std_msgs/msg/detail/int8_multi_array__functions.h"  // legs_ids
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"  // motors_ids
 
 // forward declare type support functions
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
@@ -66,7 +66,7 @@ static bool _ToggleMotorsTorque_Request__cdr_serialize(
     return false;
   }
   const _ToggleMotorsTorque_Request__ros_msg_type * ros_message = static_cast<const _ToggleMotorsTorque_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: legs_ids
+  // Field name: motors_ids
   {
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
@@ -74,7 +74,7 @@ static bool _ToggleMotorsTorque_Request__cdr_serialize(
         rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
       )()->data);
     if (!callbacks->cdr_serialize(
-        &ros_message->legs_ids, cdr))
+        &ros_message->motors_ids, cdr))
     {
       return false;
     }
@@ -106,7 +106,7 @@ static bool _ToggleMotorsTorque_Request__cdr_deserialize(
     return false;
   }
   _ToggleMotorsTorque_Request__ros_msg_type * ros_message = static_cast<_ToggleMotorsTorque_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: legs_ids
+  // Field name: motors_ids
   {
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
@@ -114,7 +114,7 @@ static bool _ToggleMotorsTorque_Request__cdr_deserialize(
         rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
       )()->data);
     if (!callbacks->cdr_deserialize(
-        cdr, &ros_message->legs_ids))
+        cdr, &ros_message->motors_ids))
     {
       return false;
     }
@@ -153,10 +153,10 @@ size_t get_serialized_size_gwpspider_interfaces__srv__ToggleMotorsTorque_Request
   (void)padding;
   (void)wchar_size;
 
-  // field.name legs_ids
+  // field.name motors_ids
 
   current_alignment += get_serialized_size_std_msgs__msg__Int8MultiArray(
-    &(ros_message->legs_ids), current_alignment);
+    &(ros_message->motors_ids), current_alignment);
   // field.name command
   current_alignment += padding +
     eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
@@ -188,7 +188,7 @@ size_t max_serialized_size_gwpspider_interfaces__srv__ToggleMotorsTorque_Request
   full_bounded = true;
   is_plain = true;
 
-  // member: legs_ids
+  // member: motors_ids
   {
     size_t array_size = 1;
 

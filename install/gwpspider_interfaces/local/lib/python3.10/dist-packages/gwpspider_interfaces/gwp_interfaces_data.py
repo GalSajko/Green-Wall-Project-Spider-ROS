@@ -32,6 +32,7 @@ UPDATE_LAST_LEGS_POSITIONS_SERVICE = 'update_last_legs_positions_service'
 GET_SPIDER_POSE_SERVICE = 'get_spider_pose_service'
 MOVE_LEG_VELOCITY_MODE_SERVICE = 'move_leg_velocity_mode_service'
 TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE = 'toggle_additional_controller_mode_service'
+STOP_LEGS_SERVICE = 'stop_legs_service'
 
 #Server
 SEND_GOAL_SERVICE = 'spider_goal_service'

@@ -138,10 +138,10 @@ def prepare_get_spider_pose_request(request_data):
     return request
 
 def prepare_move_leg_velocity_mode_request(request_data):
-    leg_id, velocity_mode_direction = request_data
+    legs_ids, velocity_mode_direction = request_data
 
     request = gwp_services.MoveLegVelocityMode.Request()
-    request.leg_id = int(leg_id)
+    request.legs_ids = Int8MultiArray(data = legs_ids)
     request.velocity_mode_direction = Float32MultiArray(data = velocity_mode_direction)
 
     return request
@@ -156,10 +156,10 @@ def prepare_toggle_controller_mode_request(request_data):
     return request
 
 def prepare_toggle_motors_torque_request(request_data):
-    legs_ids, command = request_data
+    motors_ids, command = request_data
 
     request = gwp_services.ToggleMotorsTorque.Request()
-    request.legs_ids = Int8MultiArray(data = legs_ids)
+    request.motors_ids = Int8MultiArray(data = motors_ids)
     request.command = command
 
     return request

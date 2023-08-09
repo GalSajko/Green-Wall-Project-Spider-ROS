@@ -1,2 +1,3 @@
-int8 leg_id
+std_msgs/Int8MultiArray legs_ids
 std_msgs/Float32MultiArray velocity_mode_direction
+string threshold_type

@@ -18,7 +18,7 @@ extern "C"
 // Constants defined in the message
 
 // Include directives for member types
-// Member 'legs_ids'
+// Member 'motors_ids'
 #include "std_msgs/msg/detail/int8_multi_array__struct.h"
 // Member 'command'
 #include "rosidl_runtime_c/string.h"
@@ -26,7 +26,7 @@ extern "C"
 /// Struct defined in srv/ToggleMotorsTorque in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__ToggleMotorsTorque_Request
 {
-  std_msgs__msg__Int8MultiArray legs_ids;
+  std_msgs__msg__Int8MultiArray motors_ids;
   rosidl_runtime_c__String command;
 } gwpspider_interfaces__srv__ToggleMotorsTorque_Request;
 

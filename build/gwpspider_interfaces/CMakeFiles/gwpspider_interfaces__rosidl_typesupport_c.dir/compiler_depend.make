@@ -897,11 +897,12 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/g
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \

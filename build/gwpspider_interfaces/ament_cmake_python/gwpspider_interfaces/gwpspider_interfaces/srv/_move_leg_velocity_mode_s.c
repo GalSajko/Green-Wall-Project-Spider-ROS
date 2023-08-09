@@ -16,6 +16,13 @@
 #include "gwpspider_interfaces/srv/detail/move_leg_velocity_mode__struct.h"
 #include "gwpspider_interfaces/srv/detail/move_leg_velocity_mode__functions.h"
 
+#include "rosidl_runtime_c/string.h"
+#include "rosidl_runtime_c/string_functions.h"
+
+ROSIDL_GENERATOR_C_IMPORT
+bool std_msgs__msg__int8_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
+ROSIDL_GENERATOR_C_IMPORT
+PyObject * std_msgs__msg__int8_multi_array__convert_to_py(void * raw_ros_message);
 ROSIDL_GENERATOR_C_IMPORT
 bool std_msgs__msg__float32_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
 ROSIDL_GENERATOR_C_IMPORT
@@ -54,13 +61,15 @@ bool gwpspider_interfaces__srv__move_leg_velocity_mode__request__convert_from_py
     assert(strncmp("gwpspider_interfaces.srv._move_leg_velocity_mode.MoveLegVelocityMode_Request", full_classname_dest, 76) == 0);
   }
   gwpspider_interfaces__srv__MoveLegVelocityMode_Request * ros_message = _ros_message;
-  {  // leg_id
-    PyObject * field = PyObject_GetAttrString(_pymsg, "leg_id");
+  {  // legs_ids
+    PyObject * field = PyObject_GetAttrString(_pymsg, "legs_ids");
     if (!field) {
       return false;
     }
-    assert(PyLong_Check(field));
-    ros_message->leg_id = (int8_t)PyLong_AsLong(field);
+    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->legs_ids)) {
+      Py_DECREF(field);
+      return false;
+    }
     Py_DECREF(field);
   }
   {  // velocity_mode_direction
@@ -72,6 +81,21 @@ bool gwpspider_interfaces__srv__move_leg_velocity_mode__request__convert_from_py
       Py_DECREF(field);
       return false;
     }
+    Py_DECREF(field);
+  }
+  {  // threshold_type
+    PyObject * field = PyObject_GetAttrString(_pymsg, "threshold_type");
+    if (!field) {
+      return false;
+    }
+    assert(PyUnicode_Check(field));
+    PyObject * encoded_field = PyUnicode_AsUTF8String(field);
+    if (!encoded_field) {
+      Py_DECREF(field);
+      return false;
+    }
+    rosidl_runtime_c__String__assign(&ros_message->threshold_type, PyBytes_AS_STRING(encoded_field));
+    Py_DECREF(encoded_field);
     Py_DECREF(field);
   }
 
@@ -96,11 +120,14 @@ PyObject * gwpspider_interfaces__srv__move_leg_velocity_mode__request__convert_t
     }
   }
   gwpspider_interfaces__srv__MoveLegVelocityMode_Request * ros_message = (gwpspider_interfaces__srv__MoveLegVelocityMode_Request *)raw_ros_message;
-  {  // leg_id
+  {  // legs_ids
     PyObject * field = NULL;
-    field = PyLong_FromLong(ros_message->leg_id);
+    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->legs_ids);
+    if (!field) {
+      return NULL;
+    }
     {
-      int rc = PyObject_SetAttrString(_pymessage, "leg_id", field);
+      int rc = PyObject_SetAttrString(_pymessage, "legs_ids", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
@@ -115,6 +142,23 @@ PyObject * gwpspider_interfaces__srv__move_leg_velocity_mode__request__convert_t
     }
     {
       int rc = PyObject_SetAttrString(_pymessage, "velocity_mode_direction", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
+  {  // threshold_type
+    PyObject * field = NULL;
+    field = PyUnicode_DecodeUTF8(
+      ros_message->threshold_type.data,
+      strlen(ros_message->threshold_type.data),
+      "replace");
+    if (!field) {
+      return NULL;
+    }
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "threshold_type", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

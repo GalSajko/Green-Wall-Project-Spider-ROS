@@ -13,10 +13,16 @@
 
 
 // Include directives for member types
+// Member `legs_ids`
+#include "std_msgs/msg/int8_multi_array.h"
+// Member `legs_ids`
+#include "std_msgs/msg/detail/int8_multi_array__rosidl_typesupport_introspection_c.h"
 // Member `velocity_mode_direction`
 #include "std_msgs/msg/float32_multi_array.h"
 // Member `velocity_mode_direction`
 #include "std_msgs/msg/detail/float32_multi_array__rosidl_typesupport_introspection_c.h"
+// Member `threshold_type`
+#include "rosidl_runtime_c/string_functions.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -37,16 +43,16 @@ void gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_
   gwpspider_interfaces__srv__MoveLegVelocityMode_Request__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_member_array[2] = {
+static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_member_array[3] = {
   {
-    "leg_id",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_INT8,  // type
+    "legs_ids",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
-    NULL,  // members of sub message
+    NULL,  // members of sub message (initialized later)
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces__srv__MoveLegVelocityMode_Request, leg_id),  // bytes offset in struct
+    offsetof(gwpspider_interfaces__srv__MoveLegVelocityMode_Request, legs_ids),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -71,13 +77,30 @@ static rosidl_typesupport_introspection_c__MessageMember gwpspider_interfaces__s
     NULL,  // fetch(index, &value) function pointer
     NULL,  // assign(index, value) function pointer
     NULL  // resize(index) function pointer
+  },
+  {
+    "threshold_type",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(gwpspider_interfaces__srv__MoveLegVelocityMode_Request, threshold_type),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
   }
 };
 
 static const rosidl_typesupport_introspection_c__MessageMembers gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_members = {
   "gwpspider_interfaces__srv",  // message namespace
   "MoveLegVelocityMode_Request",  // message name
-  2,  // number of fields
+  3,  // number of fields
   sizeof(gwpspider_interfaces__srv__MoveLegVelocityMode_Request),
   gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_member_array,  // message members
   gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -95,6 +118,8 @@ static rosidl_message_type_support_t gwpspider_interfaces__srv__MoveLegVelocityM
 ROSIDL_TYPESUPPORT_INTROSPECTION_C_EXPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, gwpspider_interfaces, srv, MoveLegVelocityMode_Request)() {
+  gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_member_array[0].members_ =
+    ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Int8MultiArray)();
   gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Float32MultiArray)();
   if (!gwpspider_interfaces__srv__MoveLegVelocityMode_Request__rosidl_typesupport_introspection_c__MoveLegVelocityMode_Request_message_type_support_handle.typesupport_identifier) {

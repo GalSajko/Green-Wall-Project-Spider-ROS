@@ -18,14 +18,19 @@ extern "C"
 // Constants defined in the message
 
 // Include directives for member types
+// Member 'legs_ids'
+#include "std_msgs/msg/detail/int8_multi_array__struct.h"
 // Member 'velocity_mode_direction'
 #include "std_msgs/msg/detail/float32_multi_array__struct.h"
+// Member 'threshold_type'
+#include "rosidl_runtime_c/string.h"
 
 /// Struct defined in srv/MoveLegVelocityMode in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__MoveLegVelocityMode_Request
 {
-  int8_t leg_id;
+  std_msgs__msg__Int8MultiArray legs_ids;
   std_msgs__msg__Float32MultiArray velocity_mode_direction;
+  rosidl_runtime_c__String threshold_type;
 } gwpspider_interfaces__srv__MoveLegVelocityMode_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__MoveLegVelocityMode_Request.

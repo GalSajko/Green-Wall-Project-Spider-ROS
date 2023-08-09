@@ -47,7 +47,7 @@ class MotorDriver(Node):
         
         self.__init_group_read_write()
         self.__init_port()
-        self.__toggle_motors_torque(spider.LEGS_IDS, robot_config.ENABLE_LEGS_COMMAND)
+        self.__toggle_motors_torque(self.motors_ids, robot_config.ENABLE_LEGS_COMMAND)
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.exclusive_callback_group = MutuallyExclusiveCallbackGroup()
@@ -183,7 +183,7 @@ class MotorDriver(Node):
     def toggle_motors_torque_callback(self, request, response):
         """Toggle torque in motors.
         """
-        legs_ids = request.legs_ids.data
+        motors_ids = request.motors_ids.data
         command = request.command
 
         if command == robot_config.ENABLE_LEGS_COMMAND:
@@ -192,7 +192,7 @@ class MotorDriver(Node):
                 response.success = False
                 return response
         
-        response.success = self.__toggle_motors_torque(legs_ids, command)
+        response.success = self.__toggle_motors_torque(motors_ids, command)
         return response
 
     def set_bus_watchdog_callback(self, request, response):
@@ -331,17 +331,20 @@ class MotorDriver(Node):
                 return False
         return True
     
-    def __toggle_motors_torque(self, legs_ids, command):
-        for leg_id in legs_ids:
-            if leg_id not in spider.LEGS_IDS:
-                self.get_logger().info(f"Leg with id {leg_id} does not exist.")
+    def __toggle_motors_torque(self, motors_ids, command):
+        motors_ids = np.array(motors_ids)
+        if np.shape(np.shape(motors_ids)) != (1,):
+            motors_ids = motors_ids.flatten()
+            
+        for motor_id in motors_ids:
+            if motor_id not in self.motors_ids:
+                self.get_logger().info(f"Motor with id {motor_id} does not exist.")
                 return False
             
-        motors_array = self.motors_ids[legs_ids].flatten()
         action = command == robot_config.ENABLE_LEGS_COMMAND
         message = 'enabled' if action else 'disabled'
 
-        for motor_id in motors_array:
+        for motor_id in motors_ids:
             with self.serial_comm_locker:
                 result, error = self.packet_handler.write1ByteTxRx(self.port_handler, motor_id, self.TORQUE_ENABLE_ADDR, action)
             success = self.__comm_result_and_error_reader(result, error)

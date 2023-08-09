@@ -34,7 +34,10 @@ extern "C"
 {
 #endif
 
+#include "rosidl_runtime_c/string.h"  // threshold_type
+#include "rosidl_runtime_c/string_functions.h"  // threshold_type
 #include "std_msgs/msg/detail/float32_multi_array__functions.h"  // velocity_mode_direction
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"  // legs_ids
 
 // forward declare type support functions
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
@@ -51,6 +54,20 @@ size_t max_serialized_size_std_msgs__msg__Float32MultiArray(
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
   ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Float32MultiArray)();
+ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
+size_t get_serialized_size_std_msgs__msg__Int8MultiArray(
+  const void * untyped_ros_message,
+  size_t current_alignment);
+
+ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
+size_t max_serialized_size_std_msgs__msg__Int8MultiArray(
+  bool & full_bounded,
+  bool & is_plain,
+  size_t current_alignment);
+
+ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
+const rosidl_message_type_support_t *
+  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray)();
 
 
 using _MoveLegVelocityMode_Request__ros_msg_type = gwpspider_interfaces__srv__MoveLegVelocityMode_Request;
@@ -64,9 +81,18 @@ static bool _MoveLegVelocityMode_Request__cdr_serialize(
     return false;
   }
   const _MoveLegVelocityMode_Request__ros_msg_type * ros_message = static_cast<const _MoveLegVelocityMode_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: leg_id
+  // Field name: legs_ids
   {
-    cdr << ros_message->leg_id;
+    const message_type_support_callbacks_t * callbacks =
+      static_cast<const message_type_support_callbacks_t *>(
+      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
+      )()->data);
+    if (!callbacks->cdr_serialize(
+        &ros_message->legs_ids, cdr))
+    {
+      return false;
+    }
   }
 
   // Field name: velocity_mode_direction
@@ -83,6 +109,20 @@ static bool _MoveLegVelocityMode_Request__cdr_serialize(
     }
   }
 
+  // Field name: threshold_type
+  {
+    const rosidl_runtime_c__String * str = &ros_message->threshold_type;
+    if (str->capacity == 0 || str->capacity <= str->size) {
+      fprintf(stderr, "string capacity not greater than size\n");
+      return false;
+    }
+    if (str->data[str->size] != '\0') {
+      fprintf(stderr, "string not null-terminated\n");
+      return false;
+    }
+    cdr << str->data;
+  }
+
   return true;
 }
 
@@ -95,9 +135,18 @@ static bool _MoveLegVelocityMode_Request__cdr_deserialize(
     return false;
   }
   _MoveLegVelocityMode_Request__ros_msg_type * ros_message = static_cast<_MoveLegVelocityMode_Request__ros_msg_type *>(untyped_ros_message);
-  // Field name: leg_id
+  // Field name: legs_ids
   {
-    cdr >> ros_message->leg_id;
+    const message_type_support_callbacks_t * callbacks =
+      static_cast<const message_type_support_callbacks_t *>(
+      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
+      )()->data);
+    if (!callbacks->cdr_deserialize(
+        cdr, &ros_message->legs_ids))
+    {
+      return false;
+    }
   }
 
   // Field name: velocity_mode_direction
@@ -110,6 +159,22 @@ static bool _MoveLegVelocityMode_Request__cdr_deserialize(
     if (!callbacks->cdr_deserialize(
         cdr, &ros_message->velocity_mode_direction))
     {
+      return false;
+    }
+  }
+
+  // Field name: threshold_type
+  {
+    std::string tmp;
+    cdr >> tmp;
+    if (!ros_message->threshold_type.data) {
+      rosidl_runtime_c__String__init(&ros_message->threshold_type);
+    }
+    bool succeeded = rosidl_runtime_c__String__assign(
+      &ros_message->threshold_type,
+      tmp.c_str());
+    if (!succeeded) {
+      fprintf(stderr, "failed to assign string into field 'threshold_type'\n");
       return false;
     }
   }
@@ -131,16 +196,18 @@ size_t get_serialized_size_gwpspider_interfaces__srv__MoveLegVelocityMode_Reques
   (void)padding;
   (void)wchar_size;
 
-  // field.name leg_id
-  {
-    size_t item_size = sizeof(ros_message->leg_id);
-    current_alignment += item_size +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
-  }
+  // field.name legs_ids
+
+  current_alignment += get_serialized_size_std_msgs__msg__Int8MultiArray(
+    &(ros_message->legs_ids), current_alignment);
   // field.name velocity_mode_direction
 
   current_alignment += get_serialized_size_std_msgs__msg__Float32MultiArray(
     &(ros_message->velocity_mode_direction), current_alignment);
+  // field.name threshold_type
+  current_alignment += padding +
+    eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
+    (ros_message->threshold_type.size + 1);
 
   return current_alignment - initial_alignment;
 }
@@ -168,11 +235,20 @@ size_t max_serialized_size_gwpspider_interfaces__srv__MoveLegVelocityMode_Reques
   full_bounded = true;
   is_plain = true;
 
-  // member: leg_id
+  // member: legs_ids
   {
     size_t array_size = 1;
 
-    current_alignment += array_size * sizeof(uint8_t);
+
+    for (size_t index = 0; index < array_size; ++index) {
+      bool inner_full_bounded;
+      bool inner_is_plain;
+      current_alignment +=
+        max_serialized_size_std_msgs__msg__Int8MultiArray(
+        inner_full_bounded, inner_is_plain, current_alignment);
+      full_bounded &= inner_full_bounded;
+      is_plain &= inner_is_plain;
+    }
   }
   // member: velocity_mode_direction
   {
@@ -187,6 +263,18 @@ size_t max_serialized_size_gwpspider_interfaces__srv__MoveLegVelocityMode_Reques
         inner_full_bounded, inner_is_plain, current_alignment);
       full_bounded &= inner_full_bounded;
       is_plain &= inner_is_plain;
+    }
+  }
+  // member: threshold_type
+  {
+    size_t array_size = 1;
+
+    full_bounded = false;
+    is_plain = false;
+    for (size_t index = 0; index < array_size; ++index) {
+      current_alignment += padding +
+        eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
+        1;
     }
   }
 

@@ -11,8 +11,12 @@
 #include "rcutils/allocator.h"
 
 // Include directives for member types
+// Member `legs_ids`
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"
 // Member `velocity_mode_direction`
 #include "std_msgs/msg/detail/float32_multi_array__functions.h"
+// Member `threshold_type`
+#include "rosidl_runtime_c/string_functions.h"
 
 bool
 gwpspider_interfaces__srv__MoveLegVelocityMode_Request__init(gwpspider_interfaces__srv__MoveLegVelocityMode_Request * msg)
@@ -20,9 +24,18 @@ gwpspider_interfaces__srv__MoveLegVelocityMode_Request__init(gwpspider_interface
   if (!msg) {
     return false;
   }
-  // leg_id
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__init(&msg->legs_ids)) {
+    gwpspider_interfaces__srv__MoveLegVelocityMode_Request__fini(msg);
+    return false;
+  }
   // velocity_mode_direction
   if (!std_msgs__msg__Float32MultiArray__init(&msg->velocity_mode_direction)) {
+    gwpspider_interfaces__srv__MoveLegVelocityMode_Request__fini(msg);
+    return false;
+  }
+  // threshold_type
+  if (!rosidl_runtime_c__String__init(&msg->threshold_type)) {
     gwpspider_interfaces__srv__MoveLegVelocityMode_Request__fini(msg);
     return false;
   }
@@ -35,9 +48,12 @@ gwpspider_interfaces__srv__MoveLegVelocityMode_Request__fini(gwpspider_interface
   if (!msg) {
     return;
   }
-  // leg_id
+  // legs_ids
+  std_msgs__msg__Int8MultiArray__fini(&msg->legs_ids);
   // velocity_mode_direction
   std_msgs__msg__Float32MultiArray__fini(&msg->velocity_mode_direction);
+  // threshold_type
+  rosidl_runtime_c__String__fini(&msg->threshold_type);
 }
 
 bool
@@ -46,13 +62,21 @@ gwpspider_interfaces__srv__MoveLegVelocityMode_Request__are_equal(const gwpspide
   if (!lhs || !rhs) {
     return false;
   }
-  // leg_id
-  if (lhs->leg_id != rhs->leg_id) {
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__are_equal(
+      &(lhs->legs_ids), &(rhs->legs_ids)))
+  {
     return false;
   }
   // velocity_mode_direction
   if (!std_msgs__msg__Float32MultiArray__are_equal(
       &(lhs->velocity_mode_direction), &(rhs->velocity_mode_direction)))
+  {
+    return false;
+  }
+  // threshold_type
+  if (!rosidl_runtime_c__String__are_equal(
+      &(lhs->threshold_type), &(rhs->threshold_type)))
   {
     return false;
   }
@@ -67,11 +91,21 @@ gwpspider_interfaces__srv__MoveLegVelocityMode_Request__copy(
   if (!input || !output) {
     return false;
   }
-  // leg_id
-  output->leg_id = input->leg_id;
+  // legs_ids
+  if (!std_msgs__msg__Int8MultiArray__copy(
+      &(input->legs_ids), &(output->legs_ids)))
+  {
+    return false;
+  }
   // velocity_mode_direction
   if (!std_msgs__msg__Float32MultiArray__copy(
       &(input->velocity_mode_direction), &(output->velocity_mode_direction)))
+  {
+    return false;
+  }
+  // threshold_type
+  if (!rosidl_runtime_c__String__copy(
+      &(input->threshold_type), &(output->threshold_type)))
   {
     return false;
   }

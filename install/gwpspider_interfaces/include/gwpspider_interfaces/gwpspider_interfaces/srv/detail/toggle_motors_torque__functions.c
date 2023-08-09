@@ -11,7 +11,7 @@
 #include "rcutils/allocator.h"
 
 // Include directives for member types
-// Member `legs_ids`
+// Member `motors_ids`
 #include "std_msgs/msg/detail/int8_multi_array__functions.h"
 // Member `command`
 #include "rosidl_runtime_c/string_functions.h"
@@ -22,8 +22,8 @@ gwpspider_interfaces__srv__ToggleMotorsTorque_Request__init(gwpspider_interfaces
   if (!msg) {
     return false;
   }
-  // legs_ids
-  if (!std_msgs__msg__Int8MultiArray__init(&msg->legs_ids)) {
+  // motors_ids
+  if (!std_msgs__msg__Int8MultiArray__init(&msg->motors_ids)) {
     gwpspider_interfaces__srv__ToggleMotorsTorque_Request__fini(msg);
     return false;
   }
@@ -41,8 +41,8 @@ gwpspider_interfaces__srv__ToggleMotorsTorque_Request__fini(gwpspider_interfaces
   if (!msg) {
     return;
   }
-  // legs_ids
-  std_msgs__msg__Int8MultiArray__fini(&msg->legs_ids);
+  // motors_ids
+  std_msgs__msg__Int8MultiArray__fini(&msg->motors_ids);
   // command
   rosidl_runtime_c__String__fini(&msg->command);
 }
@@ -53,9 +53,9 @@ gwpspider_interfaces__srv__ToggleMotorsTorque_Request__are_equal(const gwpspider
   if (!lhs || !rhs) {
     return false;
   }
-  // legs_ids
+  // motors_ids
   if (!std_msgs__msg__Int8MultiArray__are_equal(
-      &(lhs->legs_ids), &(rhs->legs_ids)))
+      &(lhs->motors_ids), &(rhs->motors_ids)))
   {
     return false;
   }
@@ -76,9 +76,9 @@ gwpspider_interfaces__srv__ToggleMotorsTorque_Request__copy(
   if (!input || !output) {
     return false;
   }
-  // legs_ids
+  // motors_ids
   if (!std_msgs__msg__Int8MultiArray__copy(
-      &(input->legs_ids), &(output->legs_ids)))
+      &(input->motors_ids), &(output->motors_ids)))
   {
     return false;
   }

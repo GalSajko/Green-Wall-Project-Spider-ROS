@@ -1,2 +1,2 @@
-std_msgs/Int8MultiArray legs_ids
+std_msgs/Int8MultiArray motors_ids
 string command

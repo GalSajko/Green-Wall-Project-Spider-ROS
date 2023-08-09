@@ -21,15 +21,15 @@ namespace srv
 namespace builder
 {
 
-class Init_MoveLegVelocityMode_Request_velocity_mode_direction
+class Init_MoveLegVelocityMode_Request_threshold_type
 {
 public:
-  explicit Init_MoveLegVelocityMode_Request_velocity_mode_direction(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request & msg)
+  explicit Init_MoveLegVelocityMode_Request_threshold_type(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request & msg)
   : msg_(msg)
   {}
-  ::gwpspider_interfaces::srv::MoveLegVelocityMode_Request velocity_mode_direction(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request::_velocity_mode_direction_type arg)
+  ::gwpspider_interfaces::srv::MoveLegVelocityMode_Request threshold_type(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request::_threshold_type_type arg)
   {
-    msg_.velocity_mode_direction = std::move(arg);
+    msg_.threshold_type = std::move(arg);
     return std::move(msg_);
   }
 
@@ -37,15 +37,31 @@ private:
   ::gwpspider_interfaces::srv::MoveLegVelocityMode_Request msg_;
 };
 
-class Init_MoveLegVelocityMode_Request_leg_id
+class Init_MoveLegVelocityMode_Request_velocity_mode_direction
 {
 public:
-  Init_MoveLegVelocityMode_Request_leg_id()
+  explicit Init_MoveLegVelocityMode_Request_velocity_mode_direction(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request & msg)
+  : msg_(msg)
+  {}
+  Init_MoveLegVelocityMode_Request_threshold_type velocity_mode_direction(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request::_velocity_mode_direction_type arg)
+  {
+    msg_.velocity_mode_direction = std::move(arg);
+    return Init_MoveLegVelocityMode_Request_threshold_type(msg_);
+  }
+
+private:
+  ::gwpspider_interfaces::srv::MoveLegVelocityMode_Request msg_;
+};
+
+class Init_MoveLegVelocityMode_Request_legs_ids
+{
+public:
+  Init_MoveLegVelocityMode_Request_legs_ids()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  Init_MoveLegVelocityMode_Request_velocity_mode_direction leg_id(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request::_leg_id_type arg)
+  Init_MoveLegVelocityMode_Request_velocity_mode_direction legs_ids(::gwpspider_interfaces::srv::MoveLegVelocityMode_Request::_legs_ids_type arg)
   {
-    msg_.leg_id = std::move(arg);
+    msg_.legs_ids = std::move(arg);
     return Init_MoveLegVelocityMode_Request_velocity_mode_direction(msg_);
   }
 
@@ -64,7 +80,7 @@ template<>
 inline
 auto build<::gwpspider_interfaces::srv::MoveLegVelocityMode_Request>()
 {
-  return gwpspider_interfaces::srv::builder::Init_MoveLegVelocityMode_Request_leg_id();
+  return gwpspider_interfaces::srv::builder::Init_MoveLegVelocityMode_Request_legs_ids();
 }
 
 }  // namespace gwpspider_interfaces

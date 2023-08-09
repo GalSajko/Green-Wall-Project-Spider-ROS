@@ -16,6 +16,8 @@
 
 
 // Include directives for member types
+// Member 'legs_ids'
+#include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
 // Member 'velocity_mode_direction'
 #include "std_msgs/msg/detail/float32_multi_array__struct.hpp"
 
@@ -38,44 +40,56 @@ struct MoveLegVelocityMode_Request_
   using Type = MoveLegVelocityMode_Request_<ContainerAllocator>;
 
   explicit MoveLegVelocityMode_Request_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : velocity_mode_direction(_init)
+  : legs_ids(_init),
+    velocity_mode_direction(_init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->leg_id = 0;
+      this->threshold_type = "";
     }
   }
 
   explicit MoveLegVelocityMode_Request_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
-  : velocity_mode_direction(_alloc, _init)
+  : legs_ids(_alloc, _init),
+    velocity_mode_direction(_alloc, _init),
+    threshold_type(_alloc)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->leg_id = 0;
+      this->threshold_type = "";
     }
   }
 
   // field types and members
-  using _leg_id_type =
-    int8_t;
-  _leg_id_type leg_id;
+  using _legs_ids_type =
+    std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
+  _legs_ids_type legs_ids;
   using _velocity_mode_direction_type =
     std_msgs::msg::Float32MultiArray_<ContainerAllocator>;
   _velocity_mode_direction_type velocity_mode_direction;
+  using _threshold_type_type =
+    std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
+  _threshold_type_type threshold_type;
 
   // setters for named parameter idiom
-  Type & set__leg_id(
-    const int8_t & _arg)
+  Type & set__legs_ids(
+    const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
   {
-    this->leg_id = _arg;
+    this->legs_ids = _arg;
     return *this;
   }
   Type & set__velocity_mode_direction(
     const std_msgs::msg::Float32MultiArray_<ContainerAllocator> & _arg)
   {
     this->velocity_mode_direction = _arg;
+    return *this;
+  }
+  Type & set__threshold_type(
+    const std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>> & _arg)
+  {
+    this->threshold_type = _arg;
     return *this;
   }
 
@@ -121,10 +135,13 @@ struct MoveLegVelocityMode_Request_
   // comparison operators
   bool operator==(const MoveLegVelocityMode_Request_ & other) const
   {
-    if (this->leg_id != other.leg_id) {
+    if (this->legs_ids != other.legs_ids) {
       return false;
     }
     if (this->velocity_mode_direction != other.velocity_mode_direction) {
+      return false;
+    }
+    if (this->threshold_type != other.threshold_type) {
       return false;
     }
     return true;

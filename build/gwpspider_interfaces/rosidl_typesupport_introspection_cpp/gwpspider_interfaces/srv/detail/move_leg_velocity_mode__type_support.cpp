@@ -37,16 +37,16 @@ void MoveLegVelocityMode_Request_fini_function(void * message_memory)
   typed_message->~MoveLegVelocityMode_Request();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLegVelocityMode_Request_message_member_array[2] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLegVelocityMode_Request_message_member_array[3] = {
   {
-    "leg_id",  // name
-    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT8,  // type
+    "legs_ids",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
-    nullptr,  // members of sub message
+    ::rosidl_typesupport_introspection_cpp::get_message_type_support_handle<std_msgs::msg::Int8MultiArray>(),  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(gwpspider_interfaces::srv::MoveLegVelocityMode_Request, leg_id),  // bytes offset in struct
+    offsetof(gwpspider_interfaces::srv::MoveLegVelocityMode_Request, legs_ids),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -71,13 +71,30 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember MoveLegVeloci
     nullptr,  // fetch(index, &value) function pointer
     nullptr,  // assign(index, value) function pointer
     nullptr  // resize(index) function pointer
+  },
+  {
+    "threshold_type",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_STRING,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(gwpspider_interfaces::srv::MoveLegVelocityMode_Request, threshold_type),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
   }
 };
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers MoveLegVelocityMode_Request_message_members = {
   "gwpspider_interfaces::srv",  // message namespace
   "MoveLegVelocityMode_Request",  // message name
-  2,  // number of fields
+  3,  // number of fields
   sizeof(gwpspider_interfaces::srv::MoveLegVelocityMode_Request),
   MoveLegVelocityMode_Request_message_member_array,  // message members
   MoveLegVelocityMode_Request_init_function,  // function to initialize message memory (memory has to be allocated)
