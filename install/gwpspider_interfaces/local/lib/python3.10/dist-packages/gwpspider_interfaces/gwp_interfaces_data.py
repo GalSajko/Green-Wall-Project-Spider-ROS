@@ -37,6 +37,7 @@ STOP_LEGS_SERVICE = 'stop_legs_service'
 #Server
 SEND_GOAL_SERVICE = 'spider_goal_service'
 SET_WATERING_SUCCESS_SERVICE = 'set_watering_success_service'
+MESSAGE_SERVICE = 'message_service'
 
 # Dynamixel
 TOGGLE_MOTORS_TORQUE_SERVICE = 'toggle_motors_torque_service'

@@ -135,6 +135,9 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetCorrectionOffset_Response.m
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/BreaksControl.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/BreaksControl_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/BreaksControl_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/Messages.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/Messages_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/Messages_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
