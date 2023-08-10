@@ -138,11 +138,12 @@ def prepare_get_spider_pose_request(request_data):
     return request
 
 def prepare_move_leg_velocity_mode_request(request_data):
-    legs_ids, velocity_mode_direction = request_data
+    legs_ids, velocity_mode_direction, threshold_type = request_data
 
     request = gwp_services.MoveLegVelocityMode.Request()
     request.legs_ids = Int8MultiArray(data = legs_ids)
     request.velocity_mode_direction = Float32MultiArray(data = velocity_mode_direction)
+    request.threshold_type = threshold_type
 
     return request
 

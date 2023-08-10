@@ -30,8 +30,6 @@ class Safety(Node):
         self.currents_buffer = np.zeros((self.CURRENTS_WINDOW_SIZE, self.CURRENTS_ARRAY_ROWS, self.CURRENTS_ARRAY_COLUMNS))
         self.counter = 0
 
-        self.current_sum = 0
-
         self.do_monitor_motors_states = True
     
     @property

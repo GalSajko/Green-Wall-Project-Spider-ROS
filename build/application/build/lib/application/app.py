@@ -173,6 +173,7 @@ class App(Node):
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
         if not is_attached:
+            input("INPUT")
             global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
             self.__automatic_correction(leg_id, global_z_direction_in_local, goal_pin_position)
     
@@ -213,7 +214,7 @@ class App(Node):
 
             local_offset = tf.get_global_vector_in_local(leg_id, spider_pose[3:], offset)[0]
             velocity_direction = np.array([correction_direction[0] + local_offset[0], correction_direction[1] + local_offset[1], -correction_direction[2]], dtype = np.float32)
-            move_leg_velocity_mode_request = custom_interface_helper.prepare_move_leg_velocity_mode_request(([leg_id], velocity_direction))
+            move_leg_velocity_mode_request = custom_interface_helper.prepare_move_leg_velocity_mode_request(([leg_id], velocity_direction, robot_config.FORCE_THRESHOLD_TYPE))
             move_leg_velocity_mode_response = custom_interface_helper.async_service_call(self.move_leg_velocity_mode_client, move_leg_velocity_mode_request, self)
 
             move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, robot_config.CLOSE_GRIPPER_COMMAND))
