@@ -335,8 +335,15 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__functions.h:
 
@@ -419,6 +426,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__functions.h:
 rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/gripper_state__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/leg_trajectory__functions.h:
 

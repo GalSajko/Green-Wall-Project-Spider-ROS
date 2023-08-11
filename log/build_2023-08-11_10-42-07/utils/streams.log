@@ -1,0 +1,22 @@
+[1.478s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/utils': PYTHONPATH=/home/spider/gwpspider_ws/build/utils/prefix_override:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/utils build --build-base /home/spider/gwpspider_ws/build/utils/build install --record /home/spider/gwpspider_ws/build/utils/install.log --single-version-externally-managed
+[1.876s] running egg_info
+[1.877s] writing ../../../build/utils/utils.egg-info/PKG-INFO
+[1.877s] writing dependency_links to ../../../build/utils/utils.egg-info/dependency_links.txt
+[1.877s] writing entry points to ../../../build/utils/utils.egg-info/entry_points.txt
+[1.877s] writing requirements to ../../../build/utils/utils.egg-info/requires.txt
+[1.878s] writing top-level names to ../../../build/utils/utils.egg-info/top_level.txt
+[1.880s] reading manifest file '../../../build/utils/utils.egg-info/SOURCES.txt'
+[1.881s] writing manifest file '../../../build/utils/utils.egg-info/SOURCES.txt'
+[1.881s] running build
+[1.881s] running build_py
+[1.882s] running install
+[1.882s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[1.882s]   warnings.warn(
+[1.882s] running install_lib
+[1.884s] running install_data
+[1.885s] running install_egg_info
+[1.888s] removing '/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages/utils-0.0.0-py3.10.egg-info' (and everything under it)
+[1.888s] Copying ../../../build/utils/utils.egg-info to /home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages/utils-0.0.0-py3.10.egg-info
+[1.889s] running install_scripts
+[1.922s] writing list of installed files to '/home/spider/gwpspider_ws/build/utils/install.log'
+[1.962s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/utils' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/utils/prefix_override:/home/spider/gwpspider_ws/install/utils/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/utils build --build-base /home/spider/gwpspider_ws/build/utils/build install --record /home/spider/gwpspider_ws/build/utils/install.log --single-version-externally-managed

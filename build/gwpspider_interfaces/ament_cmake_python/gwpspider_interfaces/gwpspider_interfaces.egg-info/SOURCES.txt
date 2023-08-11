@@ -27,6 +27,7 @@ gwpspider_interfaces/srv/_get_modified_walking_instructions.py
 gwpspider_interfaces/srv/_get_spider_pose.py
 gwpspider_interfaces/srv/_get_walking_instructions.py
 gwpspider_interfaces/srv/_init_bno.py
+gwpspider_interfaces/srv/_messages.py
 gwpspider_interfaces/srv/_move_gripper.py
 gwpspider_interfaces/srv/_move_leg.py
 gwpspider_interfaces/srv/_move_leg_velocity_mode.py

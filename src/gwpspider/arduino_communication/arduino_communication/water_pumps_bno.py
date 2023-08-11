@@ -39,7 +39,7 @@ class WaterPumpBnoController(Node):
     # TODO: Change to 35 after breaks are added.
     @property
     def RECEIVED_MESSAGE_LENGTH(self):
-        return 35
+        return 23
     
     @property
     def DEVICE_NAME(self):
@@ -118,21 +118,16 @@ class WaterPumpBnoController(Node):
         with self.serial_comm_locker:
             received_msg = self.arduino_comm.read()
 
-        roll = float(received_msg[0 : 5])
-        pitch = float(received_msg[5 : 10])
-        yaw = float(received_msg[10 : 15])        
+        x_gravity = float(received_msg[0 : 6])
+        y_gravity = float(received_msg[6 : 12])
+        z_gravity = float(received_msg[12 : 18])        
 
-        x_gravity = float(received_msg[15 : 20])
-        y_gravity = float(received_msg[20 : 25])
-        z_gravity = float(received_msg[25 : 30])
-
-        battery_voltage = float(received_msg[30 : 34])
+        battery_voltage = float(received_msg[18 : 23])
 
         gravity_vector = np.array([x_gravity, y_gravity, z_gravity], dtype = np.float32)
-        rpy = np.array([roll, pitch, yaw], dtype = np.float32)
 
         gravity_vector_msg = Float32MultiArray(data = gravity_vector)
-        rpy_msg = Float32MultiArray(data = rpy)
+        rpy_msg = Float32MultiArray(data = [])
 
         bno_msg = BnoData(rpy = rpy_msg, gravity_vector = gravity_vector_msg)
         voltage_msg = Float32(data = battery_voltage)
