@@ -1,0 +1,19 @@
+[1.501s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/safety_layer:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/offset_prediction_model:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8
+[1.615s] [ 14%] Built target gwpspider_interfaces__rosidl_generator_c
+[1.618s] [ 14%] Built target gwpspider_interfaces__cpp
+[1.629s] [ 14%] Built target ament_cmake_python_copy_gwpspider_interfaces
+[1.674s] [ 28%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_c
+[1.693s] [ 42%] Built target gwpspider_interfaces__rosidl_typesupport_c
+[1.744s] [ 56%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp
+[1.750s] [ 71%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_cpp
+[1.766s] [ 85%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_c
+[1.766s] [100%] Built target gwpspider_interfaces__rosidl_typesupport_cpp
+[1.798s] [100%] Built target gwpspider_interfaces
+[2.102s] running egg_info
+[2.102s] writing gwpspider_interfaces.egg-info/PKG-INFO
+[2.103s] writing dependency_links to gwpspider_interfaces.egg-info/dependency_links.txt
+[2.103s] writing top-level names to gwpspider_interfaces.egg-info/top_level.txt
+[2.105s] reading manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[2.106s] writing manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[2.124s] [100%] Built target ament_cmake_python_build_gwpspider_interfaces_egg
+[2.294s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spider/gwpspider_ws/install/utils:/home/spider/gwpspider_ws/install/safety_layer:/home/spider/gwpspider_ws/install/planning:/home/spider/gwpspider_ws/install/offset_prediction_model:/home/spider/gwpspider_ws/install/dynamixel_interface:/home/spider/gwpspider_ws/install/controller:/home/spider/gwpspider_ws/install/configuration:/home/spider/gwpspider_ws/install/calculations:/home/spider/gwpspider_ws/install/arduino_communication:/home/spider/gwpspider_ws/install/application:/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_interfaces -- -j8 -l8

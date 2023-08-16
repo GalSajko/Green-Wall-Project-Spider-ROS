@@ -67,10 +67,6 @@ class Safety(Node):
             is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD)
 
             if is_current_overload_error or is_hw_error:
-                if is_current_overload_error:
-                    self.get_logger().info(f"{currents_sum}")
-                else:
-                    self.get_logger().info(f"{errors}")
                 self.do_monitor_motors_states = False
 
                 # Stop any movement.
@@ -78,34 +74,34 @@ class Safety(Node):
                 stop_legs_request = Trigger.Request()
                 stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
 
-                with self.grippers_states_locker:
-                    attached_legs = [i for i, j in enumerate(self.grippers_attached_states) if j]
+                # with self.grippers_states_locker:
+                #     attached_legs = [i for i, j in enumerate(self.grippers_attached_states) if j]
                 
-                # Activate the breaks.
-                self.get_logger().info("ACTIVATE BREAKS")
-                activate_breaks_request = gwp_services.BreaksControl.Request(command = rc.ACTIVATE_BREAKS_COMMAND, break_id = rc.ALL_BREAKS_INDEX)
-                activate_breaks_response = cih.async_service_call_from_service(self.breaks_controller_client, activate_breaks_request)
+                # # Activate the breaks.
+                # self.get_logger().info("ACTIVATE BREAKS")
+                # activate_breaks_request = gwp_services.BreaksControl.Request(command = rc.ACTIVATE_BREAKS_COMMAND, break_id = rc.ALL_BREAKS_INDEX)
+                # activate_breaks_response = cih.async_service_call_from_service(self.breaks_controller_client, activate_breaks_request)
 
-                if not len(attached_legs) == spider.NUMBER_OF_LEGS:
-                    not_attached_leg_array = np.delete(spider.LEGS_IDS, attached_legs)
-                    for leg in not_attached_leg_array:
-                        deactivate_breaks_request = gwp_services.BreaksControl.Request(command = rc.RELEASE_BREAKS_COMMAND, break_id = int(leg))
-                        deactivate_breaks_response = cih.async_service_call_from_service(self.breaks_controller_client, deactivate_breaks_request)
+                # if not len(attached_legs) == spider.NUMBER_OF_LEGS:
+                #     not_attached_leg_array = np.delete(spider.LEGS_IDS, attached_legs)
+                #     for leg in not_attached_leg_array:
+                #         deactivate_breaks_request = gwp_services.BreaksControl.Request(command = rc.RELEASE_BREAKS_COMMAND, break_id = int(leg))
+                #         deactivate_breaks_response = cih.async_service_call_from_service(self.breaks_controller_client, deactivate_breaks_request)
 
-                # Start force mode (fd = 0).
-                self.get_logger().info("START FORCE MODE")
-                forces = np.zeros((len(attached_legs), 3))
-                forces[:, 1] = np.ones(len(attached_legs)) * 0.5
-                apply_force_request = cih.prepare_apply_forces_on_legs_request((attached_legs, forces))
-                apply_force_response = cih.async_service_call_from_service(self.apply_force_client, apply_force_request)
+                # # Start force mode (fd = 0).
+                # self.get_logger().info("START FORCE MODE")
+                # forces = np.zeros((len(attached_legs), 3))
+                # forces[:, 1] = np.ones(len(attached_legs)) * 0.5
+                # apply_force_request = cih.prepare_apply_forces_on_legs_request((attached_legs, forces))
+                # apply_force_response = cih.async_service_call_from_service(self.apply_force_client, apply_force_request)
 
-                # TODO: Implement that waiting in some different way.
-                time.sleep(15)
+                # # TODO: Implement that waiting in some different way.
+                # time.sleep(15)
 
-                # Turn off force mode.
-                self.get_logger().info("STOP FORCE MODE")
-                toggle_additional_controller_mode_request = cih.prepare_toggle_controller_mode_request((rc.FORCE_MODE, rc.STOP_COMMAND))
-                toggle_additiona_controller_mode_response = cih.async_service_call_from_service(self.toggle_controller_mode_client, toggle_additional_controller_mode_request)
+                # # Turn off force mode.
+                # self.get_logger().info("STOP FORCE MODE")
+                # toggle_additional_controller_mode_request = cih.prepare_toggle_controller_mode_request((rc.FORCE_MODE, rc.STOP_COMMAND))
+                # toggle_additiona_controller_mode_response = cih.async_service_call_from_service(self.toggle_controller_mode_client, toggle_additional_controller_mode_request)
 
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:

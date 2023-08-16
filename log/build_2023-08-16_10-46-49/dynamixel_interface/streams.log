@@ -1,0 +1,39 @@
+[2.299s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface': PYTHONPATH=/home/spider/gwpspider_ws/build/dynamixel_interface/prefix_override:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/dynamixel_interface build --build-base /home/spider/gwpspider_ws/build/dynamixel_interface/build install --record /home/spider/gwpspider_ws/build/dynamixel_interface/install.log --single-version-externally-managed
+[2.710s] Traceback (most recent call last):
+[2.711s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2866, in get_entry_map
+[2.724s]     ep_map = self._ep_map
+[2.724s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2828, in __getattr__
+[2.724s]     raise AttributeError(attr)
+[2.724s] AttributeError: _ep_map. Did you mean: '_dep_map'?
+[2.724s] 
+[2.725s] During handling of the above exception, another exception occurred:
+[2.725s] 
+[2.725s] Traceback (most recent call last):
+[2.725s]   File "/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface/setup.py", line 5, in <module>
+[2.725s]     setup(
+[2.725s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 152, in setup
+[2.725s]     _install_setup_requires(attrs)
+[2.725s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 142, in _install_setup_requires
+[2.725s]     dist = MinimalDistribution(attrs)
+[2.725s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 134, in __init__
+[2.726s]     distutils.core.Distribution.__init__(self, filtered)
+[2.726s]   File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 457, in __init__
+[2.726s]     for ep in pkg_resources.iter_entry_points('distutils.setup_keywords'):
+[2.726s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 646, in <genexpr>
+[2.726s]     for entry in dist.get_entry_map(group).values()
+[2.726s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2868, in get_entry_map
+[2.726s]     ep_map = self._ep_map = EntryPoint.parse_map(
+[2.726s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2549, in parse_map
+[2.726s]     for group, lines in data:
+[2.726s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 3205, in split_sections
+[2.727s]     for line in yield_lines(s):
+[2.727s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 2780, in _get_metadata
+[2.727s]     for line in self.get_metadata_lines(name):
+[2.727s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1422, in get_metadata_lines
+[2.727s]     return yield_lines(self.get_metadata(name))
+[2.727s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1412, in get_metadata
+[2.728s]     value = self._get(path)
+[2.728s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1616, in _get
+[2.728s]     with open(path, 'rb') as stream:
+[2.728s] FileNotFoundError: [Errno 2] No such file or directory: '/home/spider/gwpspider_ws/install/calculations/lib/python3.10/site-packages/calculations-0.0.0-py3.10.egg-info/entry_points.txt'
+[2.770s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/dynamixel_interface' returned '1': PYTHONPATH=/home/spider/gwpspider_ws/build/dynamixel_interface/prefix_override:/home/spider/gwpspider_ws/install/dynamixel_interface/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/dynamixel_interface build --build-base /home/spider/gwpspider_ws/build/dynamixel_interface/build install --record /home/spider/gwpspider_ws/build/dynamixel_interface/install.log --single-version-externally-managed

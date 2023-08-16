@@ -173,11 +173,10 @@ class App(Node):
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
         if not is_attached:
-            input("INPUT")
             global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
             self.__automatic_correction(leg_id, global_z_direction_in_local, goal_pin_position)
     
-    def __automatic_correction(self, leg_id, correction_direction, goal_pin_position):
+    def __automatic_correction(self, leg_id, correction_direction, goal_pin_position, origin = robot_config.GLOBAL_ORIGIN):
         detach_z_offset = 0.08
         y_offset_value = 0.25
         x_offset_value = 0.12
@@ -202,7 +201,7 @@ class App(Node):
                 leg_id,
                 detach_position,
                 robot_config.MINJERK_TRAJECTORY,
-                robot_config.GLOBAL_ORIGIN,
+                origin,
                 2.0,
                 False,
                 spider_pose,
@@ -275,7 +274,7 @@ class App(Node):
         if not is_attached:
             rpy = self.__get_spider_pose()[3:]
             correction_direction = tf.get_global_vector_in_local(leg_id, rpy, np.array([0.0, 0.0, 1.0], dtype = np.float32))[0]
-            self.__automatic_correction(leg_id, correction_direction, leg_local_position_before_watering)
+            self.__automatic_correction(leg_id, correction_direction, leg_local_position_before_watering, robot_config.LEG_ORIGIN)
 
     def __init_interfaces(self):
         self.get_walking_instructions_client = self.create_client(gwp_services.GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
@@ -315,7 +314,7 @@ class App(Node):
             print("Water pump service not available...")        
 
         self.get_spider_goal_client = self.create_client(gwp_services.SpiderGoal, gid.SEND_GOAL_SERVICE, callback_group = self.callback_group)
-        while not self.move_gripper_client.wait_for_service(timeout_sec = 1.0):
+        while not self.get_spider_goal_client.wait_for_service(timeout_sec = 1.0):
             print("Spider goal service not available...")  
 
         self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
@@ -331,7 +330,6 @@ class App(Node):
         print("All services available.")
 
         time.sleep(1)
-
 
 def main():
     rclpy.init()

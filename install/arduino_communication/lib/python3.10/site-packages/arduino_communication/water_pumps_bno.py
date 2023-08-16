@@ -118,22 +118,25 @@ class WaterPumpBnoController(Node):
         with self.serial_comm_locker:
             received_msg = self.arduino_comm.read()
 
-        x_gravity = float(received_msg[0 : 6])
-        y_gravity = float(received_msg[6 : 12])
-        z_gravity = float(received_msg[12 : 18])        
+        try:
+            x_gravity = float(received_msg[0 : 6])
+            y_gravity = float(received_msg[6 : 12])
+            z_gravity = float(received_msg[12 : 18])        
 
-        battery_voltage = float(received_msg[18 : 23])
+            battery_voltage = float(received_msg[18 : 23])
 
-        gravity_vector = np.array([x_gravity, y_gravity, z_gravity], dtype = np.float32)
+            gravity_vector = np.array([x_gravity, y_gravity, z_gravity], dtype = np.float32)
 
-        gravity_vector_msg = Float32MultiArray(data = gravity_vector)
-        rpy_msg = Float32MultiArray(data = [])
+            gravity_vector_msg = Float32MultiArray(data = gravity_vector)
+            rpy_msg = Float32MultiArray(data = [])
 
-        bno_msg = BnoData(rpy = rpy_msg, gravity_vector = gravity_vector_msg)
-        voltage_msg = Float32(data = battery_voltage)
-        
-        self.bno_reading_publisher.publish(bno_msg)
-        self.battery_voltage_publisher.publish(voltage_msg)
+            bno_msg = BnoData(rpy = rpy_msg, gravity_vector = gravity_vector_msg)
+            voltage_msg = Float32(data = battery_voltage)
+            
+            self.bno_reading_publisher.publish(bno_msg)
+            self.battery_voltage_publisher.publish(voltage_msg)
+        except:
+            pass
 
 
 def main():

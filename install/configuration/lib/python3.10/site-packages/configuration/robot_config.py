@@ -1,10 +1,10 @@
 """File for storing global variables.
 """
 # CONTROLLER GAINS
-CONTROLLER_FREQUENCY = 70.0
+CONTROLLER_FREQUENCY = 65.0
 FORCE_DAMPING = 0.01
 K_P_FORCE = 0.025
-K_P = 24.0
+K_P = 23.0
 K_D = 1.4
 K_ACC = 0.18
 F_D_PUSHING = 2.5

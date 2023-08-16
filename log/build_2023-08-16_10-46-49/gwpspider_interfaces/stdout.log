@@ -1,0 +1,17 @@
+[ 14%] Built target gwpspider_interfaces__rosidl_generator_c
+[ 14%] Built target gwpspider_interfaces__cpp
+[ 14%] Built target ament_cmake_python_copy_gwpspider_interfaces
+[ 28%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_c
+[ 42%] Built target gwpspider_interfaces__rosidl_typesupport_c
+[ 56%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_cpp
+[ 71%] Built target gwpspider_interfaces__rosidl_typesupport_introspection_cpp
+[ 85%] Built target gwpspider_interfaces__rosidl_typesupport_fastrtps_c
+[100%] Built target gwpspider_interfaces__rosidl_typesupport_cpp
+[100%] Built target gwpspider_interfaces
+running egg_info
+writing gwpspider_interfaces.egg-info/PKG-INFO
+writing dependency_links to gwpspider_interfaces.egg-info/dependency_links.txt
+writing top-level names to gwpspider_interfaces.egg-info/top_level.txt
+reading manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+writing manifest file 'gwpspider_interfaces.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_gwpspider_interfaces_egg

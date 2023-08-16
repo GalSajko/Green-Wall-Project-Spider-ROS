@@ -88,7 +88,7 @@ class JointVelocityController(Node):
     
     @property
     def MAX_ALLOWED_FORCE(self):
-        return 2.0
+        return 4.0
 
     @property
     def MAX_ALLOWED_CURRENT(self):
@@ -101,6 +101,10 @@ class JointVelocityController(Node):
     @property
     def MAX_VELOCITY_MODE_TIME(self):
         return 2.0
+    
+    @property
+    def THIRD_JOINT_LOWER_LIMIT(self):
+        return -2.30
     
     def controller_callback(self):
         with self.legs_states_locker:
@@ -149,22 +153,22 @@ class JointVelocityController(Node):
                 with self.legs_last_positons_locker:
                     self.last_legs_positions[force_mode_legs_ids] = x_a[force_mode_legs_ids]
             
-            # if is_velocity_mode:
-            #     dx_d[velocity_mode_legs_ids] = self.VELOCITY_AMP_FACTOR * velocity_mode_direction
+            if is_velocity_mode:
+                dx_d[velocity_mode_legs_ids] = self.VELOCITY_AMP_FACTOR * velocity_mode_direction
 
-            #     if threshold_type == robot_config.FORCE_THRESHOLD_TYPE:
-            #         forces = np.linalg.norm(f_a, axis = 1)
-            #         overloaded_legs = np.intersect1d(list(set(np.where(forces < self.MAX_ALLOWED_FORCE)[0])), velocity_mode_legs_ids)
+                if threshold_type == robot_config.FORCE_THRESHOLD_TYPE:
+                    forces = np.linalg.norm(f_a, axis = 1)
+                    overloaded_legs = np.intersect1d(np.where(abs(f_a[:, 2]) > self.MAX_ALLOWED_FORCE), velocity_mode_legs_ids)
 
-            #     elif threshold_type == robot_config.CURRENT_THRESHOLD_TYPE:
-            #         overloaded_legs = list(set(np.where(currents > self.MAX_ALLOWED_CURRENT)[0]))
+                elif threshold_type == robot_config.CURRENT_THRESHOLD_TYPE:
+                    overloaded_legs = list(set(np.where(currents > self.MAX_ALLOWED_CURRENT)[0]))
   
-            #     if len(overloaded_legs) != 0:
-            #         self.get_logger().info(f"Overloaded legs: {overloaded_legs}")
-            #         dx_d[overloaded_legs] = np.zeros((len(overloaded_legs), 3))
+                if len(overloaded_legs) != 0 and not np.any(q_a[overloaded_legs][:, 2] < self.THIRD_JOINT_LOWER_LIMIT):
+                    self.get_logger().info(f"Overloaded legs: {overloaded_legs}, {forces}")
+                    dx_d[overloaded_legs] = np.zeros((len(overloaded_legs), 3))
 
-            #     with self.legs_last_positons_locker:
-            #         self.last_legs_positions[velocity_mode_legs_ids] = x_a[velocity_mode_legs_ids] + dx_d[velocity_mode_legs_ids] * self.PERIOD
+                with self.legs_last_positons_locker:
+                    self.last_legs_positions[velocity_mode_legs_ids] = x_a[velocity_mode_legs_ids] + dx_d[velocity_mode_legs_ids] * self.PERIOD
 
             dx_c, self.last_legs_position_errors = self.__position_velocity_pd_controller(x_a, x_d, dx_d, ddx_d)
             dq_c = kin.get_joints_velocities(q_a, dx_c)
@@ -214,8 +218,8 @@ class JointVelocityController(Node):
         
         self.command_queues[leg_id] = queue.Queue()
 
-        # if is_pin_to_pin_movement:
-            # self.__apply_forces_on_leg_tips(leg_id, np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE]))
+        if is_pin_to_pin_movement:
+            self.__apply_forces_on_leg_tips(leg_id, np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE]))
         if open_gripper:
             if not self.__move_gripper(leg_id, robot_config.OPEN_GRIPPER_COMMAND):
                 response.success = False
@@ -256,8 +260,8 @@ class JointVelocityController(Node):
         if close_gripper:
             with self.legs_states_locker:
                 f_a = self.legs_forces[leg_id]
-            force_to_apply = np.array([np.sign(f_a[0]) * (-1), np.sign(f_a[1]) * (-1), -self.MAX_ALLOWED_FORCE])
-            # self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
+            force_to_apply = np.array([-np.sign(f_a[0]), -np.sign(f_a[1]), -self.MAX_ALLOWED_FORCE])
+            self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
 
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
                 response.success = False
