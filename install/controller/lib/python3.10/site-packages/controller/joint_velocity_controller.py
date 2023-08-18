@@ -33,12 +33,12 @@ class JointVelocityController(Node):
         self.last_legs_positions = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
         self.last_legs_position_errors = np.zeros((spider.NUMBER_OF_LEGS, 3), dtype = np.float32)
 
-        self.collect_data = False
-        self.currents_data = []
-
-        self.do_init = True
         self.toggle_controller_locker = threading.Lock()
+        self.do_init = True
         self.do_run = True
+
+        self.stop_movement_locker = threading.Lock()
+        self.do_stop_movement = False
 
         self.force_mode_locker = threading.Lock()
         self.is_force_mode = False
@@ -88,7 +88,7 @@ class JointVelocityController(Node):
     
     @property
     def MAX_ALLOWED_FORCE(self):
-        return 4.0
+        return 5.0
 
     @property
     def MAX_ALLOWED_CURRENT(self):
@@ -157,14 +157,12 @@ class JointVelocityController(Node):
                 dx_d[velocity_mode_legs_ids] = self.VELOCITY_AMP_FACTOR * velocity_mode_direction
 
                 if threshold_type == robot_config.FORCE_THRESHOLD_TYPE:
-                    forces = np.linalg.norm(f_a, axis = 1)
                     overloaded_legs = np.intersect1d(np.where(abs(f_a[:, 2]) > self.MAX_ALLOWED_FORCE), velocity_mode_legs_ids)
 
                 elif threshold_type == robot_config.CURRENT_THRESHOLD_TYPE:
                     overloaded_legs = list(set(np.where(currents > self.MAX_ALLOWED_CURRENT)[0]))
   
                 if len(overloaded_legs) != 0 and not np.any(q_a[overloaded_legs][:, 2] < self.THIRD_JOINT_LOWER_LIMIT):
-                    self.get_logger().info(f"Overloaded legs: {overloaded_legs}, {forces}")
                     dx_d[overloaded_legs] = np.zeros((len(overloaded_legs), 3))
 
                 with self.legs_last_positons_locker:
@@ -249,21 +247,20 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        time.sleep(duration + 0.5)
-        # with self.legs_states_locker:
-        #     position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
-        # while np.linalg.norm(position_error) > self.LEG_MOVEMENT_PRECISION:
-        #     with self.legs_states_locker:
-        #         position_error = np.linalg.norm(leg_goal_position_in_local - self.legs_local_positions[leg_id])
-        #     time.sleep(0.001)
+        if not self.__wait_with_safety(duration + 0.5):
+            response.success = False
+            return response
 
         if close_gripper:
             with self.legs_states_locker:
                 f_a = self.legs_forces[leg_id]
             force_to_apply = np.array([-np.sign(f_a[0]), -np.sign(f_a[1]), -self.MAX_ALLOWED_FORCE])
+            force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
             self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
 
             if not self.__move_gripper(leg_id, robot_config.CLOSE_GRIPPER_COMMAND):
+                with self.force_mode_locker:
+                    self.is_force_mode = False
                 response.success = False
                 return response
             
@@ -333,20 +330,9 @@ class JointVelocityController(Node):
         for leg_id in legs_ids:
             self.command_queues[leg_id].put(self.sentinel)
 
-        time.sleep(duration + 0.5)
-        # start_time = time.time()
-        # elapsed_time = 0
-        # currents_data = []
-        # while elapsed_time < (duration + 0.5):
-        #     with self.dxl_data_locker:
-        #         currents = self.currents
-        #     currents_data.append(currents.flatten())
-        #     elapsed_time = time.time() - start_time
-        #     time.sleep(0.001)
-
-        # time_vector = np.linspace(0, duration + 0.5, len(currents_data))
-
-        # np.savetxt('currents_4.csv', np.array(currents_data), delimiter = ',')
+        if not self.__wait_with_safety(duration + 0.5):
+            response.success = False
+            return response
         
         response.success = True
         self.get_logger().info("Spider has moved.")
@@ -463,17 +449,12 @@ class JointVelocityController(Node):
             self.velocity_mode_direction = np.array(request.velocity_mode_direction.data)
             self.velocity_threshold_type = request.threshold_type
 
-        start_time = time.time()
-        elapsed_time = 0
-
-        while elapsed_time < self.MAX_VELOCITY_MODE_TIME:
-            elapsed_time = time.time() - start_time
-            time.sleep(0.01)
+        success = self.__wait_with_safety(self.MAX_VELOCITY_MODE_TIME)
 
         with self.velocity_mode_locker:
             self.is_velocity_mode = False
             
-        response.success = True
+        response.success = success
         return response
     
     def update_last_legs_positions_callback(self, _, response):
@@ -492,6 +473,9 @@ class JointVelocityController(Node):
     
     def stop_legs_movement_callback(self, _, response):
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+
+        with self.stop_movement_locker:
+            self.do_stop_movement = True
 
         response.success = True
         return response
@@ -617,6 +601,25 @@ class JointVelocityController(Node):
             self.force_mode_legs_ids = legs_ids
             self.is_force_mode = True
             self.f_d[legs_ids] = np.array(desired_forces, dtype = np.float32)
+    
+    def __wait_with_safety(self, duration):
+        """Wait for desired duration and monitor safety trigger.
+
+        Args:
+            duration (float): Desired waiting duration.
+
+        Returns:
+            bool: True if waiting was not interrupted with safety trigger, False otherwise.
+        """
+        start_time = time.time()
+        elapsed_time = 0
+        while elapsed_time < duration:
+            with self.stop_movement_locker:
+                if self.do_stop_movement:
+                    return False
+            elapsed_time = time.time() - start_time
+            time.sleep(0.01)
+        return True
 
     def __set_bus_watchdog(self, value):
         request = gwp_services.SetBusWatchdog.Request()

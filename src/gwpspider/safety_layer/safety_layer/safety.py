@@ -70,7 +70,10 @@ class Safety(Node):
                 self.do_monitor_motors_states = False
 
                 # Stop any movement.
-                self.get_logger().info("STOP LEGS MOVEMENT")
+                if is_current_overload_error:
+                    self.get_logger().info("SAFETY STOP - CURRENT")
+                if is_hw_error:
+                    self.get_logger().info("SAFETY STOP - HW ERROR")
                 stop_legs_request = Trigger.Request()
                 stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
 
