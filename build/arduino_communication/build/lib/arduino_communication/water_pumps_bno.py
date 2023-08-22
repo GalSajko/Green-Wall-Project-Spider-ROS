@@ -62,33 +62,41 @@ class WaterPumpBnoController(Node):
         pump_id = request.pump
         volume = request.volume
 
+        if pump_id == 2:
+            self.__send_message_to_arduino(rc.EXPAND_TUBE_COMMAND)
+
         flow = self.PUMPS_FLOWS[pump_id]
         watering_time = volume / flow
 
         with self.stop_signal_locker:
             self.do_stop_water_pump = False
 
-        msg = self.PUMP_ON_COMMAND + str(pump_id) + '\n'
-        with self.serial_comm_locker:
-            self.arduino_comm.write(msg)
+        self.__send_message_to_arduino(self.PUMP_ON_COMMAND + str(pump_id))
+
+        total_time = watering_time
+        if pump_id == 2:
+            total_time += 2.0
+        check_for_contraction = True
 
         start_time = time.time()
         elapsed_time = 0.0
-        while elapsed_time < watering_time:
+        while elapsed_time < total_time:
+
+            if check_for_contraction:
+                if pump_id == 2 and elapsed_time > watering_time:
+                    self.__send_message_to_arduino(rc.CONTRACT_TUBE_COMMAND)
+                    check_for_contraction = False
+
             with self.stop_signal_locker:
                 if self.do_stop_water_pump:
-                    msg = self.PUMP_OFF_COMMAND + str(pump_id) + '\n'
-                    with self.serial_comm_locker:
-                        self.arduino_comm.write(msg)
+                    self.__send_message_to_arduino(self.PUMP_OFF_COMMAND + str(pump_id))
                     response.success = False
                     return response
                 
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
 
-        msg = self.PUMP_OFF_COMMAND + str(pump_id) + '\n'
-        with self.serial_comm_locker:
-            self.arduino_comm.write(msg)
+        self.__send_message_to_arduino(self.PUMP_OFF_COMMAND + str(pump_id))
 
         response.success = True
         return response
@@ -105,10 +113,8 @@ class WaterPumpBnoController(Node):
             command = rc.EXPAND_TUBE_COMMAND
         else:
             command = rc.CONTRACT_TUBE_COMMAND
-        
-        msg = command + '\n'
-        with self.serial_comm_locker:
-            self.arduino_comm.write(msg)
+
+        self.__send_message_to_arduino(command)
         
         response.success = True
         return response
@@ -127,17 +133,13 @@ class WaterPumpBnoController(Node):
             response.success = False
             return response
 
-        msg = command + str(break_id) + '\n'
-        with self.serial_comm_locker:
-            self.arduino_comm.write(msg)
+        self.__send_message_to_arduino(command + str(break_id))
 
         response.success = True
         return response
     
     def init_bno_callback(self, request, response):
-        msg = request.command + '\n'
-        with self.serial_comm_locker:
-            self.arduino_comm.write(msg)
+        self.__send_message_to_arduino(request.command)
 
         response.success = True
         return response
@@ -165,6 +167,10 @@ class WaterPumpBnoController(Node):
             self.battery_voltage_publisher.publish(voltage_msg)
         except:
             self.get_logger().info("Error while reading gravity vector data.")
+
+    def __send_message_to_arduino(self, msg):
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
 
     def __initialize_interfaces(self):
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)

@@ -268,10 +268,6 @@ class App(Node):
         else:
             pump_id = leg_id
 
-        if pump_id == spider.REFILLING_LEG_ID:
-            expand_tube_holder_request = SetBool.Request(data = True)
-            _ = custom_interface_helper.async_service_call(self.tube_holder_client, expand_tube_holder_request, self)
-
         water_pump_request = custom_interface_helper.prepare_water_pump_request((pump_id, volume))
         water_pump_response = custom_interface_helper.async_service_call(self.water_pump_client, water_pump_request, self)
         if not water_pump_response.success:
@@ -279,10 +275,6 @@ class App(Node):
 
         watering_success_request = Empty.Request()
         watering_success_response = custom_interface_helper.async_service_call(self.set_watering_success_flag_client, watering_success_request, self)
-
-        if pump_id == spider.REFILLING_LEG_ID:
-            contract_tube_holder_request = SetBool.Request(data = False)
-            _ = custom_interface_helper.async_service_call(self.tube_holder_client, contract_tube_holder_request, self)
 
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
@@ -355,10 +347,6 @@ class App(Node):
         self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
         while not self.set_watering_success_flag_client.wait_for_service(timeout_sec = 1.0):
             print("Watering success flag service not available...")
-        
-        self.tube_holder_client = self.create_client(SetBool, gid.TUBE_HOLDER_SERVICE, callback_group = self.callback_group)
-        while not self.tube_holder_client.wait_for_service(timeout_sec = 1.0):
-            print("Tube holder service not available...")
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
