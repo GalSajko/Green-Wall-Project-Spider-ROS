@@ -8,13 +8,14 @@ import time
 import threading
 
 from std_msgs.msg import Float32MultiArray, Float32
-from std_srvs.srv import Trigger
+from std_srvs.srv import Trigger, SetBool
 
 from arduino_communication.arduino_comm import ArduinoComm
 
 from gwpspider_interfaces.srv import ControlWaterPump, InitBno, BreaksControl
 from gwpspider_interfaces.msg import BnoData
 from gwpspider_interfaces import gwp_interfaces_data as gid
+from configuration import robot_config as rc
 
 class WaterPumpBnoController(Node):
     def __init__(self):
@@ -26,16 +27,7 @@ class WaterPumpBnoController(Node):
         self.do_stop_water_pump = False
         self.stop_signal_locker = threading.Lock()
 
-        self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
-        self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback, callback_group = self.reentrant_callback_group)
-        self.stop_water_pump_service = self.create_service(Trigger, gid.STOP_WATER_PUMP_SERVICE, self.stop_pump_callback, callback_group = self.reentrant_callback_group)
-        self.init_bno_service = self.create_service(InitBno, gid.INIT_BNO_SERVICE, self.init_bno_callback, callback_group = self.reentrant_callback_group)
-        self.breaks_control_service = self.create_service(BreaksControl, gid.BREAKS_SERVICE, self.breaks_control_callback, callback_group = self.reentrant_callback_group)
-
-        timer_period = 0
-        self.bno_reading_publisher = self.create_publisher(BnoData, gid.BNO_DATA_TOPIC, 1, callback_group = self.reentrant_callback_group)
-        self.timer = self.create_timer(timer_period, self.get_bno_and_battery_data_callback, callback_group = self.reentrant_callback_group)
-        self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1, callback_group = self.reentrant_callback_group)
+        self.__initialize_interfaces()
     
     @property
     def PUMPS_FLOWS(self):
@@ -108,6 +100,19 @@ class WaterPumpBnoController(Node):
         response.success = True
         return response
     
+    def tube_holder_control_callback(self, request, response):
+        if request.data:
+            command = rc.EXPAND_TUBE_COMMAND
+        else:
+            command = rc.CONTRACT_TUBE_COMMAND
+        
+        msg = command + '\n'
+        with self.serial_comm_locker:
+            self.arduino_comm.write(msg)
+        
+        response.success = True
+        return response
+    
     def breaks_control_callback(self, request, response):
         break_id = request.break_id
         command = request.command
@@ -160,6 +165,19 @@ class WaterPumpBnoController(Node):
             self.battery_voltage_publisher.publish(voltage_msg)
         except:
             self.get_logger().info("Error while reading gravity vector data.")
+
+    def __initialize_interfaces(self):
+        self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
+        self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback, callback_group = self.reentrant_callback_group)
+        self.stop_water_pump_service = self.create_service(Trigger, gid.STOP_WATER_PUMP_SERVICE, self.stop_pump_callback, callback_group = self.reentrant_callback_group)
+        self.init_bno_service = self.create_service(InitBno, gid.INIT_BNO_SERVICE, self.init_bno_callback, callback_group = self.reentrant_callback_group)
+        self.breaks_control_service = self.create_service(BreaksControl, gid.BREAKS_SERVICE, self.breaks_control_callback, callback_group = self.reentrant_callback_group)
+        self.tube_holder_control_service = self.create_service(SetBool, gid.TUBE_HOLDER_SERVICE, self.tube_holder_control_callback, callback_group = self.reentrant_callback_group)
+
+        timer_period = 0
+        self.bno_reading_publisher = self.create_publisher(BnoData, gid.BNO_DATA_TOPIC, 1, callback_group = self.reentrant_callback_group)
+        self.timer = self.create_timer(timer_period, self.get_bno_and_battery_data_callback, callback_group = self.reentrant_callback_group)
+        self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1, callback_group = self.reentrant_callback_group)
 
 def main():
     rclpy.init()

@@ -22,6 +22,7 @@ WATER_PUMP_SERVICE = 'water_pump_service'
 STOP_WATER_PUMP_SERVICE = 'stop_water_pump_service'
 INIT_BNO_SERVICE = 'init_bno_service'
 BREAKS_SERVICE = 'breaks_service'
+TUBE_HOLDER_SERVICE = 'tube_holder_service'
 
 # Controller
 MOVE_LEG_SERVICE = 'move_leg_service'

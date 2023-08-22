@@ -18,7 +18,7 @@ from gwpspider_interfaces.msg import GrippersStates, LegsStates
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 from std_msgs.msg import Float32MultiArray
-from std_srvs.srv import Empty
+from std_srvs.srv import Empty, SetBool
 
 class App(Node):
     def __init__(self):
@@ -174,14 +174,16 @@ class App(Node):
             self.use_prediction_model
         ))
         self.json_file_manager.update_pins(leg_id, goal_pin_position)
-        if not custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self):
+        move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+        if not move_leg_response.success:
             return False
 
         with self.grippers_states_locker:
             is_attached = self.grippers_attached_states[leg_id]
         if not is_attached:
             global_z_direction_in_local = np.dot(leg_base_orientation_in_local, np.array([0.0, 0.0, 1.0], dtype = np.float32))
-            if not self.__automatic_correction(leg_id, global_z_direction_in_local, goal_pin_position):
+            correction_response = self.__automatic_correction(leg_id, global_z_direction_in_local, goal_pin_position)
+            if not correction_response:
                 return False
         
         return True
@@ -219,13 +221,15 @@ class App(Node):
                 False,
                 False
             ))
-            if not custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self):
+            move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+            if not move_leg_response.success:
                 return False
 
             local_offset = tf.get_global_vector_in_local(leg_id, spider_pose[3:], offset)[0]
             velocity_direction = np.array([correction_direction[0] + local_offset[0], correction_direction[1] + local_offset[1], -correction_direction[2]], dtype = np.float32)
             move_leg_velocity_mode_request = custom_interface_helper.prepare_move_leg_velocity_mode_request(([leg_id], velocity_direction, robot_config.FORCE_THRESHOLD_TYPE))
-            if not custom_interface_helper.async_service_call(self.move_leg_velocity_mode_client, move_leg_velocity_mode_request, self):
+            move_leg_velocity_mode_response = custom_interface_helper.async_service_call(self.move_leg_velocity_mode_client, move_leg_velocity_mode_request, self)
+            if not move_leg_velocity_mode_response.success:
                 return False
 
             move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, robot_config.CLOSE_GRIPPER_COMMAND))
@@ -255,7 +259,8 @@ class App(Node):
             False,
             False
         ))
-        if not custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self):
+        move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+        if not move_leg_response.success:
             return False
 
         if leg_id not in (1, 2):
@@ -263,11 +268,21 @@ class App(Node):
         else:
             pump_id = leg_id
 
+        if pump_id == spider.REFILLING_LEG_ID:
+            expand_tube_holder_request = SetBool.Request(data = True)
+            _ = custom_interface_helper.async_service_call(self.tube_holder_client, expand_tube_holder_request, self)
+
         water_pump_request = custom_interface_helper.prepare_water_pump_request((pump_id, volume))
         water_pump_response = custom_interface_helper.async_service_call(self.water_pump_client, water_pump_request, self)
+        if not water_pump_response.success:
+            return False
 
         watering_success_request = Empty.Request()
         watering_success_response = custom_interface_helper.async_service_call(self.set_watering_success_flag_client, watering_success_request, self)
+
+        if pump_id == spider.REFILLING_LEG_ID:
+            contract_tube_holder_request = SetBool.Request(data = False)
+            _ = custom_interface_helper.async_service_call(self.tube_holder_client, contract_tube_holder_request, self)
 
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
@@ -281,7 +296,8 @@ class App(Node):
             True,
             False
         ))
-        if not custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self):
+        move_leg_response = custom_interface_helper.async_service_call(self.move_leg_client, move_leg_request, self)
+        if not move_leg_response.success:
             return False
 
         with self.grippers_states_locker:
@@ -289,7 +305,8 @@ class App(Node):
         if not is_attached:
             rpy = self.__get_spider_pose()[3:]
             correction_direction = tf.get_global_vector_in_local(leg_id, rpy, np.array([0.0, 0.0, 1.0], dtype = np.float32))[0]
-            if not self.__automatic_correction(leg_id, correction_direction, leg_local_position_before_watering, robot_config.LEG_ORIGIN):
+            correction_response = self.__automatic_correction(leg_id, correction_direction, leg_local_position_before_watering, robot_config.LEG_ORIGIN)
+            if not correction_response:
                 return False
         
         return True
@@ -338,6 +355,10 @@ class App(Node):
         self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
         while not self.set_watering_success_flag_client.wait_for_service(timeout_sec = 1.0):
             print("Watering success flag service not available...")
+        
+        self.tube_holder_client = self.create_client(SetBool, gid.TUBE_HOLDER_SERVICE, callback_group = self.callback_group)
+        while not self.tube_holder_client.wait_for_service(timeout_sec = 1.0):
+            print("Tube holder service not available...")
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
