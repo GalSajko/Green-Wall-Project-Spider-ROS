@@ -8,6 +8,7 @@ import time
 import threading
 
 from std_msgs.msg import Float32MultiArray, Float32
+from std_srvs.srv import Trigger
 
 from arduino_communication.arduino_comm import ArduinoComm
 
@@ -22,8 +23,12 @@ class WaterPumpBnoController(Node):
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.serial_comm_locker = threading.Lock()
 
+        self.do_stop_water_pump = False
+        self.stop_signal_locker = threading.Lock()
+
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
         self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback, callback_group = self.reentrant_callback_group)
+        self.stop_water_pump_service = self.create_service(Trigger, gid.STOP_WATER_PUMP_SERVICE, self.stop_pump_callback, callback_group = self.reentrant_callback_group)
         self.init_bno_service = self.create_service(InitBno, gid.INIT_BNO_SERVICE, self.init_bno_callback, callback_group = self.reentrant_callback_group)
         self.breaks_control_service = self.create_service(BreaksControl, gid.BREAKS_SERVICE, self.breaks_control_callback, callback_group = self.reentrant_callback_group)
 
@@ -68,6 +73,9 @@ class WaterPumpBnoController(Node):
         flow = self.PUMPS_FLOWS[pump_id]
         watering_time = volume / flow
 
+        with self.stop_signal_locker:
+            self.do_stop_water_pump = False
+
         msg = self.PUMP_ON_COMMAND + str(pump_id) + '\n'
         with self.serial_comm_locker:
             self.arduino_comm.write(msg)
@@ -75,6 +83,14 @@ class WaterPumpBnoController(Node):
         start_time = time.time()
         elapsed_time = 0.0
         while elapsed_time < watering_time:
+            with self.stop_signal_locker:
+                if self.do_stop_water_pump:
+                    msg = self.PUMP_OFF_COMMAND + str(pump_id) + '\n'
+                    with self.serial_comm_locker:
+                        self.arduino_comm.write(msg)
+                    response.success = False
+                    return response
+                
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
 
@@ -82,6 +98,13 @@ class WaterPumpBnoController(Node):
         with self.serial_comm_locker:
             self.arduino_comm.write(msg)
 
+        response.success = True
+        return response
+    
+    def stop_pump_callback(self, _, response):
+        with self.stop_signal_locker:
+            self.do_stop_water_pump = True
+        
         response.success = True
         return response
     
@@ -136,8 +159,7 @@ class WaterPumpBnoController(Node):
             self.bno_reading_publisher.publish(bno_msg)
             self.battery_voltage_publisher.publish(voltage_msg)
         except:
-            pass
-
+            self.get_logger().info("Error while reading gravity vector data.")
 
 def main():
     rclpy.init()

@@ -77,7 +77,10 @@ class Safety(Node):
                 stop_legs_request = Trigger.Request()
                 stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
 
-                # with self.grippers_states_locker:
+                # Stop all water pumps.
+                stop_pump_request = Trigger.Request()
+                stop_pump_response = cih.async_service_call_from_service(self.stop_water_pump_client, stop_pump_request)
+                # with self.grippers_states_locker: 
                 #     attached_legs = [i for i, j in enumerate(self.grippers_attached_states) if j]
                 
                 # # Activate the breaks.
@@ -139,7 +142,14 @@ class Safety(Node):
 
         self.stop_legs_movement_client = self.create_client(Trigger, gid.STOP_LEGS_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.stop_legs_movement_client.wait_for_service(timeout_sec = 1.0):
-            print("Stop legs movement service not available...") 
+            print("Stop legs movement service not available...")
+        
+        self.water_pump_client = self.create_client(gwp_services.ControlWaterPump, gid.WATER_PUMP_SERVICE, callback_group = self.reentrant_callback_group)
+        while not self.water_pump_client.wait_for_service(timeout_sec = 1.0):
+            print("Water pump service not available...") 
+        
+        self.stop_water_pump_client = self.create_client(Trigger, gid.STOP_WATER_PUMP_SERVICE, callback_group = self.reentrant_callback_group)
+
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.reentrant_callback_group) 
 
