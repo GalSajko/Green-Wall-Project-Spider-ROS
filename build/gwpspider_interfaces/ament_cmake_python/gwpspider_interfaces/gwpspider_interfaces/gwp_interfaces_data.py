@@ -53,3 +53,6 @@ GET_LEG_TRAJECTORY_SERVICE = 'get_leg_trajectory_service'
 
 # Offset Predictor
 GET_CORRECTION_OFFSET_SERVICE = 'get_correction_offset_service'
+
+# App
+STATES_MANAGER_SERVICE = 'states_manager_service'
