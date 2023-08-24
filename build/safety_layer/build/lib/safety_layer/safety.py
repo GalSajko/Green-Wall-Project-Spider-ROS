@@ -73,7 +73,7 @@ class Safety(Node):
                 if is_current_overload_error:
                     self.get_logger().info("SAFETY STOP - CURRENT")
                 if is_hw_error:
-                    self.get_logger().info("SAFETY STOP - HW ERROR")
+                    self.get_logger().info(f"SAFETY STOP - HW ERROR, error codes: {errors}")
                 stop_legs_request = Trigger.Request()
                 stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
 

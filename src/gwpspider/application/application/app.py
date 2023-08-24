@@ -41,11 +41,16 @@ class App(Node):
 
         self.__init_interfaces()
 
-        self.working()
+        # self.working()
     
     @property
     def LEG_MOVEMENT_DURATION_AMP(self):
         return 12.5
+    
+    def states_manager_callback(self, request, response):
+        if request.data == robot_config.WORKING_STATE:
+            self.working()
+        
 
     def working(self):
         while True:
@@ -126,8 +131,12 @@ class App(Node):
         if spider_goal_response.go_refill:
             watering_or_refill_position = watering_or_refill_pose[:3] + spider.REFILLING_LEG_OFFSET
             return poses, pins_instructions, watering_or_refill_position, watering_or_refill_leg_id, float(spider_goal_response.volume)
+        
+        watering_position = spider_goal_response.watering_position
+        # if not spider_goal_response.go_refill:
+        #     watering_position[2] = -0.02
 
-        return poses, pins_instructions, spider_goal_response.watering_position, watering_or_refill_leg_id, float(spider_goal_response.volume)
+        return poses, pins_instructions, watering_position, watering_or_refill_leg_id, float(spider_goal_response.volume)
     
     def __move_spider(self, legs_ids, legs_positions, pose, duration):
         move_spider_request = custom_interface_helper.prepare_move_spider_request((legs_ids, legs_positions, pose, duration))
@@ -347,6 +356,8 @@ class App(Node):
         self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
         while not self.set_watering_success_flag_client.wait_for_service(timeout_sec = 1.0):
             print("Watering success flag service not available...")
+
+        self.states_manager_service = self.create_service(gwp_services.Messages, gid.STATES_MANAGER_SERVICE, callback = self.states_manager_callback, callback_group = self.callback_group)
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)

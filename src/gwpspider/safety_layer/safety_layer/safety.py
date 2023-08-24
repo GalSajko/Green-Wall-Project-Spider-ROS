@@ -8,6 +8,7 @@ import time
 import threading
 
 from std_srvs.srv import Trigger
+from std_msgs.msg import Float32
 
 import gwpspider_interfaces.srv as gwp_services
 from gwpspider_interfaces.msg import DynamixelMotorsData, GrippersStates
@@ -23,6 +24,9 @@ class Safety(Node):
 
         self.grippers_states_locker = threading.Lock()
         self.grippers_attached_states = [False] * spider.NUMBER_OF_LEGS
+
+        self.battery_voltage_locker = threading.Lock()
+        self.battery_voltage = None
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.__init_interfaces()
@@ -56,24 +60,34 @@ class Safety(Node):
     def CURRENTS_SUM_THRESHOLD(self):
         return self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
     
+    @property
+    def MIN_ALLOWED_VOLTAGE(self):
+        return 14.2
+    
     def dynamixel_motors_data_callback(self, msg):
         errors = cih.unpack_2d_array_message(msg.motor_errors)
         currents = cih.unpack_2d_array_message(msg.currents)
 
         currents_sum, self.currents_buffer, self.counter = mt.integrate_array(self.currents_buffer, currents, self.counter)
 
+        with self.battery_voltage_locker:
+            battery_voltage = self.battery_voltage
+
         if self.do_monitor_motors_states:
             is_hw_error = np.any(errors)
             is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD)
+            is_battey_error = battery_voltage < self.MIN_ALLOWED_VOLTAGE
 
-            if is_current_overload_error or is_hw_error:
+            if is_current_overload_error or is_hw_error or is_battey_error:
                 self.do_monitor_motors_states = False
 
                 # Stop any movement.
                 if is_current_overload_error:
                     self.get_logger().info("SAFETY STOP - CURRENT")
                 if is_hw_error:
-                    self.get_logger().info("SAFETY STOP - HW ERROR")
+                    self.get_logger().info(f"SAFETY STOP - HW ERROR, error codes: {errors}")
+                if is_battey_error:
+                    self.get_logger().info("BATTERY VOLTAGE DROPED BELLOW ALLOWED THRESHOLD.")
                 stop_legs_request = Trigger.Request()
                 stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
 
@@ -118,6 +132,10 @@ class Safety(Node):
                 msg.fourth_gripper.is_attached,
                 msg.fifth_gripper.is_attached
             ]
+    
+    def battery_voltage_callback(self, msg):
+        with self.battery_voltage_locker:
+            self.battery_voltage = msg.data
 
     def __init_interfaces(self):
         self.toggle_controller_client = self.create_client(gwp_services.ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, callback_group = self.reentrant_callback_group)
@@ -152,8 +170,8 @@ class Safety(Node):
 
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.reentrant_callback_group) 
-
         self.dynamixel_motors_data_subscriber = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.dynamixel_motors_data_callback, 1)
+        self.battery_voltage_subscriber = self.create_subscription(Float32, gid.BATTERY_VOLTAGE_TOPIC, self.battery_voltage_callback, 1, callback_group = self.reentrant_callback_group)
         
 
 

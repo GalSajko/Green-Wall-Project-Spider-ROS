@@ -75,7 +75,7 @@ class WaterPumpBnoController(Node):
 
         total_time = watering_time
         if pump_id == 2:
-            total_time += 2.0
+            total_time += 4.0
         check_for_contraction = True
 
         start_time = time.time()

@@ -126,8 +126,12 @@ class App(Node):
         if spider_goal_response.go_refill:
             watering_or_refill_position = watering_or_refill_pose[:3] + spider.REFILLING_LEG_OFFSET
             return poses, pins_instructions, watering_or_refill_position, watering_or_refill_leg_id, float(spider_goal_response.volume)
+        
+        watering_position = spider_goal_response.watering_position
+        # if not spider_goal_response.go_refill:
+        #     watering_position[2] = -0.02
 
-        return poses, pins_instructions, spider_goal_response.watering_position, watering_or_refill_leg_id, float(spider_goal_response.volume)
+        return poses, pins_instructions, watering_position, watering_or_refill_leg_id, float(spider_goal_response.volume)
     
     def __move_spider(self, legs_ids, legs_positions, pose, duration):
         move_spider_request = custom_interface_helper.prepare_move_spider_request((legs_ids, legs_positions, pose, duration))
