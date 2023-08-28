@@ -72,13 +72,17 @@ class Safety(Node):
 
         with self.battery_voltage_locker:
             battery_voltage = self.battery_voltage
+        
+        if battery_voltage < self.MIN_ALLOWED_VOLTAG and self.grippers_attached_states.all():
+            stop_legs_request = Trigger.Request()
+            stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
+
 
         if self.do_monitor_motors_states:
             is_hw_error = np.any(errors)
             is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD)
-            is_battey_error = battery_voltage < self.MIN_ALLOWED_VOLTAGE
 
-            if is_current_overload_error or is_hw_error or is_battey_error:
+            if is_current_overload_error or is_hw_error:
                 self.do_monitor_motors_states = False
 
                 # Stop any movement.
@@ -86,8 +90,6 @@ class Safety(Node):
                     self.get_logger().info("SAFETY STOP - CURRENT")
                 if is_hw_error:
                     self.get_logger().info(f"SAFETY STOP - HW ERROR, error codes: {errors}")
-                if is_battey_error:
-                    self.get_logger().info("BATTERY VOLTAGE DROPED BELLOW ALLOWED THRESHOLD.")
                 stop_legs_request = Trigger.Request()
                 stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
 

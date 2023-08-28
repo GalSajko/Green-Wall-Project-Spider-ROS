@@ -254,7 +254,7 @@ class JointVelocityController(Node):
         if close_gripper:
             with self.legs_states_locker:
                 f_a = self.legs_forces[leg_id]
-            force_to_apply = np.array([-np.sign(f_a[0]), -np.sign(f_a[1]), -self.MAX_ALLOWED_FORCE])
+            # force_to_apply = np.array([-np.sign(f_a[0]), -np.sign(f_a[1]), -self.MAX_ALLOWED_FORCE])
             force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
             self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
 

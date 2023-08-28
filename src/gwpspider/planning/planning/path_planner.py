@@ -23,8 +23,72 @@ class PathPlanner(Node):
 
         self.MAX_LINEAR_STEP = 0.06
 
+        self.LEFT_RELATIVE_CHARGING_POSITIONS = np.array([
+            [[0.0, 0.0], [-0.4, -0.25], [-0.2, -1.0], [0.2, -1.0], [0.2, -0.25]],
+            [[0.4, 0.25], [0.0, 0.0], [0.2, -0.75], [0.6, -0.75], [0.6, 0.0]],
+            [[0.2, 1.0], [-0.2, 0.75], [0.0, 0.0], [0.4, 0.0], [0.4, 0.75]],
+            [[-0.2, 1.0], [-0.6, 0.75], [-0.4, 0.0], [0.0, 0.0], [0.0, 0.75]],
+            [[-0.2, 0.25], [-0.6, 0.0], [-0.4, -0.75], [0.0, -0.75], [0.0, 0.0]]
+        ], dtype = np.float32)
+        self.RIGHT_RELATIVE_CHARGING_POSITIONS = np.array([
+            [[0.0, 0.0], [-0.2, -0.25], [-0.2, -1.0], [0.2, -1.0], [0.4, -0.25]],
+            [[0.2, 0.25], [0.0, 0.0], [0.0, -0.75], [0.4, -0.75], [0.6, 0.0]],
+            [[0.2, 1.0], [0.0, 0.75], [0.0, 0.0], [0.4, 0.0], [0.6, 0.75]],
+            [[-0.2, 1.0], [-0.4, 0.75], [-0.4, 0.0], [0.0, 0.0], [0.2, 0.75]],
+            [[-0.4, 0.25], [-0.6, 0.0], [-0.6, -0.75], [-0.2, -0.75], [0.0, 0.0]]
+        ], dtype = np.float32)
+        self.relative_charging_positions = np.array([self.LEFT_RELATIVE_CHARGING_POSITIONS, self.RIGHT_RELATIVE_CHARGING_POSITIONS])
+
+        # TODO: Define service in gwpspider_interfaces.
+        self.offsets_to_charging_position_service = self.create_service(GetOffsetsToChargingPosition, gid.OFFSETS_TO_CHARGING_POSITION_SERVICE, self.get_offsets_to_charging_position_callback)
         self.walking_instructions_service = self.create_service(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback)
         self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback)
+
+    def get_offsets_to_charging_position_callback(self, request, response):
+        current_pins = request.data
+
+        pins = wall.create_grid(False)
+        current_legs_positions = pins[current_pins]
+
+        current_relative_positions = np.zeros(np.shape(self.LEFT_RELATIVE_CHARGING_POSITIONS), dtype = np.float32)
+        for leg in spider.LEGS_IDS:
+            leg_relative_positions = np.zeros(np.shape(current_legs_positions), dtype = np.float32)
+            for i, leg_position in enumerate(current_legs_positions):
+                leg_relative_positions[i, :] = leg_position - current_legs_positions[leg]
+                
+            # If legs are already in desired positions, no moves are required.
+            if (leg_relative_positions == self.LEFT_RELATIVE_CHARGING_POSITIONS[leg]).all() or (leg_relative_positions == self.RIGHT_RELATIVE_CHARGING_POSITIONS[leg]).all():
+                response.data = np.zeros(np.shape(current_legs_positions))
+                return response
+            
+            current_relative_positions[leg] = leg_relative_positions
+
+        # Check which legs have to move, to reach the desired relative positions in as few moves as possible.
+        are_legs_on_positions = np.zeros((2, spider.NUMBER_OF_LEGS, spider.NUMBER_OF_LEGS), dtype = bool) # Two (5, 5) arrays, first for left configuration, second for right.
+        for i, current_relative_position in enumerate(current_relative_positions):
+            are_legs_on_positions[0, i, :] = (current_relative_position == self.LEFT_RELATIVE_CHARGING_POSITIONS[i]).all(-1)
+            are_legs_on_positions[1, i, :] = (current_relative_position == self.RIGHT_RELATIVE_CHARGING_POSITIONS[i]).all(-1)
+        
+        # Calculate needed relative offsets.
+        new_potential_legs_positions = current_legs_positions
+        while True:
+            best_left = are_legs_on_positions[0, np.argmax(are_legs_on_positions.sum(axis = 1), axis = 1)[0], :]
+            best_right = are_legs_on_positions[1, np.argmax(are_legs_on_positions.sum(axis = 1), axis = 1)[1], :]
+            best_configuration_id = np.argmax([np.count_nonzero(best_left), np.count_nonzero(best_right)])
+
+            base_leg = np.argmax([best_left, best_right][best_configuration_id])
+            desired_relative_positions_to_selected_base_leg = self.relative_charging_positions[best_configuration_id][base_leg]
+            offsets = desired_relative_positions_to_selected_base_leg - current_relative_positions[base_leg]
+            new_potential_legs_positions = current_legs_positions + offsets
+
+            # Solution is valid only, if new positions are inside wall's boundaries.
+            if (new_potential_legs_positions[:, 0] >= 0).all() and (new_potential_legs_positions[:, 0] <= 4.0).all() and (new_potential_legs_positions[:, 1] >= 0).all() and (new_potential_legs_positions[:, 1] <= 3.0).all():
+                break
+
+            are_legs_on_positions[best_configuration_id][base_leg] = [False] * spider.NUMBER_OF_LEGS
+
+        response.data = offsets
+        return response
 
     def get_walking_instructions_callback(self, request, response):
         start_pose = np.array(request.start_pose.data)
