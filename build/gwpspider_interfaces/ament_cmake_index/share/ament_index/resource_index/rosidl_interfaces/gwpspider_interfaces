@@ -44,6 +44,10 @@ srv/GetModifiedWalkingInstructions.idl
 srv/GetModifiedWalkingInstructions.srv
 srv/GetModifiedWalkingInstructions_Request.msg
 srv/GetModifiedWalkingInstructions_Response.msg
+srv/GetOffsetsToChargingPosition.idl
+srv/GetOffsetsToChargingPosition.srv
+srv/GetOffsetsToChargingPosition_Request.msg
+srv/GetOffsetsToChargingPosition_Response.msg
 srv/GetSpiderPose.idl
 srv/GetSpiderPose.srv
 srv/GetSpiderPose_Request.msg

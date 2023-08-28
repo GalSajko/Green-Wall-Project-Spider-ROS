@@ -7,7 +7,7 @@ import numpy as np
 import time
 import threading
 
-from std_srvs.srv import Trigger
+from std_srvs.srv import Trigger, SetBool
 from std_msgs.msg import Float32
 
 import gwpspider_interfaces.srv as gwp_services
@@ -28,13 +28,17 @@ class Safety(Node):
         self.battery_voltage_locker = threading.Lock()
         self.battery_voltage = None
 
-        self.reentrant_callback_group = ReentrantCallbackGroup()
-        self.__init_interfaces()
-
+        self.dxl_data_locker = threading.Lock()
+        self.currents_sum = None
+        self.hw_errors = None
         self.currents_buffer = np.zeros((self.CURRENTS_WINDOW_SIZE, self.CURRENTS_ARRAY_ROWS, self.CURRENTS_ARRAY_COLUMNS))
         self.counter = 0
 
-        self.do_monitor_motors_states = True
+        self.toggle_safety_locker = threading.Lock()
+        self.do_monitor_safety = True
+
+        self.reentrant_callback_group = ReentrantCallbackGroup()
+        self.__init_interfaces()
     
     @property
     def TIME_INTEGRATION_WINDOW(self):
@@ -63,6 +67,34 @@ class Safety(Node):
     @property
     def MIN_ALLOWED_VOLTAGE(self):
         return 14.2
+
+    def safety_loop(self):
+        while True:
+            with self.battery_voltage_locker:
+                battery_voltage = self.battery_voltage
+            with self.dxl_data_locker:
+                currents_sum = self.currents_sum
+                hw_errors = self.hw_errors
+            with self.toggle_safety_locker:
+                do_monitor_safety = self.do_monitor_safety
+
+            is_hw_errors = np.any(hw_errors)
+            is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD)
+            is_battery_voltage_error = (battery_voltage < self.MIN_ALLOWED_VOLTAGE) and self.grippers_attached_states.all()
+
+            if do_monitor_safety:
+                if is_hw_errors or is_current_overload_error or is_battery_voltage_error:
+                    with self.toggle_safety_locker:
+                        self.do_monitor_safety = False
+                    # This also forces working procedure in app module to return False.
+                    stop_legs_request = Trigger.Request()
+                    stop_legs_response = cih.async_service_call(self.stop_legs_movement_client, stop_legs_request, self)
+                    stop_pump_request = Trigger.Request()
+                    stop_pump_response = cih.async_service_call(self.stop_water_pump_client, stop_pump_request, self)   
+                
+                if is_battery_voltage_error:
+                    start_transition_request = gwp_services.Messages.Request(message = rc.TRANSITION_STATE)
+                    start_transition_response = cih.async_service_call(self.states_manager_client, start_transition_request, self)
     
     def dynamixel_motors_data_callback(self, msg):
         errors = cih.unpack_2d_array_message(msg.motor_errors)
@@ -70,61 +102,10 @@ class Safety(Node):
 
         currents_sum, self.currents_buffer, self.counter = mt.integrate_array(self.currents_buffer, currents, self.counter)
 
-        with self.battery_voltage_locker:
-            battery_voltage = self.battery_voltage
-        
-        if battery_voltage < self.MIN_ALLOWED_VOLTAG and self.grippers_attached_states.all():
-            stop_legs_request = Trigger.Request()
-            stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
-
-
-        if self.do_monitor_motors_states:
-            is_hw_error = np.any(errors)
-            is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD)
-
-            if is_current_overload_error or is_hw_error:
-                self.do_monitor_motors_states = False
-
-                # Stop any movement.
-                if is_current_overload_error:
-                    self.get_logger().info("SAFETY STOP - CURRENT")
-                if is_hw_error:
-                    self.get_logger().info(f"SAFETY STOP - HW ERROR, error codes: {errors}")
-                stop_legs_request = Trigger.Request()
-                stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
-
-                # Stop all water pumps.
-                stop_pump_request = Trigger.Request()
-                stop_pump_response = cih.async_service_call_from_service(self.stop_water_pump_client, stop_pump_request)
-                # with self.grippers_states_locker: 
-                #     attached_legs = [i for i, j in enumerate(self.grippers_attached_states) if j]
-                
-                # # Activate the breaks.
-                # self.get_logger().info("ACTIVATE BREAKS")
-                # activate_breaks_request = gwp_services.BreaksControl.Request(command = rc.ACTIVATE_BREAKS_COMMAND, break_id = rc.ALL_BREAKS_INDEX)
-                # activate_breaks_response = cih.async_service_call_from_service(self.breaks_controller_client, activate_breaks_request)
-
-                # if not len(attached_legs) == spider.NUMBER_OF_LEGS:
-                #     not_attached_leg_array = np.delete(spider.LEGS_IDS, attached_legs)
-                #     for leg in not_attached_leg_array:
-                #         deactivate_breaks_request = gwp_services.BreaksControl.Request(command = rc.RELEASE_BREAKS_COMMAND, break_id = int(leg))
-                #         deactivate_breaks_response = cih.async_service_call_from_service(self.breaks_controller_client, deactivate_breaks_request)
-
-                # # Start force mode (fd = 0).
-                # self.get_logger().info("START FORCE MODE")
-                # forces = np.zeros((len(attached_legs), 3))
-                # forces[:, 1] = np.ones(len(attached_legs)) * 0.5
-                # apply_force_request = cih.prepare_apply_forces_on_legs_request((attached_legs, forces))
-                # apply_force_response = cih.async_service_call_from_service(self.apply_force_client, apply_force_request)
-
-                # # TODO: Implement that waiting in some different way.
-                # time.sleep(15)
-
-                # # Turn off force mode.
-                # self.get_logger().info("STOP FORCE MODE")
-                # toggle_additional_controller_mode_request = cih.prepare_toggle_controller_mode_request((rc.FORCE_MODE, rc.STOP_COMMAND))
-                # toggle_additiona_controller_mode_response = cih.async_service_call_from_service(self.toggle_controller_mode_client, toggle_additional_controller_mode_request)
-
+        with self.dxl_data_locker:
+            self.currents_sum = currents_sum
+            self.hw_errors = errors
+            
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
             self.grippers_attached_states = [
@@ -138,38 +119,52 @@ class Safety(Node):
     def battery_voltage_callback(self, msg):
         with self.battery_voltage_locker:
             self.battery_voltage = msg.data
+    
+    def toggle_safety_callback(self, request, response):
+        with self.toggle_safety_locker:
+            self.do_monitor_safety = request.data
+        
+        response.success = self.do_monitor_safety == request.data
+        return response
 
     def __init_interfaces(self):
+        self.toggle_safety_service = self.create_service(SetBool, gid.TOGGLE_SAFETY_SERVICE, callback = self.toggle_safety_callback)
+
         self.toggle_controller_client = self.create_client(gwp_services.ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.toggle_controller_client.wait_for_service(timeout_sec = 1.0):
-            print("Toggle controller service not available...")
+            self.get_logger().info("Toggle controller service not available...")
 
         self.breaks_controller_client = self.create_client(gwp_services.BreaksControl, gid.BREAKS_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.breaks_controller_client.wait_for_service(timeout_sec = 1.0):
-            print("Breaks controller service not available...")
+            self.get_logger().info("Breaks controller service not available...")
 
         self.apply_force_client = self.create_client(gwp_services.ApplyForcesOnLegs, gid.APPLY_FORCES_ON_LEGS_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.apply_force_client.wait_for_service(timeout_sec = 1.0):
-            print("Apply forces on legs service not available...")
+            self.get_logger().info("Apply forces on legs service not available...")
 
         self.toggle_controller_mode_client = self.create_client(gwp_services.ToggleAdditionalControllerMode, gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.toggle_controller_mode_client.wait_for_service(timeout_sec = 1.0):
-            print("Toggle additional controller mode service not available...")  
+            self.get_logger().info("Toggle additional controller mode service not available...")  
         
         self.toggle_motors_torque_client = self.create_client(gwp_services.ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.toggle_motors_torque_client.wait_for_service(timeout_sec = 1.0):
-            print("Toggle motors torques service not available...") 
+            self.get_logger().info("Toggle motors torques service not available...") 
 
         self.stop_legs_movement_client = self.create_client(Trigger, gid.STOP_LEGS_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.stop_legs_movement_client.wait_for_service(timeout_sec = 1.0):
-            print("Stop legs movement service not available...")
+            self.get_logger().info("Stop legs movement service not available...")
         
         self.water_pump_client = self.create_client(gwp_services.ControlWaterPump, gid.WATER_PUMP_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.water_pump_client.wait_for_service(timeout_sec = 1.0):
-            print("Water pump service not available...") 
+            self.get_logger().info("Water pump service not available...") 
         
         self.stop_water_pump_client = self.create_client(Trigger, gid.STOP_WATER_PUMP_SERVICE, callback_group = self.reentrant_callback_group)
+        while not self.stop_water_pump_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("Stop water pump service not available...") 
 
+        self.states_manager_client = self.create_client(gwp_services.Messages, gid.STATES_MANAGER_SERVICE, callback_group = self.reentrant_callback_group)
+        while not self.states_manager_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("States manager service not available...") 
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.reentrant_callback_group) 
         self.dynamixel_motors_data_subscriber = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.dynamixel_motors_data_callback, 1)

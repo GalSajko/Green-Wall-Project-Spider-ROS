@@ -50,9 +50,13 @@ REBOOT_MOTORS_SERVICE = 'reboot_motors_service'
 GET_WALKING_INSTRUCTIONS_SERVICE = 'get_walking_instructions_service'
 GET_MODIFIED_WALKING_INSTRUCTION_SERVICE = 'get_modified_walking_instructions_service'
 GET_LEG_TRAJECTORY_SERVICE = 'get_leg_trajectory_service'
+GET_OFFSETS_TO_CHARGING_POSITION_SERVICE = 'get_offsets_to_charging_position_service'
 
 # Offset Predictor
 GET_CORRECTION_OFFSET_SERVICE = 'get_correction_offset_service'
 
 # App
 STATES_MANAGER_SERVICE = 'states_manager_service'
+
+# Safety
+TOGGLE_SAFETY_SERVICE = 'toggle_safety_service'

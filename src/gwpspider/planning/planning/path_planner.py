@@ -13,7 +13,7 @@ from calculations import mathtools as mt
 from calculations import transformations as tf
 from utils import custom_interface_helper
 
-from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions
+from gwpspider_interfaces.srv import GetWalkingInstructions, GetModifiedWalkingInstructions, GetOffsetsToChargingPosition
 from gwpspider_interfaces.msg import WalkingInstructions
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
@@ -39,13 +39,12 @@ class PathPlanner(Node):
         ], dtype = np.float32)
         self.relative_charging_positions = np.array([self.LEFT_RELATIVE_CHARGING_POSITIONS, self.RIGHT_RELATIVE_CHARGING_POSITIONS])
 
-        # TODO: Define service in gwpspider_interfaces.
-        self.offsets_to_charging_position_service = self.create_service(GetOffsetsToChargingPosition, gid.OFFSETS_TO_CHARGING_POSITION_SERVICE, self.get_offsets_to_charging_position_callback)
+        self.offsets_to_charging_position_service = self.create_service(GetOffsetsToChargingPosition, gid.GET_OFFSETS_TO_CHARGING_POSITION_SERVICE, self.get_offsets_to_charging_position_callback)
         self.walking_instructions_service = self.create_service(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback)
         self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback)
 
     def get_offsets_to_charging_position_callback(self, request, response):
-        current_pins = request.data
+        current_pins = request.current_pins.data
 
         pins = wall.create_grid(False)
         current_legs_positions = pins[current_pins]
@@ -58,7 +57,7 @@ class PathPlanner(Node):
                 
             # If legs are already in desired positions, no moves are required.
             if (leg_relative_positions == self.LEFT_RELATIVE_CHARGING_POSITIONS[leg]).all() or (leg_relative_positions == self.RIGHT_RELATIVE_CHARGING_POSITIONS[leg]).all():
-                response.data = np.zeros(np.shape(current_legs_positions))
+                response.offsets = custom_interface_helper.create_multiple_2d_array_messages([np.zeros(np.shape(current_legs_positions))])
                 return response
             
             current_relative_positions[leg] = leg_relative_positions
@@ -87,7 +86,7 @@ class PathPlanner(Node):
 
             are_legs_on_positions[best_configuration_id][base_leg] = [False] * spider.NUMBER_OF_LEGS
 
-        response.data = offsets
+        response.offsets = custom_interface_helper.create_multiple_2d_array_messages([offsets])
         return response
 
     def get_walking_instructions_callback(self, request, response):

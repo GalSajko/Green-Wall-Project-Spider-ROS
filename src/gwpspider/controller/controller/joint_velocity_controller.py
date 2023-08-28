@@ -462,6 +462,7 @@ class JointVelocityController(Node):
             x_a = self.legs_local_positions
         
         if x_a is not None:
+            self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
             with self.legs_last_positons_locker:
                 self.last_legs_positions = x_a
 

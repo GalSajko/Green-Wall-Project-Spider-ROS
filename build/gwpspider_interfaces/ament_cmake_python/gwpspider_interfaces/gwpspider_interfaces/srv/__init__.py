@@ -5,6 +5,7 @@ from gwpspider_interfaces.srv._distribute_forces import DistributeForces  # noqa
 from gwpspider_interfaces.srv._get_correction_offset import GetCorrectionOffset  # noqa: F401
 from gwpspider_interfaces.srv._get_leg_trajectory import GetLegTrajectory  # noqa: F401
 from gwpspider_interfaces.srv._get_modified_walking_instructions import GetModifiedWalkingInstructions  # noqa: F401
+from gwpspider_interfaces.srv._get_offsets_to_charging_position import GetOffsetsToChargingPosition  # noqa: F401
 from gwpspider_interfaces.srv._get_spider_pose import GetSpiderPose  # noqa: F401
 from gwpspider_interfaces.srv._get_walking_instructions import GetWalkingInstructions  # noqa: F401
 from gwpspider_interfaces.srv._init_bno import InitBno  # noqa: F401

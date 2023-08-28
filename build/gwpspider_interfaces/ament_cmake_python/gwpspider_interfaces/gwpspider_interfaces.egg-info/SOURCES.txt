@@ -24,6 +24,7 @@ gwpspider_interfaces/srv/_distribute_forces.py
 gwpspider_interfaces/srv/_get_correction_offset.py
 gwpspider_interfaces/srv/_get_leg_trajectory.py
 gwpspider_interfaces/srv/_get_modified_walking_instructions.py
+gwpspider_interfaces/srv/_get_offsets_to_charging_position.py
 gwpspider_interfaces/srv/_get_spider_pose.py
 gwpspider_interfaces/srv/_get_walking_instructions.py
 gwpspider_interfaces/srv/_init_bno.py

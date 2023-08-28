@@ -656,6 +656,50 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/g
   /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/type_support_map.h \
   /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/service_type_support_dispatch.h
 
+CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/get_offsets_to_charging_position__type_support.cpp.o: rosidl_typesupport_c/gwpspider_interfaces/srv/get_offsets_to_charging_position__type_support.cpp \
+  /usr/include/stdc-predef.h \
+  /usr/include/c++/11/cstddef \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+  /usr/include/features.h \
+  /usr/include/features-time64.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
+  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
+  /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h \
+  /usr/include/stdint.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h \
+  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
+  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h \
+  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \
+  /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/identifier.h \
+  /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/visibility_control.h \
+  /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/message_type_support_dispatch.h \
+  /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/type_support_map.h \
+  /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/service_type_support_dispatch.h
+
 CMakeFiles/gwpspider_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/gwpspider_interfaces/srv/get_spider_pose__type_support.cpp.o: rosidl_typesupport_c/gwpspider_interfaces/srv/get_spider_pose__type_support.cpp \
   /usr/include/stdc-predef.h \
   /usr/include/c++/11/cstddef \
@@ -1244,9 +1288,11 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__type_su
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_motors_torque__struct.h:
 
-rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.cpp:
+rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__type_support.h:
 
 rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_controller__type_support.cpp:
+
+rosidl_typesupport_c/gwpspider_interfaces/msg/walking_instructions__type_support.cpp:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/legs_states__struct.h:
 
@@ -1277,6 +1323,10 @@ rosidl_typesupport_c/gwpspider_interfaces/srv/control_water_pump__type_support.c
 rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/breaks_control__type_support.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__struct.h:
+
+/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
@@ -1310,8 +1360,6 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__type_suppo
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:
-
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__type_support.h:
@@ -1320,7 +1368,9 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/dynamixel_motors_data__type_s
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 
-rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__type_support.h:
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__type_support.h:
 
 /opt/ros/humble/include/rosidl_typesupport_c/rosidl_typesupport_c/visibility_control.h:
 
@@ -1351,6 +1401,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__type_support.h:
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+rosidl_typesupport_c/gwpspider_interfaces/srv/get_offsets_to_charging_position__type_support.cpp:
 
 /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h:
 
@@ -1428,10 +1480,6 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/bno_data__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_walking_instructions__type_support.h:
 
-/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h:
-
-rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__struct.h:
-
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_correction_offset__struct.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_modified_walking_instructions__type_support.h:
@@ -1441,6 +1489,12 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/get_leg_trajectory__type_supp
 rosidl_generator_c/gwpspider_interfaces/srv/detail/init_bno__struct.h:
 
 rosidl_typesupport_c/gwpspider_interfaces/srv/get_modified_walking_instructions__type_support.cpp:
+
+/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/distribute_forces__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h:
 
 /usr/include/features-time64.h:
 
@@ -1495,7 +1549,3 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/set_bus_watchdog__struct.h:
 rosidl_typesupport_c/gwpspider_interfaces/srv/toggle_additional_controller_mode__type_support.cpp:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_additional_controller_mode__type_support.h:
-
-/opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h:
-
-rosidl_generator_c/gwpspider_interfaces/srv/detail/toggle_controller__struct.h:

@@ -47,5 +47,10 @@ def generate_launch_description():
             package = 'safety_layer',
             executable = 'safety',
             name = 'safety_node'
+        ),
+        Node(
+            package = 'application',
+            executable = 'app',
+            name = 'app'
         )
     ])

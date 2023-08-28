@@ -246,7 +246,30 @@ def get_last_joint_to_goal_pin_vector_in_spider(
     last_joint_to_goal_pin_in_local = np.array(leg_goal_position_in_local - last_joint_position_in_local)
     last_joint_to_goal_pin_in_spider = np.dot(spider.T_BASES[leg_id][:3, :3], last_joint_to_goal_pin_in_local)
 
-    return last_joint_to_goal_pin_in_spider / np.linalg.norm(last_joint_to_goal_pin_in_spider) 
+    return last_joint_to_goal_pin_in_spider / np.linalg.norm(last_joint_to_goal_pin_in_spider)
+
+def get_charging_pins(current_pins: np.ndarray) -> np.ndarray:
+    relative_charging_positions = np.array([
+        [[0.0, 0.0], [-0.4, -0.25], [-0.2, -0.75], [0.2, -0.75], [0.2, -0.25]],
+        [[0.4, 0.25], [0.0, 0.0], [0.2, -0.5], [0.6, -0.5], [0.6, 0.0]],
+        [[0.2, 0.75], [-0.2, 0.5], [0.0, 0.0], [0.4, 0.0], [0.4, 0.5]],
+        [[-0.2, 0.75], [-0.6, 0.5], [-0.4, 0.0], [0.0, 0.0], [0.0, 0.5]],
+        [[-0.2, 0.25], [-0.6, 0.0], [-0.4, -0.5], [0.0, -0.5], [0.0, 0.0]]
+    ])
+    
+    pins = wall.create_grid(False)
+    current_legs_positions = pins[current_pins]
+
+    current_relative_positions = np.zeros(np.shape(relative_charging_positions))
+    for leg in spider.LEGS_IDS:
+        leg_relative_positions = np.zeros(np.shape(current_legs_positions))
+        for i, leg_position in enumerate(current_legs_positions):
+            leg_relative_positions[:, i] = leg_position - current_legs_positions[leg]
+        if leg_relative_positions == relative_charging_positions[leg]:
+            return np.zeros(np.shape(current_legs_positions))
+        current_relative_positions[leg] = leg_relative_positions
+    
+
 
 @numba.jit(nopython = True, cache = True)
 def R_B1(q_b: float, q_1: float) -> np.ndarray:
