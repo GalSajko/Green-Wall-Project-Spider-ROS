@@ -31,6 +31,7 @@
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetCorrectionOffset.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/BreaksControl.srv",
     "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/Messages.srv",
-    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetOffsetsToChargingPosition.srv"
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/GetOffsetsToChargingPosition.srv",
+    "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces:srv/SendStringCommand.srv"
   ]
 }

@@ -55,18 +55,21 @@ class App(Node):
     def WORKING_VOLTAGE(self):
         return 16.0
     
-    def states_manager_callback(self, request, _):
-        if request.message == robot_config.WORKING_STATE:
+    def states_manager_callback(self, request, response):
+        if request.command == robot_config.WORKING_STATE:
             self.get_logger().info("WORKING STARTED")
             self.working()
-        elif request.message == robot_config.TRANSITION_STATE:
+
+        elif request.command == robot_config.TRANSITION_STATE:
             self.get_logger().info("TRANSITIONING INTO CHARGING POSITION")
             self.transition_to_charging_position()
+
+        response.success = True
+        return response
 
     def working(self):
         while True:
             poses, pins_instructions, plant_or_refill_position, watering_or_refill_leg_id, volume = self.__get_movement_instructions()
-
             for step, pose in enumerate(poses):
                 current_pins_positions = pins_instructions[step, :, 1:]
                 current_legs_moving_order = pins_instructions[step, :, 0].astype(int)
@@ -91,16 +94,16 @@ class App(Node):
                             self.get_logger().info("Working stopped due to error in leg movement.")
                             return False
             
-            if not self.__watering(watering_or_refill_leg_id, plant_or_refill_position, poses[-1], volume):
+            if not self.__watering(watering_or_refill_leg_id, plant_or_refill_position, volume):
                 self.get_logger().info("Working stopped due to error while watering.")
                 return False
             
     def transition_to_charging_position(self):
         _, current_pins, current_positions = self.json_file_manager.read_spider_state()
         self.get_logger().info(f"CURRENT PINS: {current_pins}")
+
         offsets_request = gwp_services.GetOffsetsToChargingPosition.Request(current_pins = Int8MultiArray(data = current_pins))
         offsets_response = custom_interface_helper.async_service_call_from_service(self.get_offsets_to_charging_position_client, offsets_request)
-
         offsets = custom_interface_helper.unpack_2d_array_message(offsets_response.offsets)
         offsets = np.c_[offsets, np.zeros(len(offsets))]
         offsets = np.array(offsets, dtype = np.float32)
@@ -116,23 +119,23 @@ class App(Node):
         activate_breaks_request = gwp_services.BreaksControl.Request(command = robot_config.ACTIVATE_BREAKS_COMMAND, break_id = robot_config.ALL_BREAKS_INDEX)
         activate_breaks_response = custom_interface_helper.async_service_call_from_service(self.breaks_controller_client, activate_breaks_request)
         
-        forces = np.zeros((spider.NUMBER_OF_LEGS, 3))
-        forces[:, 1] = np.ones(spider.NUMBER_OF_LEGS) * 0.5
-        apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((spider.LEGS_IDS, forces))
-        apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
-        
-        time.sleep(3)
+        for i in range(2):
+            forces = np.zeros((spider.NUMBER_OF_LEGS, 3))
+            forces[:, 1] = np.ones(spider.NUMBER_OF_LEGS) * 0.5 * int(i == 0)
+            apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((spider.LEGS_IDS, forces))
+            apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
+            time.sleep(2)
 
-        disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request(([11, 12, 13, 21, 22, 23, 31, 32, 33, 41, 42, 43, 51, 52, 53], robot_config.DISABLE_LEGS_COMMAND))
+        disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.DISABLE_LEGS_COMMAND))
         disable_motors_response = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, disable_motors_request)
 
         with self.battery_voltage_locker:
             battery_voltage = self.battery_voltage
         
-        while not battery_voltage >= self.WORKING_VOLTAGE:
+        while battery_voltage < self.WORKING_VOLTAGE:
             with self.battery_voltage_locker:
                 battery_voltage = self.battery_voltage
-                time.sleep(5)
+            time.sleep(5)
 
         toggle_additional_controller_mode_request = custom_interface_helper.prepare_toggle_controller_mode_request((robot_config.FORCE_MODE, robot_config.STOP_COMMAND))
         toggle_additional_controller_mode_response = custom_interface_helper.async_service_call_from_service(self.toggle_controller_mode_client, toggle_additional_controller_mode_request)
@@ -143,7 +146,7 @@ class App(Node):
         self.get_logger().info("CHARGING FINISHED")
         time.sleep(5)
         
-        enable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request(([11, 12, 13, 21, 22, 23, 31, 32, 33, 41, 42, 43, 51, 52, 53], robot_config.ENABLE_LEGS_COMMAND))
+        enable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.ENABLE_LEGS_COMMAND))
         enable_motors_response = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, enable_motors_request)
 
         release_breaks_request = gwp_services.BreaksControl.Request(command = robot_config.RELEASE_BREAKS_COMMAND, break_id = robot_config.ALL_BREAKS_INDEX)
@@ -151,8 +154,6 @@ class App(Node):
         
         self.working()
         
-
- 
     def battery_voltage_callback(self, msg):
         with self.battery_voltage_locker:
             self.battery_voltage = msg.data
@@ -191,15 +192,16 @@ class App(Node):
 
         random_goals = np.array([
             [0.1, 0.74, 0.0],
-            [0.1, 0.99, 0.0],
             [0.3, 0.74, 0.0],
-            [0.3, 0.99, 0.0],
             [1.1, 0.74, 0.0],
-            [1.1, 0.99, 0.0],
             [0.9, 0.74, 0.0],
-            [0.9, 0.99, 0.0]
+            [0.1, 0.49, 0.0],
+            [0.3, 0.49, 0.0],
+            [1.1, 0.49, 0.0],
+            [0.9, 0.49, 0.0],
         ])
-        watering_position = random_goals[np.random.randint(0, len(random_goals) - 1)]
+        random_idx = np.random.randint(0, len(random_goals) - 1)
+        watering_position = random_goals[random_idx]
         go_refill = False
         volume = 30
 
@@ -337,19 +339,25 @@ class App(Node):
             
         return False
             
-    def __watering(self, leg_id, position, spider_pose, volume):
+    def __watering(self, leg_id, position, volume):
+        _, _, legs_positions = self.json_file_manager.read_spider_state()
+        current_leg_position = legs_positions[leg_id]
+        offset_vector = position - current_leg_position
+        rpy = self.__get_spider_pose()[3:]
+        pin_to_plant_vector_in_local, _ = tf.get_global_vector_in_local(leg_id, rpy, offset_vector)
+
         self.__distribute_forces(np.delete(spider.LEGS_IDS, leg_id))
         with self.legs_states_locker:
             leg_local_position_before_watering = self.legs_local_positions[leg_id]
 
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
-            position,
+            pin_to_plant_vector_in_local,
             robot_config.BEZIER_TRAJECTORY,
-            robot_config.GLOBAL_ORIGIN,
+            robot_config.LEG_ORIGIN,
             2.5,
-            False,
-            spider_pose,
+            True,
+            [],
             True,
             False,
             False
@@ -463,7 +471,7 @@ class App(Node):
         while not self.toggle_safety_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Toggle safety service not available...") 
         
-        self.states_manager_service = self.create_service(gwp_services.Messages, gid.STATES_MANAGER_SERVICE, callback = self.states_manager_callback)
+        self.states_manager_service = self.create_service(gwp_services.SendStringCommand, gid.STATES_MANAGER_SERVICE, callback = self.states_manager_callback, callback_group = self.callback_group)
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)

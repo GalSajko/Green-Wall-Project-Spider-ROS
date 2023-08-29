@@ -199,20 +199,28 @@ def get_watering_leg_and_pose(spider_pose: np.ndarray, goal_position: np.ndarray
     
         max_x = wall.WALL_SIZE[0] - 0.8
         min_x = 1.8
-        if spider_pose[0] <= goal_position[0]:
-            if spider_pose[0] <= min_x:
-                watering_leg = spider.WATERING_LEGS_IDS[0]
-                watering_pose = first_leg_watering_pose
-            else:
-                watering_leg = spider.WATERING_LEGS_IDS[1]
-                watering_pose = fourth_leg_watering_pose
+        # TODO: Uncomment for working on the big wall.
+        # if spider_pose[0] <= goal_position[0]:
+        #     if spider_pose[0] <= min_x:
+        #         watering_leg = spider.WATERING_LEGS_IDS[0]
+        #         watering_pose = first_leg_watering_pose
+        #     else:
+        #         watering_leg = spider.WATERING_LEGS_IDS[1]
+        #         watering_pose = fourth_leg_watering_pose
+        # else:
+        #     if spider_pose[0] >= max_x:
+        #         watering_leg = spider.WATERING_LEGS_IDS[1]
+        #         watering_pose = fourth_leg_watering_pose
+        #     else:
+        #         watering_leg = spider.WATERING_LEGS_IDS[0]
+        #         watering_pose = first_leg_watering_pose
+        if goal_position[0] < 0.6:
+            watering_leg = spider.WATERING_LEGS_IDS[0]
+            watering_pose = first_leg_watering_pose
         else:
-            if spider_pose[0] >= max_x:
-                watering_leg = spider.WATERING_LEGS_IDS[1]
-                watering_pose = fourth_leg_watering_pose
-            else:
-                watering_leg = spider.WATERING_LEGS_IDS[0]
-                watering_pose = first_leg_watering_pose
+            watering_leg = spider.WATERING_LEGS_IDS[1]
+            watering_pose = fourth_leg_watering_pose
+
 
         return watering_leg, watering_pose
     

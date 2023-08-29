@@ -56,6 +56,8 @@ file(REMOVE_RECURSE
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_move_spider_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_reboot_motors_s.c"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command.py"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_set_bus_watchdog_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_spider_goal.py"

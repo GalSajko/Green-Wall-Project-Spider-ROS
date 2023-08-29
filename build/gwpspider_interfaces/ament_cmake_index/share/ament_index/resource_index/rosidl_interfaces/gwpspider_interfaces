@@ -84,6 +84,10 @@ srv/RebootMotors.idl
 srv/RebootMotors.srv
 srv/RebootMotors_Request.msg
 srv/RebootMotors_Response.msg
+srv/SendStringCommand.idl
+srv/SendStringCommand.srv
+srv/SendStringCommand_Request.msg
+srv/SendStringCommand_Response.msg
 srv/SetBusWatchdog.idl
 srv/SetBusWatchdog.srv
 srv/SetBusWatchdog_Request.msg

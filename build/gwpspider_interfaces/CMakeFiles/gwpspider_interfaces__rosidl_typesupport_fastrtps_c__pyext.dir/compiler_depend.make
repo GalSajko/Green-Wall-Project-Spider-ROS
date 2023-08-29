@@ -341,8 +341,13 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
   rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h:
 
@@ -363,6 +368,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/spider_goal__type_support.h:
 rosidl_generator_c/gwpspider_interfaces/srv/detail/move_leg_velocity_mode__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__functions.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/apply_forces_on_legs__type_support.h:
 
@@ -915,6 +922,8 @@ rosidl_generator_py/gwpspider_interfaces/_gwpspider_interfaces_s.ep.rosidl_types
 /usr/include/python3.10/abstract.h:
 
 /usr/include/python3.10/genericaliasobject.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__struct.h:
 
 /usr/include/python3.10/structseq.h:
 

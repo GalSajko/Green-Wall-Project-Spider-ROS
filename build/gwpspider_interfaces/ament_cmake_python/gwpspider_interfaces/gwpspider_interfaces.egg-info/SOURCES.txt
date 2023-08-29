@@ -34,6 +34,7 @@ gwpspider_interfaces/srv/_move_leg.py
 gwpspider_interfaces/srv/_move_leg_velocity_mode.py
 gwpspider_interfaces/srv/_move_spider.py
 gwpspider_interfaces/srv/_reboot_motors.py
+gwpspider_interfaces/srv/_send_string_command.py
 gwpspider_interfaces/srv/_set_bus_watchdog.py
 gwpspider_interfaces/srv/_spider_goal.py
 gwpspider_interfaces/srv/_toggle_additional_controller_mode.py

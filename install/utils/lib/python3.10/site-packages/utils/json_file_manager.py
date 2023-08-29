@@ -1,9 +1,6 @@
 import json
 import numpy as np
 from gwpconfig import wall
-import os
-
-from ament_index_python import get_package_share_directory
 
 from configuration import robot_config
 
@@ -26,6 +23,7 @@ class JsonFileManager():
             current_pins (list): 5x3 array of pins positions.
             legs_moving_order (list): Legs moving order.
         """
+        current_pins = np.round(current_pins, 2) 
         sorted_legs_ids = np.argsort(legs_moving_order)
         sorted_pins = np.array(current_pins[sorted_legs_ids], dtype = np.float32)
 
@@ -47,6 +45,7 @@ class JsonFileManager():
             leg_id (int): Leg id.
             pin (list): 1x3 array of pin position.
         """
+        pin = np.round(pin, 2)
         pin_id = np.flatnonzero((np.array(self.pins, dtype = np.float32) == np.array(pin, dtype = np.float32)).all(1))[0]
 
         self.state_dict[robot_config.STATE_DICT_PINS_KEY][leg_id] = int(pin_id)

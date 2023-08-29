@@ -15,6 +15,7 @@ from gwpspider_interfaces.srv._move_leg import MoveLeg  # noqa: F401
 from gwpspider_interfaces.srv._move_leg_velocity_mode import MoveLegVelocityMode  # noqa: F401
 from gwpspider_interfaces.srv._move_spider import MoveSpider  # noqa: F401
 from gwpspider_interfaces.srv._reboot_motors import RebootMotors  # noqa: F401
+from gwpspider_interfaces.srv._send_string_command import SendStringCommand  # noqa: F401
 from gwpspider_interfaces.srv._set_bus_watchdog import SetBusWatchdog  # noqa: F401
 from gwpspider_interfaces.srv._spider_goal import SpiderGoal  # noqa: F401
 from gwpspider_interfaces.srv._toggle_additional_controller_mode import ToggleAdditionalControllerMode  # noqa: F401

@@ -2,7 +2,8 @@
 """
 import rclpy
 from rclpy.node import Node
-from rclpy.executors import SingleThreadedExecutor
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
 import math
@@ -39,9 +40,10 @@ class PathPlanner(Node):
         ], dtype = np.float32)
         self.relative_charging_positions = np.array([self.LEFT_RELATIVE_CHARGING_POSITIONS, self.RIGHT_RELATIVE_CHARGING_POSITIONS])
 
-        self.offsets_to_charging_position_service = self.create_service(GetOffsetsToChargingPosition, gid.GET_OFFSETS_TO_CHARGING_POSITION_SERVICE, self.get_offsets_to_charging_position_callback)
-        self.walking_instructions_service = self.create_service(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback)
-        self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback)
+        self.callback_group = ReentrantCallbackGroup()
+        self.offsets_to_charging_position_service = self.create_service(GetOffsetsToChargingPosition, gid.GET_OFFSETS_TO_CHARGING_POSITION_SERVICE, self.get_offsets_to_charging_position_callback, callback_group = self.callback_group)
+        self.walking_instructions_service = self.create_service(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback, callback_group = self.callback_group)
+        self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback, callback_group = self.callback_group)
 
     def get_offsets_to_charging_position_callback(self, request, response):
         current_pins = request.current_pins.data
@@ -263,7 +265,6 @@ class PathPlanner(Node):
         start_pose[2] = spider.SPIDER_WALKING_HEIGHT
         start_pose = np.append(start_pose, 0.0)
         correction_offset = 0.005
-        self.get_logger().info("CALCULATING INITIAL POSE...")
         counter = 0
         while True:
             potential_legs_lengths = np.zeros(len(spider.LEGS_IDS), dtype = np.float32)
@@ -333,7 +334,7 @@ class PathPlanner(Node):
 def main():
     rclpy.init()
     path_planner = PathPlanner()
-    executor = SingleThreadedExecutor()
+    executor = MultiThreadedExecutor()
     rclpy.spin(path_planner, executor)
     rclpy.shutdown()
 

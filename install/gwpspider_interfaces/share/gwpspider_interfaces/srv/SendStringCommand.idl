@@ -1,0 +1,15 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from gwpspider_interfaces/srv/SendStringCommand.srv
+// generated code does not contain a copyright notice
+
+
+module gwpspider_interfaces {
+  module srv {
+    struct SendStringCommand_Request {
+      string command;
+    };
+    struct SendStringCommand_Response {
+      boolean success;
+    };
+  };
+};
