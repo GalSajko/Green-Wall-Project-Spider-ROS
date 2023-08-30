@@ -57,6 +57,7 @@ GET_CORRECTION_OFFSET_SERVICE = 'get_correction_offset_service'
 
 # App
 STATES_MANAGER_SERVICE = 'states_manager_service'
+IDLE_STATE_SERVICE = 'idle_state_service'
 
 # Safety
 TOGGLE_SAFETY_SERVICE = 'toggle_safety_service'

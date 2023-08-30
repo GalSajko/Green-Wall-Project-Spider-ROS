@@ -10,7 +10,7 @@ import time
 from matplotlib import pyplot as plt
 
 from std_msgs.msg import Float32MultiArray
-from std_srvs.srv import Trigger
+from std_srvs.srv import Trigger, SetBool
 
 from configuration import robot_config, spider
 from utils import custom_interface_helper, json_file_manager
@@ -37,7 +37,7 @@ class JointVelocityController(Node):
         self.do_init = True
         self.do_run = True
 
-        self.stop_movement_locker = threading.Lock()
+        self.toggle_movement_locker = threading.Lock()
         self.do_stop_movement = False
 
         self.force_mode_locker = threading.Lock()
@@ -252,9 +252,6 @@ class JointVelocityController(Node):
             return response
 
         if close_gripper:
-            # with self.legs_states_locker:
-            #     f_a = self.legs_forces[leg_id]
-            # force_to_apply = np.array([-np.sign(f_a[0]), -np.sign(f_a[1]), -self.MAX_ALLOWED_FORCE])
             force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
             self.__apply_forces_on_leg_tips(leg_id, force_to_apply)
 
@@ -471,13 +468,13 @@ class JointVelocityController(Node):
         response.success = False
         return response
     
-    def stop_legs_movement_callback(self, _, response):
+    def toggle_legs_movement_callback(self, request, response):
+        with self.toggle_movement_locker:
+            self.do_stop_movement = request.data
+            response.success = self.do_stop_movement == request.data
+
         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
 
-        with self.stop_movement_locker:
-            self.do_stop_movement = True
-
-        response.success = True
         return response
     
     def __get_spider_pose(self, legs_ids, legs_global_positions):
@@ -614,8 +611,9 @@ class JointVelocityController(Node):
         start_time = time.time()
         elapsed_time = 0
         while elapsed_time < duration:
-            with self.stop_movement_locker:
+            with self.toggle_movement_locker:
                 if self.do_stop_movement:
+                    self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
@@ -644,7 +642,7 @@ class JointVelocityController(Node):
             self.toggle_additional_controller_mode_callback,
             callback_group = self.callback_group
         )
-        self.stop_legs_service = self.create_service(Trigger, gid.STOP_LEGS_SERVICE, self.stop_legs_movement_callback, callback_group = self.callback_group)
+        self.stop_legs_service = self.create_service(SetBool, gid.STOP_LEGS_SERVICE, self.toggle_legs_movement_callback, callback_group = self.callback_group)
 
         self.leg_trajectory_client = self.create_client(gwp_services.GetLegTrajectory, gid.GET_LEG_TRAJECTORY_SERVICE, callback_group = self.callback_group)
         while not self.leg_trajectory_client.wait_for_service(timeout_sec = 1.0):

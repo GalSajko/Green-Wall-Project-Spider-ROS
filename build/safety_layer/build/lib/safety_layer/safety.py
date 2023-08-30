@@ -39,8 +39,6 @@ class Safety(Node):
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.__init_interfaces()
-
-        # self.safety_loop()
     
     @property
     def TIME_INTEGRATION_WINDOW(self):
@@ -68,7 +66,7 @@ class Safety(Node):
     
     @property
     def MIN_ALLOWED_VOLTAGE(self):
-        return 15.8
+        return 15.7
     
     def dynamixel_motors_data_callback(self, msg):
         hw_errors = cih.unpack_2d_array_message(msg.motor_errors)
@@ -87,25 +85,21 @@ class Safety(Node):
 
         # self.get_logger().info(f"BATTERY VOLTAGE: {battery_voltage}")
 
-        if do_monitor_safety:
-            if is_hw_errors or is_current_overload_error or is_battery_voltage_error:
-                with self.toggle_safety_locker:
-                    self.do_monitor_safety = False
-                # This also forces working procedure in app module to return False.
-                stop_legs_request = Trigger.Request()
-                stop_legs_response = cih.async_service_call_from_service(self.stop_legs_movement_client, stop_legs_request)
-                stop_pump_request = Trigger.Request()
-                stop_pump_response = cih.async_service_call_from_service(self.stop_water_pump_client, stop_pump_request)   
+        # if do_monitor_safety:
+        #     if is_hw_errors or is_current_overload_error or is_battery_voltage_error:
+        #         with self.toggle_safety_locker:
+        #             self.do_monitor_safety = False
+        #         # This also forces working procedure in app module to return False.
+        #         start_idle_state_request = gwp_services.SendStringCommand.Request(command = rc.IDLE_STATE)
+        #         start_idle_state_response = cih.async_service_call_from_service(self.states_manager_client, start_idle_state_request)
 
-                time.sleep(1.5)
-                self.get_logger().info(f"STATES SERVICE ACTIVE: {self.states_manager_client.wait_for_service(timeout_sec = 0.1)}")
+        #         while not start_idle_state_response.success:
+        #             time.sleep(0.1)
             
-            if is_battery_voltage_error:
-                self.get_logger().info("BATTERY VOLTAGE ERROR")
-                start_transition_request = gwp_services.SendStringCommand.Request(command = rc.TRANSITION_STATE)
-                start_transition_response = cih.async_service_call_from_service(self.states_manager_client, start_transition_request)
-
-        # self.get_logger().info(f"DXL DATA: {errors, currents}")
+        #     if is_battery_voltage_error:
+        #         self.get_logger().info("BATTERY VOLTAGE ERROR")
+        #         start_transition_request = gwp_services.SendStringCommand.Request(command = rc.TRANSITION_STATE)
+        #         start_transition_response = cih.async_service_call_from_service(self.states_manager_client, start_transition_request)
             
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
@@ -116,12 +110,10 @@ class Safety(Node):
                 msg.fourth_gripper.is_attached,
                 msg.fifth_gripper.is_attached
             ])
-        # self.get_logger().info(f"GRIPPERS: {self.grippers_attached_states}")
     
     def battery_voltage_callback(self, msg):
         with self.battery_voltage_locker:
             self.battery_voltage = msg.data
-        # self.get_logger().info(f"VOLTAGE: {self.battery_voltage}")
     
     def toggle_safety_callback(self, request, response):
         with self.toggle_safety_locker:
@@ -132,38 +124,6 @@ class Safety(Node):
 
     def __init_interfaces(self):
         self.toggle_safety_service = self.create_service(SetBool, gid.TOGGLE_SAFETY_SERVICE, callback = self.toggle_safety_callback, callback_group = self.reentrant_callback_group)
-
-        self.toggle_controller_client = self.create_client(gwp_services.ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.toggle_controller_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Toggle controller service not available...")
-
-        self.breaks_controller_client = self.create_client(gwp_services.BreaksControl, gid.BREAKS_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.breaks_controller_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Breaks controller service not available...")
-
-        self.apply_force_client = self.create_client(gwp_services.ApplyForcesOnLegs, gid.APPLY_FORCES_ON_LEGS_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.apply_force_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Apply forces on legs service not available...")
-
-        self.toggle_controller_mode_client = self.create_client(gwp_services.ToggleAdditionalControllerMode, gid.TOGGLE_ADDITIONAL_CONTROLLER_MODE_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.toggle_controller_mode_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Toggle additional controller mode service not available...")  
-        
-        self.toggle_motors_torque_client = self.create_client(gwp_services.ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.toggle_motors_torque_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Toggle motors torques service not available...") 
-
-        self.stop_legs_movement_client = self.create_client(Trigger, gid.STOP_LEGS_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.stop_legs_movement_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Stop legs movement service not available...")
-        
-        self.water_pump_client = self.create_client(gwp_services.ControlWaterPump, gid.WATER_PUMP_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.water_pump_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Water pump service not available...") 
-        
-        self.stop_water_pump_client = self.create_client(Trigger, gid.STOP_WATER_PUMP_SERVICE, callback_group = self.reentrant_callback_group)
-        while not self.stop_water_pump_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Stop water pump service not available...") 
 
         self.states_manager_client = self.create_client(gwp_services.SendStringCommand, gid.STATES_MANAGER_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.states_manager_client.wait_for_service(timeout_sec = 1.0):
