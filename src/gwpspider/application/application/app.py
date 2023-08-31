@@ -23,6 +23,7 @@ from std_srvs.srv import Empty, SetBool, Trigger
 class App(Node):
     def __init__(self):
         Node.__init__(self, 'application')
+        self.state = None
 
         self.is_working = False
         self.is_working_locker = threading.Lock()
@@ -41,7 +42,9 @@ class App(Node):
         self.legs_states_locker = threading.Lock()
 
         self.battery_voltage = 0
+        self.is_battery_voltage_error = False
         self.battery_voltage_locker = threading.Lock()
+        self.battery_voltage_error_locker = threading.Lock()
 
         self.callback_group = ReentrantCallbackGroup()
 
@@ -74,8 +77,15 @@ class App(Node):
         start_legs_request = SetBool.Request(data = False)
         start_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, start_legs_request)
 
+        start_battery_voltage_monitoring_request = SetBool.Request(data = True)
+        start_battery_voltage_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, start_battery_voltage_monitoring_request)
+        start_hw_errors_monitoring_request = SetBool.Request(data = True)
+        start_hw_errors_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_hw_errors_client, start_hw_errors_monitoring_request)
+
         with self.is_working_locker:
             self.is_working = True
+
+        self.is_init = True
 
         while True:
             poses, pins_instructions, plant_or_refill_position, watering_or_refill_leg_id, volume = self.__get_movement_instructions()
@@ -89,6 +99,14 @@ class App(Node):
                         with self.is_working_locker:
                             self.is_working = False
                         return False
+                    
+                    with self.battery_voltage_error_locker:
+                        if self.is_battery_voltage_error:
+                            self.get_logger().info("Working stopped due to low battery voltage.")
+                            with self.is_working_locker:
+                                self.is_working = False
+                            return False
+                        
                     self.json_file_manager.update_whole_dict(pose, current_pins_positions, current_legs_moving_order)
                     self.__distribute_forces(spider.LEGS_IDS)
                     continue
@@ -99,6 +117,13 @@ class App(Node):
                     with self.is_working_locker:
                         self.is_working = False
                     return False
+                
+                with self.battery_voltage_error_locker:
+                    if self.is_battery_voltage_error:
+                        self.get_logger().info("Working stopped due to low battery voltage.")
+                        with self.is_working_locker:
+                            self.is_working = False
+                        return False
 
                 self.json_file_manager.update_whole_dict(pose, previous_pins_positions, current_legs_moving_order)
 
@@ -110,12 +135,26 @@ class App(Node):
                             with self.is_working_locker:
                                 self.is_working = False
                             return False
+                        
+                        with self.battery_voltage_error_locker:
+                            if self.is_battery_voltage_error:
+                                self.get_logger().info("Working stopped due to low battery voltage.")
+                                with self.is_working_locker:
+                                    self.is_working = False
+                                return False
             
             if not self.__watering(watering_or_refill_leg_id, plant_or_refill_position, volume):
                 self.get_logger().info("Working stopped due to error while watering.")
                 with self.is_working_locker:
                     self.is_working = False
                 return False
+            
+            with self.battery_voltage_error_locker:
+                if self.is_battery_voltage_error:
+                    self.get_logger().info("Working stopped due to low battery voltage.")
+                    with self.is_working_locker:
+                        self.is_working = False
+                    return False
             
     def transition_to_charging_position(self):
         with self.is_working_locker:
@@ -124,6 +163,7 @@ class App(Node):
         
         start_legs_request = SetBool.Request(data = False)
         start_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, start_legs_request)
+
         _, current_pins, current_positions = self.json_file_manager.read_spider_state()
         offsets, goal_positions = self.__get_charging_position_offsets(current_pins, current_positions)
 
@@ -131,16 +171,19 @@ class App(Node):
             if (offsets[leg] == np.zeros(3, dtype = np.float32)).all():
                 continue
             self.__move_leg_to_next_pin(leg, offsets[leg], goal_positions[leg], adjust_spider_pose = True)
+
+        desired_pose = self.__get_spider_pose()
+        desired_pose[2] = 0.15
+        self.__move_spider(spider.LEGS_IDS, self.json_file_manager.read_spider_state()[2], desired_pose, 2.0)
         
         activate_breaks_request = gwp_services.BreaksControl.Request(command = robot_config.ACTIVATE_BREAKS_COMMAND, break_id = robot_config.ALL_BREAKS_INDEX)
         activate_breaks_response = custom_interface_helper.async_service_call_from_service(self.breaks_controller_client, activate_breaks_request)
-        
-        for i in range(2):
-            forces = np.zeros((spider.NUMBER_OF_LEGS, 3))
-            forces[:, 1] = np.ones(spider.NUMBER_OF_LEGS) * 0.5 * int(i == 0)
-            apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((spider.LEGS_IDS, forces))
-            apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
-            time.sleep(3)
+
+        forces = np.zeros((spider.NUMBER_OF_LEGS, 3))
+        forces[:, 1] = np.ones(spider.NUMBER_OF_LEGS) * -0.5
+        apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((spider.LEGS_IDS, forces))
+        apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
+        time.sleep(6)
 
         disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.DISABLE_LEGS_COMMAND))
         disable_motors_response = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, disable_motors_request)
@@ -157,36 +200,65 @@ class App(Node):
         toggle_additional_controller_mode_request = custom_interface_helper.prepare_toggle_controller_mode_request((robot_config.FORCE_MODE, robot_config.STOP_COMMAND))
         toggle_additional_controller_mode_response = custom_interface_helper.async_service_call_from_service(self.toggle_controller_mode_client, toggle_additional_controller_mode_request)
 
-        toggle_safety_request = SetBool.Request(data = True)
-        toggle_safety_response = custom_interface_helper.async_service_call_from_service(self.toggle_safety_client, toggle_safety_request)
-
         self.get_logger().info("CHARGING FINISHED")
+        with self.battery_voltage_error_locker:
+            self.is_battery_voltage_error = False
         time.sleep(5)
-        
+
+        start_battery_voltage_monitoring_request = SetBool.Request(data = True)
+        start_battery_voltage_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, start_battery_voltage_monitoring_request)
+
         enable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.ENABLE_LEGS_COMMAND))
         enable_motors_response = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, enable_motors_request)
+
+        time.sleep(2)
 
         release_breaks_request = gwp_services.BreaksControl.Request(command = robot_config.RELEASE_BREAKS_COMMAND, break_id = robot_config.ALL_BREAKS_INDEX)
         release_breaks_response = custom_interface_helper.async_service_call_from_service(self.breaks_controller_client, release_breaks_request)
 
         return True
 
-    def idle_state_trigger_callback(self, _, response):
+    def immediate_stop_trigger_callback(self, _, response):
+        self.get_logger().info("IMMEDIATE STOP TRIGGERED.")
         _ = self.__start_idle_state()
-        self.get_logger().info("WAITING...")
+        
+        stop_hw_errors_monitoring_request = SetBool.Request(data = False)
+        stop_hw_errors_monitoring_response = custom_interface_helper.async_serice_call_from_service(self.monitor_hw_errors_client, stop_hw_errors_monitoring_request)
+
         with self.is_working_locker:
             is_working = self.is_working
         while is_working:
             with self.is_working_locker:
                 is_working = self.is_working
-            time.sleep(0.01)
-        self.get_logger().info("WORKING STOPPED")
+            time.sleep(0.1)
+
         response.success = is_working is False
         return response
         
     def battery_voltage_callback(self, msg):
         with self.battery_voltage_locker:
             self.battery_voltage = msg.data
+    
+    def set_battery_voltage_error_flag_callback(self, request, response):
+        stop_battery_voltage_monitoring_request = SetBool.Request(data = False)
+        stop_battery_voltage_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, stop_battery_voltage_monitoring_request)
+    
+        self.get_logger().info("TRANSITION TO CHARGING POSITION TRIGGERED.")
+
+        with self.battery_voltage_error_locker:
+            self.is_battery_voltage_error = request.data
+        
+        with self.is_working_locker:
+            is_working = self.is_working
+        while is_working:
+            with self.is_working_locker:
+                is_working = self.is_working
+            time.sleep(0.1)
+        
+        transition_success = self.transition_to_charging_position()
+
+        response.success = transition_success
+        return response
             
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
@@ -212,8 +284,10 @@ class App(Node):
         self.spider_pose_publisher.publish(msg)
 
     def __start_idle_state(self):
+        self.get_logger().info("STOP LEGS")
         stop_legs_request = SetBool.Request(data = True)
         stop_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, stop_legs_request)
+        self.get_logger().info("STOP PUMPS")
         stop_pump_request = Trigger.Request()
         stop_pump_response = custom_interface_helper.async_service_call_from_service(self.stop_water_pump_client, stop_pump_request)
 
@@ -548,12 +622,17 @@ class App(Node):
         while not self.get_offsets_to_charging_position_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Offsets to charging position service not available...")       
         
-        self.toggle_safety_client = self.create_client(SetBool, gid.TOGGLE_SAFETY_SERVICE, callback_group = self.callback_group)
-        while not self.toggle_safety_client.wait_for_service(timeout_sec = 1.0):
+        self.monitor_battery_voltage_client = self.create_client(SetBool, gid.TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE, callback_group = self.callback_group)
+        while not self.monitor_battery_voltage_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("Toggle safety service not available...") 
+
+        self.monitor_hw_errors_client = self.create_client(SetBool, gid.TOGGLE_HW_ERRORS_MONITORING_SERVICE, callback_group = self.callback_group)
+        while not self.monitor_hw_errors_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Toggle safety service not available...") 
         
         self.states_manager_service = self.create_service(gwp_services.SendStringCommand, gid.STATES_MANAGER_SERVICE, callback = self.states_manager_callback, callback_group = self.callback_group)
-        self.idle_state_trigger_service = self.create_service(Trigger, gid.IDLE_STATE_SERVICE, callback = self.idle_state_trigger_callback, callback_group = self.callback_group)
+        self.immediate_stop_trigger_service = self.create_service(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback = self.immediate_stop_trigger_callback, callback_group = self.callback_group)
+        self.battery_voltage_service = self.create_service(SetBool, gid.BATTERY_VOLTAGE_TRIGGER_SERVICE, callback = self.set_battery_voltage_error_flag_callback, callback_group = self.callback_group)
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.callback_group)
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)

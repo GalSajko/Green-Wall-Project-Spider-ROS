@@ -57,7 +57,9 @@ GET_CORRECTION_OFFSET_SERVICE = 'get_correction_offset_service'
 
 # App
 STATES_MANAGER_SERVICE = 'states_manager_service'
-IDLE_STATE_SERVICE = 'idle_state_service'
+IMMEDIATE_STOP_SERVICE = 'idle_state_service'
 
 # Safety
-TOGGLE_SAFETY_SERVICE = 'toggle_safety_service'
+TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE = 'monitor_battery_voltage_service'
+TOGGLE_HW_ERRORS_MONITORING_SERVICE = 'monitor_hw_errors_service'
+BATTERY_VOLTAGE_TRIGGER_SERVICE = 'battery_voltage_service'

@@ -469,6 +469,7 @@ class JointVelocityController(Node):
         return response
     
     def toggle_legs_movement_callback(self, request, response):
+        self.get_logger().info("STOP LEGS CONTROLLER")
         with self.toggle_movement_locker:
             self.do_stop_movement = request.data
             response.success = self.do_stop_movement == request.data
@@ -614,6 +615,7 @@ class JointVelocityController(Node):
             with self.toggle_movement_locker:
                 if self.do_stop_movement:
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+                    self.get_logger().info("STOP SIGNAL")
                     return False
             elapsed_time = time.time() - start_time
             time.sleep(0.01)

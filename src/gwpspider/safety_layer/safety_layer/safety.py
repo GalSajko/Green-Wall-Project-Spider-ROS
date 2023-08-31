@@ -28,14 +28,17 @@ class Safety(Node):
         self.battery_voltage_locker = threading.Lock()
         self.battery_voltage = None
 
+        self.monitor_battery_voltage_locker = threading.Lock()
+        self.monitor_battery_voltage = True
+
         self.dxl_data_locker = threading.Lock()
         self.currents_sum = None
         self.hw_errors = None
         self.currents_buffer = np.zeros((self.CURRENTS_WINDOW_SIZE, self.CURRENTS_ARRAY_ROWS, self.CURRENTS_ARRAY_COLUMNS))
         self.counter = 0
 
-        self.toggle_safety_locker = threading.Lock()
-        self.do_monitor_safety = True
+        self.monitor_hw_errors_locker = threading.Lock()
+        self.monitor_hw_errors = True
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.__init_interfaces()
@@ -66,7 +69,7 @@ class Safety(Node):
     
     @property
     def MIN_ALLOWED_VOLTAGE(self):
-        return 15.7
+        return 15.0
     
     def dynamixel_motors_data_callback(self, msg):
         hw_errors = cih.unpack_2d_array_message(msg.motor_errors)
@@ -76,30 +79,28 @@ class Safety(Node):
 
         with self.battery_voltage_locker:
             battery_voltage = self.battery_voltage
-        with self.toggle_safety_locker:
-            do_monitor_safety = self.do_monitor_safety
+        with self.monitor_battery_voltage_locker:
+            do_monitor_voltage = self.monitor_battery_voltage
+        with self.monitor_hw_errors_locker:
+            monitor_hw_errors = self.monitor_hw_errors
 
         is_hw_errors = np.any(hw_errors) if hw_errors is not None else False
         is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD) if currents_sum is not None else False
-        is_battery_voltage_error = ((battery_voltage < self.MIN_ALLOWED_VOLTAGE) and self.grippers_attached_states.all()) if battery_voltage is not None else False
+        with self.grippers_states_locker:
+            grippers_attached_states = self.grippers_attached_states
+        is_battery_voltage_error = ((battery_voltage < self.MIN_ALLOWED_VOLTAGE) and grippers_attached_states.all()) if battery_voltage is not None else False
+        
+        if (is_hw_errors or is_current_overload_error) and monitor_hw_errors:
+            self.get_logger().info("HW ERROR TRIGGERED.")
+            stop_legs_request = SetBool.Request(data = True)
+            stop_legs_response = cih.async_service_call_from_service(self.toggle_legs_movement_client, stop_legs_request)
+            # immediate_stop_request = Trigger.Request()
+            # immediate_stop_response = cih.async_service_call_from_service(self.immediate_stop_trigger_client, immediate_stop_request)
 
-        # self.get_logger().info(f"BATTERY VOLTAGE: {battery_voltage}")
-
-        # if do_monitor_safety:
-        #     if is_hw_errors or is_current_overload_error or is_battery_voltage_error:
-        #         with self.toggle_safety_locker:
-        #             self.do_monitor_safety = False
-        #         # This also forces working procedure in app module to return False.
-        #         start_idle_state_request = gwp_services.SendStringCommand.Request(command = rc.IDLE_STATE)
-        #         start_idle_state_response = cih.async_service_call_from_service(self.states_manager_client, start_idle_state_request)
-
-        #         while not start_idle_state_response.success:
-        #             time.sleep(0.1)
-            
-        #     if is_battery_voltage_error:
-        #         self.get_logger().info("BATTERY VOLTAGE ERROR")
-        #         start_transition_request = gwp_services.SendStringCommand.Request(command = rc.TRANSITION_STATE)
-        #         start_transition_response = cih.async_service_call_from_service(self.states_manager_client, start_transition_request)
+        if is_battery_voltage_error and do_monitor_voltage:
+            self.get_logger().info("BATTERY VOLTAGE ERROR TRIGGERED.")
+            trigger_battery_voltage_error_request = SetBool.Request(data = True)
+            trigger_battery_voltage_error_response = cih.async_service_call_from_service(self.battery_voltage_error_trigger_client, trigger_battery_voltage_error_request)
             
     def grippers_states_callback(self, msg):
         with self.grippers_states_locker:
@@ -115,19 +116,39 @@ class Safety(Node):
         with self.battery_voltage_locker:
             self.battery_voltage = msg.data
     
-    def toggle_safety_callback(self, request, response):
-        with self.toggle_safety_locker:
-            self.do_monitor_safety = request.data
+    def toggle_battery_voltage_monitoring_callback(self, request, response):
+        with self.monitor_battery_voltage_locker:
+            self.monitor_battery_voltage = request.data
+            response.success = self.monitor_battery_voltage == request.data
         
-        response.success = self.do_monitor_safety == request.data
+        return response
+
+    def toggle_hw_errors_monitoring_callback(self, request, response):
+        with self.monitor_hw_errors_locker:
+            self.monitor_hw_errors = request.data
+            response.success = self.monitor_hw_errors == request.data
+        
         return response
 
     def __init_interfaces(self):
-        self.toggle_safety_service = self.create_service(SetBool, gid.TOGGLE_SAFETY_SERVICE, callback = self.toggle_safety_callback, callback_group = self.reentrant_callback_group)
+        self.monitor_battery_voltage_trigger_service = self.create_service(SetBool, gid.TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE, callback = self.toggle_battery_voltage_monitoring_callback, callback_group = self.reentrant_callback_group)
+        self.monitor_hw_errors_trigger_service = self.create_service(SetBool, gid.TOGGLE_HW_ERRORS_MONITORING_SERVICE, callback = self.toggle_hw_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
 
         self.states_manager_client = self.create_client(gwp_services.SendStringCommand, gid.STATES_MANAGER_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.states_manager_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("States manager service not available...") 
+            self.get_logger().info("States manager service not available...")
+        
+        self.immediate_stop_trigger_client = self.create_client(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback_group = self.reentrant_callback_group)
+        while not self.immediate_stop_trigger_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("Imeediate stop trigger service not available...")    
+
+        self.battery_voltage_error_trigger_client = self.create_client(SetBool, gid.BATTERY_VOLTAGE_TRIGGER_SERVICE, callback_group = self.reentrant_callback_group)   
+        while not self.battery_voltage_error_trigger_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("Battery voltage error trigger service not available...") 
+        
+        self.toggle_legs_movement_client = self.create_client(SetBool, gid.STOP_LEGS_SERVICE, callback_group = self.reentrant_callback_group)
+        while not self.toggle_legs_movement_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("Stop legs movement service not available...")
 
         self.grippers_states_subscriber = self.create_subscription(GrippersStates, gid.GRIPPER_STATES_TOPIC, self.grippers_states_callback, 1, callback_group = self.reentrant_callback_group) 
         self.dynamixel_motors_data_subscriber = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.dynamixel_motors_data_callback, 1, callback_group = self.reentrant_callback_group)
