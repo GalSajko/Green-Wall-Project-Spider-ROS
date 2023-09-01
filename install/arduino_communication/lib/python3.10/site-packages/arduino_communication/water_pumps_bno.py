@@ -72,6 +72,7 @@ class WaterPumpBnoController(Node):
             self.do_stop_water_pump = False
 
         self.__send_message_to_arduino(self.PUMP_ON_COMMAND + str(pump_id))
+        self.get_logger().info("START WATER PUMP SIGNAL SENT")
 
         total_time = watering_time
         if pump_id == 2:
@@ -97,6 +98,7 @@ class WaterPumpBnoController(Node):
             time.sleep(0.01)
 
         self.__send_message_to_arduino(self.PUMP_OFF_COMMAND + str(pump_id))
+        self.get_logger().info("STOP WATER PUMP SIGNAL SENT.")
 
         response.success = True
         return response

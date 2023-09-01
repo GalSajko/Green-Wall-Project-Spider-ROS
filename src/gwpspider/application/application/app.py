@@ -28,6 +28,8 @@ class App(Node):
         self.is_working = False
         self.is_working_locker = threading.Lock()
 
+        self.disable_motors_if_error = False
+
         self.is_init = True
         self.use_prediction_model = False
 
@@ -74,13 +76,7 @@ class App(Node):
         return response
 
     def working(self):
-        start_legs_request = SetBool.Request(data = False)
-        start_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, start_legs_request)
-
-        start_battery_voltage_monitoring_request = SetBool.Request(data = True)
-        start_battery_voltage_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, start_battery_voltage_monitoring_request)
-        start_hw_errors_monitoring_request = SetBool.Request(data = True)
-        start_hw_errors_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_hw_errors_client, start_hw_errors_monitoring_request)
+        self.__init_working_related_services()
 
         with self.is_working_locker:
             self.is_working = True
@@ -94,6 +90,7 @@ class App(Node):
                 current_legs_moving_order = pins_instructions[step, :, 0].astype(int)
 
                 if step == 0:
+                    self.disable_motors_if_error = True
                     if not self.__move_spider(current_legs_moving_order, current_pins_positions, pose, 5.0):
                         self.get_logger().info("Working stopped due to error in spider movement.")
                         with self.is_working_locker:
@@ -109,6 +106,7 @@ class App(Node):
                         
                     self.json_file_manager.update_whole_dict(pose, current_pins_positions, current_legs_moving_order)
                     self.__distribute_forces(spider.LEGS_IDS)
+                    self.disable_motors_if_error = False
                     continue
                 
                 previous_pins_positions = np.array(pins_instructions[step - 1, :, 1:])
@@ -164,26 +162,18 @@ class App(Node):
         start_legs_request = SetBool.Request(data = False)
         start_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, start_legs_request)
 
-        _, current_pins, current_positions = self.json_file_manager.read_spider_state()
-        offsets, goal_positions = self.__get_charging_position_offsets(current_pins, current_positions)
+        if not self.__move_legs_and_body_to_charging_position():
+            self.get_logger().info("Transition stopped due to hw error.")
 
-        for leg in spider.LEGS_IDS:
-            if (offsets[leg] == np.zeros(3, dtype = np.float32)).all():
-                continue
-            self.__move_leg_to_next_pin(leg, offsets[leg], goal_positions[leg], adjust_spider_pose = True)
-
-        desired_pose = self.__get_spider_pose()
-        desired_pose[2] = 0.15
-        self.__move_spider(spider.LEGS_IDS, self.json_file_manager.read_spider_state()[2], desired_pose, 2.0)
-        
         activate_breaks_request = gwp_services.BreaksControl.Request(command = robot_config.ACTIVATE_BREAKS_COMMAND, break_id = robot_config.ALL_BREAKS_INDEX)
         activate_breaks_response = custom_interface_helper.async_service_call_from_service(self.breaks_controller_client, activate_breaks_request)
 
-        forces = np.zeros((spider.NUMBER_OF_LEGS, 3))
-        forces[:, 1] = np.ones(spider.NUMBER_OF_LEGS) * -0.5
-        apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((spider.LEGS_IDS, forces))
-        apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
-        time.sleep(6)
+        # forces = np.zeros((spider.NUMBER_OF_LEGS, 3))
+        # forces[:, 1] = np.ones(spider.NUMBER_OF_LEGS) * -0.5
+        # apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((spider.LEGS_IDS, forces))
+        # apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
+        # time.sleep(6)
+        self.__go_to_resting_pose()
 
         disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.DISABLE_LEGS_COMMAND))
         disable_motors_response = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, disable_motors_request)
@@ -219,11 +209,8 @@ class App(Node):
         return True
 
     def immediate_stop_trigger_callback(self, _, response):
-        self.get_logger().info("IMMEDIATE STOP TRIGGERED.")
+        self.get_logger().info("STOPPING THE MOVEMENT DUE TO HW ERROR.")
         _ = self.__start_idle_state()
-        
-        stop_hw_errors_monitoring_request = SetBool.Request(data = False)
-        stop_hw_errors_monitoring_response = custom_interface_helper.async_serice_call_from_service(self.monitor_hw_errors_client, stop_hw_errors_monitoring_request)
 
         with self.is_working_locker:
             is_working = self.is_working
@@ -231,18 +218,15 @@ class App(Node):
             with self.is_working_locker:
                 is_working = self.is_working
             time.sleep(0.1)
-
         response.success = is_working is False
+
         return response
         
     def battery_voltage_callback(self, msg):
         with self.battery_voltage_locker:
             self.battery_voltage = msg.data
     
-    def set_battery_voltage_error_flag_callback(self, request, response):
-        stop_battery_voltage_monitoring_request = SetBool.Request(data = False)
-        stop_battery_voltage_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, stop_battery_voltage_monitoring_request)
-    
+    def set_battery_voltage_error_flag_callback(self, request, response):    
         self.get_logger().info("TRANSITION TO CHARGING POSITION TRIGGERED.")
 
         with self.battery_voltage_error_locker:
@@ -284,6 +268,10 @@ class App(Node):
         self.spider_pose_publisher.publish(msg)
 
     def __start_idle_state(self):
+        if self.disable_motors_if_error:
+            self.get_logger().info("DISABLING MOTOROS DUE TO HW ERROR WHILE STANDING UP.")
+            disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.DISABLE_LEGS_COMMAND))
+            disable_motors_response = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, disable_motors_request)
         self.get_logger().info("STOP LEGS")
         stop_legs_request = SetBool.Request(data = True)
         stop_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, stop_legs_request)
@@ -291,17 +279,26 @@ class App(Node):
         stop_pump_request = Trigger.Request()
         stop_pump_response = custom_interface_helper.async_service_call_from_service(self.stop_water_pump_client, stop_pump_request)
 
+        if not self.disable_motors_if_error:
+            self.__go_to_resting_pose()
+        
+            toggle_additional_controller_mode_request = custom_interface_helper.prepare_toggle_controller_mode_request((robot_config.FORCE_MODE, robot_config.STOP_COMMAND))
+            toggle_additional_controller_mode_response = custom_interface_helper.async_service_call_from_service(self.toggle_controller_mode_client, toggle_additional_controller_mode_request)
+
         return stop_legs_response.success and stop_pump_response.success
     
     def __get_movement_instructions(self):
         spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
+        # TODO: Uncomment when working on the big wall.
         # spider_goal_request = gwp_services.SpiderGoal.Request()
         # spider_goal_response = custom_interface_helper.async_service_call(self.get_spider_goal_client, spider_goal_request, self)
         # watering_position = spider_goal_response.watering_position
         # go_refill = spider_goal_response.go_refill
         # volume = spider_goal_response.volume
+        # self.get_logger().info(f"GOAL INFO: {spider_goal_response}")
 
+        ### JUST FOR TESTINT PURPOSES #########
         random_goals = np.array([
             # [0.1, 0.99, 0.0],
             # [0.3, 0.99, 0.0],
@@ -322,9 +319,8 @@ class App(Node):
         watering_position = random_goals[random_idx]
         go_refill = False
         volume = 30
-
-        # self.get_logger().info(f"GOAL INFO: {spider_goal_response}")
         self.get_logger().info(f"GOAL INFO: {watering_position}")
+        #################
 
         watering_or_refill_leg_id, watering_or_refill_pose = tf.get_watering_leg_and_pose(spider_pose, watering_position, go_refill)
 
@@ -407,6 +403,18 @@ class App(Node):
         
         return True
     
+    def __move_legs_and_body_to_charging_position(self):
+        _, current_pins, current_positions = self.json_file_manager.read_spider_state()
+        offsets, goal_positions = self.__get_charging_position_offsets(current_pins, current_positions)
+        for leg in spider.LEGS_IDS:
+            if (offsets[leg] == np.zeros(3, dtype = np.float32)).all():
+                continue
+            self.__move_leg_to_next_pin(leg, offsets[leg], goal_positions[leg], adjust_spider_pose = True)
+
+        desired_pose = self.__get_spider_pose()
+        desired_pose[2] = 0.15
+        self.__move_spider(spider.LEGS_IDS, self.json_file_manager.read_spider_state()[2], desired_pose, 2.0)
+    
     def __adjust_spider_pose_before_leg_movement(self, leg_id, pin_to_pin_vector_in_global, goal_pin_position):
         desired_spider_distance_from_pin = 0.6
         with self.legs_states_locker:
@@ -433,8 +441,40 @@ class App(Node):
 
         return offsets, goal_positions
     
+    def __go_to_resting_pose(self):
+        with self.grippers_states_locker:
+            attached_legs = np.where(self.grippers_attached_states)[0]
+        if len(attached_legs) == 4:
+            detached_leg = np.delete(spider.LEGS_IDS, attached_legs)
+
+            stop_legs_request = SetBool.Request(data = False)
+            stop_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, stop_legs_request)
+
+            goal_position = np.array([0.3, 0.0, 0.15])
+            if detached_leg == spider.REFILLING_LEG_ID:
+                goal_position[1] = -0.1
+            move_leg_request = custom_interface_helper.prepare_move_leg_request((
+                detached_leg,
+                np.array([0.3, 0.0, 0.15]),
+                robot_config.MINJERK_TRAJECTORY,
+                robot_config.LEG_ORIGIN,
+                2.5,
+                False,
+                [],
+                True,
+                False,
+                False
+            ))
+            move_leg_response = custom_interface_helper.async_service_call_from_service(self.move_leg_client, move_leg_request)
+            
+        forces = np.zeros((len(attached_legs), 3))
+        forces[:, 1] = np.ones(len(attached_legs)) * -0.5
+        apply_forces_request = custom_interface_helper.prepare_apply_forces_on_legs_request((attached_legs, forces))
+        apply_forces_response = custom_interface_helper.async_service_call_from_service(self.apply_force_client, apply_forces_request)
+        time.sleep(6)
+    
     def __automatic_correction(self, leg_id, correction_direction, goal_pin_position, origin = robot_config.GLOBAL_ORIGIN):
-        detach_z_offset = 0.05
+        detach_z_offset = 0.08
         y_offset_value = 0.25
         x_offset_value = 0.12
         detach_position = np.copy(goal_pin_position)
@@ -520,6 +560,7 @@ class App(Node):
 
         water_pump_request = custom_interface_helper.prepare_water_pump_request((pump_id, volume))
         water_pump_response = custom_interface_helper.async_service_call_from_service(self.water_pump_client, water_pump_request)
+        self.get_logger().info(f"{water_pump_response}")
         if not water_pump_response.success:
             return False
 
@@ -552,13 +593,21 @@ class App(Node):
                 return False
         
         return True
+    
+    def __init_working_related_services(self):
+        start_legs_request = SetBool.Request(data = False)
+        start_legs_response = custom_interface_helper.async_service_call_from_service(self.toggle_legs_movement_client, start_legs_request)
+        start_battery_voltage_monitoring_request = SetBool.Request(data = True)
+        start_battery_voltage_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, start_battery_voltage_monitoring_request)
+        start_hw_errors_monitoring_request = SetBool.Request(data = True)
+        start_hw_errors_monitoring_response = custom_interface_helper.async_service_call_from_service(self.monitor_hw_errors_client, start_hw_errors_monitoring_request)
 
     def __init_interfaces(self):
         self.toggle_motors_torque_client = self.create_client(gwp_services.ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, callback_group = self.callback_group)
         while not self.toggle_motors_torque_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Motors torque service not available...")  
 
-        self.get_walking_instructions_client = self.create_client(gwp_services.GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE)
+        self.get_walking_instructions_client = self.create_client(gwp_services.GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, callback_group = self.callback_group)
         while not self.get_walking_instructions_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Path planning service not available...")
 

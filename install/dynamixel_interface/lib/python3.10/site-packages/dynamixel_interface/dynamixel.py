@@ -350,8 +350,8 @@ class MotorDriver(Node):
             success = self.__comm_result_and_error_reader(result, error)
             if success:
                 self.get_logger().info(f"Motor {motor_id} has been successfully {message}.")
-            else:
-                return False
+            # else:
+            #     return False
         
         return True
 
