@@ -4221,7 +4221,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesu
   /usr/include/c++/11/bits/istream.tcc \
   /usr/include/malloc.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
@@ -4229,7 +4229,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesu
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h \
   /usr/include/c++/11/stdlib.h \
   rosidl_generator_c/gwpspider_interfaces/msg/rosidl_generator_c__visibility_control.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__functions.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__functions.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/rosidl_generator_c__visibility_control.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/float32_multi_array__functions.h \
   /opt/ros/humble/include/rosidl_typesupport_fastrtps_cpp/rosidl_typesupport_fastrtps_cpp/service_type_support.h \
@@ -8472,6 +8472,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_posit
 
 rosidl_generator_c/gwpspider_interfaces/srv/get_offsets_to_charging_position.h:
 
+/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__functions.h:
+
 rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h:
 
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__rosidl_typesupport_fastrtps_c.h:
@@ -8903,6 +8905,8 @@ rosidl_typesupport_fastrtps_c/gwpspider_interfaces/srv/detail/breaks_control__ty
 /usr/include/stdlib.h:
 
 rosidl_typesupport_fastrtps_c/gwpspider_interfaces/msg/detail/gripper_state__type_support_c.cpp:
+
+/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h:
 
 /usr/include/c++/11/bits/localefwd.h:
 

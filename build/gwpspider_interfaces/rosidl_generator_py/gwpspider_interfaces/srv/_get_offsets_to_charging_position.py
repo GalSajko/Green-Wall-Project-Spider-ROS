@@ -42,9 +42,9 @@ class Metaclass_GetOffsetsToChargingPosition_Request(type):
             cls._TYPE_SUPPORT = module.type_support_msg__srv__get_offsets_to_charging_position__request
             cls._DESTROY_ROS_MESSAGE = module.destroy_ros_message_msg__srv__get_offsets_to_charging_position__request
 
-            from std_msgs.msg import Int8MultiArray
-            if Int8MultiArray.__class__._TYPE_SUPPORT is None:
-                Int8MultiArray.__class__.__import_type_support__()
+            from std_msgs.msg import Int16MultiArray
+            if Int16MultiArray.__class__._TYPE_SUPPORT is None:
+                Int16MultiArray.__class__.__import_type_support__()
 
     @classmethod
     def __prepare__(cls, name, bases, **kwargs):
@@ -63,19 +63,19 @@ class GetOffsetsToChargingPosition_Request(metaclass=Metaclass_GetOffsetsToCharg
     ]
 
     _fields_and_field_types = {
-        'current_pins': 'std_msgs/Int8MultiArray',
+        'current_pins': 'std_msgs/Int16MultiArray',
     }
 
     SLOT_TYPES = (
-        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int8MultiArray'),  # noqa: E501
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Int16MultiArray'),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        from std_msgs.msg import Int8MultiArray
-        self.current_pins = kwargs.get('current_pins', Int8MultiArray())
+        from std_msgs.msg import Int16MultiArray
+        self.current_pins = kwargs.get('current_pins', Int16MultiArray())
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -123,10 +123,10 @@ class GetOffsetsToChargingPosition_Request(metaclass=Metaclass_GetOffsetsToCharg
     @current_pins.setter
     def current_pins(self, value):
         if __debug__:
-            from std_msgs.msg import Int8MultiArray
+            from std_msgs.msg import Int16MultiArray
             assert \
-                isinstance(value, Int8MultiArray), \
-                "The 'current_pins' field must be a sub message of type 'Int8MultiArray'"
+                isinstance(value, Int16MultiArray), \
+                "The 'current_pins' field must be a sub message of type 'Int16MultiArray'"
         self._current_pins = value
 
 

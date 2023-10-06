@@ -17,9 +17,9 @@
 #include "gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h"
 
 ROSIDL_GENERATOR_C_IMPORT
-bool std_msgs__msg__int8_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
+bool std_msgs__msg__int16_multi_array__convert_from_py(PyObject * _pymsg, void * _ros_message);
 ROSIDL_GENERATOR_C_IMPORT
-PyObject * std_msgs__msg__int8_multi_array__convert_to_py(void * raw_ros_message);
+PyObject * std_msgs__msg__int16_multi_array__convert_to_py(void * raw_ros_message);
 
 ROSIDL_GENERATOR_C_EXPORT
 bool gwpspider_interfaces__srv__get_offsets_to_charging_position__request__convert_from_py(PyObject * _pymsg, void * _ros_message)
@@ -59,7 +59,7 @@ bool gwpspider_interfaces__srv__get_offsets_to_charging_position__request__conve
     if (!field) {
       return false;
     }
-    if (!std_msgs__msg__int8_multi_array__convert_from_py(field, &ros_message->current_pins)) {
+    if (!std_msgs__msg__int16_multi_array__convert_from_py(field, &ros_message->current_pins)) {
       Py_DECREF(field);
       return false;
     }
@@ -89,7 +89,7 @@ PyObject * gwpspider_interfaces__srv__get_offsets_to_charging_position__request_
   gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request * ros_message = (gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request *)raw_ros_message;
   {  // current_pins
     PyObject * field = NULL;
-    field = std_msgs__msg__int8_multi_array__convert_to_py(&ros_message->current_pins);
+    field = std_msgs__msg__int16_multi_array__convert_to_py(&ros_message->current_pins);
     if (!field) {
       return NULL;
     }

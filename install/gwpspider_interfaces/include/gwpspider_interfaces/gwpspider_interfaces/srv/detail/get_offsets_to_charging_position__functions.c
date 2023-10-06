@@ -12,7 +12,7 @@
 
 // Include directives for member types
 // Member `current_pins`
-#include "std_msgs/msg/detail/int8_multi_array__functions.h"
+#include "std_msgs/msg/detail/int16_multi_array__functions.h"
 
 bool
 gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__init(gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request * msg)
@@ -21,7 +21,7 @@ gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__init(gwpspider_
     return false;
   }
   // current_pins
-  if (!std_msgs__msg__Int8MultiArray__init(&msg->current_pins)) {
+  if (!std_msgs__msg__Int16MultiArray__init(&msg->current_pins)) {
     gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__fini(msg);
     return false;
   }
@@ -35,7 +35,7 @@ gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__fini(gwpspider_
     return;
   }
   // current_pins
-  std_msgs__msg__Int8MultiArray__fini(&msg->current_pins);
+  std_msgs__msg__Int16MultiArray__fini(&msg->current_pins);
 }
 
 bool
@@ -45,7 +45,7 @@ gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__are_equal(const
     return false;
   }
   // current_pins
-  if (!std_msgs__msg__Int8MultiArray__are_equal(
+  if (!std_msgs__msg__Int16MultiArray__are_equal(
       &(lhs->current_pins), &(rhs->current_pins)))
   {
     return false;
@@ -62,7 +62,7 @@ gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__copy(
     return false;
   }
   // current_pins
-  if (!std_msgs__msg__Int8MultiArray__copy(
+  if (!std_msgs__msg__Int16MultiArray__copy(
       &(input->current_pins), &(output->current_pins)))
   {
     return false;

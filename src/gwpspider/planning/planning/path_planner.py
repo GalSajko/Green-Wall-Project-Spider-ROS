@@ -303,7 +303,7 @@ class PathPlanner(Node):
 
         modified_pins_instructions[0] = start_pins_instructions
         modified_pins_instructions[1:] = pins_instructions
-
+        
         return modified_poses, modified_pins_instructions
 
     def __get_legs_roles(self, legs_bases_positions: list, pose: list) -> tuple[int, int, int, int, int]:

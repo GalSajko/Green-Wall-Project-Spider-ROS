@@ -65,11 +65,11 @@ class Safety(Node):
     
     @property
     def CURRENTS_SUM_THRESHOLD(self):
-        return self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
+        return 220 #self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
     
     @property
     def MIN_ALLOWED_VOLTAGE(self):
-        return 15.0
+        return 14.5
     
     def dynamixel_motors_data_callback(self, msg):
         hw_errors = cih.unpack_2d_array_message(msg.motor_errors)
@@ -86,8 +86,10 @@ class Safety(Node):
         if (is_hw_errors or is_current_overload_error) and monitor_hw_errors:   
             with self.monitor_hw_errors_locker:
                 self.monitor_hw_errors = False
-
-            self.get_logger().info("HW ERROR TRIGGERED.")
+            if is_hw_errors:
+                self.get_logger().info("HW ERROR TRIGGERED.")
+            elif is_current_overload_error:
+                self.get_logger().info("CURRENT OVERLOAD ERROR TRIGGERED.")
             immediate_stop_request = Trigger.Request()
             immediate_stop_response = cih.async_service_call_from_service(self.immediate_stop_trigger_client, immediate_stop_request)
 

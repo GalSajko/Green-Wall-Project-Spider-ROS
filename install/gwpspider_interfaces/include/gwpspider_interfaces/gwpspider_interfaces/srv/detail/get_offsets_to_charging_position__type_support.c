@@ -14,9 +14,9 @@
 
 // Include directives for member types
 // Member `current_pins`
-#include "std_msgs/msg/int8_multi_array.h"
+#include "std_msgs/msg/int16_multi_array.h"
 // Member `current_pins`
-#include "std_msgs/msg/detail/int8_multi_array__rosidl_typesupport_introspection_c.h"
+#include "std_msgs/msg/detail/int16_multi_array__rosidl_typesupport_introspection_c.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -79,7 +79,7 @@ ROSIDL_TYPESUPPORT_INTROSPECTION_C_EXPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, gwpspider_interfaces, srv, GetOffsetsToChargingPosition_Request)() {
   gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__rosidl_typesupport_introspection_c__GetOffsetsToChargingPosition_Request_message_member_array[0].members_ =
-    ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Int8MultiArray)();
+    ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Int16MultiArray)();
   if (!gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__rosidl_typesupport_introspection_c__GetOffsetsToChargingPosition_Request_message_type_support_handle.typesupport_identifier) {
     gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request__rosidl_typesupport_introspection_c__GetOffsetsToChargingPosition_Request_message_type_support_handle.typesupport_identifier =
       rosidl_typesupport_introspection_c__identifier;

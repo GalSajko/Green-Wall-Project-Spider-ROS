@@ -1,1 +1,1 @@
-std_msgs/Int8MultiArray current_pins
+std_msgs/Int16MultiArray current_pins

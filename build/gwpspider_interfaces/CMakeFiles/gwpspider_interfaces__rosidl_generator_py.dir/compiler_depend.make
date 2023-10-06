@@ -4335,7 +4335,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwp
   /usr/include/python3.10/numpy/__multiarray_api.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h \
-  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int8_multi_array__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_layout__struct.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/multi_array_dimension__struct.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
@@ -8355,6 +8355,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/spider_goal__functions.h:
 /usr/include/x86_64-linux-gnu/asm/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 

@@ -341,6 +341,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_introspection_c__pyext.dir/r
   rosidl_generator_c/gwpspider_interfaces/srv/detail/messages__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__struct.h \
+  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__struct.h \
@@ -518,6 +519,8 @@ rosidl_generator_c/gwpspider_interfaces/srv/detail/spider_goal__functions.h:
 /usr/include/x86_64-linux-gnu/asm/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/int16_multi_array__struct.h:
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 

@@ -17,7 +17,7 @@
 
 // Include directives for member types
 // Member 'current_pins'
-#include "std_msgs/msg/detail/int8_multi_array__struct.hpp"
+#include "std_msgs/msg/detail/int16_multi_array__struct.hpp"
 
 #ifndef _WIN32
 # define DEPRECATED__gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request __attribute__((deprecated))
@@ -51,12 +51,12 @@ struct GetOffsetsToChargingPosition_Request_
 
   // field types and members
   using _current_pins_type =
-    std_msgs::msg::Int8MultiArray_<ContainerAllocator>;
+    std_msgs::msg::Int16MultiArray_<ContainerAllocator>;
   _current_pins_type current_pins;
 
   // setters for named parameter idiom
   Type & set__current_pins(
-    const std_msgs::msg::Int8MultiArray_<ContainerAllocator> & _arg)
+    const std_msgs::msg::Int16MultiArray_<ContainerAllocator> & _arg)
   {
     this->current_pins = _arg;
     return *this;

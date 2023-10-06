@@ -3,12 +3,12 @@
 // generated code does not contain a copyright notice
 
 #include "std_msgs/msg/Float32MultiArray.idl"
-#include "std_msgs/msg/Int8MultiArray.idl"
+#include "std_msgs/msg/Int16MultiArray.idl"
 
 module gwpspider_interfaces {
   module srv {
     struct GetOffsetsToChargingPosition_Request {
-      std_msgs::msg::Int8MultiArray current_pins;
+      std_msgs::msg::Int16MultiArray current_pins;
     };
     struct GetOffsetsToChargingPosition_Response {
       std_msgs::msg::Float32MultiArray offsets;

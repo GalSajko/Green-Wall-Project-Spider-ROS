@@ -19,12 +19,12 @@ extern "C"
 
 // Include directives for member types
 // Member 'current_pins'
-#include "std_msgs/msg/detail/int8_multi_array__struct.h"
+#include "std_msgs/msg/detail/int16_multi_array__struct.h"
 
 /// Struct defined in srv/GetOffsetsToChargingPosition in the package gwpspider_interfaces.
 typedef struct gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request
 {
-  std_msgs__msg__Int8MultiArray current_pins;
+  std_msgs__msg__Int16MultiArray current_pins;
 } gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request;
 
 // Struct for a sequence of gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request.

@@ -34,23 +34,23 @@ extern "C"
 {
 #endif
 
-#include "std_msgs/msg/detail/int8_multi_array__functions.h"  // current_pins
+#include "std_msgs/msg/detail/int16_multi_array__functions.h"  // current_pins
 
 // forward declare type support functions
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
-size_t get_serialized_size_std_msgs__msg__Int8MultiArray(
+size_t get_serialized_size_std_msgs__msg__Int16MultiArray(
   const void * untyped_ros_message,
   size_t current_alignment);
 
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
-size_t max_serialized_size_std_msgs__msg__Int8MultiArray(
+size_t max_serialized_size_std_msgs__msg__Int16MultiArray(
   bool & full_bounded,
   bool & is_plain,
   size_t current_alignment);
 
 ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_gwpspider_interfaces
 const rosidl_message_type_support_t *
-  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray)();
+  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray)();
 
 
 using _GetOffsetsToChargingPosition_Request__ros_msg_type = gwpspider_interfaces__srv__GetOffsetsToChargingPosition_Request;
@@ -69,7 +69,7 @@ static bool _GetOffsetsToChargingPosition_Request__cdr_serialize(
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
       ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray
       )()->data);
     if (!callbacks->cdr_serialize(
         &ros_message->current_pins, cdr))
@@ -95,7 +95,7 @@ static bool _GetOffsetsToChargingPosition_Request__cdr_deserialize(
     const message_type_support_callbacks_t * callbacks =
       static_cast<const message_type_support_callbacks_t *>(
       ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int8MultiArray
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Int16MultiArray
       )()->data);
     if (!callbacks->cdr_deserialize(
         cdr, &ros_message->current_pins))
@@ -123,7 +123,7 @@ size_t get_serialized_size_gwpspider_interfaces__srv__GetOffsetsToChargingPositi
 
   // field.name current_pins
 
-  current_alignment += get_serialized_size_std_msgs__msg__Int8MultiArray(
+  current_alignment += get_serialized_size_std_msgs__msg__Int16MultiArray(
     &(ros_message->current_pins), current_alignment);
 
   return current_alignment - initial_alignment;
@@ -161,7 +161,7 @@ size_t max_serialized_size_gwpspider_interfaces__srv__GetOffsetsToChargingPositi
       bool inner_full_bounded;
       bool inner_is_plain;
       current_alignment +=
-        max_serialized_size_std_msgs__msg__Int8MultiArray(
+        max_serialized_size_std_msgs__msg__Int16MultiArray(
         inner_full_bounded, inner_is_plain, current_alignment);
       full_bounded &= inner_full_bounded;
       is_plain &= inner_is_plain;
