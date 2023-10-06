@@ -3,8 +3,6 @@ from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 
-from std_msgs.msg import String
-
 import time
 import threading
 
@@ -16,6 +14,11 @@ from gwpspider_interfaces.msg import GripperState, GrippersStates
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class GrippersController(Node):
+    """Class for communication with Grippers Arduino and controlling a grippers.
+
+    Args:
+        Node (Node): ROS Node.
+    """
     def __init__(self):
         Node.__init__(self, 'grippers_controller')
         
@@ -32,18 +35,43 @@ class GrippersController(Node):
         self.timer = self.create_timer(timer_period, self.publish_states_callback, callback_group = self.callback_group)
     
     @property
-    def RECEIVED_MESSAGE_LENGTH(self):
+    def RECEIVED_MESSAGE_LENGTH(self) -> int:
+        """Length of messages, that are sent from Arduino.
+
+        Returns:
+            int: Length of messages, that are sent from Arduino.
+        """
         return 11
     
     @property
-    def DEVICE_NAME(self):
+    def DEVICE_NAME(self) -> str:
+        """Name of Arduino device.
+
+        Returns:
+            str: Name of Arduino device.
+        """
         return 'ttyUSB_GRIPPERS'
     
     @property
-    def MAX_ALLOWED_GRIPPER_MOVEMENT_TIME(self):
+    def MAX_ALLOWED_GRIPPER_MOVEMENT_TIME(self) -> float:
+        """Maximal allowed gripper movement time.
+
+        Returns:
+            float: Maximal allowed gripper movement time.
+        """
         return 3.5
     
-    def move_gripper_callback(self, request, response):
+    def move_gripper_callback(self, request: MoveGripper.Request, response: MoveGripper.Response) -> MoveGripper.Response:
+        """Move gripper service callback for moving (opening or closing) selected gripper. Service type used for calling this service is 
+        MoveGripper (custom service type).
+
+        Args:
+            request (MoveGripper.Request): gwpspider_interfaces/GripperCommand message.
+            response (MoveGripper.Response): MoveGripper response, defined as boolean.
+
+        Returns:
+            MoveGripper.Response: True if gripper was successfully opened or closed, False otherwise.
+        """
         leg_id = request.instructions.leg_id
         command = request.instructions.command
 
@@ -61,31 +89,16 @@ class GrippersController(Node):
         with self.serial_comm_locker:
             self.arduino_comm.write(msg)
     
-        if command == robot_config.OPEN_GRIPPER_COMMAND:
-            excpected_state = robot_config.IS_GRIPPER_OPEN_RESPONSE
-            message = 'open'
-        else:
-            excpected_state = robot_config.IS_GRIPPER_CLOSE_RESPONSE
-            message = 'close'
-
-        with self.grippers_states_locker:
-            states = self.grippers_states
-        
-        # start_time = time.time()
-        # while states[leg_id] != excpected_state:
-        #     with self.grippers_states_locker:
-        #         states = self.grippers_states
-            # elapsed_time = time.time() - start_time
-            # if elapsed_time > self.MAX_ALLOWED_GRIPPER_MOVEMENT_TIME:
-            #     self.get_logger().info(f"Gripper did not {message} correctly")
-            #     response.success = False
-            #     return response
         time.sleep(2.0)
 
         response.success = True
         return response
     
     def publish_states_callback(self):
+        """Publisher of topic with name, defined as gwp_intrfaces_data.GRIPPER_STATES_TOPIC. Used message type is GrippersStates (custom message).
+        Publisher is publishing current state of each gripper, which includes fingers states (opened or closed), microswithes states (opened or closed) and boolean value, which is telling,
+        whether or not the gripper (leg) is attached to the pin. Gripper is attached, if fingers and microswitch are closed.
+        """
         msg = GrippersStates()
         with self.serial_comm_locker:
             states = self.arduino_comm.read()
@@ -116,6 +129,8 @@ class GrippersController(Node):
         self.states_publisher.publish(msg)
 
 def main():
+    """Main entry point.
+    """
     rclpy.init()
     grippers_controller = GrippersController()
     executor = MultiThreadedExecutor()

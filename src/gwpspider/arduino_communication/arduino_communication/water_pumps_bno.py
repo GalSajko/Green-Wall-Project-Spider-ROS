@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.executors import MultiThreadedExecutor
-from rclpy.callback_groups import ReentrantCallbackGroup, MutuallyExclusiveCallbackGroup
+from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
 import time
@@ -18,6 +18,11 @@ from gwpspider_interfaces import gwp_interfaces_data as gid
 from configuration import robot_config as rc
 
 class WaterPumpBnoController(Node):
+    """Class for controlling water pumps and reading data from IMO sensor, attached to Arduino.
+
+    Args:
+        Node (Node): ROS node.
+    """
     def __init__(self):
         Node.__init__(self, 'water_pumps_bno_controller')
 
@@ -30,32 +35,66 @@ class WaterPumpBnoController(Node):
         self.__initialize_interfaces()
     
     @property
-    def PUMPS_FLOWS(self):
+    def PUMPS_FLOWS(self) -> list:
+        """Calculated flows of water pumps.
+
+        Returns:
+            list: Calculated flows of water pumps.
+        """
         return [1.97, 2.05, 4.28]
 
-    # TODO: Change to 35 after breaks are added.
     @property
-    def RECEIVED_MESSAGE_LENGTH(self):
+    def RECEIVED_MESSAGE_LENGTH(self) -> int:
+        """Length of messages, that are sent from Arduino.
+
+        Returns:
+            int: Length of messages, that are sent from Arduino.
+        """
         return 23
     
     @property
-    def DEVICE_NAME(self):
+    def DEVICE_NAME(self) -> str:
+        """Name of Arduino device.
+
+        Returns:
+            str: Name of Arduino device.
+        """
         return 'ttyUSB_BNOWP'
     
     @property
-    def PUMP_OFF_COMMAND(self):
+    def PUMP_OFF_COMMAND(self) -> str:
+        """Command for turning off the water pump.
+
+        Returns:
+            str: Command for turning off the water pump.
+        """
         return '0'
     
     @property
-    def PUMP_ON_COMMAND(self):
+    def PUMP_ON_COMMAND(self) -> str:
+        """Command for turning on the water pump.
+
+        Returns:
+            str: Command for turning on the water pump.
+        """
         return '1'
     
     @property
-    def BREAKS_OFF_COMMAND(self):
+    def BREAKS_OFF_COMMAND(self) -> str:
+        """Command for releasing the breaks.
+
+        Returns:
+            str: Command for releasing the breaks.
+        """
         return '4'
 
     @property
-    def BREAKS_ON_COMMAND(self):
+    def BREAKS_ON_COMMAND(self) -> str:
+        """Command for activating the breaks.
+
+        Returns:
+            str: Command for activating the breaks.
+        """
         return '5'
     
     def water_pump_control_callback(self, request, response):
