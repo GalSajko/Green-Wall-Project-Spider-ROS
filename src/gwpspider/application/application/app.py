@@ -26,6 +26,10 @@ from std_msgs.msg import Float32MultiArray, Float32, Int16MultiArray
 from std_srvs.srv import Empty, SetBool, Trigger
 
 class App(Node):
+    """Application class.
+    Args:
+        Node (Node): ROS Node.
+    """
     def __init__(self):
         Node.__init__(self, 'application')
         self.state = None
@@ -63,11 +67,21 @@ class App(Node):
         self.get_logger().info("Application is running.")
     
     @property
-    def LEG_MOVEMENT_DURATION_AMP(self):
+    def LEG_MOVEMENT_DURATION_AMP(self) -> float:
+        """Leg movement amplification factor.
+
+        Returns:
+            float: Leg movement amplification factor.
+        """
         return 12.5
 
     @property
-    def WORKING_VOLTAGE(self):
+    def WORKING_VOLTAGE(self) -> float:
+        """Working voltage.
+
+        Returns:
+            float: Working voltage.
+        """
         return 16.0
     
     def states_manager_callback(self, request: gwp_services.SendStringCommand.Request, response: gwp_services.SendStringCommand.Response) -> gwp_services.SendStringCommand.Response:
