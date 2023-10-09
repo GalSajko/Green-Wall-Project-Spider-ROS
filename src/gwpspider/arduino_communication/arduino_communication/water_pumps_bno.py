@@ -97,7 +97,17 @@ class WaterPumpBnoController(Node):
         """
         return '5'
     
-    def water_pump_control_callback(self, request, response):
+    def water_pump_control_callback(self, request: ControlWaterPump.Request, response: ControlWaterPump.Response) -> ControlWaterPump.Response:
+        """Service callback for controlling water pumps, by sending correct command to Arduino. Command consists of pump's id and volume of water
+        to be pumped. Service type used for calling this service is ControlWaterPump (custom service type).
+
+        Args:
+            request (ControlWaterPump.Request): Int64 for pump id and float64 for volume.
+            response (ControlWaterPump.Response): ControlWaterPump service response, defined as boolean.
+
+        Returns:
+            ControlWaterPump.Response: True, if selected water pump successfully pumped the given amount of water, False otherwise.
+        """
         pump_id = request.pump
         volume = request.volume
 
@@ -142,14 +152,32 @@ class WaterPumpBnoController(Node):
         response.success = True
         return response
     
-    def stop_pump_callback(self, _, response):
+    def stop_pump_callback(self, _, response: Trigger.Response) -> Trigger.Response:
+        """Service callback for imediate stop of currently working water pump. Service type used for calling this service is Trigger.
+
+        Args:
+            _ (None): Not used.
+            response (Trigger.Response): Trigger.Response, defined as boolean.
+        Returns:
+            Trigger.Response: Always returns True.
+        """
         with self.stop_signal_locker:
             self.do_stop_water_pump = True
         
         response.success = True
         return response
     
-    def tube_holder_control_callback(self, request, response):
+    def tube_holder_control_callback(self, request: SetBool.Request, response: SetBool.Response) -> SetBool.Response:
+        """Service callback for controlling a tube holder on third leg (used for refilling). Tube holder will expand if given
+        request.data is True and contract otherwise. Service type used for calling this service is SetBool.
+
+        Args:
+            request (SetBool.Request): SetBool service request, defined as boolean.
+            response (SetBool.Response): SetBool service response, defined as boolean.
+
+        Returns:
+            SetBool.Response: Always returns True.
+        """
         if request.data:
             command = rc.EXPAND_TUBE_COMMAND
         else:
@@ -160,7 +188,18 @@ class WaterPumpBnoController(Node):
         response.success = True
         return response
     
-    def breaks_control_callback(self, request, response):
+    def breaks_control_callback(self, request: BreaksControl.Request, response: BreaksControl.Response) -> BreaksControl.Response:
+        """Service callback for controlling a breaks in third joints. Breaks are controlled by providing string command and id of break.
+        Service type used for calling this service is BreaksControl (custom service type).
+
+        Args:
+            request (BreaksControl.Request): BreaksControl request defined as string (must be either water_pumps_bno.BREAKS_OFF_COMMAND or water_pumps_bno.BREAKS_ON_COMMAND)
+            and id of break (0 - 4), given as integer. If id is given as integer 5, then all five breaks command will be applied to all five breaks.
+            response (BreaksControl.Response): BreaksControl response, defined as boolean.
+
+        Returns:
+            BreaksControl.Response: True, if break(s) executed the given command successfully, False otherwise.
+        """
         break_id = request.break_id
         command = request.command
 
@@ -180,12 +219,17 @@ class WaterPumpBnoController(Node):
         return response
     
     def init_bno_callback(self, request, response):
+        """Not in use.
+        """
         self.__send_message_to_arduino(request.command)
 
         response.success = True
         return response
     
     def get_bno_and_battery_data_callback(self):
+        """Callback for publishing data on topics with names, defined as gwp_interfaces_data.BNO_DATA_TOPIC and gwp_interfaces_data.BATTERY_VOLTAGE_TOPIC.
+        BNO_DATA_TOPIC is used for communicating current direction of gravity vector and BATTERY_VOLTAGE_DATA for communicating current voltage on robot's battery.
+        """
         with self.serial_comm_locker:
             received_msg = self.arduino_comm.read()
 
@@ -209,11 +253,18 @@ class WaterPumpBnoController(Node):
         except:
             self.get_logger().info("Error while reading gravity vector data.")
 
-    def __send_message_to_arduino(self, msg):
+    def __send_message_to_arduino(self, msg: str):
+        """Helper function for sending string data to Arduino.
+
+        Args:
+            msg (str): Data to be sent.
+        """
         with self.serial_comm_locker:
             self.arduino_comm.write(msg)
 
     def __initialize_interfaces(self):
+        """Initialize all needed interfaces.
+        """
         self.arduino_comm = ArduinoComm(self.DEVICE_NAME, self.RECEIVED_MESSAGE_LENGTH)
         self.water_pump_service = self.create_service(ControlWaterPump, gid.WATER_PUMP_SERVICE, self.water_pump_control_callback, callback_group = self.reentrant_callback_group)
         self.stop_water_pump_service = self.create_service(Trigger, gid.STOP_WATER_PUMP_SERVICE, self.stop_pump_callback, callback_group = self.reentrant_callback_group)
@@ -227,6 +278,8 @@ class WaterPumpBnoController(Node):
         self.battery_voltage_publisher = self.create_publisher(Float32, gid.BATTERY_VOLTAGE_TOPIC, 1, callback_group = self.reentrant_callback_group)
 
 def main():
+    """Main entry point.
+    """
     rclpy.init()
     water_pumps_bno_controller = WaterPumpBnoController()
     executor = MultiThreadedExecutor()
