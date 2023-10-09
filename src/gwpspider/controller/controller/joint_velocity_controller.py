@@ -7,7 +7,6 @@ import numpy as np
 import threading
 import queue
 import time
-from matplotlib import pyplot as plt
 
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger, SetBool
@@ -23,6 +22,11 @@ from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
+    """Velocity controller class.
+
+    Args:
+        Node (Node): ROS node.
+    """
     def __init__(self):
         Node.__init__(self, 'joint_velocity_controller')
 
@@ -75,38 +79,63 @@ class JointVelocityController(Node):
         self.get_logger().info("Controller is running.")
     
     @property
-    def PERIOD(self):
+    def PERIOD(self) -> float:
+        """Control loop period.
+
+        Returns:
+            float: Control loop period.
+        """
         return 1.0 / robot_config.CONTROLLER_FREQUENCY
     
     @property
-    def LEG_MOVEMENT_PRECISION(self):
-        return 0.001
-    
-    @property
-    def SPIDER_MOVEMENT_PRECISION(self):
-        return 0.005
-    
-    @property
-    def MAX_ALLOWED_FORCE(self):
+    def MAX_ALLOWED_FORCE(self) -> float:
+        """Maximum allowed force, to be applied on legs' tips, during force-mode control.
+
+        Returns:
+            float: Maximal allowed force.
+        """
         return 5.0
 
     @property
-    def MAX_ALLOWED_CURRENT(self):
+    def MAX_ALLOWED_CURRENT(self) -> float:
+        """Maximum allowed current in motors, considered only, when controller is in velocity mode.
+
+        Returns:
+            float: Maximum allowed current in motors.
+        """
         return 2.0
     
     @property
-    def VELOCITY_AMP_FACTOR(self):
+    def VELOCITY_AMP_FACTOR(self) -> float:
+        """Amplification factor of legs' tips velocities, considered only when controller is in velocity mode.
+
+        Returns:
+            float: Amplification factor of legs' tips velocities.
+        """
         return 0.1
     
     @property
-    def MAX_VELOCITY_MODE_TIME(self):
+    def MAX_VELOCITY_MODE_TIME(self) -> float:
+        """Maximum time, that controller is allowed to run in velocity mode.
+
+        Returns:
+            float: Maximum time, that controller is allowed to run in velocity mode.
+        """
         return 2.0
     
     @property
-    def THIRD_JOINT_LOWER_LIMIT(self):
+    def THIRD_JOINT_LOWER_LIMIT(self) -> float:
+        """Lower limit of third joint, to avoid over-contraction (because of mechanical limitations).
+
+        Returns:
+            float: Lower limit of third joint.
+        """
         return -2.30
     
     def controller_callback(self):
+        """Callback for publishing on topic, defined with name gwp_interfaces_data.COMMANDED_JOINTS_VELOCITIES_TOPIC. This callback implements the entire control loop, for controlling 
+        robot's joints' velocities. Output of controller are commanded joints' velocities, which are published on mentioned topic.
+        """
         with self.legs_states_locker:
             x_a = self.legs_local_positions
             q_a = self.joints_positions
@@ -181,7 +210,17 @@ class JointVelocityController(Node):
         msg = custom_interface_helper.create_multiple_2d_array_messages([dq_c])
         self.controller_publisher.publish(msg)
 
-    def move_leg_callback(self, request, response):
+    def move_leg_callback(self, request: gwp_services.MoveLeg.Request, response: gwp_services.MoveLeg.Response) -> gwp_services.MoveLeg.Response:
+        """Service callback for executing the leg movement. Service type used for calling this service is MoveLeg (custom service type).
+
+        Args:
+            request (gwp_services.MoveLeg.Request): MoveLeg service request, which has to contain all the needed arguments for executing the movement. For all needed
+            arguments look at service type declaration.
+            response (gwp_services.MoveLeg.Response): MoveLeg service response, defined as boolean.
+
+        Returns:
+            gwp_services.MoveLeg.Response: True, if movement was executed successfully, False otherwise.
+        """
         if not self.do_run:
             self.get_logger().info("Controller is not running.")
             response.success = False
@@ -268,7 +307,16 @@ class JointVelocityController(Node):
         response.success = True
         return response
 
-    def move_spider_callback(self, request, response):
+    def move_spider_callback(self, request: gwp_services.MoveSpider.Resquest, response: gwp_services.MoveSpider.Response) -> gwp_services.MoveSpider.Response:
+        """Service callback for executing the movement of spider's body. Service type used for calling this service is MoveSpider.
+
+        Args:
+            request (gwp_services.MoveSpider.Resquest): MoveSpider service request. For all needed arguments look at service type declaration.
+            response (gwp_services.MoveSpider.Response): MoveSpider service response, defined as boolean.
+
+        Returns:
+            gwp_services.MoveSpider.Response: True, if movement was executed successfully, False otherwise.
+        """
         if not self.do_run:
             self.get_logger().info("Controller is not running.")
             response.success = False
@@ -334,18 +382,38 @@ class JointVelocityController(Node):
         response.success = True
         return response
 
-    def read_dxl_data_callback(self, msg):
+    def read_dxl_data_callback(self, msg: DynamixelMotorsData):
+        """Subscriber of topic with name, defined as gwp_interfaces_data.DYNAMIXEL_MOTORS_DATA_TOPIC. In this module, only data about currents in the motors is used.
+
+        Args:
+            msg (DynamixelMotorsData): Message type used for communicating in this topic (custom message type).
+        """
         with self.dxl_data_locker:
             self.currents = custom_interface_helper.unpack_2d_array_message(msg.currents)
 
-    def read_legs_states_callback(self, msg):
+    def read_legs_states_callback(self, msg: LegsStates):
+        """Subscriber of topic with name, defined as gwp_interfaces_data.LEGS_STATES_TOPIC.
+
+        Args:
+            msg (LegsStates): Message type, used for communicating in this topic (custom message type).
+        """
         with self.legs_states_locker:
             self.joints_positions = np.reshape(msg.joints_positions.data, (msg.joints_positions.layout.dim[0].size, msg.joints_positions.layout.dim[1].size))
             self.legs_local_positions = np.reshape(msg.legs_local_positions.data, (msg.legs_local_positions.layout.dim[0].size, msg.legs_local_positions.layout.dim[1].size))
             self.legs_forces = np.reshape(msg.forces.data, (msg.forces.layout.dim[0].size, msg.forces.layout.dim[1].size))
             self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
         
-    def toggle_controller_callback(self, request, response):
+    def toggle_controller_callback(self, request: gwp_services.ToggleController.Request, response: gwp_services.ToggleController.Response) -> gwp_services.ToggleController.Response:
+        """Service callback for toggling controller's state on and off. Service type, used for calling this service is ToggleController (custom service type).
+
+        Args:
+            request (gwp_services.ToggleController.Request): ToggleController service request, defined as string. Should contain valid command: robot_config.START_COMMAND, for 
+            turning on the controller or robot_config.STOP_COMMAND for turning it off.
+            response (gwp_services.ToggleController.Response): ToggleController service response, defined as boolean.
+
+        Returns:
+            gwp_services.ToggleController.Response: True, if toggling was successfull, False otherwise.
+        """
         if request.command not in (robot_config.START_COMMAND, robot_config.STOP_COMMAND):
             response.success = False
             return response
@@ -359,7 +427,21 @@ class JointVelocityController(Node):
         response.success = True
         return response
     
-    def toggle_additional_controller_mode_callback(self, request, response):
+    def toggle_additional_controller_mode_callback(
+            self,
+            request: gwp_services.ToggleAdditionalControllerMode.Request,
+            response: gwp_services.ToggleAdditionalControllerMode.Response) -> gwp_services.ToggleAdditionalControllerMode.Response:
+        """Service callback for toggling additional controller modes on or off. Additional controller modes are force and velocity mode. Service type, used for 
+        calling this service is ToggleAdditionalControllerMode (custom service type).
+
+        Args:
+            request (gwp_services.ToggleAdditionalControllerMode.Request): ToggleAdditionalControllerMode request, defined as two strings. First is used to specify 
+            controller mode (either robot_config.VELOCITY_MODE or robot_config.FORCE_MODE) and other for giving a command (either robot_config.START_COMMAND or robot_config.STOP_COMMAND). 
+            response (gwp_services.ToggleAdditionalControllerMode.Response): ToggleAdditionalControllerMode response, defined as boolean.
+
+        Returns:
+            gwp_services.ToggleAdditionalControllerMode.Response: True if toggling was successfull, False otherwise.
+        """
         if request.mode not in (robot_config.VELOCITY_MODE, robot_config.FORCE_MODE):
             self.get_logger().info(f"Controller mode '{request.mode}' not recognized.")
             response.success = False
@@ -378,7 +460,20 @@ class JointVelocityController(Node):
         response.success = True
         return response
     
-    def distribute_forces_callback(self, request, response):
+    def distribute_forces_callback(
+            self,
+            request: gwp_services.DistributeForces.Request,
+            response: gwp_services.DistributeForces.Response) -> gwp_services.DistributeForces.Response:
+        """Service callback for optimally distributing forces among spider's legs or to offload selected leg by distributing forces among other four legs. 
+        Service type used for calling this service is DistributeForces (custom service type).
+
+        Args:
+            request (gwp_services.DistributeForces.Request): DistributeForces service request, defined as Int8MultiArray. Should contain ids of legs, among which the forces will be distributed.
+            response (gwp_services.DistributeForces.Response): DistributeForces service response, defined as boolean.
+
+        Returns:
+            gwp_services.DistributeForces.Response: True if distribution was successfull, False otherwise.
+        """
         with self.force_mode_locker:
             self.force_mode_legs_ids = np.array(request.legs_ids.data, dtype = np.int8)
             self.is_force_mode = True
@@ -412,7 +507,20 @@ class JointVelocityController(Node):
         response.success = True
         return response
     
-    def apply_forces_on_legs_callback(self, request, response):
+    def apply_forces_on_legs_callback(
+            self,
+            request: gwp_services.ApplyForcesOnLegs.Request,
+            response: gwp_services.ApplyForcesOnLegs.Response) -> gwp_services.ApplyForcesOnLegs.Response:
+        """Service callback used for applying desired forces on desired legs' tips. Service type used for calling this service is ApplyForcesOnLegs (custom service type).
+
+        Args:
+            request (gwp_services.ApplyForcesOnLegs.Request): ApplyForcesOnLegs service request, defined as Int8MultiArray which should contain ids of desired legs and 
+            Float32MultiArray, which sould contain desired corresponding forces.
+            response (gwp_services.ApplyForcesOnLegs.Response): ApplyForcesOnLegs service response, defined as boolean.
+
+        Returns:
+            gwp_services.ApplyForcesOnLegs.Response: True if forces were successfully applied, False otherwise.
+        """
         legs_ids = np.array(request.legs_ids.data)
         for leg_id in legs_ids:
             if leg_id not in spider.LEGS_IDS:
@@ -426,7 +534,21 @@ class JointVelocityController(Node):
         response.success = True
         return response
     
-    def move_legs_velocity_mode_callback(self, request, response):
+    def move_legs_velocity_mode_callback(
+            self,
+            request: gwp_services.MoveLegVelocityMode.Request,
+            response: gwp_services.MoveLegVelocityMode.Response) -> gwp_services.MoveLegVelocityMode.Response:
+        """Service callback for moving selected legs in velocity mode. Service type used for calling this service is MoveLegVelocityMode (custom service type).
+
+        Args:
+            request (gwp_services.MoveLegVelocityMode.Request): MoveLegVelocityMode service request, defined as Int8MultiArray for specifying desired legs ids, Float32MultiArray for
+            specifying desired corresponding velocity directions and string for specifying desired threshold type 
+            (when value exceeds the threshold, velocity drops to zero; either robot_config.FORCE_THRESHOLD_TYPE or robot_config.CURRENT_THRESHOLD_TYPE).
+            response (gwp_services.MoveLegVelocityMode.Response): MoveLegVelocityMode response, defined as boolean.
+
+        Returns:
+            gwp_services.MoveLegVelocityMode.Response: True if movement was successfull, False otherwise.
+        """
         legs_ids = request.legs_ids.data
         for leg_id in legs_ids:
             if leg_id not in spider.LEGS_IDS:
@@ -453,7 +575,16 @@ class JointVelocityController(Node):
         response.success = success
         return response
     
-    def update_last_legs_positions_callback(self, _, response):
+    def update_last_legs_positions_callback(self, _, response: Trigger.Response) -> Trigger.Response:
+        """Service callback for updating last legs' positions. Service type used for calling this servie is Trigger.
+
+        Args:
+            _ (None): Not used.
+            response (Trigger.Response): Trigger service response, defined as boolean.
+
+        Returns:
+            Trigger.Response: True, if updating was successfull, False otherwise.
+        """
         with self.legs_states_locker:
             x_a = self.legs_local_positions
         
@@ -468,7 +599,16 @@ class JointVelocityController(Node):
         response.success = False
         return response
     
-    def toggle_legs_movement_callback(self, request, response):
+    def toggle_legs_movement_callback(self, request: SetBool.Request, response: SetBool.Response) -> SetBool.Response:
+        """Service callback for imediate stop of all legs' movements. Service type used for calling this service is SetBool.
+
+        Args:
+            request (SetBool.Request): SetBool service request, defined as boolean. If True, legs' movements will be stopped.
+            response (SetBool.Response): SetBool service response, defined as boolean.
+
+        Returns:
+            SetBool.Response: True if movement was successfully toggled, False otherwise.
+        """
         with self.toggle_movement_locker:
             self.do_stop_movement = request.data
             response.success = self.do_stop_movement == request.data
@@ -477,7 +617,16 @@ class JointVelocityController(Node):
 
         return response
     
-    def __get_spider_pose(self, legs_ids, legs_global_positions):
+    def __get_spider_pose(self, legs_ids: np.ndarray, legs_global_positions: np.ndarray) -> np.ndarray:
+        """Wrapper method for calculating spider's current pose, given in global origin.
+
+        Args:
+            legs_ids (np.ndarray): Ids of legs, used in calculation.
+            legs_global_positions (np.ndarray): Corresponding legs' global positions.
+
+        Returns:
+            np.ndarray: Spider's pose, given as position (x, y, z) and orientaion (roll, pitch, yaw) in global origin.
+        """
         with self.legs_states_locker:
             q_a = self.joints_positions
         
@@ -552,7 +701,23 @@ class JointVelocityController(Node):
 
         return x_d, dx_d, ddx_d
 
-    def __get_trajectory(self, current_position_in_local, goal_position_in_local, trajectory_type, duration):
+    def __get_trajectory(
+            self,
+            current_position_in_local: np.ndarray,
+            goal_position_in_local: np.ndarray,
+            trajectory_type: str,
+            duration: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Wrapper method for calculating movement trajectories (position, velocity and acceleration).
+
+        Args:
+            current_position_in_local (np.ndarray): Leg's current position, given in local origin.
+            goal_position_in_local (np.ndarray): Leg's goal position, given in local origin.
+            trajectory_type (str): Type of trajectory (either robot_config.MINJERK_TRAJECTORY or robot_config.BEZIER_TRAJECTORY)
+            duration (float): Desired duration of movement.
+
+        Returns:
+            tuple[np.ndarray, np.ndarray, np.ndarray]: Tuple of arrays, containing position, velocity and acceleration trajectories.
+        """
         get_trajectory_request = custom_interface_helper.prepare_trajectory_request((current_position_in_local, goal_position_in_local, duration, trajectory_type))
         trajectory_response = custom_interface_helper.async_service_call_from_service(self.leg_trajectory_client, get_trajectory_request)
 
@@ -562,7 +727,16 @@ class JointVelocityController(Node):
 
         return position_trajectory, velocity_trajectory, acceleration_trajectory
     
-    def __move_gripper(self, leg_id, command):
+    def __move_gripper(self, leg_id: int, command: str) -> bool:
+        """Wrapper method for moving (opening or closing) selected gripper.
+
+        Args:
+            leg_id (int): Leg's id.
+            command (str): Desired command (either robot_config.OPEN_GRIPPER_COMMAND or robot_config.CLOSE_GRIPPER_COMMAND)
+
+        Returns:
+            bool: True if gripper's movement was successfull, False otherwise.
+        """
         get_move_gripper_request = custom_interface_helper.prepare_move_gripper_request((leg_id, command))
         move_gripper_response = custom_interface_helper.async_service_call_from_service(self.move_gripper_client, get_move_gripper_request)
 
@@ -577,6 +751,8 @@ class JointVelocityController(Node):
         return move_gripper_response.success
     
     def __get_correction_offset(self, leg_id, current_positions, goal_position, spider_pose):
+        """Not in use.
+        """
         one_hot_legs = np.zeros(spider.NUMBER_OF_LEGS, dtype = np.int8)
         one_hot_legs[leg_id] = 1
         if not spider_pose:
@@ -588,7 +764,13 @@ class JointVelocityController(Node):
 
         return np.array(offset_response.correction_offset.data, dtype = np.float32)
     
-    def __apply_forces_on_leg_tips(self, legs_ids, desired_forces):
+    def __apply_forces_on_leg_tips(self, legs_ids: np.ndarray, desired_forces: np.ndarray):
+        """Wrapper method for applying desired forces on desired legs' tips.
+
+        Args:
+            legs_ids (np.ndarray): Ids of legs.
+            desired_forces (np.ndarray): Desired corresponding forces.
+        """
         try:
             _ = iter(legs_ids)
             legs_ids = np.array(legs_ids, dtype = np.int8)
@@ -599,7 +781,7 @@ class JointVelocityController(Node):
             self.is_force_mode = True
             self.f_d[legs_ids] = np.array(desired_forces, dtype = np.float32)
     
-    def __wait_with_safety(self, duration):
+    def __wait_with_safety(self, duration: float) -> bool:
         """Wait for desired duration and monitor safety trigger.
 
         Args:
@@ -619,12 +801,16 @@ class JointVelocityController(Node):
             time.sleep(0.01)
         return True
 
-    def __set_bus_watchdog(self, value):
+    def __set_bus_watchdog(self, value: int):
+        """Not in use.
+        """
         request = gwp_services.SetBusWatchdog.Request()
         request.value = value
         response = custom_interface_helper.async_service_call(self.set_bus_watchdog_service, request, self)
     
     def __init_interfaces(self):
+        """Initialize all needed interfaces.
+        """
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
 
         self.test_dxl_data = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.read_dxl_data_callback, 1, callback_group = self.callback_group)
@@ -661,6 +847,8 @@ class JointVelocityController(Node):
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.callback_group)
 
 def main():
+    """Main entry point.
+    """
     rclpy.init()
     joint_velocity_controller = JointVelocityController()
     executor = MultiThreadedExecutor()

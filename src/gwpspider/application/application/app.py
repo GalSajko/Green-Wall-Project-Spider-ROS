@@ -84,12 +84,16 @@ class App(Node):
         """
         return 16.0
     
-    def states_manager_callback(self, request: gwp_services.SendStringCommand.Request, response: gwp_services.SendStringCommand.Response) -> gwp_services.SendStringCommand.Response:
+    def states_manager_callback(
+            self,
+            request: gwp_services.SendStringCommand.Request,
+            response: gwp_services.SendStringCommand.Response) -> gwp_services.SendStringCommand.Response:
         """States manager service callback for switching between two possible robot's states: either 'working' or 'transitioning into charging position'. 
         Service type used for calling this service is gwp_services.SendStringCommand (custom service type).
 
         Args:
-            request (gwpspider_interfaces.srv.SendStringCommand.Request): String (constant) with desired command, either robot_config.WORKING_STATE or robot_config.TRANSITION_STATE. Other strings are invalid.
+            request (gwpspider_interfaces.srv.SendStringCommand.Request): String (constant) with desired command, either robot_config.WORKING_STATE or 
+            robot_config.TRANSITION_STATE. Other strings are invalid.
             response (gwpspider_interfaces.srv.SendStringCommand.Response): gwpspider_interfaces.srv.SendStringCommand service response, defined as boolean.
 
         Returns:
@@ -223,7 +227,9 @@ class App(Node):
 
         self.__go_to_resting_pose()
 
-        disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.DISABLE_LEGS_COMMAND))
+        disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request(
+            (np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(),
+            robot_config.DISABLE_LEGS_COMMAND))
         _ = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, disable_motors_request)
 
         with self.battery_voltage_locker:
@@ -246,7 +252,9 @@ class App(Node):
         start_battery_voltage_monitoring_request = SetBool.Request(data = True)
         _ = custom_interface_helper.async_service_call_from_service(self.monitor_battery_voltage_client, start_battery_voltage_monitoring_request)
 
-        enable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.ENABLE_LEGS_COMMAND))
+        enable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request(
+            (np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(),
+            robot_config.ENABLE_LEGS_COMMAND))
         _ = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, enable_motors_request)
 
         time.sleep(2)
@@ -257,7 +265,8 @@ class App(Node):
         return True
 
     def immediate_stop_trigger_callback(self, _, response: Trigger.Response) -> Trigger.Response:
-        """Service callback used when robot's movement (and working) needs to be stopped immediately. This stops movement of all legs, even if one (or more) of them are currently detached and causes the robot to go in idle state. 
+        """Service callback used when robot's movement (and working) needs to be stopped immediately. 
+        This stops movement of all legs, even if one (or more) of them are currently detached and causes the robot to go in idle state. 
         Service type used for calling this service is Trigger.
 
         Args:
@@ -281,7 +290,8 @@ class App(Node):
         return response
     
     def set_battery_voltage_error_flag_callback(self, request: SetBool.Request, response: SetBool.Response) -> SetBool.Response:
-        """Service callback that sets battery voltage error flag to True. Setting this flag to True stops the working procedure. This service is called from the safety layer, when battery voltage drops bellow certain threshold,
+        """Service callback that sets battery voltage error flag to True. Setting this flag to True stops the working procedure. 
+        This service is called from the safety layer, when battery voltage drops bellow certain threshold,
         defined in safety layer module. This call also triggers transition into charging position. Service type used for calling this service is SetBool. 
 
         Args:
@@ -309,19 +319,23 @@ class App(Node):
         return response
 
     def battery_voltage_callback(self, msg: Float32):
-        """Subscriber of topic with name, defined as gwp_interfaces_data.BATTERY_VOLTAGE_TOPIC. Used message type is Float32. Topic is published by safety node and it messages current battery voltage. 
-        Here, battery voltage is also smoothened used the running average algorithm, to avoid faulty readings or current spikes/drops caused by spider's movement.
+        """Subscriber of topic with name, defined as gwp_interfaces_data.BATTERY_VOLTAGE_TOPIC. Used message type is Float32. Topic is published by safety node and it messages 
+        current battery voltage. Here, battery voltage is also smoothened used the running average algorithm, to avoid faulty readings or current spikes/drops caused by
+        spider's movement.
 
         Args:
             msg (Float32): Message of type Float32, containing data with current battery voltage.
         """
         with self.battery_voltage_locker:
             battery_voltage = msg.data
-            self.battery_voltage, self.battery_voltage_buffer, self.battery_voltage_counter = mt.running_average(self.battery_voltage_buffer, self.battery_voltage_counter, battery_voltage)
+            self.battery_voltage, self.battery_voltage_buffer, self.battery_voltage_counter = mt.running_average(
+                self.battery_voltage_buffer,
+                self.battery_voltage_counter,
+                battery_voltage)
             
     def grippers_states_callback(self, msg: GrippersStates):
-        """Subscriber of topic with name, defined as gwp_interfaces_data.GRIPPER_STATES_TOPIC. Used message type is GrippersStates (custom message). Topic is published by grippers_controller node and 
-        it messages current states of grippers (gripper's state depends on states of fingers and microswitch). 
+        """Subscriber of topic with name, defined as gwp_interfaces_data.GRIPPER_STATES_TOPIC. Used message type is GrippersStates (custom message). 
+        Topic is published by grippers_controller node and it messages current states of grippers (gripper's state depends on states of fingers and microswitch). 
 
         Args:
             msg (GrippersStates): Message of type GrippersStates (custom message), containing informations about current grippers' states.
@@ -336,9 +350,10 @@ class App(Node):
             ]
     
     def read_legs_states_callback(self, msg: LegsStates):
-        """Subscriber of topic with name, defined as gwp_interfaces_data.LESG_STATES_TOPIC. Used message type is LegsStates (custom message). Topic is published by legs_states_publisher node and it messages current states
-        of all legs (legs' local positions, angles in joints, torques in joints and forces on the tips of the legs). This subscbriber reads only legs' local positions and joints' positions, because other 
-        informations about legs' states are not relevant for this module.
+        """Subscriber of topic with name, defined as gwp_interfaces_data.LESG_STATES_TOPIC. Used message type is LegsStates (custom message). 
+        Topic is published by legs_states_publisher node and it messages current states of all legs 
+        (legs' local positions, angles in joints, torques in joints and forces on the tips of the legs). This subscbriber reads only legs' local positions and joints' positions, 
+        because other informations about legs' states are not relevant for this module.
 
         Args:
             msg (LegsStates): Message of type LegsStates (custom message), containing informations about current legs' states.
@@ -350,8 +365,8 @@ class App(Node):
             self.joints_positions = joints_positions
     
     def spider_pose_publisher_callback(self):
-        """Publisher of topic with name, defined as gwp_interfaces_data.SPIDER_POSE_TOPIC. Used message type if Float32MultiArray. Publisher is publishing current spider's pose, given in global origin. 
-        Spider's pose is given as position (x, y, z) and orientation, given as roll, pitch and yaw angles.
+        """Publisher of topic with name, defined as gwp_interfaces_data.SPIDER_POSE_TOPIC. Used message type if Float32MultiArray. Publisher is publishing current spider's pose, 
+        given in global origin. Spider's pose is given as position (x, y, z) and orientation, given as roll, pitch and yaw angles.
         """
         spider_pose = self.__get_spider_pose()
 
@@ -373,7 +388,9 @@ class App(Node):
 
         if self.disable_motors_if_error:
             self.get_logger().info("DISABLING MOTOROS DUE TO HW ERROR WHILE STANDING UP.")
-            disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request((np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(), robot_config.DISABLE_LEGS_COMMAND))
+            disable_motors_request = custom_interface_helper.prepare_toggle_motors_torque_request(
+                (np.array([np.array([11, 12, 13]) + i * 10 for i in range(spider.NUMBER_OF_LEGS)]).flatten(),
+                robot_config.DISABLE_LEGS_COMMAND))
             _ = custom_interface_helper.async_service_call_from_service(self.toggle_motors_torque_client, disable_motors_request)
 
         self.get_logger().info("STOP LEGS")

@@ -7,7 +7,6 @@ import dynamixel_sdk as dxl
 import numpy as np
 import os
 import threading
-import time
 
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Trigger
@@ -20,6 +19,11 @@ from gwpspider_interfaces.msg import DynamixelMotorsData
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class MotorDriver(Node):
+    """Class for communicating (reading and sending data) with Dynamixel motors.
+
+    Args:
+        Node (Node): ROS node.
+    """
     def __init__(self):
         Node.__init__(self, 'dynamixel_driver')
 
@@ -55,77 +59,157 @@ class MotorDriver(Node):
 
     #region properties
     @property
-    def MOTOR_SERIES(self):
-        return 'X_SERIES'
+    def TORQUE_ENABLE_ADDR(self) -> int:
+        """Torque enable register address.
 
-    @property
-    def TORQUE_ENABLE_ADDR(self):
+        Returns:
+            int: Register address.
+        """
         return 64
     
     @property
-    def GOAL_VELOCITY_ADDR(self):
+    def GOAL_VELOCITY_ADDR(self) -> int:
+        """Goal velocity register address.
+
+        Returns:
+            int: Register address.
+        """
         return 104
     
     @property
-    def PRESENT_POSITION_ADDR(self):
+    def PRESENT_POSITION_ADDR(self) -> int:
+        """Present position register address.
+
+        Returns:
+            int: Register address.
+        """
         return 132
     
     @property
-    def PRESENT_CURRENT_ADDR(self):
+    def PRESENT_CURRENT_ADDR(self) -> int:
+        """Present current register address.
+
+        Returns:
+            int: Register address.
+        """
         return 126
     
     @property
-    def BUS_WATCHDOG_ADDR(self):
+    def BUS_WATCHDOG_ADDR(self) -> int:
+        """Bus watchdog register address.
+
+        Returns:
+            int: Register address.
+        """
         return 98
     
     @property
-    def HARDWARE_ERROR_ADDR(self):
+    def HARDWARE_ERROR_ADDR(self) -> int:
+        """Hardware error register address.
+
+        Returns:
+            int: Register address.
+        """
         return 70
     
     @property
-    def PRESENT_TEMPERATURE_ADDR(self):
+    def PRESENT_TEMPERATURE_ADDR(self) -> int:
+        """Present temperature register address.
+
+        Returns:
+            int: Register address.
+        """
         return 146
     
     @property
-    def BAUDRATE(self):
+    def BAUDRATE(self) -> int:
+        """Baudrate register address.
+
+        Returns:
+            int: Register address.
+        """
         return 4000000
     
     @property
-    def PROTOCOL_VERSION(self):
+    def PROTOCOL_VERSION(self) -> float:
+        """Dynamixel software protocol version.
+
+        Returns:
+            float: Protocol version.
+        """
         return 2.0
     
     @property
-    def USB_DEVICE_NAME(self):
+    def USB_DEVICE_NAME(self) -> str:
+        """U2D2 device name.
+
+        Returns:
+            str: Device name.
+        """
         return '/dev/ttyUSB_DXL'
     
     @property
-    def PRESENT_POSITION_DATA_LENGTH(self):
+    def PRESENT_POSITION_DATA_LENGTH(self) -> int:
+        """Present position data length.
+
+        Returns:
+            int: Data length.
+        """
         return 4
     
     @property
-    def PRESENT_CURRENT_DATA_LENGTH(self):
+    def PRESENT_CURRENT_DATA_LENGTH(self) -> int:
+        """Present current data length.
+
+        Returns:
+            int: Data length.
+        """
         return 2
     
     @property
-    def GOAL_VELOCITY_DATA_LENGTH(self):
+    def GOAL_VELOCITY_DATA_LENGTH(self) -> int:
+        """Goal velocity data length.
+
+        Returns:
+            int: Data length.
+        """
         return 4
     
     @property
-    def HARDWARE_ERROR_DATA_LENGTH(self):
+    def HARDWARE_ERROR_DATA_LENGTH(self) -> int:
+        """Hardware error data length.
+
+        Returns:
+            int: Data length.
+        """
         return 1
     
     @property
-    def PRESENT_TEMPERATURE_DATA_LENGTH(self):
+    def PRESENT_TEMPERATURE_DATA_LENGTH(self) -> int:
+        """Present temperature data length.
+
+        Returns:
+            int: Data length.
+        """
         return 1
     
     @property
-    def MAX_WORKING_TEMPERATURE(self):
+    def MAX_WORKING_TEMPERATURE(self) -> int:
+        """Maximum allowed working temperature of motors.
+
+        Returns:
+            int: Maximum allowed temperature.
+        """
         return 55
     #endregion
 
     #region callbacks
-    def sync_write_motors_velocities_callback(self, msg):
-        """Write commanded velocities to motors.
+    def sync_write_motors_velocities_callback(self, msg: Float32MultiArray):
+        """Subscriber callback for reading a data from topic with name, defined as gwp_interfaces_data.COMMANDED_JOINTS_VELOCITIES_TOPIC. Received data are commanded joints' velocities,
+        which are sent to the motors.
+
+        Args:
+            msg (Float32MultiArray): Message used for communication in mentioned topic.
         """
         velocities = np.reshape(msg.data, (msg.layout.dim[0].size, msg.layout.dim[1].size))
 
@@ -149,7 +233,7 @@ class MotorDriver(Node):
             self.get_logger().info("Failed to write velocities to motors.")
         
     def sync_read_motors_data_callback(self):
-        """Read positions, currents, hardware errors and temperature registers from all connected motors.
+        """Publisher callback for reading data from the motors and publish it on the topic with name, defined as gwp_interfaces_data.DYNAMIXEL_MOTORS_DATA_TOPIC.
         """
         try:
             with self.serial_comm_locker:
@@ -180,8 +264,16 @@ class MotorDriver(Node):
         except KeyError as ke:
             self.get_logger().info(f"Error at reading motors data: {ke}.")
     
-    def toggle_motors_torque_callback(self, request, response):
-        """Toggle torque in motors.
+    def toggle_motors_torque_callback(self, request: ToggleMotorsTorque.Request, response: ToggleMotorsTorque.Response) -> ToggleMotorsTorque.Response:
+        """Service callback for toggling (enabling or disabling) torques in motors. Service type used for calling this service is ToggleMotorsTorque (custom service type).
+
+        Args:
+            request (ToggleMotorsTorque.Request): ToggleMotorsTorque service request, defined as Int8MultiArray, which should contain ids of motors which are to be toggled and 
+            string which defines a desired command (either robot_config.ENABLE_LEGS_COMMAND or  robot_config.DISABLED_LEGS_COMMAND).
+            response (ToggleMotorsTorque.Response): ToggleMotorsTorque service response, defined as boolean.
+
+        Returns:
+            ToggleMotorsTorque.Response: True, if toggling was successfull, False otherwise.
         """
         motors_ids = request.motors_ids.data
         command = request.command
@@ -195,8 +287,15 @@ class MotorDriver(Node):
         response.success = self.__toggle_motors_torque(motors_ids, command)
         return response
 
-    def set_bus_watchdog_callback(self, request, response):
-        """Set bus watchdog in motors.
+    def set_bus_watchdog_callback(self, request: SetBusWatchdog.Request, response: SetBusWatchdog.Response) -> SetBusWatchdog.Response:
+        """Service callback used for setting a bus watchdog value on the motors. Service type used for calling this service is SetBusWatchdog (custom service type).
+
+        Args:
+            request (SetBusWatchdog.Request): SetBusWatchdog service request, defined as int. It should contain desired value.
+            response (SetBusWatchdog.Response): SetBusWatchdog service response, defined as boolean.
+
+        Returns:
+            SetBusWatchdog.Response: True if setting was successfull, False otherwise.
         """
         motors_array = self.motors_ids.flatten()
         for motor_id in motors_array:
@@ -212,8 +311,15 @@ class MotorDriver(Node):
         response.success = True
         return response
     
-    def reboot_motors_callback(self, request, response):
-        """Reboot motors.
+    def reboot_motors_callback(self, request: RebootMotors.Request, response: RebootMotors.Response) -> RebootMotors.Response:
+        """Service callback used for rebooting the motors. Service type used for calling this service is RebootMotors (custom service type).
+
+        Args:
+            request (RebootMotors.Request): RebootMotors service request, defined as Int8MultiArray, which should contain ids of motors, which are to be rebooted.
+            response (RebootMotors.Response): RebootMotors service response, defined as boolean.
+
+        Returns:
+            RebootMotors.Response: True, if rebooting was successfull, False otherwise.
         """
         motors_to_reboot = np.array(request.motors.data, dtype = np.int8)
         motors_to_reboot = motors_to_reboot.flatten()
@@ -331,7 +437,16 @@ class MotorDriver(Node):
                 return False
         return True
     
-    def __toggle_motors_torque(self, motors_ids, command):
+    def __toggle_motors_torque(self, motors_ids: np.ndarray, command: str) -> bool:
+        """Wrapper method for toggling the torques on the motors.
+
+        Args:
+            motors_ids (np.ndarray): Ids of motors, that are to be toggled.
+            command (str): Command, either robot_config.ENABLE_LEGS_COMMAND for enabling the torque or robot_config.DISABLE_LEGS_COMMAND for disabling it.
+
+        Returns:
+            bool: True if toggling was successfull, False otherwise.
+        """
         motors_ids = np.array(motors_ids)
         if np.shape(np.shape(motors_ids)) != (1,):
             motors_ids = motors_ids.flatten()
@@ -350,12 +465,12 @@ class MotorDriver(Node):
             success = self.__comm_result_and_error_reader(result, error)
             if success:
                 self.get_logger().info(f"Motor {motor_id} has been successfully {message}.")
-            # else:
-            #     return False
         
         return True
 
     def __init_interfaces(self):
+        """Initialize all needed interfaces.
+        """
         self.toggle_torque_service = self.create_service(ToggleMotorsTorque, gid.TOGGLE_MOTORS_TORQUE_SERVICE, self.toggle_motors_torque_callback, callback_group = self.reentrant_callback_group)
         self.set_bus_watchdog_service = self.create_service(SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, self.set_bus_watchdog_callback, callback_group = self.reentrant_callback_group)
         self.reboot_motors_service = self.create_service(RebootMotors, gid.REBOOT_MOTORS_SERVICE, self.reboot_motors_callback, callback_group = self.reentrant_callback_group)
@@ -369,6 +484,8 @@ class MotorDriver(Node):
         self.update_last_legs_positions_client = self.create_client(Trigger, gid.UPDATE_LAST_LEGS_POSITIONS_SERVICE, callback_group = self.reentrant_callback_group)
 
 def main():
+    """Main entry point.
+    """
     rclpy.init()
     motor_driver = MotorDriver()
     executor = MultiThreadedExecutor()
