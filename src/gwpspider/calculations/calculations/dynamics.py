@@ -55,23 +55,12 @@ def calculate_distributed_forces(measured_torques: np.ndarray, joints_values: np
     """
     W, J_x, J_hash_trans_diag = _get_spider_external_forces(measured_torques, joints_values)
 
-    # weights = np.eye(15)
-    # weights[0, 0] = 0.1
-    # weights[3, 3] = 0.1
-    # weights[6, 6] = 0.1
-    # weights[9, 9] = 0.1
-    # weights[12, 12] = 0.1
-
     if len(offload_leg_id):
         J_x = np.delete(J_x, range(offload_leg_id[0] * 3, (offload_leg_id[0] * 3) + 3), axis=1)
-        # weights = np.delete(weights, range(offload_leg_id[0] * 3, (offload_leg_id[0] * 3) + 3), axis = 0)
-        # weights = np.delete(weights, range(offload_leg_id[0] * 3, (offload_leg_id[0] * 3) + 3), axis = 1)
         J_hash_trans_diag = np.delete(J_hash_trans_diag, range(offload_leg_id[0] * 3, (offload_leg_id[0] * 3) + 3), axis=0)
         J_hash_trans_diag = np.delete(J_hash_trans_diag, range(offload_leg_id[0] * 3, (offload_leg_id[0] * 3) + 3), axis=1)
 
-    # Jxw = mathTools.weighted_pseudoinverse(J_x, weights)
     dist_torques_array = np.dot(np.linalg.pinv(J_x), W)
-    # distTorquesArray = np.dot(Jxw, W)
     dist_forces_array = np.dot(J_hash_trans_diag, dist_torques_array)
 
     return np.reshape(dist_forces_array, (len(legs_ids), 3))
