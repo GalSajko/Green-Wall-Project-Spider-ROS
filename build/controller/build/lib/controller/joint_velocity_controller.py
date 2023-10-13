@@ -307,7 +307,7 @@ class JointVelocityController(Node):
         response.success = True
         return response
 
-    def move_spider_callback(self, request: gwp_services.MoveSpider.Resquest, response: gwp_services.MoveSpider.Response) -> gwp_services.MoveSpider.Response:
+    def move_spider_callback(self, request: gwp_services.MoveSpider.Request, response: gwp_services.MoveSpider.Response) -> gwp_services.MoveSpider.Response:
         """Service callback for executing the movement of spider's body. Service type used for calling this service is MoveSpider.
 
         Args:
