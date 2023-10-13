@@ -286,14 +286,14 @@ def prepare_toggle_motors_torque_request(request_data: tuple[Union[list, np.ndar
 
     return request
 
-def prepare_get_correction_offset_request(request_data: tuple[np.ndarray, Union[np.ndarray, list], Union[np.ndarray, list], Union[np.ndarray, list]]) -> gwp_services.GetCorrectionOffsets.Request:
-    """Prepares a request for calling the GetCorrectionOffsets service type.
+def prepare_get_correction_offset_request(request_data: tuple[np.ndarray, Union[np.ndarray, list], Union[np.ndarray, list], Union[np.ndarray, list]]) -> gwp_services.GetCorrectionOffset.Request:
+    """Prepares a request for calling the GetCorrectionOffset service type.
 
     Args:
         request_data (tuple[np.ndarray, Union[np.ndarray, list], Union[np.ndarray, list], Union[np.ndarray, list]]): Data that is requeired by the service, given as tuple.
 
     Returns:
-        gwp_services.GetCorrectionOffsets.Request: GetCorrectionOffsets service type request.
+        gwp_services.GetCorrectionOffset.Request: GetCorrectionOffset service type request.
     """
     legs_current_positions, rpy, leg_goal_position, one_hot_legs = request_data
 

@@ -19,6 +19,11 @@ from gwpspider_interfaces.msg import WalkingInstructions
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class PathPlanner(Node):
+    """Class for calculating different types of paths or trajectories.
+
+    Args:
+        Node (Node): ROS node.
+    """
     def __init__(self):
         Node.__init__(self, 'path_planner')
 
@@ -41,11 +46,38 @@ class PathPlanner(Node):
         self.relative_charging_positions = np.array([self.LEFT_RELATIVE_CHARGING_POSITIONS, self.RIGHT_RELATIVE_CHARGING_POSITIONS])
 
         self.callback_group = ReentrantCallbackGroup()
-        self.offsets_to_charging_position_service = self.create_service(GetOffsetsToChargingPosition, gid.GET_OFFSETS_TO_CHARGING_POSITION_SERVICE, self.get_offsets_to_charging_position_callback, callback_group = self.callback_group)
-        self.walking_instructions_service = self.create_service(GetWalkingInstructions, gid.GET_WALKING_INSTRUCTIONS_SERVICE, self.get_walking_instructions_callback, callback_group = self.callback_group)
-        self.modified_walking_instructions_service = self.create_service(GetModifiedWalkingInstructions, gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE, self.get_modified_walking_instructions_callback, callback_group = self.callback_group)
 
-    def get_offsets_to_charging_position_callback(self, request, response):
+        self.offsets_to_charging_position_service = self.create_service(
+            GetOffsetsToChargingPosition,
+            gid.GET_OFFSETS_TO_CHARGING_POSITION_SERVICE,
+            self.get_offsets_to_charging_position_callback,
+            callback_group = self.callback_group)
+        
+        self.walking_instructions_service = self.create_service(
+            GetWalkingInstructions,
+            gid.GET_WALKING_INSTRUCTIONS_SERVICE,
+            self.get_walking_instructions_callback,
+            callback_group = self.callback_group)
+        
+        self.modified_walking_instructions_service = self.create_service(
+            GetModifiedWalkingInstructions,
+            gid.GET_MODIFIED_WALKING_INSTRUCTION_SERVICE,
+            self.get_modified_walking_instructions_callback,
+            callback_group = self.callback_group)
+
+    def get_offsets_to_charging_position_callback(
+            self,
+            request: GetOffsetsToChargingPosition.Request,
+            response: GetOffsetsToChargingPosition.Response) -> GetOffsetsToChargingPosition.Response:
+        """Service callback used for calculating needed relative offsets for moving a legs on correct charging positions (pins).
+
+        Args:
+            request (GetOffsetsToChargingPosition.Request): GetOffsetsToCharginPosition server request, defined as Int16MultiArray, which should contain currently used pins positions.
+            response (GetOffsetsToChargingPosition.Response): GetOffsetsToCharginPosition server response, defined as Float32MultiArray and contains calculated offests.
+
+        Returns:
+            GetOffsetsToChargingPosition.Response: Array of calculated offsets.
+        """
         current_pins = request.current_pins.data
 
         pins = wall.create_grid(False)
@@ -91,7 +123,16 @@ class PathPlanner(Node):
         response.offsets = custom_interface_helper.create_multiple_2d_array_messages([offsets])
         return response
 
-    def get_walking_instructions_callback(self, request, response):
+    def get_walking_instructions_callback(self, request: GetWalkingInstructions.Request, response: GetWalkingInstructions.Response) -> GetWalkingInstructions.Response:
+        """Service callback for calculating walking instructions. Walking instructions contain spider's poses along the path and all pins' positions, that will be used.
+
+        Args:
+            request (GetWalkingInstructions.Request): GetWalkingInstructions server request, defined as two Float32MultiArrays, first contains spider's starting pose and second desired goal pose.
+            response (GetWalkingInstructions.Response): GetWalkingInstructions server response, defined as WalkingInstructions message (custom message type).
+
+        Returns:
+            GetWalkingInstructions.Response: WalkingInstructions message (custom message type).
+        """
         start_pose = np.array(request.start_pose.data)
         goal_pose = np.array(request.goal_pose.data)
 
@@ -103,7 +144,20 @@ class PathPlanner(Node):
 
         return response
 
-    def get_modified_walking_instructions_callback(self, request, response):
+    def get_modified_walking_instructions_callback(
+            self,
+            request: GetModifiedWalkingInstructions.Request,
+            response: GetModifiedWalkingInstructions.Response) -> GetModifiedWalkingInstructions.Response:
+        """Service callback for calculating modified walking instructions. Instructions are modified for the first pose, where starting pins are not optimal.
+
+        Args:
+            request (GetModifiedWalkingInstructions.Request): GetModifiedWalkingInstructions service request, defined as two Float32MultiArrays, first contains legs' starting positions and second
+            desired spider's goal pose.
+            response (GetModifiedWalkingInstructions.Response): GetModifiedWalkingInstructions service response, defined as WalkingInstructions message (custom message type).
+
+        Returns:
+            GetModifiedWalkingInstructions.Response: WalkingInstructions message (custom message type).
+        """
         start_legs_positions = np.array(request.start_legs_positions.data)
         start_legs_positions = start_legs_positions.reshape((request.start_legs_positions.layout.dim[0].size, request.start_legs_positions.layout.dim[1].size))
         goal_pose = np.array(request.goal_pose.data)
@@ -332,6 +386,8 @@ class PathPlanner(Node):
     #endregion
 
 def main():
+    """Main entry point.
+    """
     rclpy.init()
     path_planner = PathPlanner()
     executor = MultiThreadedExecutor()

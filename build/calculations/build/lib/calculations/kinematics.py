@@ -134,7 +134,7 @@ def platform_forward_kinematics(legs_ids: list, legs_positions_in_global: np.nda
     l_1, l_2, l_3 = legs_poses_in_spider
     p_1, p_2, _ = legs_positions_in_global
 
-    # Compute coordinate system of a wall-plane (in spider's origin)
+    # Calculate coordinate system of a wall-plane (in spider's origin)
     l_1_2 = l_2[:,3][:3] - l_1[:,3][:3]
     l_1_3 = l_3[:,3][:3] - l_1[:,3][:3]
     l_2_3 = l_3[:,3][:3] - l_2[:,3][:3]

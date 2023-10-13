@@ -5,8 +5,10 @@ from gwpconfig import wall
 from configuration import robot_config
 
 class JsonFileManager():
+    """Class for writing and reading into spider_state_dict JSON file, saved in src/gwpspider/data directory.
+    """
     def __init__(self):
-        # self.dict_dir = os.path.join(get_package_share_directory('utils'), 'resource/spider_state_dict')
+        # TODO: Change this path into project-relative path.
         self.FILENAME = "/home/spider/gwpspider_ws/src/gwpspider/data/spider_state_dict"
 
         self.pins = np.array(wall.create_grid(True), dtype = np.float32)
@@ -52,11 +54,11 @@ class JsonFileManager():
 
         self.__write_json()
     
-    def read_spider_state(self):
+    def read_spider_state(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Read pose and pins from JSON file and save them into dictionary.
 
         Returns:
-            tuple: Spider's pose, used pins indexes and used pins positions.
+            tuple[np.ndarray, np.ndarray, np.ndarray]: Tuple of arrays, representing spider's pose, used pins' indexes and used pins' positions.
         """
         with open(self.FILENAME, 'r', encoding = 'utf-8') as file:
             self.state_dict = json.load(file)

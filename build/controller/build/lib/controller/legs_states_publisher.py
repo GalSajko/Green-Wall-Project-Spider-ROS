@@ -16,6 +16,11 @@ from gwpspider_interfaces.msg import DynamixelMotorsData, LegsStates, BnoData
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class LegsStatesPublisher(Node):
+    """Class for calculating current legs' states from current motors' states and publishing calculated legs' states on gwp_interfaces_data.LEGS_STATES_TOPIC topic.
+
+    Args:
+        Node (Node): ROS node.
+    """
     def __init__(self):
         Node.__init__(self, 'legs_states_publisher')
 
@@ -35,7 +40,13 @@ class LegsStatesPublisher(Node):
 
         self.get_logger().info("Legs states publisher is running.")
 
-    def calculate_legs_states_callback(self, msg):
+    def calculate_legs_states_callback(self, msg: DynamixelMotorsData):
+        """Subscriber of topic with name, defined as gwp_intrfaces_data.DYNAMIXEL_MOTORS_DATA_TOPIC. In the same period, subscriber reads the data from the motors, use it 
+        for calculate legs' states and publish legs' states on topic with name, defined as gwp_interfaces_data.LEGS_STATES_TOPIC.
+
+        Args:
+            msg (DynamixelMotorsData): Message type used for communication on topic with name, defined as gwp_intrfaces_data.DYNAMIXEL_MOTORS_DATA_TOPIC (custom message type).
+        """
         q_a = np.reshape(msg.positions.data, (msg.positions.layout.dim[0].size, msg.positions.layout.dim[1].size))
         i_a = np.reshape(msg.currents.data, (msg.currents.layout.dim[0].size, msg.currents.layout.dim[1].size))
 
@@ -54,11 +65,18 @@ class LegsStatesPublisher(Node):
             
             self.legs_states_publisher.publish(legs_states_msg)
 
-    def read_gravity_vector_callback(self, msg):
+    def read_gravity_vector_callback(self, msg: BnoData):
+        """Subscriber callback for reading gravity vector direction from topic with name, defined as gwp_interfaces_data.BNO_DATA_TOPIC.
+
+        Args:
+            msg (BnoData): Message type used for communication on topic with name, defined as gwp_interfaces_data.BNO_DATA_TOPIC (custom message type).
+        """
         with self.graviy_vector_locker:
             self.gravity_vector = np.array(msg.gravity_vector.data)
 
 def main():
+    """Main entry point.
+    """
     rclpy.init()
     executor = MultiThreadedExecutor()
     legs_states_publisher = LegsStatesPublisher()

@@ -78,7 +78,6 @@ LEG_LENGTH_MAX_LIMIT = 0.58
 LEG_LENGTH_MIN_LIMIT = 0.32
 # Angles between legs, looking from spiders origin.
 ANGLE_BETWEEN_LEGS = np.radians(360.0 / NUMBER_OF_LEGS)
-#region constant lists
 # Positions of leg anchors on spiders platform, given in spiders origin - matching the actual legs order on spider.
 LEG_BASES = _get_legs_bases_in_spider()
 # Unit vectors pointing in radial directions (looking from center of body).
@@ -107,5 +106,5 @@ WATERING_XY_OFFSET_ABS = [0.45, 0.15]
 WATERING_LEGS_IDS = [1, 4]
 REFILLING_LEG_ID = 2
 REFILLING_LEG_OFFSET = np.array([-0.2, -0.66, -0.22], dtype = np.float32)
-REFILLING_Y_WALL_POSITION = 0.6 # Change to 0.6
+REFILLING_Y_WALL_POSITION = 0.6
 LEGS_IDS = np.array([0, 1, 2, 3, 4], dtype = np.int8)
