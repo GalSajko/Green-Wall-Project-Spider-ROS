@@ -18,7 +18,7 @@ All custom interfaces are defined in gwpspider_interfaces package.
 |/apply_forces_on_legs_service|ApplyForcesOnLegs (custom)|joint_velocity_controller|Apply desired forces on legs' end-effectors.|
 |/battery_voltage_service|SetBool|app|Set a flag, which tells a programm whether or not to trigger error in case of battery voltage drops bellow certain threshold.|
 |/breaks_service|BreaksControl (custom)|water_pumps_bno_controller|Activate (or release) breaks in third joints.|
-|/distribute_forces_service|DistributeForces (custom)|joint_velocity_controller|Optimally distributed forces among desired legs.|
+|/distribute_forces_service|DistributeForces (custom)|joint_velocity_controller|Optimally distribute forces among desired legs.|
 |/get_correction_offset_service|GetCorrectionOffset (custom)|offset_predictor|Get predicted errors in leg's movement, defined as local offsets.|
 |/get_leg_trajectory_service|GetLegTrajectory (custom)|trajectory_planner|Get position, velocity and acceleration trajectories for leg's movement.|
 |/get_modified_walking_instructions_service|GetModifiedWalkingInstructions (custom)|path_planner|Get walking instructions (poses and holds). First step is modified to consider current legs' positions, which are not necessary the same as calculated by path planner.|
@@ -38,6 +38,6 @@ All custom interfaces are defined in gwpspider_interfaces package.
 |/toggle_controller_service|ToggleController (custom)|joint_velocity_controller|Activate or deactivate main controller.|
 |/toggle_motors_torque_service|ToggleMotorsTorque (custom)|dynamixel_driver|Activate or deactivate torque in selected motors.|
 |/tube_holder_service|SetBool|water_pumps_bno_controller|Extract or contract the tube holder on third leg.|
-|/update_last_positions_service|Trigger|Update last legs' positions.|
+|/update_last_positions_service|Trigger|joint_velocity_controller|Update last legs' positions.|
 |/water_pump_service|ControlWaterPump (custom)|water_pumps_bno_controller|Activate water pump (and specify how much water needs to be pumped).|
 
