@@ -289,14 +289,15 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        if not self.__wait_with_safety(duration + 0.5):
-            """Make changes in this function. Divide the time interval (duration + 0.5) into 3 periods: gripper detaches, moving period, gripper attaches.
-            During the second period, check for signals that there is something on the switch. If there is, turn motor velocities to zero.
-            Use GripperState.msg. Leg of interest is in variable leg_id. The variable self.do_stop_movement comes from the toggle_legs_movement_callback
-            and tells the program if it should switch the motors on or off."""
-
+        if not self.__wait_with_safety_gripper(self, duration + 0.5, leg_id): 
             response.success = False
             return response
+            
+        """Make changes in this function. Divide the time interval (duration + 0.5) into 3 periods: gripper detaches, moving period, gripper attaches.
+         During the second period, check for signals that there is something on the switch. If there is, turn motor velocities to zero.
+        Use GripperState.msg. Leg of interest is in variable leg_id. The variable self.do_stop_movement comes from the toggle_legs_movement_callback
+        and tells the program if it should switch the motors on or off."""
+
 
         if close_gripper:
             force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
