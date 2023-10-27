@@ -22,7 +22,7 @@ from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
-    """Velocity controller class. Some changes.
+    """Velocity controller class.
 
     Args:
         Node (Node): ROS node.
