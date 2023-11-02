@@ -210,8 +210,8 @@ class App(Node):
         Returns:
             bool: True if transition is successfull (and battery is re-charged). False otherwise.
         """
-        transitioning_message_request = gwp_services.Messages.Request(message = cc.TRANSITIONING_TO_RESTING_PHASE_MESSAGE  )
-        _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, transitioning_message_request)
+        # transitioning_message_request = gwp_services.Messages.Request(message = cc.TRANSITIONING_TO_RESTING_PHASE_MESSAGE)
+        # _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, transitioning_message_request)
         with self.is_working_locker:
             if self.is_working:
                 return False
@@ -380,8 +380,8 @@ class App(Node):
         Returns:
             bool: True if legs and water pumps were successfully stopped. Note: this method does not (yet) handle any errors that can occur during execution, so False value is never returned.
         """
-        resting_message_request = gwp_services.Messages.Request(message = cc.RESTING_PHASE_STARTED_MESSAGE )
-        _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, resting_message_request)
+        # resting_message_request = gwp_services.Messages.Request(message = cc.RESTING_PHASE_STARTED_MESSAGE )
+        # _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, resting_message_request)
 
         tube_holder_request = SetBool.Request(data = False)
         _ = custom_interface_helper.async_service_call_from_service(self.tube_holder_client, tube_holder_request)
@@ -782,8 +782,8 @@ class App(Node):
         if not water_pump_response.success:
             return False
 
-        watering_success_request = Empty.Request()
-        _ = custom_interface_helper.async_service_call_from_service(self.set_watering_success_flag_client, watering_success_request)
+        # watering_success_request = Empty.Request()
+        # _ = custom_interface_helper.async_service_call_from_service(self.set_watering_success_flag_client, watering_success_request)
 
         move_leg_request = custom_interface_helper.prepare_move_leg_request((
             leg_id,
@@ -815,8 +815,8 @@ class App(Node):
     def __init_working_related_services(self):
         """Initialize all interfaces which are needed for working procedure to begin.
         """
-        start_message_request = gwp_services.Messages.Request(message = cc.WORKING_PHASE_STARTED_MESSAGE)
-        _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, start_message_request)
+        # start_message_request = gwp_services.Messages.Request(message = cc.WORKING_PHASE_STARTED_MESSAGE)
+        # _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, start_message_request)
 
         deactivate_breaks_request = gwp_services.BreaksControl.Request(command = robot_config.RELEASE_BREAKS_COMMAND, break_id = robot_config.ALL_BREAKS_INDEX)
         _ = custom_interface_helper.async_service_call_from_service(self.breaks_controller_client, deactivate_breaks_request)
@@ -900,13 +900,13 @@ class App(Node):
         while not self.breaks_controller_client.wait_for_service(timeout_sec = 1.0):
             print("Breaks controller service not available...") 
 
-        self.get_spider_goal_client = self.create_client(gwp_services.SpiderGoal, gid.SEND_GOAL_SERVICE, callback_group = self.callback_group)
-        while not self.get_spider_goal_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Spider goal service not available...")
+        # self.get_spider_goal_client = self.create_client(gwp_services.SpiderGoal, gid.SEND_GOAL_SERVICE, callback_group = self.callback_group)
+        # while not self.get_spider_goal_client.wait_for_service(timeout_sec = 1.0):
+        #     self.get_logger().info("Spider goal service not available...")
 
-        self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
-        while not self.set_watering_success_flag_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Watering success flag service not available...")
+        # self.set_watering_success_flag_client = self.create_client(Empty, gid.SET_WATERING_SUCCESS_SERVICE, callback_group = self.callback_group)
+        # while not self.set_watering_success_flag_client.wait_for_service(timeout_sec = 1.0):
+        #     self.get_logger().info("Watering success flag service not available...")
         
         self.get_offsets_to_charging_position_client = self.create_client(gwp_services.GetOffsetsToChargingPosition, gid.GET_OFFSETS_TO_CHARGING_POSITION_SERVICE, callback_group = self.callback_group)
         while not self.get_offsets_to_charging_position_client.wait_for_service(timeout_sec = 1.0):
@@ -920,9 +920,9 @@ class App(Node):
         while not self.monitor_hw_errors_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Toggle safety service not available...")
 
-        self.messaging_client = self.create_client(gwp_services.Messages, gid.MESSAGE_SERVICE, callback_group = self.callback_group)
-        while not self.messaging_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Messaging service not available...")
+        # self.messaging_client = self.create_client(gwp_services.Messages, gid.MESSAGE_SERVICE, callback_group = self.callback_group)
+        # while not self.messaging_client.wait_for_service(timeout_sec = 1.0):
+        #     self.get_logger().info("Messaging service not available...")
         
         self.states_manager_service = self.create_service(gwp_services.SendStringCommand, gid.STATES_MANAGER_SERVICE, callback = self.states_manager_callback, callback_group = self.callback_group)
         self.immediate_stop_trigger_service = self.create_service(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback = self.immediate_stop_trigger_callback, callback_group = self.callback_group)
