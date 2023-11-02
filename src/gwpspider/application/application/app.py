@@ -418,13 +418,34 @@ class App(Node):
         """
         spider_pose, _, start_legs_positions = self.json_file_manager.read_spider_state()
 
-        spider_goal_request = gwp_services.SpiderGoal.Request()
-        spider_goal_response = custom_interface_helper.async_service_call_from_service(self.get_spider_goal_client, spider_goal_request)
-        watering_position = spider_goal_response.watering_position
-        go_refill = spider_goal_response.go_refill
-        volume = spider_goal_response.volume
+        # spider_goal_request = gwp_services.SpiderGoal.Request()
+        # spider_goal_response = custom_interface_helper.async_service_call_from_service(self.get_spider_goal_client, spider_goal_request)
+        # watering_position = spider_goal_response.watering_position
+        # go_refill = spider_goal_response.go_refill
+        # volume = spider_goal_response.volume
+        # self.get_logger().info(f"GOAL INFO: {spider_goal_response}")
 
-        self.get_logger().info(f"GOAL INFO: {spider_goal_response}")
+        random_goals = np.array([
+            # [0.1, 0.99, 0.0],
+            # [0.3, 0.99, 0.0],
+            # [0.5, 0.99, 0.0],
+            # [0.7, 0.99, 0.0],
+            [0.9, 0.99, 0.0],
+            # [1.1, 0.99, 0.0]
+            [0.1, 0.74, 0.0],
+            [0.3, 0.74, 0.0],
+            [1.1, 0.74, 0.0],
+            [0.9, 0.74, 0.0],
+            [0.1, 0.49, 0.0],
+            [0.3, 0.49, 0.0],
+            [1.1, 0.49, 0.0],
+            [0.9, 0.49, 0.0],
+        ])
+        random_idx = np.random.randint(0, len(random_goals) - 1)
+        watering_position = random_goals[random_idx]
+        go_refill = False
+        volume = 30
+        self.get_logger().info(f"GOAL INFO: {watering_position}")
 
         watering_or_refill_leg_id, watering_or_refill_pose = tf.get_watering_leg_and_pose(spider_pose, watering_position, go_refill)
 
