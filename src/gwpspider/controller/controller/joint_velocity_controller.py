@@ -289,7 +289,7 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        if not self.__wait_with_safety_gripper(self, duration + 0.5, leg_id): 
+        if not self.__wait_with_safety_gripper(duration + 0.5, leg_id): 
             response.success = False
             return response
             
