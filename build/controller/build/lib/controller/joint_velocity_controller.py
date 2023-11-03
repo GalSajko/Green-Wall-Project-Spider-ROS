@@ -18,7 +18,8 @@ from calculations import dynamics as dyn
 from calculations import transformations as tf
 
 import gwpspider_interfaces.srv as gwp_services
-from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData
+import gwpspider_interfaces.msg as gwp_msgs
+from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData, GrippersStates, GripperState
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
@@ -66,6 +67,9 @@ class JointVelocityController(Node):
         self.joints_positions = None
         self.legs_forces = None
         self.joints_torques = None
+
+        self.gripper_states_locker = threading.Lock()
+        self.grippers_states = GripperState()
 
         self.dxl_data_locker = threading.Lock()
         self.currents = []
@@ -286,9 +290,15 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        if not self.__wait_with_safety(duration + 0.5):
+        if not self.__wait_with_safety_gripper(duration + 0.5, leg_id):
             response.success = False
             return response
+            
+        """Make changes in this function. Divide the time interval (duration + 0.5) into 3 periods: gripper detaches, moving period, gripper attaches.
+         During the second period, check for signals that there is something on the switch. If there is, turn motor velocities to zero.
+        Use GripperState.msg. Leg of interest is in variable leg_id. The variable self.do_stop_movement comes from the toggle_legs_movement_callback
+        and tells the program if it should switch the motors on or off."""
+
 
         if close_gripper:
             force_to_apply = np.array([0.0, 0.0, -self.MAX_ALLOWED_FORCE])
@@ -403,6 +413,22 @@ class JointVelocityController(Node):
             self.legs_forces = np.reshape(msg.forces.data, (msg.forces.layout.dim[0].size, msg.forces.layout.dim[1].size))
             self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
         
+
+    def read_grippers_states_callback(self, msg: GrippersStates):
+        """Subscriber of topic with name, defined as gwp_interfaces_data.GRIPPER_STATES_TOPIC.
+
+        Args:
+            msg (GrippersStates): Message type, used for communicating in this topic (custom message type).
+        """
+        with self.gripper_states_locker:
+            self.grippers_states[0] = msg.first_gripper
+            self.grippers_states[1] = msg.second_gripper
+            self.grippers_states[2] = msg.third_gripper
+            self.grippers_states[3] = msg.fourth_gripper
+            self.grippers_states[4] = msg.fifth_gripper
+
+
+
     def toggle_controller_callback(self, request: gwp_services.ToggleController.Request, response: gwp_services.ToggleController.Response) -> gwp_services.ToggleController.Response:
         """Service callback for toggling controller's state on and off. Service type, used for calling this service is ToggleController (custom service type).
 
@@ -800,6 +826,35 @@ class JointVelocityController(Node):
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
         return True
+    
+
+    def __wait_with_safety_gripper(self, duration: float, leg_ID) -> bool:
+        """Wait for desired duration and monitor safety trigger.
+
+        Args:
+            duration (float): Desired waiting duration.
+
+        Returns:
+            bool: True if waiting was not interrupted with safety trigger, False otherwise.
+        """
+        start_time = time.time()
+        elapsed_time = 0
+        while elapsed_time < duration:
+            print("switch_state: ", self.grippers_states[leg_ID].switch_state)
+            with self.toggle_movement_locker:
+                if self.do_stop_movement:
+                    self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+                    return False
+            if (1/3)*duration<elapsed_time<duration*(2/3):
+                print("switch_state: ", self.grippers_states[leg_ID].switch_state)
+                with self.gripper_states_locker:
+                    if self.grippers_states[leg_ID].switch_state == '0':
+                        self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+                        return False
+
+            elapsed_time = time.time() - start_time
+            time.sleep(0.01)
+        return True
 
     def __set_bus_watchdog(self, value: int):
         """Not in use.
@@ -812,6 +867,7 @@ class JointVelocityController(Node):
         """Initialize all needed interfaces.
         """
         self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
+        self.get_gripper_states = self.create_subscription(gwp_msgs.GrippersStates, gid.GRIPPER_STATES_TOPIC, self.read_grippers_states_callback, 1, callback_group = self.callback_group)
 
         self.test_dxl_data = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.read_dxl_data_callback, 1, callback_group = self.callback_group)
 
