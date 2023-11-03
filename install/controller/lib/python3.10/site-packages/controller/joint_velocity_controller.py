@@ -290,7 +290,7 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        if not self.__wait_with_safety_gripper(duration + 0.5, leg_id):
+        if not self.__wait_with_safety(duration + 0.5):
             response.success = False
             return response
             
@@ -840,13 +840,11 @@ class JointVelocityController(Node):
         start_time = time.time()
         elapsed_time = 0
         while elapsed_time < duration:
-            print("switch_state: ", self.grippers_states[leg_ID].switch_state)
             with self.toggle_movement_locker:
                 if self.do_stop_movement:
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
             if (1/3)*duration<elapsed_time<duration*(2/3):
-                print("switch_state: ", self.grippers_states[leg_ID].switch_state)
                 with self.gripper_states_locker:
                     if self.grippers_states[leg_ID].switch_state == '0':
                         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
