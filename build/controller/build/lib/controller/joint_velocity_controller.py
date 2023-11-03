@@ -69,7 +69,7 @@ class JointVelocityController(Node):
         self.joints_torques = None
 
         self.gripper_states_locker = threading.Lock()
-        self.grippers_states = GripperState()
+        self.grippers_states = [GripperState()] * spider.NUMBER_OF_LEGS
 
         self.dxl_data_locker = threading.Lock()
         self.currents = []
@@ -290,7 +290,7 @@ class JointVelocityController(Node):
             self.command_queues[leg_id].put([position[:3], velocity_trajectory[idx][:3], acceleration_trajectory[idx][:3]])
         self.command_queues[leg_id].put(self.sentinel)
 
-        if not self.__wait_with_safety(duration + 0.5):
+        if not self.__wait_with_safety_gripper(duration + 0.5, leg_id):
             response.success = False
             return response
             
@@ -828,7 +828,7 @@ class JointVelocityController(Node):
         return True
     
 
-    def __wait_with_safety_gripper(self, duration: float, leg_ID) -> bool:
+    def __wait_with_safety_gripper(self, duration: float, leg_id) -> bool:
         """Wait for desired duration and monitor safety trigger.
 
         Args:
@@ -844,9 +844,9 @@ class JointVelocityController(Node):
                 if self.do_stop_movement:
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
-            if (1/3)*duration<elapsed_time<duration*(2/3):
+            if (1/3) * duration < elapsed_time < duration * (2/3):
                 with self.gripper_states_locker:
-                    if self.grippers_states[leg_ID].switch_state == '0':
+                    if self.grippers_states[leg_id].switch_state == robot_config.IS_GRIPPER_CLOSE_RESPONSE:
                         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                         return False
 
