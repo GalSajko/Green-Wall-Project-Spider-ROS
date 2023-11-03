@@ -839,6 +839,7 @@ class JointVelocityController(Node):
         start_time = time.time()
         elapsed_time = 0
         while elapsed_time < duration:
+            print("switch_state: ", self.grippers_states[leg_ID].switch_state)
             with self.toggle_movement_locker:
                 if self.do_stop_movement:
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
