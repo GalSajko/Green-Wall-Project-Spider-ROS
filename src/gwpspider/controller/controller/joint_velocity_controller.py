@@ -68,6 +68,7 @@ class JointVelocityController(Node):
         self.legs_forces = None
         self.joints_torques = None
 
+        self.gripper_states_locker = threading.Lock()
         self.grippers_states = GripperState()
 
         self.dxl_data_locker = threading.Lock()
@@ -845,6 +846,7 @@ class JointVelocityController(Node):
             if (1/3)*duration<elapsed_time<duration*(2/3):
                 if self.grippers_states[leg_ID].switch_state == '0':
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+                    print("switch_state: ", self.grippers_states[leg_ID].switch_state)
                     return False
 
             elapsed_time = time.time() - start_time
