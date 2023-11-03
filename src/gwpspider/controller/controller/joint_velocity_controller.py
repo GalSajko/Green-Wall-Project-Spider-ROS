@@ -420,11 +420,12 @@ class JointVelocityController(Node):
         Args:
             msg (GrippersStates): Message type, used for communicating in this topic (custom message type).
         """
-        self.grippers_states[0] = msg.first_gripper
-        self.grippers_states[1] = msg.second_gripper
-        self.grippers_states[2] = msg.third_gripper
-        self.grippers_states[3] = msg.fourth_gripper
-        self.grippers_states[4] = msg.fifth_gripper
+        with self.gripper_states_locker:
+            self.grippers_states[0] = msg.first_gripper
+            self.grippers_states[1] = msg.second_gripper
+            self.grippers_states[2] = msg.third_gripper
+            self.grippers_states[3] = msg.fourth_gripper
+            self.grippers_states[4] = msg.fifth_gripper
 
 
 
@@ -844,10 +845,11 @@ class JointVelocityController(Node):
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
             if (1/3)*duration<elapsed_time<duration*(2/3):
-                if self.grippers_states[leg_ID].switch_state == '0':
-                    self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
-                    print("switch_state: ", self.grippers_states[leg_ID].switch_state)
-                    return False
+                with self.gripper_states_locker:
+                    if self.grippers_states[leg_ID].switch_state == '0':
+                        self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
+                        print("switch_state: ", self.grippers_states[leg_ID].switch_state)
+                        return False
 
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
