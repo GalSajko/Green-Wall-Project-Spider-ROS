@@ -210,8 +210,8 @@ class App(Node):
         Returns:
             bool: True if transition is successfull (and battery is re-charged). False otherwise.
         """
-        transitioning_message_request = gwp_services.Messages.Request(message = cc.TRANSITIONING_TO_RESTING_PHASE_MESSAGE  )
-        _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, transitioning_message_request)
+        # transitioning_message_request = gwp_services.Messages.Request(message = cc.TRANSITIONING_TO_RESTING_PHASE_MESSAGE  )
+        # _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, transitioning_message_request)
         with self.is_working_locker:
             if self.is_working:
                 return False
@@ -380,8 +380,8 @@ class App(Node):
         Returns:
             bool: True if legs and water pumps were successfully stopped. Note: this method does not (yet) handle any errors that can occur during execution, so False value is never returned.
         """
-        resting_message_request = gwp_services.Messages.Request(message = cc.RESTING_PHASE_STARTED_MESSAGE )
-        _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, resting_message_request)
+        # resting_message_request = gwp_services.Messages.Request(message = cc.RESTING_PHASE_STARTED_MESSAGE )
+        # _ = custom_interface_helper.async_service_call_from_service(self.messaging_client, resting_message_request)
 
         tube_holder_request = SetBool.Request(data = False)
         _ = custom_interface_helper.async_service_call_from_service(self.tube_holder_client, tube_holder_request)
@@ -425,7 +425,7 @@ class App(Node):
         # volume = spider_goal_response.volume
 
         # self.get_logger().info(f"GOAL INFO: {spider_goal_response}")
-        
+
         random_goals = np.array([
             # [0.1, 0.99, 0.0],
             # [0.3, 0.99, 0.0],

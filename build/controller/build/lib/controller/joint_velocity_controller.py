@@ -845,9 +845,9 @@ class JointVelocityController(Node):
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
             if (1/3) * duration < elapsed_time < duration * (2/3):
-                print("Clean the gripper, cometh the ripper.")
                 with self.gripper_states_locker:
                     if self.grippers_states[leg_id].switch_state == robot_config.IS_GRIPPER_CLOSE_RESPONSE:
+                        self.get_logger().info("Clean the gripper.")
                         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                         return False
 
