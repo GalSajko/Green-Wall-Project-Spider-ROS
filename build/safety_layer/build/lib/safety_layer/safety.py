@@ -231,7 +231,7 @@ class Safety(Node):
         
         self.immediate_stop_trigger_client = self.create_client(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.immediate_stop_trigger_client.wait_for_service(timeout_sec = 1.0):
-            self.get_logger().info("Imeediate stop trigger service not available...")
+            self.get_logger().info("Immediate stop trigger service not available...")
 
         self.battery_voltage_error_trigger_client = self.create_client(SetBool, gid.BATTERY_VOLTAGE_TRIGGER_SERVICE, callback_group = self.reentrant_callback_group)   
         while not self.battery_voltage_error_trigger_client.wait_for_service(timeout_sec = 1.0):
