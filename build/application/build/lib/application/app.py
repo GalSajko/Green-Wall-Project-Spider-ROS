@@ -444,7 +444,7 @@ class App(Node):
         random_idx = np.random.randint(0, len(random_goals) - 1)
         watering_position = random_goals[random_idx]
         go_refill = False
-        volume = 30
+        volume = 15
         self.get_logger().info(f"GOAL INFO: {watering_position}")
 
         watering_or_refill_leg_id, watering_or_refill_pose = tf.get_watering_leg_and_pose(spider_pose, watering_position, go_refill)
@@ -530,10 +530,10 @@ class App(Node):
         """
         with self.grippers_states_locker:
             all_legs_attached = np.array(self.grippers_attached_states).all()
-        if not all_legs_attached:
-            self.get_logger().info("Not all legs are attached to the wall. Moving into resting pose.")
-            self.__start_idle_state()
-            return False
+        # if not all_legs_attached:
+        #     self.get_logger().info("Not all legs are attached to the wall. Moving into resting pose.")
+        #     self.__start_idle_state()
+        #     return False
         
         self.__distribute_forces(np.delete(spider.LEGS_IDS, leg_id))
 

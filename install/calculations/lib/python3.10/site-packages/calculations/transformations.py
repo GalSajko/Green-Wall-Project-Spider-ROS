@@ -197,8 +197,9 @@ def get_watering_leg_and_pose(spider_pose: np.ndarray, goal_position: np.ndarray
             0.0
         ])
     
-        max_x = wall.WALL_SIZE[0] - 0.8
-        min_x = 1.8
+        # max_x = wall.WALL_SIZE[0] - 0.8
+        max_x = 1.0
+        min_x = 0.4
 
         if spider_pose[0] <= goal_position[0]:
             if spider_pose[0] <= min_x:

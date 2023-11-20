@@ -98,7 +98,7 @@ class Safety(Node):
         Returns:
             float: Integration threshold.
         """
-        return 220 #self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
+        return 350 #self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
     
     @property
     def MIN_ALLOWED_VOLTAGE(self) -> float:
@@ -107,7 +107,7 @@ class Safety(Node):
         Returns:
             float: Minumum allowed battery voltage.
         """
-        return 14.5
+        return 13.5
     
     def dynamixel_motors_data_callback(self, msg: DynamixelMotorsData):
         """Subscriber callback for reading the data from topic with name, defined as gwp_interfaces_data.DYNAMIXEL_MOTORS_DATA_TOPIC. This method reads the data from the topic and current battery voltage. 
