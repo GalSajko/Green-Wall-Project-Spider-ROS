@@ -98,7 +98,7 @@ class Safety(Node):
         Returns:
             float: Integration threshold.
         """
-        return 220 #self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
+        return 350 #self.MAX_CURRENT * self.CURRENTS_WINDOW_SIZE
     
     @property
     def MIN_ALLOWED_VOLTAGE(self) -> float:
