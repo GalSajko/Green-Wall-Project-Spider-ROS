@@ -9,7 +9,7 @@ import threading
 from std_srvs.srv import Trigger, SetBool
 from std_msgs.msg import Float32
 
-from gwpspider_interfaces.msg import DynamixelMotorsData, GrippersStates
+from gwpspider_interfaces.msg import DynamixelMotorsData, GrippersStates, GripperState
 from gwpspider_interfaces import gwp_interfaces_data as gid
 from utils import custom_interface_helper as cih
 from calculations import mathtools as mt
@@ -34,6 +34,8 @@ class Safety(Node):
         self.monitor_battery_voltage_locker = threading.Lock()
         self.monitor_battery_voltage = True
 
+        self.grippers_states = [GripperState()] * spider.NUMBER_OF_LEGS
+
         self.dxl_data_locker = threading.Lock()
         self.currents_sum = None
         self.hw_errors = None
@@ -42,6 +44,9 @@ class Safety(Node):
 
         self.monitor_hw_errors_locker = threading.Lock()
         self.monitor_hw_errors = True
+
+        self.monitor_gripper_errors_locker = threading.Lock()
+        self.monitor_gripper_errors = True
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.__init_interfaces()
@@ -126,9 +131,11 @@ class Safety(Node):
             do_monitor_voltage = self.monitor_battery_voltage
         with self.monitor_hw_errors_locker:
             monitor_hw_errors = self.monitor_hw_errors
+        with self.monitor_gripper_errors_locker:
+            monitor_gripper_errors = self.monitor_gripper_errors
 
-        is_hw_errors, is_current_overload_error, is_battery_voltage_error = self.__get_errors(currents, hw_errors, battery_voltage)
-        if (is_hw_errors or is_current_overload_error) and monitor_hw_errors:   
+        is_hw_errors, is_current_overload_error, is_battery_voltage_error, is_gripper_error = self.__get_errors(currents, hw_errors, battery_voltage)
+        if (is_hw_errors or is_current_overload_error) and monitor_hw_errors:
             with self.monitor_hw_errors_locker:
                 self.monitor_hw_errors = False
             if is_hw_errors:
@@ -144,14 +151,27 @@ class Safety(Node):
             self.get_logger().info("BATTERY VOLTAGE ERROR TRIGGERED.")
             trigger_battery_voltage_error_request = SetBool.Request(data = True)
             _ = cih.async_service_call_from_service(self.battery_voltage_error_trigger_client, trigger_battery_voltage_error_request)
+
+        if is_gripper_error and monitor_gripper_errors:
+            with self.monitor_gripper_errors_locker:
+                self.monitor_gripper_errors = False
+            self.get_logger().info("GRIPPER ERROR TRIGGERED.")
+            immediate_stop_request = Trigger.Request()
+            _ = cih.async_service_call_from_service(self.immediate_stop_trigger_client, immediate_stop_request)
             
     def grippers_states_callback(self, msg: GrippersStates):
-        """Subscriber of topic with name, defined as gwp_interfaces_data.GRIPPER_STATES_TOPIC. It reads grippers' states (either attached or not-attached, represented by True or False values).
+        """Subscriber of topic with name, defined as gwp_interfaces_data.GRIPPER_STATES_TOPIC. It reads grippers' states and attach states (either attached or not-attached, represented by True or False values).
 
         Args:
             msg (GrippersStates): Message type used for communication in this topic (custom message type).
         """
         with self.grippers_states_locker:
+            self.grippers_states[0] = msg.first_gripper
+            self.grippers_states[1] = msg.second_gripper
+            self.grippers_states[2] = msg.third_gripper
+            self.grippers_states[3] = msg.fourth_gripper
+            self.grippers_states[4] = msg.fifth_gripper
+
             self.grippers_attached_states = np.array([
                 msg.first_gripper.is_attached,
                 msg.second_gripper.is_attached,
@@ -159,7 +179,7 @@ class Safety(Node):
                 msg.fourth_gripper.is_attached,
                 msg.fifth_gripper.is_attached
             ])
-    
+            
     def battery_voltage_callback(self, msg: Float32):
         """Subscriber of topic with name, defined as gwp_interfaces_data.BATTERY_VOLTAGE_TOPIC.
 
@@ -203,7 +223,24 @@ class Safety(Node):
         
         return response
     
-    def __get_errors(self, currents: np.ndarray, hw_errors: np.ndarray, battery_voltage: float) -> tuple[bool, bool, bool]:
+    def toggle_gripper_errors_monitoring_callback(self, request: SetBool.Request, response: SetBool.Response) -> SetBool.Response:
+        """Service callback used for toggling a flag, which tells the programm, whether or not to monitor the grippers' potential hardware error. Service type used for calling
+        this service is SetBool.
+
+        Args:
+            request (SetBool.Request): SetBool service request, defined as boolean value. If True, hardware error is monitored.
+            response (SetBool.Response): SetBool service response, defined as boolean.
+
+        Returns:
+            SetBool.Response: True, if monitoring flag was set successfully, False otherwise.
+        """
+        with self.monitor_gripper_errors_locker:
+            self.monitor_gripper_errors = request.data
+            response.success = self.monitor_gripper_errors == request.data
+        
+        return response
+    
+    def __get_errors(self, currents: np.ndarray, hw_errors: np.ndarray, battery_voltage: float) -> tuple[bool, bool, bool, bool]:
         """Helper method which determines, whether or not a specific type of error is present.
 
         Args:
@@ -212,23 +249,29 @@ class Safety(Node):
             battery_voltage (float): Current battery voltage.
 
         Returns:
-            tuple[bool, bool, bool]: Bool value for each type of error: hardware error, current-overload error and battery voltage error. True means, that specific type of error was detected.
+            tuple[bool, bool, bool, bool]: Bool value for each type of error: hardware error, current-overload error, battery voltage error and gripper error. True means, that specific type of error was detected.
         """
         currents_sum, self.currents_buffer, self.counter = mt.integrate_array(self.currents_buffer, currents, self.counter)
         is_hw_errors = np.any(hw_errors) if hw_errors is not None else False
         is_current_overload_error = np.any(abs(currents_sum) > self.CURRENTS_SUM_THRESHOLD) if currents_sum is not None else False
         with self.grippers_states_locker:
             grippers_attached_states = self.grippers_attached_states
+            grippers_states = self.grippers_states
         is_battery_voltage_error = ((battery_voltage < self.MIN_ALLOWED_VOLTAGE) and grippers_attached_states.all()) if battery_voltage is not None else False  
 
-        return is_hw_errors, is_current_overload_error, is_battery_voltage_error 
+        for i in range(spider.NUMBER_OF_LEGS):
+            if grippers_states[i].switch_state == grippers_states[i].fingers_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
+                is_gripper_error = True
+                
+        return is_hw_errors, is_current_overload_error, is_battery_voltage_error, is_gripper_error
 
     def __init_interfaces(self):
         """Initialize all needed interfaces.
         """
         self.monitor_battery_voltage_trigger_service = self.create_service(SetBool, gid.TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE, callback = self.toggle_battery_voltage_monitoring_callback, callback_group = self.reentrant_callback_group)
         self.monitor_hw_errors_trigger_service = self.create_service(SetBool, gid.TOGGLE_HW_ERRORS_MONITORING_SERVICE, callback = self.toggle_hw_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
-        
+        self.monitor_gripper_trigger_service = self.create_service(SetBool, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
+
         self.immediate_stop_trigger_client = self.create_client(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.immediate_stop_trigger_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Immediate stop trigger service not available...")

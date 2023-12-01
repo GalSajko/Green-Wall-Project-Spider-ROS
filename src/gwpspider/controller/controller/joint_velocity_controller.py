@@ -16,6 +16,7 @@ from utils import custom_interface_helper, json_file_manager
 from calculations import kinematics as kin
 from calculations import dynamics as dyn
 from calculations import transformations as tf
+from utils import custom_interface_helper as cih
 
 import gwpspider_interfaces.srv as gwp_services
 import gwpspider_interfaces.msg as gwp_msgs
@@ -845,12 +846,15 @@ class JointVelocityController(Node):
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
             if (1/3) * duration < elapsed_time < duration * (2/3):
+                trigger_gripper_error_request = SetBool.Request(data = True)
+                _ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
+                """
                 with self.gripper_states_locker:
                     if self.grippers_states[leg_id].switch_state == robot_config.IS_GRIPPER_CLOSE_RESPONSE:
                         self.get_logger().info("Clean the gripper.")
                         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                         return False
-
+                """
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
         return True
@@ -897,6 +901,9 @@ class JointVelocityController(Node):
         self.set_bus_watchdog_service = self.create_client(gwp_services.SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
         while not self.set_bus_watchdog_service.wait_for_service(timeout_sec = 1.0):
             print("Bus watchdog service not available...")  
+        self.gripper_error_trigger_client = self.create_client(SetBool, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback_group = self.reentrant_callback_group)   
+        while not self.gripper_error_trigger_client.wait_for_service(timeout_sec = 1.0):
+            self.get_logger().info("Gripper error trigger service not available...")
 
         self.controller_publisher = self.create_publisher(Float32MultiArray, gid.COMMANDED_JOINTS_VELOCITIES_TOPIC, 10, callback_group = self.callback_group)
         self.timer = self.create_timer(self.PERIOD, self.controller_callback, callback_group = self.callback_group)
