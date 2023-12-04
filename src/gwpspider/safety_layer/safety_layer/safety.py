@@ -9,7 +9,8 @@ import threading
 from std_srvs.srv import Trigger, SetBool
 from std_msgs.msg import Float32
 
-from gwpspider_interfaces.msg import DynamixelMotorsData, GrippersStates, GripperState
+from gwpspider_interfaces.msg import DynamixelMotorsData, GrippersStates, GripperState 
+from gwpspider_interfaces.srv import GripperError
 from gwpspider_interfaces import gwp_interfaces_data as gid
 from utils import custom_interface_helper as cih
 from calculations import mathtools as mt
@@ -47,6 +48,7 @@ class Safety(Node):
 
         self.monitor_gripper_errors_locker = threading.Lock()
         self.monitor_gripper_errors = True
+        self.leg_index = None
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.__init_interfaces()
@@ -223,20 +225,22 @@ class Safety(Node):
         
         return response
     
-    def toggle_gripper_errors_monitoring_callback(self, request: SetBool.Request, response: SetBool.Response) -> SetBool.Response:
-        """Service callback used for toggling a flag, which tells the programm, whether or not to monitor the grippers' potential hardware error. Service type used for calling
-        this service is SetBool.
+    def toggle_gripper_errors_monitoring_callback(self, request: GripperError.Request, response: GripperError.Response) -> GripperError.Response:
+        """Service callback used for toggling a flag, which tells the programm, whether or not to monitor the grippers' potential hardware error and for passing the index of the leg, that is currently moving. 
+        Service type used for calling this service is GripperError.
 
         Args:
-            request (SetBool.Request): SetBool service request, defined as boolean value. If True, hardware error is monitored.
-            response (SetBool.Response): SetBool service response, defined as boolean.
+            request (GripperError.Request): GripperError service request, defined as boolean value (if True, hardware error is monitored) and as an integer (index of the moving leg).
+            response (GripperError.Response): GripperError service response, defined as boolean.
 
         Returns:
             SetBool.Response: True, if monitoring flag was set successfully, False otherwise.
         """
         with self.monitor_gripper_errors_locker:
-            self.monitor_gripper_errors = request.data
-            response.success = self.monitor_gripper_errors == request.data
+            self.monitor_gripper_errors = request.monitor
+            response.success = self.monitor_gripper_errors == request.monitor
+
+        self.leg_index = request.leg_index
         
         return response
     
@@ -258,11 +262,21 @@ class Safety(Node):
             grippers_attached_states = self.grippers_attached_states
             grippers_states = self.grippers_states
         is_battery_voltage_error = ((battery_voltage < self.MIN_ALLOWED_VOLTAGE) and grippers_attached_states.all()) if battery_voltage is not None else False  
-
+        
+        """
         for i in range(spider.NUMBER_OF_LEGS):
             if grippers_states[i].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE and grippers_states[i].fingers_state == rc.IS_GRIPPER_OPEN_RESPONSE:
                 is_gripper_error = True
-                
+        """
+        
+        if self.leg_index is not None:
+            if self.grippers_states[self.leg_index].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
+                is_gripper_error = True
+            else:
+                is_gripper_error = False
+        else:
+            is_gripper_error = False
+
         return is_hw_errors, is_current_overload_error, is_battery_voltage_error, is_gripper_error
 
     def __init_interfaces(self):
@@ -270,7 +284,7 @@ class Safety(Node):
         """
         self.monitor_battery_voltage_trigger_service = self.create_service(SetBool, gid.TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE, callback = self.toggle_battery_voltage_monitoring_callback, callback_group = self.reentrant_callback_group)
         self.monitor_hw_errors_trigger_service = self.create_service(SetBool, gid.TOGGLE_HW_ERRORS_MONITORING_SERVICE, callback = self.toggle_hw_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
-        self.monitor_gripper_trigger_service = self.create_service(SetBool, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
+        self.monitor_gripper_trigger_service = self.create_service(GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
 
         self.immediate_stop_trigger_client = self.create_client(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.immediate_stop_trigger_client.wait_for_service(timeout_sec = 1.0):
