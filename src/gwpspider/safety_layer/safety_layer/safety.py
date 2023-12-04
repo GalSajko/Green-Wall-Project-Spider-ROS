@@ -260,7 +260,7 @@ class Safety(Node):
         is_battery_voltage_error = ((battery_voltage < self.MIN_ALLOWED_VOLTAGE) and grippers_attached_states.all()) if battery_voltage is not None else False  
 
         for i in range(spider.NUMBER_OF_LEGS):
-            if grippers_states[i].switch_state == grippers_states[i].fingers_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
+            if grippers_states[i].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE and grippers_states[i].fingers_state == rc.IS_GRIPPER_OPEN_RESPONSE:
                 is_gripper_error = True
                 
         return is_hw_errors, is_current_overload_error, is_battery_voltage_error, is_gripper_error

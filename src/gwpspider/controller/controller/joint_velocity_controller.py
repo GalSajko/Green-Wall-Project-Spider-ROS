@@ -857,6 +857,8 @@ class JointVelocityController(Node):
                 """
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
+        trigger_gripper_error_request = SetBool.Request(data = False)
+        _ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
         return True
 
     def __set_bus_watchdog(self, value: int):
