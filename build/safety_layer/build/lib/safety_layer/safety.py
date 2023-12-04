@@ -48,6 +48,7 @@ class Safety(Node):
 
         self.monitor_gripper_errors_locker = threading.Lock()
         self.monitor_gripper_errors = True
+        self.leg_index = None
 
         self.reentrant_callback_group = ReentrantCallbackGroup()
         self.__init_interfaces()
@@ -267,9 +268,12 @@ class Safety(Node):
             if grippers_states[i].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE and grippers_states[i].fingers_state == rc.IS_GRIPPER_OPEN_RESPONSE:
                 is_gripper_error = True
         """
-                
-        if self.grippers_states[self.leg_index].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
-            is_gripper_error = True
+        
+        if self.leg_index is not None:
+            if self.grippers_states[self.leg_index].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
+                is_gripper_error = True
+            else:
+                is_gripper_error = False
         else:
             is_gripper_error = False
 
