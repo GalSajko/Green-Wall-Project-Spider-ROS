@@ -34,7 +34,8 @@
     "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/BreaksControl.idl",
     "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/Messages.idl",
     "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/GetOffsetsToChargingPosition.idl",
-    "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/SendStringCommand.idl"
+    "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/SendStringCommand.idl",
+    "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces:srv/GripperError.idl"
   ],
   "ros_interface_dependencies": [
     "std_msgs:/opt/ros/humble/share/std_msgs/msg/Bool.idl",
@@ -118,6 +119,7 @@
     "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/Messages.idl",
     "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/GetOffsetsToChargingPosition.idl",
     "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/SendStringCommand.idl",
+    "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/GripperError.idl",
     "/opt/ros/humble/share/std_msgs/msg/Bool.idl",
     "/opt/ros/humble/share/std_msgs/msg/Byte.idl",
     "/opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl",

@@ -8,6 +8,7 @@ from gwpspider_interfaces.srv._get_modified_walking_instructions import GetModif
 from gwpspider_interfaces.srv._get_offsets_to_charging_position import GetOffsetsToChargingPosition  # noqa: F401
 from gwpspider_interfaces.srv._get_spider_pose import GetSpiderPose  # noqa: F401
 from gwpspider_interfaces.srv._get_walking_instructions import GetWalkingInstructions  # noqa: F401
+from gwpspider_interfaces.srv._gripper_error import GripperError  # noqa: F401
 from gwpspider_interfaces.srv._init_bno import InitBno  # noqa: F401
 from gwpspider_interfaces.srv._messages import Messages  # noqa: F401
 from gwpspider_interfaces.srv._move_gripper import MoveGripper  # noqa: F401

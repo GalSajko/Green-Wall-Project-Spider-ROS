@@ -484,6 +484,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_adapter/gwpspider_interfaces/srv/GripperError.idl")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/msg" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/msg/GripperCommand.msg")
 endif()
 
@@ -793,6 +797,18 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/SendStringCommand_Response.msg")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GripperError.srv")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GripperError_Request.msg")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gwpspider_interfaces/srv" TYPE FILE FILES "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_cmake/srv/GripperError_Response.msg")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

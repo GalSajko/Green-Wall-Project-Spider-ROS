@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from gwpspider_interfaces/srv/GripperError.srv
+// generated code does not contain a copyright notice
+
+
+module gwpspider_interfaces {
+  module srv {
+    struct GripperError_Request {
+      boolean monitor;
+
+      int32 leg_index;
+    };
+    struct GripperError_Response {
+      boolean success;
+    };
+  };
+};

@@ -10,7 +10,7 @@ from std_srvs.srv import Trigger, SetBool
 from std_msgs.msg import Float32
 
 from gwpspider_interfaces.msg import DynamixelMotorsData, GrippersStates, GripperState 
-from gwpspider_interfaces.srv import GripperError
+import gwpspider_interfaces.srv as gwp_services
 from gwpspider_interfaces import gwp_interfaces_data as gid
 from utils import custom_interface_helper as cih
 from calculations import mathtools as mt
@@ -225,7 +225,7 @@ class Safety(Node):
         
         return response
     
-    def toggle_gripper_errors_monitoring_callback(self, request: GripperError.Request, response: GripperError.Response) -> GripperError.Response:
+    def toggle_gripper_errors_monitoring_callback(self, request: gwp_services.GripperError.Request, response: gwp_services.GripperError.Response) -> gwp_services.GripperError.Response:
         """Service callback used for toggling a flag, which tells the programm, whether or not to monitor the grippers' potential hardware error and for passing the index of the leg, that is currently moving. 
         Service type used for calling this service is GripperError.
 
@@ -284,7 +284,7 @@ class Safety(Node):
         """
         self.monitor_battery_voltage_trigger_service = self.create_service(SetBool, gid.TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE, callback = self.toggle_battery_voltage_monitoring_callback, callback_group = self.reentrant_callback_group)
         self.monitor_hw_errors_trigger_service = self.create_service(SetBool, gid.TOGGLE_HW_ERRORS_MONITORING_SERVICE, callback = self.toggle_hw_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
-        self.monitor_gripper_trigger_service = self.create_service(GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
+        self.monitor_gripper_trigger_service = self.create_service(gwp_services.GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
 
         self.immediate_stop_trigger_client = self.create_client(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.immediate_stop_trigger_client.wait_for_service(timeout_sec = 1.0):

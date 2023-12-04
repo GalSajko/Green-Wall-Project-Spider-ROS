@@ -345,8 +345,15 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
   rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__type_support.h \
   rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__struct.h \
-  rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__type_support.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__struct.h \
+  rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__functions.h
 
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__struct.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__type_support.h:
 
 rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h:
 
@@ -641,6 +648,8 @@ rosidl_generator_c/gwpspider_interfaces/msg/detail/water_pump_command__functions
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/python3.10/ceval.h:
+
+rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__functions.h:
 
 /usr/include/linux/types.h:
 

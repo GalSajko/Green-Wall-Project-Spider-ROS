@@ -20,8 +20,7 @@ from utils import custom_interface_helper as cih
 
 import gwpspider_interfaces.srv as gwp_services
 import gwpspider_interfaces.msg as gwp_msgs
-from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData, GrippersStates, GripperState
-from gwpspider_interfaces.srv import GripperError
+#from gwpspider_interfaces.msg import LegsStates, DynamixelMotorsData, GrippersStates, GripperState
 from gwpspider_interfaces import gwp_interfaces_data as gid
 
 class JointVelocityController(Node):
@@ -71,7 +70,7 @@ class JointVelocityController(Node):
         self.joints_torques = None
 
         self.gripper_states_locker = threading.Lock()
-        self.grippers_states = [GripperState()] * spider.NUMBER_OF_LEGS
+        self.grippers_states = [gwp_msgs.GripperState()] * spider.NUMBER_OF_LEGS
 
         self.dxl_data_locker = threading.Lock()
         self.currents = []
@@ -394,7 +393,7 @@ class JointVelocityController(Node):
         response.success = True
         return response
 
-    def read_dxl_data_callback(self, msg: DynamixelMotorsData):
+    def read_dxl_data_callback(self, msg: gwp_msgs.DynamixelMotorsData):
         """Subscriber of topic with name, defined as gwp_interfaces_data.DYNAMIXEL_MOTORS_DATA_TOPIC. In this module, only data about currents in the motors is used.
 
         Args:
@@ -403,7 +402,7 @@ class JointVelocityController(Node):
         with self.dxl_data_locker:
             self.currents = custom_interface_helper.unpack_2d_array_message(msg.currents)
 
-    def read_legs_states_callback(self, msg: LegsStates):
+    def read_legs_states_callback(self, msg: gwp_msgs.LegsStates):
         """Subscriber of topic with name, defined as gwp_interfaces_data.LEGS_STATES_TOPIC.
 
         Args:
@@ -416,7 +415,7 @@ class JointVelocityController(Node):
             self.joints_torques = np.reshape(msg.torques.data, (msg.torques.layout.dim[0].size, msg.torques.layout.dim[1].size))
         
 
-    def read_grippers_states_callback(self, msg: GrippersStates):
+    def read_grippers_states_callback(self, msg: gwp_msgs.GrippersStates):
         """Subscriber of topic with name, defined as gwp_interfaces_data.GRIPPER_STATES_TOPIC.
 
         Args:
@@ -840,7 +839,7 @@ class JointVelocityController(Node):
             bool: True if waiting was not interrupted with safety trigger, False otherwise.
         """
         start_time = time.time()
-        trigger_gripper_error_request = GripperError.Request()
+        trigger_gripper_error_request = gwp_services.GripperError.Request()
         trigger_gripper_error_request.led_index = leg_id
         elapsed_time = 0
         while elapsed_time < duration:
@@ -875,10 +874,10 @@ class JointVelocityController(Node):
     def __init_interfaces(self):
         """Initialize all needed interfaces.
         """
-        self.legs_states_subscriber = self.create_subscription(LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
+        self.legs_states_subscriber = self.create_subscription(gwp_msgs.LegsStates, gid.LEGS_STATES_TOPIC, self.read_legs_states_callback, 1, callback_group = self.callback_group)
         self.get_gripper_states = self.create_subscription(gwp_msgs.GrippersStates, gid.GRIPPER_STATES_TOPIC, self.read_grippers_states_callback, 1, callback_group = self.callback_group)
 
-        self.test_dxl_data = self.create_subscription(DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.read_dxl_data_callback, 1, callback_group = self.callback_group)
+        self.test_dxl_data = self.create_subscription(gwp_msgs.DynamixelMotorsData, gid.DYNAMIXEL_MOTORS_DATA_TOPIC, self.read_dxl_data_callback, 1, callback_group = self.callback_group)
 
         self.toggle_controller_service = self.create_service(gwp_services.ToggleController, gid.TOGGLE_CONTROLLER_SERVICE, self.toggle_controller_callback)
         self.move_leg_service = self.create_service(gwp_services.MoveLeg, gid.MOVE_LEG_SERVICE, self.move_leg_callback, callback_group = self.callback_group)
@@ -907,7 +906,7 @@ class JointVelocityController(Node):
         self.set_bus_watchdog_service = self.create_client(gwp_services.SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
         while not self.set_bus_watchdog_service.wait_for_service(timeout_sec = 1.0):
             print("Bus watchdog service not available...")  
-        self.gripper_error_trigger_client = self.create_client(GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback_group = self.callback_group)   
+        self.gripper_error_trigger_client = self.create_client(gwp_services.GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback_group = self.callback_group)   
         while not self.gripper_error_trigger_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Gripper error trigger service not available...")
 

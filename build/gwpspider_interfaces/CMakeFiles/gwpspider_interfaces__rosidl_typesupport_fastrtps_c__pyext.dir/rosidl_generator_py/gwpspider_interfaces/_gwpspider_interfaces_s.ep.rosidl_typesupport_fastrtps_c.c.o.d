@@ -304,4 +304,7 @@ CMakeFiles/gwpspider_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/get_offsets_to_charging_position__functions.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__type_support.h \
  /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__struct.h \
- /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/send_string_command__functions.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__type_support.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__struct.h \
+ /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_c/gwpspider_interfaces/srv/detail/gripper_error__functions.h
