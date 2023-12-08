@@ -840,28 +840,39 @@ class JointVelocityController(Node):
         """
         start_time = time.time()
         trigger_gripper_error_request = gwp_services.GripperError.Request()
-        trigger_gripper_error_request.led_index = leg_id
+        trigger_gripper_error_request.leg_index = leg_id
         elapsed_time = 0
+        assign_monitoring = True
+        no_monitoring = True
         while elapsed_time < duration:
             with self.toggle_movement_locker:
                 if self.do_stop_movement:
                     self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                     return False
             if (1/3) * duration < elapsed_time < duration * (2/3):
-                trigger_gripper_error_request.monitor = True
-                _ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
+                if assign_monitoring is True:
+
+                    trigger_gripper_error_request.monitor = True
+                    _ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
+                    assign_monitoring = False
+                    no_monitoring = True
                 """
+                if (1/3) * duration < elapsed_time < duration * (2/3):
                 with self.gripper_states_locker:
                     if self.grippers_states[leg_id].switch_state == robot_config.IS_GRIPPER_CLOSE_RESPONSE:
                         self.get_logger().info("Clean the gripper.")
                         self.command_queues = [queue.Queue() for _ in range(spider.NUMBER_OF_LEGS)]
                         return False
                 """
+            else:
+                if no_monitoring is True:
+                    trigger_gripper_error_request.monitor = False
+                    _ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
+                    no_monitoring = False
             elapsed_time = time.time() - start_time
             time.sleep(0.01)
-        trigger_gripper_error_request.monitor = False
-        #trigger_gripper_error_request = GripperError.Request(monitor = False)
-        _ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
+            #trigger_gripper_error_request.monitor = False
+            #_ = cih.async_service_call_from_service(self.gripper_error_trigger_client, trigger_gripper_error_request)
         return True
 
     def __set_bus_watchdog(self, value: int):
@@ -906,7 +917,7 @@ class JointVelocityController(Node):
         self.set_bus_watchdog_service = self.create_client(gwp_services.SetBusWatchdog, gid.SET_BUS_WATCHDOG_SERVICE, callback_group = self.callback_group)
         while not self.set_bus_watchdog_service.wait_for_service(timeout_sec = 1.0):
             print("Bus watchdog service not available...")  
-        self.gripper_error_trigger_client = self.create_client(gwp_services.GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback_group = self.callback_group)   
+        self.gripper_error_trigger_client = self.create_client(gwp_services.GripperError, 'monitor_gripper_errors_service', callback_group = self.callback_group)
         while not self.gripper_error_trigger_client.wait_for_service(timeout_sec = 1.0):
             self.get_logger().info("Gripper error trigger service not available...")
 

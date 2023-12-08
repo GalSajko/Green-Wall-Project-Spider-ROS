@@ -270,7 +270,7 @@ class Safety(Node):
         """
         
         if self.leg_index is not None:
-            if self.grippers_states[self.leg_index].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
+            if grippers_states[self.leg_index].switch_state == rc.IS_GRIPPER_CLOSE_RESPONSE:
                 is_gripper_error = True
             else:
                 is_gripper_error = False
@@ -284,7 +284,7 @@ class Safety(Node):
         """
         self.monitor_battery_voltage_trigger_service = self.create_service(SetBool, gid.TOGGLE_BATTERY_VOLTAGE_MONITORING_SERVICE, callback = self.toggle_battery_voltage_monitoring_callback, callback_group = self.reentrant_callback_group)
         self.monitor_hw_errors_trigger_service = self.create_service(SetBool, gid.TOGGLE_HW_ERRORS_MONITORING_SERVICE, callback = self.toggle_hw_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
-        self.monitor_gripper_trigger_service = self.create_service(gwp_services.GripperError, gid.TOGGLE_GRIPPERS_MONITORING_SERVICE, callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
+        self.monitor_gripper_trigger_service = self.create_service(gwp_services.GripperError, 'monitor_gripper_errors_service', callback= self.toggle_gripper_errors_monitoring_callback, callback_group = self.reentrant_callback_group)
 
         self.immediate_stop_trigger_client = self.create_client(Trigger, gid.IMMEDIATE_STOP_SERVICE, callback_group = self.reentrant_callback_group)
         while not self.immediate_stop_trigger_client.wait_for_service(timeout_sec = 1.0):

@@ -1,0 +1,4 @@
+Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_launch': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_launch -- -j8 -l8
+Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_launch' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_launch -- -j8 -l8
+Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_launch': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_launch
+Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_launch' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_launch
