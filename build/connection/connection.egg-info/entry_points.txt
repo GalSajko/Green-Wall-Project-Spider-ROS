@@ -1,0 +1,3 @@
+[console_scripts]
+fastapi_node = fastapi_node:main
+

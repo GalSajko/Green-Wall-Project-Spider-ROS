@@ -1,0 +1,4 @@
+fastapi
+ros2py
+setuptools
+uvicorn

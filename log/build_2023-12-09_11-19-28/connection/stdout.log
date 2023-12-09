@@ -1,0 +1,23 @@
+running egg_info
+writing ../../../build/connection/connection.egg-info/PKG-INFO
+writing dependency_links to ../../../build/connection/connection.egg-info/dependency_links.txt
+writing entry points to ../../../build/connection/connection.egg-info/entry_points.txt
+writing requirements to ../../../build/connection/connection.egg-info/requires.txt
+writing top-level names to ../../../build/connection/connection.egg-info/top_level.txt
+reading manifest file '../../../build/connection/connection.egg-info/SOURCES.txt'
+writing manifest file '../../../build/connection/connection.egg-info/SOURCES.txt'
+running build
+running build_py
+copying connection/fastapi.py -> /home/spider/gwpspider_ws/build/connection/build/lib/connection
+running install
+running install_lib
+copying /home/spider/gwpspider_ws/build/connection/build/lib/connection/fastapi.py -> /home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection
+byte-compiling /home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection/fastapi.py to fastapi.cpython-310.pyc
+running install_data
+copying package.xml -> /home/spider/gwpspider_ws/install/connection/share/connection
+running install_egg_info
+removing '/home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../../build/connection/connection.egg-info to /home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection-0.0.0-py3.10.egg-info
+running install_scripts
+Installing fastapi_node script to /home/spider/gwpspider_ws/install/connection/lib/connection
+writing list of installed files to '/home/spider/gwpspider_ws/build/connection/install.log'
