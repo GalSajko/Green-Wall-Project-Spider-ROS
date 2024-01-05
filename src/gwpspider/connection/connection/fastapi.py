@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
+import threading
+import json
+import asyncio
+
 import rclpy
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import subprocess
-import os
 import uvicorn
-import threading
 
+from fastapi import FastAPI, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -27,6 +27,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
+
 # Serve the static files
 app.mount("/static", StaticFiles(directory="/home/spider/gwpspider_ws/src/gwpspider/connection/connection/static"), name="static")
 #app.mount("/static", StaticFiles(directory="connection.static"), name="static")
@@ -75,9 +76,42 @@ pumpAction = None
 breaksAct = None
 breaksDeact = None
 
+# JSON path
+json_file_path = "/home/spider/gwpspider_ws/src/gwpspider/data/spider_state_dict"
+
+
+# All the variables used in the GUI and all the endpoints have to be defined outside of main, otherwise, they aren't accessed!!!
+
+
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
+
+
+#try:
+with open(json_file_path, 'r') as json_file:
+    # Load JSON data from the file
+    json_data = json.load(json_file)
+    #print(json_data)
+    """
+    except FileNotFoundError:
+        self.get_logger().error(f'File not found: {file_path}')
+    except json.JSONDecodeError:
+        self.get_logger().error(f'Error decoding JSON file: {file_path}')
+    except Exception as e:
+        self.get_logger().error(f'Error reading JSON file: {str(e)}')
+    """
+"""
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        # Replace this with the actual logic to get and send your JSON data
+
+        # Send JSON data to the connected WebSocket client
+        await websocket.send_text(json.dumps(json_data))
+"""
 
 @app.post("/start_working")
 def start_working():
@@ -225,49 +259,14 @@ class FastAPINode(Node):
     def __init__(self):
         super().__init__('fastapi_node')
 
-        """
-        GripperCommand = gwp_msgs.GripperCommand
-        GripperCommand.leg_id = 1
-
-        @self.app.get("/")
-        async def read_gripper_state():
-            return {"gripper_state": self.get_gripper_state()}
-
-        @self.app.post("/set_gripper_state")
-        async def set_gripper_state(gripper_state: GripperCommand.command):
-            self.set_gripper_state(gripper_state.gripper_state)
-            return {"gripper_state": self.get_gripper_state()}
-        """
         # Start the FastAPI server using uvicorn
         start_fastapi_server()
 
 
-    """
-    def get_gripper_state(self):
-        return self.gripper_state
-
-    def set_gripper_state(self, gripper_state):
-        self.gripper_state = gripper_state
-        self.get_logger().info(f"Gripper State updated to: {gripper_state}")
-    """
-
 def start_fastapi_server():
-    # Get the current working directory
-    current_directory = os.getcwd()
-    # Serve static files (CSS and JavaScript)
-    #app.mount("/static", StaticFiles(directory="static"), name="static")
-    """"
-    # Specify the path to the FastAPI file (modify if needed)
-    fastapi_file_path = os.path.join(current_directory, 'fastapi.py')
-
-    # Command to start uvicorn with auto-reload
-    command = f"uvicorn {fastapi_file_path}:app --reload"
-
-    # Run the command in a subprocess
-    subprocess.Popen(command, shell=True)
-    """
-
     uvicorn.run("connection.fastapi:app", host="0.0.0.0", port=8000, reload=True)
+
+
 
 def main():
     rclpy.init()

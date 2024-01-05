@@ -95,7 +95,7 @@ html{
 
 .json-show{
     margin-top: -1em;
-    height: 1.5em; 
+    height: 50%; 
 }
 
 .json-update-title {
@@ -158,7 +158,7 @@ html{
 }
 
 .message {
-    height: 2.5em;
+    height: 3em;
 }
 
 .btn-pump {

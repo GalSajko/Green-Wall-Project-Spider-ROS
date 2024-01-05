@@ -1,0 +1,24 @@
+[2.499s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication': PYTHONPATH=/home/spider/gwpspider_ws/build/arduino_communication/prefix_override:/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/arduino_communication build --build-base /home/spider/gwpspider_ws/build/arduino_communication/build install --record /home/spider/gwpspider_ws/build/arduino_communication/install.log --single-version-externally-managed
+[2.911s] running egg_info
+[2.911s] writing ../../../build/arduino_communication/arduino_communication.egg-info/PKG-INFO
+[2.911s] writing dependency_links to ../../../build/arduino_communication/arduino_communication.egg-info/dependency_links.txt
+[2.911s] writing entry points to ../../../build/arduino_communication/arduino_communication.egg-info/entry_points.txt
+[2.911s] writing requirements to ../../../build/arduino_communication/arduino_communication.egg-info/requires.txt
+[2.912s] writing top-level names to ../../../build/arduino_communication/arduino_communication.egg-info/top_level.txt
+[2.912s] reading manifest file '../../../build/arduino_communication/arduino_communication.egg-info/SOURCES.txt'
+[2.913s] writing manifest file '../../../build/arduino_communication/arduino_communication.egg-info/SOURCES.txt'
+[2.913s] running build
+[2.913s] running build_py
+[2.914s] running install
+[2.914s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.914s]   warnings.warn(
+[2.915s] running install_lib
+[2.926s] running install_data
+[2.927s] running install_egg_info
+[2.944s] removing '/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication-0.0.0-py3.10.egg-info' (and everything under it)
+[2.948s] Copying ../../../build/arduino_communication/arduino_communication.egg-info to /home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages/arduino_communication-0.0.0-py3.10.egg-info
+[2.949s] running install_scripts
+[2.980s] Installing grippers_controller script to /home/spider/gwpspider_ws/install/arduino_communication/lib/arduino_communication
+[2.980s] Installing water_pumps_bno_controller script to /home/spider/gwpspider_ws/install/arduino_communication/lib/arduino_communication
+[2.980s] writing list of installed files to '/home/spider/gwpspider_ws/build/arduino_communication/install.log'
+[3.017s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/arduino_communication' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/arduino_communication/prefix_override:/home/spider/gwpspider_ws/install/arduino_communication/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/arduino_communication build --build-base /home/spider/gwpspider_ws/build/arduino_communication/build install --record /home/spider/gwpspider_ws/build/arduino_communication/install.log --single-version-externally-managed
