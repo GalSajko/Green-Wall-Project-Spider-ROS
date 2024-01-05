@@ -1,0 +1,27 @@
+[2.440s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/connection': PYTHONPATH=/home/spider/gwpspider_ws/build/connection/prefix_override:/home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/connection build --build-base /home/spider/gwpspider_ws/build/connection/build install --record /home/spider/gwpspider_ws/build/connection/install.log --single-version-externally-managed
+[2.973s] running egg_info
+[2.973s] writing ../../../build/connection/connection.egg-info/PKG-INFO
+[2.974s] writing dependency_links to ../../../build/connection/connection.egg-info/dependency_links.txt
+[2.974s] writing entry points to ../../../build/connection/connection.egg-info/entry_points.txt
+[2.974s] writing requirements to ../../../build/connection/connection.egg-info/requires.txt
+[2.974s] writing top-level names to ../../../build/connection/connection.egg-info/top_level.txt
+[2.976s] reading manifest file '../../../build/connection/connection.egg-info/SOURCES.txt'
+[2.994s] writing manifest file '../../../build/connection/connection.egg-info/SOURCES.txt'
+[2.994s] running build
+[2.994s] running build_py
+[2.994s] copying connection/backend.py -> /home/spider/gwpspider_ws/build/connection/build/lib/connection
+[2.994s] running install
+[2.994s] running install_lib
+[2.994s] copying /home/spider/gwpspider_ws/build/connection/build/lib/connection/backend.py -> /home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection
+[2.994s] byte-compiling /home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection/backend.py to backend.cpython-310.pyc
+[2.995s] running install_data
+[2.995s] running install_egg_info
+[2.995s] removing '/home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection-0.0.0-py3.10.egg-info' (and everything under it)
+[2.995s] Copying ../../../build/connection/connection.egg-info to /home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages/connection-0.0.0-py3.10.egg-info
+[2.995s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.995s]   warnings.warn(
+[2.996s] running install_scripts
+[3.035s] Installing backend script to /home/spider/gwpspider_ws/install/connection/lib/connection
+[3.035s] Installing fastapi_node script to /home/spider/gwpspider_ws/install/connection/lib/connection
+[3.035s] writing list of installed files to '/home/spider/gwpspider_ws/build/connection/install.log'
+[3.140s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/connection' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/connection/prefix_override:/home/spider/gwpspider_ws/install/connection/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/connection build --build-base /home/spider/gwpspider_ws/build/connection/build install --record /home/spider/gwpspider_ws/build/connection/install.log --single-version-externally-managed

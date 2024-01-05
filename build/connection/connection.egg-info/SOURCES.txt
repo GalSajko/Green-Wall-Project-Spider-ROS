@@ -9,6 +9,7 @@ setup.py
 ../../../build/connection/connection.egg-info/top_level.txt
 ../../../build/connection/connection.egg-info/zip-safe
 connection/__init__.py
+connection/backend.py
 connection/fastapi.py
 resource/connection
 test/test_copyright.py

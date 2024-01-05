@@ -1,0 +1,23 @@
+[1.568s] Invoking command in '/home/spider/gwpspider_ws/src/gwpspider/safety_layer': PYTHONPATH=/home/spider/gwpspider_ws/build/safety_layer/prefix_override:/home/spider/gwpspider_ws/install/safety_layer/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/safety_layer build --build-base /home/spider/gwpspider_ws/build/safety_layer/build install --record /home/spider/gwpspider_ws/build/safety_layer/install.log --single-version-externally-managed
+[1.997s] running egg_info
+[1.999s] writing ../../../build/safety_layer/safety_layer.egg-info/PKG-INFO
+[1.999s] writing dependency_links to ../../../build/safety_layer/safety_layer.egg-info/dependency_links.txt
+[1.999s] writing entry points to ../../../build/safety_layer/safety_layer.egg-info/entry_points.txt
+[1.999s] writing requirements to ../../../build/safety_layer/safety_layer.egg-info/requires.txt
+[1.999s] writing top-level names to ../../../build/safety_layer/safety_layer.egg-info/top_level.txt
+[2.002s] reading manifest file '../../../build/safety_layer/safety_layer.egg-info/SOURCES.txt'
+[2.003s] writing manifest file '../../../build/safety_layer/safety_layer.egg-info/SOURCES.txt'
+[2.004s] running build
+[2.004s] running build_py
+[2.004s] running install
+[2.004s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[2.004s]   warnings.warn(
+[2.004s] running install_lib
+[2.006s] running install_data
+[2.007s] running install_egg_info
+[2.009s] removing '/home/spider/gwpspider_ws/install/safety_layer/lib/python3.10/site-packages/safety_layer-0.0.0-py3.10.egg-info' (and everything under it)
+[2.010s] Copying ../../../build/safety_layer/safety_layer.egg-info to /home/spider/gwpspider_ws/install/safety_layer/lib/python3.10/site-packages/safety_layer-0.0.0-py3.10.egg-info
+[2.011s] running install_scripts
+[2.048s] Installing safety script to /home/spider/gwpspider_ws/install/safety_layer/lib/safety_layer
+[2.048s] writing list of installed files to '/home/spider/gwpspider_ws/build/safety_layer/install.log'
+[2.080s] Invoked command in '/home/spider/gwpspider_ws/src/gwpspider/safety_layer' returned '0': PYTHONPATH=/home/spider/gwpspider_ws/build/safety_layer/prefix_override:/home/spider/gwpspider_ws/install/safety_layer/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/safety_layer build --build-base /home/spider/gwpspider_ws/build/safety_layer/build install --record /home/spider/gwpspider_ws/build/safety_layer/install.log --single-version-externally-managed

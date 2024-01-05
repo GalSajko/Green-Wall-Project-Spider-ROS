@@ -24,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'fastapi_node = fastapi_node:main'
+            'fastapi = connection.fastapi_node:main',
+            'backend = connection.backend:main'
         ],
     },
 )

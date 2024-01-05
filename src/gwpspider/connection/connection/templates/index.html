@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+    <head>
+        <title>GWP GUI</title>
+        <!--link rel="stylesheet" type="text/css" href="../static/styles/main.css"-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='styles/main.css') }}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div class = "grid-container">
+            <div class = "flex-container  container-1">
+                <span class = "grid-item">
+                    <button class = "btn btn-work" id="Work" onclick="startWorking()">Start Working</button>
+                    <button class = "btn btn-work btn-stop" id="Stop" onclick="stopWorking()">Stop</button>
+                </span>
+                <div class = "grid-item grid-item-2">
+                    <form>
+                        <h3 class="item-title">Walk to a position</h3>
+                        <span>
+                            <label for = "x1">x:</label>
+                            <input class = "input-coord" type="number" id="x1" name="x1" required>
+                            <label for = "y1">y:</label>
+                            <input class = "input-coord" type="number" id="y1" name="y1" required>
+                            <label for = "z1">z:</label>
+                            <input class = "input-coord" type="number" id="z1" name="z1" required>
+                        </span>
+
+                        <div class = "coord-title">Coordinate system</div>
+                        <span>
+                            <label for = "Local1">Local</label>
+                            <input type="radio" id="Local1" name="coord-system" value="local" required>
+                            <label for = "Global1">Global</label>
+                            <input type="radio" id="Global1" name="coord-system" value="global" required>
+                        </span>
+
+                        <div class = "offset-title">Offset</div>
+                        <div class = "bottot-row">
+                            <span class = "bottom-item">
+                                <label for = "On1">On</label>
+                                <input type="radio" id="On1" name="offset" value="on" required>
+                                <label for ="Off1">Off</label>
+                                <input type="radio" id="Off1" name="offset" value="off" required>
+                            </span>
+                            <button class = "btn btn-work btn-submit" id="submit-WTP" type = "button" onclick="submitForm()">Submit</button>   
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class = "grid-item grid-item-3">
+                    <form>
+                        <h3 class="item-title">Move body</h3>
+                        <span>
+                            <label for = "x2">x:</label>
+                            <input class = "input-coord" type="number" id="x2" name="x2" required>
+                            <label for = "y2">y:</label>
+                            <input class = "input-coord" type="number" id="y2" name="y2" required>
+                            <label for = "z2">z:</label>
+                            <input class = "input-coord" type="number" id="z2" name="z2" required>
+                        </span>
+
+                        <div class = "coord-title">Coordinate system</div>
+                        <span>
+                            <label for = "Local2">Local</label>
+                            <input type="radio" id="Local2" name="coord-system2" value="local" required>
+                            <label for = "Global2">Global</label>
+                            <input type="radio" id="Global2" name="coord-system2" value="global" required>
+                        </span>
+
+                        <div class = "offset-title">Offset</div>
+                        <div class = "bottot-row">
+                            <span class = "bottom-item">
+                                <label for = "On2">On</label>
+                                <input type="radio" id="On2" name="offset2" value="on" required>
+                                <label for ="Off2">Off</label>
+                                <input type="radio" id="Off2" name="offset2" value="off" required>
+                            </span>
+                            <button class = "btn btn-work btn-submit" type = "button" id="submit-MB" onclick="submitMoveBodyForm()">Submit</button>   
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class = "flex-container container-2">
+                <div class = "grid-item grid-item-4">
+                    <h2>JSON file</h2>
+                    <div class = "grid-item-2 json-show"></div>
+                    <h3 class = "json-update-title">Update the JSON file</h3>
+                    <input class = "grid-item-2 json-update"></input>
+                    <button class = "btn btn-work btn-submit-1">Submit</button>
+                </div>
+                <div class = "grid-item grid-item-2">
+                    <form>
+                        <h3 class="item-title">Grippers</h3>
+                        <div class = "gripper-title">Choose a gripper</div>
+                        <span>
+                            <label for = "Gripper1">1</label>
+                            <input type="radio" id="Gripper1" name="Grippers" value="0" required>
+                            <label for = "Gripper2">2</label>
+                            <input type="radio" id="Gripper2" name="Grippers" value="1" required>
+                            <label for = "Gripper3">3</label>
+                            <input type="radio" id="Gripper3" name="Grippers" value="2" required>
+                            <label for = "Gripper4">4</label>
+                            <input type="radio" id="Gripper4" name="Grippers" value="3" required>
+                            <label for = "Gripper5">5</label>
+                            <input type="radio" id="Gripper5" name="Grippers" value="4" required>
+                        </span>
+
+                        <div class = "btn-pair">
+                            <button type="button" class ="btn btn-work btn-submit btn-open" onclick="submitGripperAction('o')">Open</button>
+                            <button type = "button" class ="btn btn-work btn-submit btn-close" onclick="submitGripperAction('c')">Close</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class = "grid-item grid-item-3">
+                    <form>
+                        <h3 class="item-title">Move leg</h3>
+                        <div class = "gripper-title">Choose a leg</div>
+                        <span>
+                            <label for = "Leg1">1</label>
+                            <input type="radio" id="Leg1" name="Legs" value="0" required>
+                            <label for = "Leg2">2</label>
+                            <input type="radio" id="Leg2" name="Legs" value="1" required>
+                            <label for = "Leg3">3</label>
+                            <input type="radio" id="Leg3" name="Legs" value="2" required>
+                            <label for = "Leg4">4</label>
+                            <input type="radio" id="Leg4" name="Legs" value="3" required>
+                            <label for = "Leg5">5</label>
+                            <input type="radio" id="Leg5" name="Legs" value="4" required>
+                        </span>
+                        <div class="leg-coord">
+                            <span>
+                                <label for = "x4">x:</label>
+                                <input class = "input-coord" type="number" id="x4" name="x4" required>
+                                <label for = "y4">y:</label>
+                                <input class = "input-coord" type="number" id="y4" name="y4" required>
+                                <label for = "z4">z:</label>
+                                <input class = "input-coord" type="number" id="z4" name="z4" required>
+                            </span>
+                        </div>
+
+                        <div class = "coord-title">Coordinate system</div>
+                        <span>
+                            <label for = "Local4">Local</label>
+                            <input type="radio" id="Local4" name="coord-system4" value="local" required>
+                            <label for = "Global4">Global</label>
+                            <input type="radio" id="Global4" name="coord-system4" value="global" required>
+                        </span>
+
+                        <div class = "offset-title">Offset</div>
+                        <div class = "bottot-row">
+                            <span class = "bottom-item">
+                                <label for = "On4">On</label>
+                                <input type="radio" id="On4" name="offset4" value="on" required>
+                                <label for ="Off4">Off</label>
+                                <input type="radio" id="Off4" name="offset4" value="off" required>
+                            </span>
+                            <button class ="btn btn-work btn-submit" type ="button" id="submitMoveLeg" onclick="submitMoveLegForm()">Submit</button>   
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class = "flex-container container-2">
+                <div class = "grid-item grid-item-4">
+                    <h2>Message</h2>
+                    <div class = "grid-item-2 json-show message"></div>
+                </div>
+
+                <div class = "grid-item">
+                    <button class="btn btn-work btn-refill" id="btn-goRefill" onclick="GoRefill()">Go refill</button>
+                </div>
+
+                <div class = "grid-item grid-item-2">
+                    <form>
+                        <h3 class="item-title">Water Pumps</h3>
+                        <div class = "gripper-title">Choose a pump</div>
+                        <span>
+                            <label for = "Pump1">1</label>
+                            <input type="radio" id="Pump1" name="Pumps" value="0" required>
+                            <label for = "Pump2">2</label>
+                            <input type="radio" id="Pump2" name="Pumps" value="1" required>
+                            <label for = "Pump3">3</label>
+                            <input type="radio" id="Pump3" name="Pumps" value="2" required>
+                            <label for = "Pump4">4</label>
+                            <input type="radio" id="Pump4" name="Pumps" value="3" required>
+                            <label for = "Pump5">5</label>
+                            <input type="radio" id="Pump5" name="Pumps" value="4" required>
+                        </span>
+
+                        <div class = "btn-pair btn-pump">
+                            <button type="button" class ="btn btn-work btn-submit btn-open" id="pumpsStart" onclick="submitPumpAction(1)">Start</button>
+                            <button type = "button" class ="btn btn-work btn-submit btn-close" id="pumpsStop" onclick="submitPumpAction(0)">Stop</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class = "grid-item grid-item-3">
+                    <h3 class="item-title">Breaks</h3>
+                    <div class = "btn-pair btn-breaks">
+                        <button type="button" class ="btn btn-work btn-submit btn-activate" id="breaksAct">Activate</button>
+                        <button type = "button" class ="btn btn-work btn-submit btn-deactivate" id="breaksDeact">Deactivate</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', path='app.js') }}"></script>
+    </body>
+    </body>
+
+    <footer class="footer">
+        <h3 class="footer-text">Green Wall Project</h3>
+    </footer>

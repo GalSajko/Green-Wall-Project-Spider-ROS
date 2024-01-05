@@ -1,0 +1,22 @@
+[1.429s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_launch': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_launch -- -j8 -l8
+[1.563s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_launch' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --build /home/spider/gwpspider_ws/build/gwpspider_launch -- -j8 -l8
+[2.074s] Invoking command in '/home/spider/gwpspider_ws/build/gwpspider_launch': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_launch
+[2.174s] -- Install configuration: ""
+[2.174s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch//launch
+[2.174s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch//launch/move_spider_launch.py
+[2.174s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/ament_index/resource_index/package_run_dependencies/gwpspider_launch
+[2.174s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/ament_index/resource_index/parent_prefix_path/gwpspider_launch
+[2.174s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/environment/ament_prefix_path.sh
+[2.174s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/environment/ament_prefix_path.dsv
+[2.175s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/environment/path.sh
+[2.175s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/environment/path.dsv
+[2.175s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/local_setup.bash
+[2.175s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/local_setup.sh
+[2.176s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/local_setup.zsh
+[2.176s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/local_setup.dsv
+[2.176s] -- Installing: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.dsv
+[2.176s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/ament_index/resource_index/packages/gwpspider_launch
+[2.176s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/cmake/gwpspider_launchConfig.cmake
+[2.176s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/cmake/gwpspider_launchConfig-version.cmake
+[2.176s] -- Up-to-date: /home/spider/gwpspider_ws/install/gwpspider_launch/share/gwpspider_launch/package.xml
+[2.203s] Invoked command in '/home/spider/gwpspider_ws/build/gwpspider_launch' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /home/spider/.local/bin/cmake --install /home/spider/gwpspider_ws/build/gwpspider_launch
