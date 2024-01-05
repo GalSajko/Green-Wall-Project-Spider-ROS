@@ -36,7 +36,7 @@ class BackendNode(Node):
         # Initialize gripper state
         self.gripper_state = "unknown"
 
-        start_fastapi_server(self)
+        start_fastapi_server()
 
         @app.get("/")
         async def read_root():

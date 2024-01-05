@@ -1,4 +1,4 @@
 [console_scripts]
 backend = connection.backend:main
-fastapi = connection.fastapi_node:main
+fastapi = connection.fastapi:main
 
