@@ -42,6 +42,8 @@ file(REMOVE_RECURSE
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_get_spider_pose_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_get_walking_instructions.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_get_walking_instructions_s.c"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error.py"
+  "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_init_bno.py"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_init_bno_s.c"
   "/home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_messages.py"

@@ -517,6 +517,20 @@ CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c -o CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c.s
 
+CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/flags.make
+CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o: rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c
+CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o -MF CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o.d -o CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o -c /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c
+
+CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c > CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.i
+
+CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spider/gwpspider_ws/build/gwpspider_interfaces/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c -o CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.s
+
 # Object files for target gwpspider_interfaces__rosidl_generator_py
 gwpspider_interfaces__rosidl_generator_py_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/msg/_gripper_command_s.c.o" \
@@ -550,7 +564,8 @@ gwpspider_interfaces__rosidl_generator_py_OBJECTS = \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_breaks_control_s.c.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_messages_s.c.o" \
 "CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_get_offsets_to_charging_position_s.c.o" \
-"CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c.o"
+"CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c.o" \
+"CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o"
 
 # External object files for target gwpspider_interfaces__rosidl_generator_py
 gwpspider_interfaces__rosidl_generator_py_EXTERNAL_OBJECTS =
@@ -587,6 +602,7 @@ rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generat
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_messages_s.c.o
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_get_offsets_to_charging_position_s.c.o
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_send_string_command_s.c.o
+rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/rosidl_generator_py/gwpspider_interfaces/srv/_gripper_error_s.c.o
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/build.make
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: /usr/lib/x86_64-linux-gnu/libpython3.10.so
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: libgwpspider_interfaces__rosidl_typesupport_c.so
@@ -601,7 +617,7 @@ rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generat
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: /opt/ros/humble/lib/librcutils.so
 rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so: CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking C shared library rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spider/gwpspider_ws/build/gwpspider_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Linking C shared library rosidl_generator_py/gwpspider_interfaces/libgwpspider_interfaces__rosidl_generator_py.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gwpspider_interfaces__rosidl_generator_py.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

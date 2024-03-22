@@ -56,6 +56,10 @@ srv/GetWalkingInstructions.idl
 srv/GetWalkingInstructions.srv
 srv/GetWalkingInstructions_Request.msg
 srv/GetWalkingInstructions_Response.msg
+srv/GripperError.idl
+srv/GripperError.srv
+srv/GripperError_Request.msg
+srv/GripperError_Response.msg
 srv/InitBno.idl
 srv/InitBno.srv
 srv/InitBno_Request.msg

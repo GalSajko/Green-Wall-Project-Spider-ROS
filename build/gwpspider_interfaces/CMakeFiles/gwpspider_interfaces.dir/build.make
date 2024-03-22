@@ -144,6 +144,9 @@ CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GetOffsetsToChargingPosition_R
 CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/SendStringCommand.srv
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/SendStringCommand_Request.msg
 CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/SendStringCommand_Response.msg
+CMakeFiles/gwpspider_interfaces: /home/spider/gwpspider_ws/src/gwpspider/gwpspider_interfaces/srv/GripperError.srv
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GripperError_Request.msg
+CMakeFiles/gwpspider_interfaces: rosidl_cmake/srv/GripperError_Response.msg
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Bool.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/Byte.idl
 CMakeFiles/gwpspider_interfaces: /opt/ros/humble/share/std_msgs/msg/ByteMultiArray.idl
